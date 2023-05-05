@@ -131,5 +131,8 @@
       }
     }
   },
-  "defaultProject": "Screamer.WebUI"
+  "defaultProject": "Screamer.WebUI",
+  "cli": {
+    "analytics": false
+  }
 }
