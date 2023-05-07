@@ -7,8 +7,15 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.2"/>
-        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0"/>
+        <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.2" />
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Screamer.Application\Screamer.Application.csproj" />
+      <ProjectReference Include="..\Screamer.Identity\Screamer.Identity.csproj" />
+      <ProjectReference Include="..\Screamer.Infrastructure\Screamer.Infrastructure.csproj" />
+      <ProjectReference Include="..\Screamer.Presistance\Screamer.Presistance.csproj" />
     </ItemGroup>
 
 </Project>
