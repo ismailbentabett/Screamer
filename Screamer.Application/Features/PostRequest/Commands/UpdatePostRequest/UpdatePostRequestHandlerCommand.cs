@@ -33,7 +33,7 @@ namespace Screamer.Application.Features.PostRequest.Commands.UpdatePostRequest
                 throw new Exception($"Post with ID {request.Id} not found.");
             }
 
-            var postInputDto = _mapper.Map<PostDto>(request);
+            var postInputDto = _mapper.Map<PostInputDto>(request);
             _mapper.Map(postInputDto, post);
 
             await _postRepository.UpdateAsync(post);

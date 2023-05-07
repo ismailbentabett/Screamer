@@ -19,4 +19,20 @@ namespace Screamer.Application.Dtos
         public int Views { get; set; }
 
     }
+
+    public class PostInputDto
+    {
+        public string Title { get; set; }
+        public string Content { get; set; }
+        public string ImageUrl { get; set; }
+        public string UserId { get; set; }
+
+
+
+    }
+
+   
+
+
+
 }

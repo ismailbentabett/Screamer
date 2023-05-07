@@ -14,6 +14,7 @@ namespace Screamer.Application.MappingProfiles
         public PostProfile()
         {
             CreateMap<Post, PostDto>().ReverseMap();
+            CreateMap<PostInputDto, Post>().ReverseMap();
         }
     }
 }

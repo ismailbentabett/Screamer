@@ -27,7 +27,7 @@ namespace Screamer.Application.Features.PostRequest.Commands.CreatePostRequest
 
         public async Task<int> Handle(CreatePostRequestCommand request, CancellationToken cancellationToken)
         {
-               var postInputDto = _mapper.Map<PostDto>(request);
+               var postInputDto = _mapper.Map<PostInputDto>(request);
         var post = _mapper.Map<Post>(postInputDto);
 
         await _postRepository.AddAsync(post);
