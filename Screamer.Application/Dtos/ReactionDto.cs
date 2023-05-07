@@ -17,7 +17,7 @@ namespace Screamer.Application.Dtos
         public PostDto Post { get; set; }
         public string CommentId { get; set; }
         public CommentDto Comment { get; set; }
-        public string UserId { get; set; }
+        public int UserId { get; set; }
         public UserDto User { get; set; }
     }
 }

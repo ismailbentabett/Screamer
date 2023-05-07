@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Screamer.Application.Contracts.Presistance;
 using Screamer.Presistance.DatabaseContext;
+using Screamer.Presistance.Repositories;
 
 namespace Screamer.Presistance
 {
@@ -21,6 +23,8 @@ namespace Screamer.Presistance
 
             services.AddDbContext<ScreamerDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("ScreamerDbConnection")));
 
+        services.AddScoped(typeof(IGenericRepository<>),  typeof(GenericRepository<>));
+        services.AddScoped<IPostRepository, PostRepository>();
 
             return services;
         }

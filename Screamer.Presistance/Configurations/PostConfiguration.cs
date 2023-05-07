@@ -21,7 +21,7 @@ namespace Screamer.Presistance.Configurations
         Id = 1,
         Title = "First Post",
         Content = "First Post Description",
-        UserId = "1",
+        UserId = 1,
         CreatedAt = DateTime.Now,
         UpdatedAt = DateTime.Now
     },
@@ -30,7 +30,7 @@ namespace Screamer.Presistance.Configurations
         Id = 2,
         Title = "Second Post",
         Content = "Second Post Description",
-        UserId = "2",
+        UserId = 2,
         CreatedAt = DateTime.Now,
         UpdatedAt = DateTime.Now
     },
@@ -39,7 +39,7 @@ namespace Screamer.Presistance.Configurations
         Id = 3,
         Title = "Third Post",
         Content = "Third Post Description",
-        UserId = "3",
+        UserId = 3,
         CreatedAt = DateTime.Now,
         UpdatedAt = DateTime.Now
     }

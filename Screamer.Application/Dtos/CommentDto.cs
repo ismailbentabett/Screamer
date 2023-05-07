@@ -10,7 +10,7 @@ namespace Screamer.Application.Dtos
                 public int Id { get; set; }
 
         public string Content { get; set; }
-        public string UserId { get; set; }
+        public int UserId { get; set; }
         public UserDto User { get; set; }
         public string PostId { get; set; }
         public PostDto Post { get; set; }

@@ -12,7 +12,7 @@ namespace Screamer.Application.Dtos
         public string Title { get; set; }
         public string Content { get; set; }
         public string ImageUrl { get; set; }
-        public string UserId { get; set; }
+        public int UserId { get; set; }
         public UserDto User { get; set; }
         public ICollection<CommentDto> Comments { get; set; }
         public ICollection<ReactionDto> Reactions { get; set; }
@@ -25,7 +25,7 @@ namespace Screamer.Application.Dtos
         public string Title { get; set; }
         public string Content { get; set; }
         public string ImageUrl { get; set; }
-        public string UserId { get; set; }
+        public int UserId { get; set; }
 
 
 

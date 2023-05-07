@@ -11,7 +11,7 @@ namespace Screamer.Application.Dtos
 
         public string Name { get; set; }
         public string Description { get; set; }
-        public string UserId { get; set; }
+        public int UserId { get; set; }
         public UserDto User { get; set; }
     }
 }
