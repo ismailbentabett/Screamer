@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 
 namespace Screamer.Application.Contracts.Exceptions
 {
-    public class BadRequest : Exception
+    public class BadRequestException : Exception
     {
-        public BadRequest(string name, object key) : base($"Entity \"{name}\" ({key}) was not found.")
+        public BadRequestException(string name, object key) : base($"Entity \"{name}\" ({key}) was not found.")
         {
             
         }

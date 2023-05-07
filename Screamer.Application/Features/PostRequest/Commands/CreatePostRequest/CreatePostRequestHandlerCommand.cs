@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using MediatR;
+using Screamer.Application.Contracts.Exceptions;
 using Screamer.Application.Contracts.Presistance;
 using Screamer.Application.Dtos;
 using Screamer.Domain.Common;
@@ -16,9 +17,9 @@ namespace Screamer.Application.Features.PostRequest.Commands.CreatePostRequest
         int
         >
     {
-              private readonly IPostRepository _postRepository;
+        private readonly IPostRepository _postRepository;
         private readonly IMapper _mapper;
-        
+
         public CreatePostRequestHandlerCommand(IPostRepository postRepository, IMapper mapper)
         {
             _postRepository = postRepository;
@@ -27,12 +28,23 @@ namespace Screamer.Application.Features.PostRequest.Commands.CreatePostRequest
 
         public async Task<int> Handle(CreatePostRequestCommand request, CancellationToken cancellationToken)
         {
-               var postInputDto = _mapper.Map<PostInputDto>(request);
-        var post = _mapper.Map<Post>(postInputDto);
+            var validator = new CreatePostRequestCommandValidator();
+            var validationResult = await validator.ValidateAsync(request);
+            if (validationResult.IsValid)
+            {
+                throw new BadRequestException
+                (
+                    $"Command validation errors for type {typeof(CreatePostRequestCommand).Name}",
+                    validationResult.Errors
+                );
+            }
 
-        await _postRepository.AddAsync(post);
+            var postInputDto = _mapper.Map<PostInputDto>(request);
+            var post = _mapper.Map<Post>(postInputDto);
 
-        return post.Id;
+            await _postRepository.AddAsync(post);
+
+            return post.Id;
         }
     }
 }
