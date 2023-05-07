@@ -1,4 +1,5 @@
 import { BaseModel } from './BaseModel';
+import { Reaction } from './Reaction';
 import { User } from './User';
 
 export interface Post extends BaseModel {
