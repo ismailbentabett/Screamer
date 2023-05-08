@@ -26,8 +26,8 @@ namespace Screamer.Application.Dtos
 
         public ICollection<AvatarDto> Avatars { get; set; }
         public ICollection<PostDto> Posts { get; set; }
-        public ICollection<FollowDto> Followers { get; set; }
-        public ICollection<FollowDto> Followings { get; set; }
+        public ICollection<FollowDto> Follows { get; set; }
+       
 
     }
 }

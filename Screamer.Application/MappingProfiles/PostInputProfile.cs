@@ -5,15 +5,13 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Screamer.Application.Dtos;
 using Screamer.Domain.Common;
-using Screamer.Domain.Entities;
 
 namespace Screamer.Application.MappingProfiles
 {
-    public class PostProfile : Profile
+    public class PostInputProfile : Profile
     {
-        public PostProfile()
-        {
-            CreateMap<Post, PostDto>().ReverseMap();
-        }
+        public PostInputProfile() =>CreateMap<PostInputDto, PostDto>().ReverseMap();
+
+
     }
 }

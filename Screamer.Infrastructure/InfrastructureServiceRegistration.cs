@@ -11,7 +11,7 @@ using Screamer.Application.Models.Email;
 using Screamer.Infrastructure.EmailService;
 using Screamer.Infrastructure.Logging;
 
-namespace Screamer.Presistance
+namespace Screamer.Infrastructure
 {
     public static class InfrastructureServiceRegistration
     {

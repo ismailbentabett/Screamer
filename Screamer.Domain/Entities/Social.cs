@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 using Screamer.Domain.Common;
@@ -21,8 +22,10 @@ namespace Screamer.Domain.Entities
         public string Linkedin { get; set; }
         public string Github { get; set; }
         public string Website { get; set; }
-        
+
         public int UserId { get; set; }
+
+        [ForeignKey("UserId")]
         public User User { get; set; }
     }
 }

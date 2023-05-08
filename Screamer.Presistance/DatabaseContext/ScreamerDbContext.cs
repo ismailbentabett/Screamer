@@ -32,6 +32,20 @@ namespace Screamer.Presistance.DatabaseContext
                 ScreamerDbContext
             ).Assembly);
             base.OnModelCreating(modelBuilder);
+modelBuilder.Entity<Follow>()
+        .HasKey(f => new { f.FollowerId, f.FollowingId });
+
+    modelBuilder.Entity<Follow>()
+        .HasOne(f => f.Follower)
+        .WithMany(u => u.Followings)
+        .HasForeignKey(f => f.FollowerId)
+        .OnDelete(DeleteBehavior.Restrict);
+
+    modelBuilder.Entity<Follow>()
+        .HasOne(f => f.Following)
+        .WithMany(u => u.Followers)
+        .HasForeignKey(f => f.FollowingId)
+        .OnDelete(DeleteBehavior.Restrict);
 
 
         }
@@ -48,6 +62,7 @@ namespace Screamer.Presistance.DatabaseContext
                   
                 }
             }
+            
 
             return base.SaveChangesAsync(cancellationToken);
         }

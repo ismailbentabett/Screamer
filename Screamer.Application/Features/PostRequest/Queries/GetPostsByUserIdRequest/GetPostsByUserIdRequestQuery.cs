@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using MediatR;
 using Screamer.Application.Dtos;
 
-namespace Screamer.Application.Features.PostRequest.Queries.GetPostRequest;
+namespace Screamer.Application.Features.PostRequest.Queries.GetPostByUserIdRequest;
 
     public record GetPostByUserIdRequestQuery : IRequest<PostDto>
 

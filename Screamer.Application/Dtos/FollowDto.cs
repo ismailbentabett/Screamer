@@ -9,9 +9,9 @@ namespace Screamer.Application.Dtos
     {
                 public int Id { get; set; }
 
-        public string FollowingId { get; set; }
-        public UserDto Follower { get; set; }
-        public string FollowerId { get; set; }
-        public UserDto Following { get; set; }
+    public int FollowerId { get; set; }
+    public UserDto Follower { get; set; }
+    public int FollowingId { get; set; }
+    public UserDto Following { get; set; }
     }
 }

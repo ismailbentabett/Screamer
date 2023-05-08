@@ -13,28 +13,63 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{7202CB0C-5
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{467B60A7-B825-4A0D-A7A1-05D081CF6998}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Screamer.WebApi", "Screamer.WebApi\Screamer.WebApi.csproj", "{AC6DA632-535A-4E60-9B5A-0C551A00BDF6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Screamer.WebApi", "Screamer.WebApi\Screamer.WebApi.csproj", "{AC6DA632-535A-4E60-9B5A-0C551A00BDF6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Screamer.Application", "Screamer.Application\Screamer.Application.csproj", "{C0C1BE8D-34B5-4180-86D5-70D893C5DF08}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Screamer.Application", "Screamer.Application\Screamer.Application.csproj", "{C0C1BE8D-34B5-4180-86D5-70D893C5DF08}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Screamer.Domain", "Screamer.Domain\Screamer.Domain.csproj", "{A8579968-7A8F-4366-9AFC-B66244A81502}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Screamer.Domain", "Screamer.Domain\Screamer.Domain.csproj", "{A8579968-7A8F-4366-9AFC-B66244A81502}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Screamer.Infrastructure", "Screamer.Infrastructure\Screamer.Infrastructure.csproj", "{F4ED2139-BFA5-4A13-8BA2-0E45926E84F8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Screamer.Infrastructure", "Screamer.Infrastructure\Screamer.Infrastructure.csproj", "{F4ED2139-BFA5-4A13-8BA2-0E45926E84F8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Screamer.Presistance", "Screamer.Presistance\Screamer.Presistance.csproj", "{3EA8C7BB-2B81-428C-8093-D0CDF24447E4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Screamer.Presistance", "Screamer.Presistance\Screamer.Presistance.csproj", "{3EA8C7BB-2B81-428C-8093-D0CDF24447E4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Screamer.Identity", "Screamer.Identity\Screamer.Identity.csproj", "{2BA35F2F-FFFB-4A53-9F22-94A1EF516138}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Screamer.Identity", "Screamer.Identity\Screamer.Identity.csproj", "{2BA35F2F-FFFB-4A53-9F22-94A1EF516138}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Screamer.Application.UnitTest", "Screamer.Application.UnitTest\Screamer.Application.UnitTest.csproj", "{6B3C085D-E452-4A52-83CF-A71033447111}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Screamer.Application.UnitTest", "Screamer.Application.UnitTest\Screamer.Application.UnitTest.csproj", "{6B3C085D-E452-4A52-83CF-A71033447111}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Screamer.Presistance.IntegrationTest", "Screamer.Presistance.IntegrationTest\Screamer.Presistance.IntegrationTest.csproj", "{31F80D21-AF95-479F-85E0-0DDF288E3643}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Screamer.Presistance.IntegrationTest", "Screamer.Presistance.IntegrationTest\Screamer.Presistance.IntegrationTest.csproj", "{31F80D21-AF95-479F-85E0-0DDF288E3643}"
 EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AC6DA632-535A-4E60-9B5A-0C551A00BDF6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AC6DA632-535A-4E60-9B5A-0C551A00BDF6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AC6DA632-535A-4E60-9B5A-0C551A00BDF6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AC6DA632-535A-4E60-9B5A-0C551A00BDF6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C0C1BE8D-34B5-4180-86D5-70D893C5DF08}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C0C1BE8D-34B5-4180-86D5-70D893C5DF08}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C0C1BE8D-34B5-4180-86D5-70D893C5DF08}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C0C1BE8D-34B5-4180-86D5-70D893C5DF08}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A8579968-7A8F-4366-9AFC-B66244A81502}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A8579968-7A8F-4366-9AFC-B66244A81502}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A8579968-7A8F-4366-9AFC-B66244A81502}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A8579968-7A8F-4366-9AFC-B66244A81502}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F4ED2139-BFA5-4A13-8BA2-0E45926E84F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F4ED2139-BFA5-4A13-8BA2-0E45926E84F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F4ED2139-BFA5-4A13-8BA2-0E45926E84F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F4ED2139-BFA5-4A13-8BA2-0E45926E84F8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3EA8C7BB-2B81-428C-8093-D0CDF24447E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3EA8C7BB-2B81-428C-8093-D0CDF24447E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3EA8C7BB-2B81-428C-8093-D0CDF24447E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3EA8C7BB-2B81-428C-8093-D0CDF24447E4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2BA35F2F-FFFB-4A53-9F22-94A1EF516138}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2BA35F2F-FFFB-4A53-9F22-94A1EF516138}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2BA35F2F-FFFB-4A53-9F22-94A1EF516138}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2BA35F2F-FFFB-4A53-9F22-94A1EF516138}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6B3C085D-E452-4A52-83CF-A71033447111}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6B3C085D-E452-4A52-83CF-A71033447111}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6B3C085D-E452-4A52-83CF-A71033447111}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6B3C085D-E452-4A52-83CF-A71033447111}.Release|Any CPU.Build.0 = Release|Any CPU
+		{31F80D21-AF95-479F-85E0-0DDF288E3643}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{31F80D21-AF95-479F-85E0-0DDF288E3643}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{31F80D21-AF95-479F-85E0-0DDF288E3643}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{31F80D21-AF95-479F-85E0-0DDF288E3643}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {8DBE0722-8E71-4DA3-9A87-CE88436B3234}
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{AEF60578-533F-475B-9FBE-11C16714B838} = {B8933D6F-09C9-435A-9F9E-AEC70D4A5888}
@@ -49,6 +84,7 @@ Global
 		{6B3C085D-E452-4A52-83CF-A71033447111} = {C5DBBFC4-EC90-4C7D-9C03-F772BDBFB2EE}
 		{31F80D21-AF95-479F-85E0-0DDF288E3643} = {C5DBBFC4-EC90-4C7D-9C03-F772BDBFB2EE}
 	EndGlobalSection
-	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8DBE0722-8E71-4DA3-9A87-CE88436B3234}
 	EndGlobalSection
 EndGlobal

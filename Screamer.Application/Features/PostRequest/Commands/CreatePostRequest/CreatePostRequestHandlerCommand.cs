@@ -39,7 +39,7 @@ namespace Screamer.Application.Features.PostRequest.Commands.CreatePostRequest
                 );
             }
 
-            var postInputDto = _mapper.Map<PostInputDto>(request);
+            var postInputDto = _mapper.Map<Post>(request);
             var post = _mapper.Map<Post>(postInputDto);
 
             await _postRepository.AddAsync(post);
