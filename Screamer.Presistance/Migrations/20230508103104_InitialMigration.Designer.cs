@@ -12,7 +12,7 @@ using Screamer.Presistance.DatabaseContext;
 namespace Screamer.Presistance.Migrations
 {
     [DbContext(typeof(ScreamerDbContext))]
-    [Migration("20230507170126_InitialMigration")]
+    [Migration("20230508103104_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
@@ -82,8 +82,6 @@ namespace Screamer.Presistance.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Posts");
                 });
@@ -348,17 +346,6 @@ namespace Screamer.Presistance.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Screamer.Domain.Common.Post", b =>
-                {
-                    b.HasOne("Screamer.Domain.Common.User", "User")
-                        .WithMany("Posts")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("Screamer.Domain.Entities.Adress", b =>
                 {
                     b.HasOne("Screamer.Domain.Common.User", "User")
@@ -441,8 +428,6 @@ namespace Screamer.Presistance.Migrations
                     b.Navigation("Followers");
 
                     b.Navigation("Followings");
-
-                    b.Navigation("Posts");
 
                     b.Navigation("Roles");
 

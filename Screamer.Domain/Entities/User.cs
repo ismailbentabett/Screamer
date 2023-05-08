@@ -24,8 +24,8 @@ namespace Screamer.Domain.Common
         public Social Social { get; set; }
 
         public ICollection<Avatar> Avatars { get; set; }
-        public ICollection<Post> Posts { get; set; }
-        public ICollection<Follow> Followings { get; set; }
+/*         public ICollection<Post> Posts { get; set; }
+ */        public ICollection<Follow> Followings { get; set; }
         public ICollection<Follow> Followers { get; set; }
 
     }

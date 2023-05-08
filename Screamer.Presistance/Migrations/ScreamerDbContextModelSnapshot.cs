@@ -80,8 +80,6 @@ namespace Screamer.Presistance.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
-
                     b.ToTable("Posts");
                 });
 
@@ -345,17 +343,6 @@ namespace Screamer.Presistance.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Screamer.Domain.Common.Post", b =>
-                {
-                    b.HasOne("Screamer.Domain.Common.User", "User")
-                        .WithMany("Posts")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("Screamer.Domain.Entities.Adress", b =>
                 {
                     b.HasOne("Screamer.Domain.Common.User", "User")
@@ -438,8 +425,6 @@ namespace Screamer.Presistance.Migrations
                     b.Navigation("Followers");
 
                     b.Navigation("Followings");
-
-                    b.Navigation("Posts");
 
                     b.Navigation("Roles");
 

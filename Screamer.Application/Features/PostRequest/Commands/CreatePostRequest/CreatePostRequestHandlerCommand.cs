@@ -37,12 +37,11 @@ namespace Screamer.Application.Features.PostRequest.Commands.CreatePostRequest
                     $"Command validation errors for type {typeof(CreatePostRequestCommand).Name}",
                     validationResult.Errors
                 );
-            }
+            } 
 
-            var postInputDto = _mapper.Map<Post>(request);
-            var post = _mapper.Map<Post>(postInputDto);
+            var post = _mapper.Map<Post>(request);
 
-            await _postRepository.AddAsync(post);
+            post = await _postRepository.AddAsync(post);
 
             return post.Id;
         }

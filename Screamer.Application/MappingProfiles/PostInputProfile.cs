@@ -10,7 +10,14 @@ namespace Screamer.Application.MappingProfiles
 {
     public class PostInputProfile : Profile
     {
-        public PostInputProfile() =>CreateMap<PostInputDto, PostDto>().ReverseMap();
+        public PostInputProfile()
+        {
+            CreateMap<PostInputDto, Post>();
+
+            CreateMap
+            <Post
+            , PostInputDto>();
+        }
 
 
     }
