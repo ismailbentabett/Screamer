@@ -3,14 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Screamer.Domain.Common;
+using Screamer.Identity;
+using Screamer.Identity.Models;
 
 namespace Screamer.Application.Contracts.Identity
 {
     public interface IUserService
     {
        
-        Task<List<User>> GetUsers();
-        Task<User> GetUser(string userId);
+        Task<List<ApplicationUser>> GetUsers();
+        Task<ApplicationUser> GetUser(string userId);
         public string UserId { get; }
 
     }

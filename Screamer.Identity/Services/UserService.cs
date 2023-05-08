@@ -22,10 +22,10 @@ namespace Screamer.Identity.Services
 
         public string UserId { get => _contextAccessor.HttpContext?.User?.FindFirstValue("uid"); }
 
-        public async Task<User> GetUser(string userId)
+        public async Task<ApplicationUser> GetUser(string userId)
         {
             var user = await _userManager.FindByIdAsync(userId);
-            return new User
+            return new ApplicationUser
             {
                 Email = user.Email,
                 Id = user.Id,
@@ -34,10 +34,10 @@ namespace Screamer.Identity.Services
             };
         }
 
-        public async Task<List<User>> GetUsers()
+        public async Task<List<ApplicationUser>> GetUsers()
         {
             var users = await _userManager.GetUsersInRoleAsync("user");
-            return users.Select(q => new User
+            return users.Select(q => new ApplicationUser
             {
                 Id = q.Id,
                 Email = q.Email,
