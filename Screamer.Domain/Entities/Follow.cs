@@ -10,12 +10,10 @@ namespace Screamer.Domain
     public class Follow : BaseEntity
     {
         public int FollowerId { get; set; }
-        [ForeignKey("FollowerId")]
 
-        public User Follower { get; set; }
         public int FollowingId { get; set; }
-        [ForeignKey("FollowingId")]
+     
 
-        public User Following { get; set; }
+      
     }
 }

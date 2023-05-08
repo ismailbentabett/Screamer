@@ -23,9 +23,5 @@ namespace Screamer.Domain.Entities
         public string Github { get; set; }
         public string Website { get; set; }
 
-        public int UserId { get; set; }
-
-        [ForeignKey("UserId")]
-        public User User { get; set; }
     }
 }

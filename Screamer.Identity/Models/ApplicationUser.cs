@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace HR.LeaveManagement.Identity.Models
+namespace Screamer.Identity.Models
 {
     public class ApplicationUser : IdentityUser
     {

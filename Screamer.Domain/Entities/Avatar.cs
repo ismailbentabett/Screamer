@@ -10,8 +10,6 @@ namespace Screamer.Domain.Common
     {
         public string ImageUrl { get; set; }
         public int UserId { get; set; }
-        [ForeignKey("UserId")]
-
-        public User User { get; set; }
+        
     }
 }

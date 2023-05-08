@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using Screamer.Identity.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -22,7 +24,8 @@ namespace Screamer.Presistance
         {
 
             services.AddDbContext<ScreamerDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("ScreamerDbConnection")));
-
+  services.AddIdentity<ApplicationUser, IdentityRole>()
+                .AddEntityFrameworkStores<ScreamerDbContext>().AddDefaultTokenProviders();
         services.AddScoped(typeof(IGenericRepository<>),  typeof(GenericRepository<>));
         services.AddScoped<IPostRepository, PostRepository>();
 

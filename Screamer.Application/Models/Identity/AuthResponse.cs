@@ -1,4 +1,4 @@
-namespace HR.LeaveManagement.Application.Models.Identity
+namespace Screamer.Application.Models.Identity
 {
     public class AuthResponse
     {
