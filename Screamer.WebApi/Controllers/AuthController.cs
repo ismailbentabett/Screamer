@@ -1,4 +1,5 @@
 
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Screamer.Application.Contracts.Identity;
@@ -8,6 +9,7 @@ namespace HR.LeaveManagement.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+     [Authorize]
     public class AuthController : ControllerBase
     {
         private readonly IAuthService _authenticationService;

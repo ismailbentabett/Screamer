@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Screamer.Domain.Common;
 using Screamer.Domain.Entities;
+using Screamer.Identity.Models;
 
 namespace Screamer.Application.Dtos
 {
@@ -15,7 +16,7 @@ namespace Screamer.Application.Dtos
         public string ImageUrl { get; set; }
         public int UserId { get; set; }
         [ForeignKey("UserId")]
-        public User User { get; set; }
+        public ApplicationUser User { get; set; }
         public ICollection<Comment> Comments { get; set; }
         public ICollection<Reaction> Reactions { get; set; } 
         public int Views { get; set; }

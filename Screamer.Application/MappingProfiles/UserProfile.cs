@@ -6,6 +6,7 @@ using AutoMapper;
 using Screamer.Application.Dtos;
 using Screamer.Domain.Common;
 using Screamer.Domain.Entities;
+using Screamer.Identity.Models;
 
 namespace Screamer.Application.MappingProfiles
 {
@@ -13,7 +14,7 @@ namespace Screamer.Application.MappingProfiles
     {
             public UserProfile()
             {
-                CreateMap<User, UserDto>().ReverseMap();
+                CreateMap<ApplicationUser, UserDto>().ReverseMap();
               
             }
     }
