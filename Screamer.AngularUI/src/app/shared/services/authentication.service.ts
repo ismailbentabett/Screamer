@@ -1,72 +1,51 @@
 import { environment } from './../../../environments/environment';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { BehaviorSubject, map } from 'rxjs';
+import { User } from 'src/app/core/models/User';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthenticationService {
-  private token!: string | null;
-  private userSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
-  public user$: Observable<any> = this.userSubject.asObservable();
-  constructor(private http: HttpClient, private router: Router) {}
-  private baseUrl = 'http://localhost:3000';
-  private httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-    }),
-  };
+  baseUrl = environment.baseWebApiUrl;
+  private currentUserSource = new BehaviorSubject<User | null>(null);
+  currentUser$ = this.currentUserSource.asObservable();
 
-  public register(
-    firstName: string,
-    lastName: string,
-    email: string,
-    password: string,
-    userName: string
-  ): Observable<any> {
-    //after you register you login automatically
-    return this.http.post<any>(
-      `${environment.baseWebApiUrl}/api/Auth/register`,
-      { firstName, lastName, email, password, userName },
-      this.httpOptions
+  constructor(private http: HttpClient) {}
+
+  login(model: any) {
+    return this.http.post<User>(this.baseUrl + 'Auth/login', model).pipe(
+      map((response: User) => {
+        const user = response;
+        if (user) {
+          this.setCurrentUser(user);
+        }
+      })
     );
   }
 
-  public login(username: string, password: string): Observable<any> {
-    return this.http
-      .post<any>(
-        `${environment.baseWebApiUrl}/api/login`,
-        { username, password },
-        this.httpOptions
-      )
-      .pipe(
-        tap((response) => {
-          this.token = response.token;
-          localStorage.setItem('token', this.token as any);
-          this.fetchUser();
-        })
-      );
+  register(model: any) {
+    return this.http.post<User>(this.baseUrl + 'Auth/register', model).pipe(
+      map((user) => {
+        if (user) {
+          this.setCurrentUser(user);
+        }
+      })
+    );
   }
 
-  public logout(): void {
-    this.token = null;
-    localStorage.removeItem('token');
-    this.userSubject.next(null);
+  setCurrentUser(user: User) {
+    localStorage.setItem('user', JSON.stringify(user));
+    this.currentUserSource.next(user);
   }
 
-  public isAuthenticated(): boolean {
-    return !!this.token;
+  logout() {
+    localStorage.removeItem('user');
+    this.currentUserSource.next(null);
   }
 
-  public fetchUser(): void {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${this.token}`,
-    });
-    this.http
-      .get<any>(`${environment.baseWebApiUrl}/api/user`, { headers })
-      .subscribe((user) => this.userSubject.next(user));
+  getDecodedToken(token: string) {
+    return JSON.parse(atob(token.split('.')[1]));
   }
 }

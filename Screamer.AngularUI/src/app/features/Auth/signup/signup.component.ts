@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/shared/services/authentication.service';
 
 @Component({
@@ -12,7 +13,9 @@ export class SignupComponent {
 
   constructor(
     private fb: FormBuilder,
-    private authService: AuthenticationService
+    private authService: AuthenticationService,
+    private router: Router,
+
   ) {
     this.form = this.fb.group({
       firstName: ['', Validators.required],
@@ -31,27 +34,9 @@ export class SignupComponent {
   }
 
   onSubmit() {
-    const { firstName, lastName, email, password , userName } = this.form.value;
-    console.log(
-      {
-        firstName,
-        lastName,
-        email,
-        password
-      }
-    )
-    this.authService.register(firstName, lastName, email, password , userName).subscribe(
-
-      () =>{
-            console.log(
-            {
-              firstName,
-              lastName,
-              email,
-              password,
-              userName
-            }
-          )
+    this.authService.register(this.form.value).subscribe(
+      () => {
+        this.router.navigate(['/zabi']);
       },
       (error) => console.error('Registration failed', error)
     );

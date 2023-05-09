@@ -6,9 +6,9 @@ import { AppComponent } from './app.component';
 import { FeaturesModule } from './features/features.module';
 import { SharedModule } from './shared/shared.module';
 import { CoreModule } from './core/core.module';
-import { JwtHelperService } from '@auth0/angular-jwt/lib/jwthelper.service';
-import { AuthGuard } from './core/guards/auth.guard';
-import { JwtModule } from '@auth0/angular-jwt';
+
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { JwtInterceptor } from './core/interceptors/jwt.interceptor';
 export function tokenGetter() {
   return localStorage.getItem("access_token");
 }
@@ -24,7 +24,10 @@ export function tokenGetter() {
     CoreModule
   ],
   providers: [
-    AuthGuard   ],
+    {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
+
+  ],
+
   bootstrap: [AppComponent]
 })
 export class AppModule { }

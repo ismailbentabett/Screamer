@@ -3,6 +3,9 @@ import { RouterModule, Routes } from '@angular/router';
 import { SignupComponent } from './features/Auth/signup/signup.component';
 import { LoginComponent } from './features/Auth/login/login.component';
 
+import { TestComponent } from './features/test/test.component';
+import { authGuard } from './core/guards/auth.guard';
+
 const routes: Routes = [
   {
     path: 'signup',
@@ -10,8 +13,16 @@ const routes: Routes = [
   },
   {
     path: 'login',
-    component : LoginComponent
+    component : LoginComponent,
+
+  },
+  {
+    path: 'zabi',
+    component : TestComponent,
+    runGuardsAndResolvers: 'always',
+    canActivate: [authGuard],
   }
+
 ];
 
 @NgModule({

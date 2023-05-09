@@ -17,7 +17,6 @@ export class LoginComponent {
 
   constructor(
     private router: Router,
-    private http: HttpClient,
     private fb: FormBuilder,
     private authService: AuthenticationService
   ) {
@@ -35,28 +34,11 @@ export class LoginComponent {
   }
 
   public login = () => {
-    const { email, password } = this.form.value;
-
-    const credentials = {
-      email,
-      password,
-    };
-    this.http
-      .post(this.url + 'login', credentials, {
-        headers: new HttpHeaders({
-          'Content-Type': 'application/json',
-        }),
-      })
-      .subscribe(
-        (response) => {
-          console.log(response);
-          const token = (<any>response).token;
-          localStorage.setItem('jwt', token);
-          this.invalidLogin = false;
-          this.router.navigate(['/']);
-        },
-        (error) => console.error('Login failed', error)
-
-      );
+    this.authService.login(this.form.value).subscribe(
+      () => {
+        this.router.navigate(['/zabi']);
+      },
+      (error) => console.error('Login failed', error)
+    );
   };
 }

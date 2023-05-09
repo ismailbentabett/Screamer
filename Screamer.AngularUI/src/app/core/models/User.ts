@@ -25,4 +25,6 @@ export interface User extends BaseModel {
   Posts: Post[];
   Followers: Follow[];
   Followings: Follow[];
+  token: string;
+
 }
