@@ -29,8 +29,8 @@ namespace Screamer.Identity.Services
             {
                 Email = user.Email,
                 Id = user.Id,
-                Firstname = user.FirstName,
-                Lastname = user.LastName
+                FirstName = user.FirstName,
+                LastName = user.LastName
             };
         }
 
@@ -41,8 +41,8 @@ namespace Screamer.Identity.Services
             {
                 Id = q.Id,
                 Email = q.Email,
-                Firstname = q.FirstName,
-                Lastname = q.LastName
+                FirstName = q.FirstName,
+                LastName = q.LastName
             }).ToList();
         }
     }

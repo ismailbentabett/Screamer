@@ -9,7 +9,6 @@ namespace HR.LeaveManagement.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-     [Authorize]
     public class AuthController : ControllerBase
     {
         private readonly IAuthService _authenticationService;

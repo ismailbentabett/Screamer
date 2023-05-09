@@ -4,6 +4,8 @@ import { MyComponentComponent } from './components/my-component/my-component.com
 import { MyDirectiveDirective } from './directives/my-directive.directive';
 import { MyPipePipe } from './pipes/my-pipe.pipe';
 
+import { HttpClientModule } from '@angular/common/http';
+
 
 
 @NgModule({
@@ -13,7 +15,8 @@ import { MyPipePipe } from './pipes/my-pipe.pipe';
     MyPipePipe
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    HttpClientModule
   ]
 })
 export class SharedModule { }
