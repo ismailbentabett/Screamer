@@ -15,10 +15,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     CommonModule,
     FormsModule,
     ReactiveFormsModule
-  ],
-  exports: [
-    LoginComponent,
-    SignupComponent
   ]
 })
 export class FeaturesModule { }

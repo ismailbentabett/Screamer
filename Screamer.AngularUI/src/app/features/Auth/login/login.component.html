@@ -1,1 +1,21 @@
-<p>cc</p>
+
+
+
+<div class="signup-form">
+  <h2>Create an account</h2>
+  <form [formGroup]="form" (ngSubmit)="login()">
+
+
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input type="email" id="email" formControlName="email">
+    </div>
+
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input type="password" id="password" formControlName="password">
+    </div>
+
+    <button type="submit">Log In</button>
+  </form>
+</div>

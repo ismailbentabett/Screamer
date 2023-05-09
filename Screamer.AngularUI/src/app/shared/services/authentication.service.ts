@@ -24,36 +24,14 @@ export class AuthenticationService {
     lastName: string,
     email: string,
     password: string,
-    userName : string
+    userName: string
   ): Observable<any> {
     //after you register you login automatically
-    return this.http
-      .post<any>(
-        `${environment.baseWebApiUrl}/api/Auth/register`,
-        { firstName, lastName, email, password , userName},
-        this.httpOptions
-      )
-      .pipe(
-        tap((response) => {
-          console.log(
-            {
-              firstName,
-              lastName,
-              email,
-              password,
-              userName
-            }
-          )
-          console.log(
-            response
-          )
-          this.token = response.token;
-          localStorage.setItem('token', this.token as any);
-          console.log(
-            response
-          )
-        })
-      );
+    return this.http.post<any>(
+      `${environment.baseWebApiUrl}/api/Auth/register`,
+      { firstName, lastName, email, password, userName },
+      this.httpOptions
+    );
   }
 
   public login(username: string, password: string): Observable<any> {
