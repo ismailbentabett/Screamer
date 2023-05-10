@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { User } from './core/models/User';
+import { AuthenticationService } from './shared/services/authentication.service';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +9,17 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'Screamer.AngularUI';
+
+  constructor(private authService: AuthenticationService) {}
+
+  ngOnInit(): void {
+    this.setCurrentUser();
+  }
+
+  setCurrentUser() {
+    const userString = localStorage.getItem('user');
+    if (!userString) return;
+    const user: User = JSON.parse(userString);
+    this.authService.setCurrentUser(user);
+  }
 }

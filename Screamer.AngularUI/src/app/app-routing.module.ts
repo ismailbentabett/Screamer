@@ -5,15 +5,20 @@ import { LoginComponent } from './features/Auth/login/login.component';
 
 import { TestComponent } from './features/test/test.component';
 import { authGuard } from './core/guards/auth.guard';
+import { loggedinGuard } from './core/guards/loggedin.guard';
 
 const routes: Routes = [
   {
     path: 'signup',
-    component : SignupComponent
+    component : SignupComponent,
+    canActivate: [loggedinGuard],
+
   },
   {
     path: 'login',
     component : LoginComponent,
+    canActivate: [loggedinGuard],
+
 
   },
   {
