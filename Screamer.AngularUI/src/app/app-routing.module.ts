@@ -10,22 +10,19 @@ import { LandingComponent } from './features/landing/landing.component';
 import { NotFoundComponent } from './shared/components/not-found/not-found.component';
 
 const routes: Routes = [
-
   {
     path: 'landing',
     component: LandingComponent,
     canActivate: [loggedinGuard],
   },
+
   {
-    path: 'signup',
-    component: SignupComponent,
+    path: 'auth',
+    loadChildren: () =>
+      import('./features/Auth/auth.module').then((m) => m.AuthModule),
     canActivate: [loggedinGuard],
   },
-  {
-    path: 'login',
-    component: LoginComponent,
-    canActivate: [loggedinGuard],
-  },
+
   {
     path: 'zabi',
     component: TestComponent,

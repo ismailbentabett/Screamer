@@ -6,19 +6,16 @@ import { MyPipePipe } from './pipes/my-pipe.pipe';
 
 import { HttpClientModule } from '@angular/common/http';
 import { NotFoundComponent } from './components/not-found/not-found.component';
-
-
+import { FeaturesModule } from '../features/features.module';
+import { CoreModule } from '../core/core.module';
 
 @NgModule({
   declarations: [
     MyComponentComponent,
     MyDirectiveDirective,
     MyPipePipe,
-    NotFoundComponent
+    NotFoundComponent,
   ],
-  imports: [
-    CommonModule,
-    HttpClientModule
-  ]
+  imports: [CommonModule, HttpClientModule, FeaturesModule, CoreModule],
 })
-export class SharedModule { }
+export class SharedModule {}
