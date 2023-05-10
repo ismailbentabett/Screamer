@@ -5,6 +5,7 @@ import { MyDirectiveDirective } from './directives/my-directive.directive';
 import { MyPipePipe } from './pipes/my-pipe.pipe';
 
 import { HttpClientModule } from '@angular/common/http';
+import { NotFoundComponent } from './components/not-found/not-found.component';
 
 
 
@@ -12,7 +13,8 @@ import { HttpClientModule } from '@angular/common/http';
   declarations: [
     MyComponentComponent,
     MyDirectiveDirective,
-    MyPipePipe
+    MyPipePipe,
+    NotFoundComponent
   ],
   imports: [
     CommonModule,

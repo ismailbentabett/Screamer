@@ -5,6 +5,7 @@ import { SignupComponent } from './Auth/signup/signup.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TestComponent } from './test/test.component';
 import { RouterModule } from '@angular/router';
+import { LandingComponent } from './landing/landing.component';
 
 
 
@@ -12,7 +13,8 @@ import { RouterModule } from '@angular/router';
   declarations: [
     LoginComponent,
     SignupComponent,
-    TestComponent
+    TestComponent,
+    LandingComponent
   ],
   imports: [
     CommonModule,
