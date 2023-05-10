@@ -6,7 +6,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TestComponent } from './test/test.component';
 import { RouterModule } from '@angular/router';
 import { LandingComponent } from './landing/landing.component';
-import { HomeComponent } from './home/home.component';
+import { HomeComponent } from './Main/home/home.component';
 
 
 
