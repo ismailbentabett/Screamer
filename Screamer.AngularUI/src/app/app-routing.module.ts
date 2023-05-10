@@ -12,7 +12,8 @@ import { NotFoundComponent } from './shared/components/not-found/not-found.compo
 const routes: Routes = [
   {
     path: 'landing',
-    component: LandingComponent,
+    loadChildren: () =>
+      import('./features/landing/landing.module').then((m) => m.LandingModule),
     canActivate: [loggedinGuard],
   },
 
@@ -24,8 +25,9 @@ const routes: Routes = [
   },
 
   {
-    path: 'zabi',
-    component: TestComponent,
+    path: '',
+    loadChildren: () =>
+      import('./features/home/home.module').then((m) => m.HomeModule),
     runGuardsAndResolvers: 'always',
     canActivate: [authGuard],
   },

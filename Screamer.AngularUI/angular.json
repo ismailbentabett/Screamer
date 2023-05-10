@@ -16,6 +16,7 @@
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
+
           "options": {
             "outputPath": "dist/screamer.angular-ui",
             "index": "src/index.html",
@@ -35,6 +36,14 @@
             "scripts": []
           },
           "configurations": {
+            "local": {
+              "customWebpackConfig": {
+                "path": "./webpack.config.js",
+                "mergeStrategies": {
+                    "module.rules": "replace"
+                }
+            }
+        },
             "production": {
               "budgets": [
                 {
@@ -73,6 +82,9 @@
             "production": {
               "browserTarget": "Screamer.AngularUI:build:production"
             },
+            "local": {
+              "browserTarget": "Screamer.AngularUI:build:local"
+          },
             "development": {
               "browserTarget": "Screamer.AngularUI:build:development"
             }
