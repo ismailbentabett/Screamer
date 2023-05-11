@@ -39,10 +39,10 @@ namespace Screamer.Application.Features.PostRequest.Commands.UpdatePostRequest
                 throw new Exception($"user with ID {request.Id} not found.");
             }
 
-            var userInputDto = _mapper.Map<UserDto>(request);
+            var userInputDto = _mapper.Map<ApplicationUser>(request);
 
 
-            _mapper.Map(userInputDto, user, typeof(UserDto), typeof(ApplicationUser));
+            _mapper.Map(userInputDto, user, typeof(ApplicationUser), typeof(ApplicationUser));
 
             await _userRepository.Update(user);
 
