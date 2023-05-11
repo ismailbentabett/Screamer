@@ -12,7 +12,7 @@ export const loggedinGuard: CanActivateFn = (route, state) => {
       console.log(user);
 
       if (user) {
-        router.navigateByUrl('/zabi');
+        router.navigateByUrl('/v/feed');
         return false;
       }
       // user not exist

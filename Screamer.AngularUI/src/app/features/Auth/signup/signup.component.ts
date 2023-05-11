@@ -36,7 +36,7 @@ export class SignupComponent {
   onSubmit() {
     this.authService.register(this.form.value).subscribe(
       () => {
-        this.router.navigate(['/zabi']);
+        this.router.navigate(['/v/feed']);
       },
       (error) => console.error('Registration failed', error)
     );

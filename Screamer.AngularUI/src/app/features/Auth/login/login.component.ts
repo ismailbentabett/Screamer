@@ -36,7 +36,7 @@ export class LoginComponent {
   public login = () => {
     this.authService.login(this.form.value).subscribe(
       () => {
-        this.router.navigate(['/zabi']);
+        this.router.navigate(['/v/feed']);
       },
       (error) => console.error('Login failed', error)
     );
