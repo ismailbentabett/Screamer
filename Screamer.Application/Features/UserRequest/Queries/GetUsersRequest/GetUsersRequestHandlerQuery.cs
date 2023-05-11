@@ -8,7 +8,7 @@ using Screamer.Application.Contracts.Logging;
 using Screamer.Application.Contracts.Presistance;
 using Screamer.Application.Dtos;
 
-namespace Screamer.Application.Features.UserRequest.Queries{
+namespace Screamer.Application.Features.UserRequest.Queries.GetUsersRequest{
     public class GetAllPostsRequestHandlerQuery : IRequestHandler<
         GetUsersRequestQuery,
         IEnumerable<UserDto>

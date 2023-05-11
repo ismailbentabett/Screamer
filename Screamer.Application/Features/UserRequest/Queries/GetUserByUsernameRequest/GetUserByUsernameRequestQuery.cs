@@ -6,7 +6,7 @@ using MediatR;
 using Screamer.Application.Dtos;
 using Screamer.Identity.Models;
 
-namespace Screamer.Application.Features.UserRequest.Queries;
+namespace Screamer.Application.Features.UserRequest.Queries.GetUserByUsernameRequest;
 
     public record GetUserByUsernameRequestQuery : IRequest<UserDto>
     {

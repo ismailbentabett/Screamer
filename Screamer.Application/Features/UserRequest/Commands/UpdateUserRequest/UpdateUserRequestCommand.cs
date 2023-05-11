@@ -2,16 +2,15 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MediatR;
 
-namespace Screamer.Application.Dtos
+namespace Screamer.Application.Features.PostRequest.Commands.UpdateUserRequest
 {
-    public class UserDto
-    {
-        public int Id { get; set; }
-        public string Password { get; set; }
-
-/*         public string Cover { get; set; }
- */        public string Bio { get; set; }
+    public class UpdateUserRequestCommand 
+: IRequest<Unit>
+{
+    public string Id { get; set; }
+       public string Bio { get; set; }
         public string Website { get; set; }
         public string Birthday { get; set; }
         public string Gender { get; set; }
@@ -21,7 +20,5 @@ namespace Screamer.Application.Dtos
 
         public string Avatar { get; set; }
 
-
-
-    }
+}
 }

@@ -28,24 +28,24 @@ public class UserRepository : IUserRepository
     public async Task<ApplicationUser> GetUserByUsernameAsync(string username)
     {
         return await _context.Users
-            .Include(p => p.Avatars)
-            .SingleOrDefaultAsync(x => x.UserName == username);
+/*             .Include(p => p.Avatars)
+ */            .SingleOrDefaultAsync(x => x.UserName == username);
     }
 
     public async Task<IEnumerable<ApplicationUser>> GetUsersAsync()
     {
         return await _context.Users
-            .Include(p => p.Avatars)
-            .ToListAsync();
+/*             .Include(p => p.Avatars)
+ */            .ToListAsync();
     }
 
-    public void Update(ApplicationUser user)
+    public async Task<ApplicationUser> Update(ApplicationUser user)
     {
-        _context.Entry(user).State = EntityState.Modified;
+        return await Task.FromResult(_context.Users.Update(user).Entity);
     }
-    public void Delete(ApplicationUser user)
+    public async Task<ApplicationUser> Delete(ApplicationUser user)
     {
-        _context.Users.Remove(user);
+        return await Task.FromResult(_context.Users.Remove(user).Entity);
     }
 
     async Task<ApplicationUser> IUserRepository.GetUserByIdAsync(string id)

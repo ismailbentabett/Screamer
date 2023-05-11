@@ -8,8 +8,8 @@ namespace Screamer.Application.Contracts.Presistance
 {
     public interface IUserRepository
     {
-        void Update(ApplicationUser user);
-        void Delete(ApplicationUser user);
+        Task<ApplicationUser> Update(ApplicationUser user);
+        Task<ApplicationUser> Delete(ApplicationUser user);
 
          
         Task<IEnumerable<ApplicationUser>> GetUsersAsync();

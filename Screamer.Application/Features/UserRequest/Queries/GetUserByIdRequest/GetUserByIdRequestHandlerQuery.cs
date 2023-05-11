@@ -9,7 +9,7 @@ using Screamer.Application.Contracts.Presistance;
 using Screamer.Application.Dtos;
 using Screamer.Application.Features.PostRequest.Queries.GetPostByIdRequest;
 
-namespace Screamer.Application.Features.PostRequest.Queries
+namespace Screamer.Application.Features.PostRequest.Queries.GetPostByIdRequest
 {
     public class GetPostByIdRequestHandlerQuery : IRequestHandler<
         GetUserByIdRequestQuery, UserDto
