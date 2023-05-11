@@ -7,6 +7,8 @@ import { TestComponent } from './test/test.component';
 import { RouterModule } from '@angular/router';
 import { LandingComponent } from './landing/landing.component';
 import { HomeComponent } from './Main/home/home.component';
+import { AccountModule } from './Account/account.module';
+import { SharedModule } from '../shared/shared.module';
 
 
 
@@ -22,7 +24,9 @@ import { HomeComponent } from './Main/home/home.component';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    RouterModule
+    RouterModule,
+    AccountModule,
+    SharedModule
   ],
   exports: [
     LoginComponent,

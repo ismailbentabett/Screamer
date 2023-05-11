@@ -8,6 +8,7 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
 import { FeaturesModule } from '../features/features.module';
 import { CoreModule } from '../core/core.module';
 import { AvatarComponent } from './components/user/avatar/avatar.component';
+import { SidebarComponent } from './components/aside/sidebar/sidebar.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,15 @@ import { AvatarComponent } from './components/user/avatar/avatar.component';
     MyPipePipe,
     NotFoundComponent,
     AvatarComponent,
+    SidebarComponent,
   ],
-  imports: [CommonModule, HttpClientModule, FeaturesModule, CoreModule],
+  imports: [CommonModule, HttpClientModule],
+  exports : [
+    MyDirectiveDirective,
+    MyPipePipe,
+    NotFoundComponent,
+    AvatarComponent,
+    SidebarComponent,
+  ]
 })
 export class SharedModule {}

@@ -31,8 +31,14 @@ const routes: Routes = [
     runGuardsAndResolvers: 'always',
     canActivate: [authGuard],
   },
+  {
+    path: 'profile',
+    loadChildren: () =>
+      import('./features/Account/account.module').then((m) => m.AccountModule),
+  },
 
   { path: '**', pathMatch: 'full', component: NotFoundComponent },
+
 ];
 
 @NgModule({
