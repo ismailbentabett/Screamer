@@ -1,19 +1,29 @@
 import { Component } from '@angular/core';
 import { User } from './core/models/User';
 import { AuthenticationService } from './core/services/authentication.service';
+import { Router, NavigationEnd } from '@angular/router';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
   title = 'Screamer.AngularUI';
+  shouldShowNavAndFooterComponent: boolean | undefined;
 
-  constructor(private authService: AuthenticationService) {}
+  constructor(
+    private authService: AuthenticationService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.setCurrentUser();
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        this.shouldShowNavAndFooterComponent = this.router.url !== '/';
+      }
+    });
   }
 
   setCurrentUser() {

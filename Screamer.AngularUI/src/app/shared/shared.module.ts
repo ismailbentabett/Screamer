@@ -9,6 +9,8 @@ import { FeaturesModule } from '../features/features.module';
 import { CoreModule } from '../core/core.module';
 import { AvatarComponent } from './components/user/avatar/avatar.component';
 import { SidebarComponent } from './components/aside/sidebar/sidebar.component';
+import { NavbarComponent } from './components/header/navbar/navbar.component';
+import { FooterComponent } from './components/bottom/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +19,8 @@ import { SidebarComponent } from './components/aside/sidebar/sidebar.component';
     NotFoundComponent,
     AvatarComponent,
     SidebarComponent,
+    NavbarComponent,
+    FooterComponent,
   ],
   imports: [CommonModule, HttpClientModule],
   exports : [
@@ -25,6 +29,8 @@ import { SidebarComponent } from './components/aside/sidebar/sidebar.component';
     NotFoundComponent,
     AvatarComponent,
     SidebarComponent,
+    NavbarComponent,
+    FooterComponent,
   ]
 })
 export class SharedModule {}
