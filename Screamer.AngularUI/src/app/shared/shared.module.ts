@@ -12,6 +12,7 @@ import { SidebarComponent } from './components/aside/sidebar/sidebar.component';
 import { NavbarComponent } from './components/header/navbar/navbar.component';
 import { FooterComponent } from './components/bottom/footer/footer.component';
 import { RouterModule } from '@angular/router';
+import { LoginAndSignupNavComponent } from './components/buttons/login-and-signup-nav/login-and-signup-nav.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { RouterModule } from '@angular/router';
     SidebarComponent,
     NavbarComponent,
     FooterComponent,
+    LoginAndSignupNavComponent,
   ],
   imports: [CommonModule, HttpClientModule , RouterModule],
   exports : [
@@ -32,6 +34,7 @@ import { RouterModule } from '@angular/router';
     SidebarComponent,
     NavbarComponent,
     FooterComponent,
+    LoginAndSignupNavComponent,
   ]
 })
 export class SharedModule {}
