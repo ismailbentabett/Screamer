@@ -23,8 +23,8 @@ namespace Screamer.Identity.Models
         public string FirstName { get; set; }
         public string LastName { get; set; }
 
-        public string Avatar { get; set; }
-
+/*         public string Avatar { get; set; }
+ */
 /*         public ICollection<Avatar> Avatars { get; set; }
  */        /*   public Social Social { get; set; } */
 
