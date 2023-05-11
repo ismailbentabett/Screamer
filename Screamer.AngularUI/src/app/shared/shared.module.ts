@@ -11,6 +11,7 @@ import { AvatarComponent } from './components/user/avatar/avatar.component';
 import { SidebarComponent } from './components/aside/sidebar/sidebar.component';
 import { NavbarComponent } from './components/header/navbar/navbar.component';
 import { FooterComponent } from './components/bottom/footer/footer.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,7 @@ import { FooterComponent } from './components/bottom/footer/footer.component';
     NavbarComponent,
     FooterComponent,
   ],
-  imports: [CommonModule, HttpClientModule],
+  imports: [CommonModule, HttpClientModule , RouterModule],
   exports : [
     MyDirectiveDirective,
     MyPipePipe,
