@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Screamer.Application.Contracts.Presistance;
 using Screamer.Presistance.DatabaseContext;
 using Screamer.Presistance.Repositories;
+using Screamer.Presistance.Helpers;
 
 namespace Screamer.Presistance
 {
@@ -29,6 +30,8 @@ namespace Screamer.Presistance
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             services.AddScoped<IPostRepository, PostRepository>();
             services.AddScoped<IAvatarRepository, AvatarRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
+            services.Configure<CloudinarySettings>(Configuration.GetSection("CloudinarySettings"));
 
             return services;
         }

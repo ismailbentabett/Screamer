@@ -25,7 +25,7 @@ namespace Screamer.Infrastructure
             services.Configure<EmailSettings>(Configuration.GetSection("EmailSettings"));
             services.AddTransient<IEmailSender, EmailSender>();
             services.AddScoped(typeof(IAppLogger<>), typeof(LoggerAdapter<>));
-            
+
             return services;
         }
 

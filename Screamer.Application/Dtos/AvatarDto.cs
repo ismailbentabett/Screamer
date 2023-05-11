@@ -7,10 +7,8 @@ namespace Screamer.Application.Dtos
 {
     public class AvatarDto
     {
-                public int Id { get; set; }
-
-        public string ImageUrl { get; set; }
-        public int UserId { get; set; }
-        public UserDto User { get; set; }
+        public int Id { get; set; }
+        public string Url { get; set; }
+        public bool IsMain { get; set; }
     }
 }
