@@ -8,10 +8,12 @@ using Screamer.Presistance.DatabaseContext;
 
 namespace Screamer.Presistance;
 
-    public class UserRepository : IUserRepository
+public class UserRepository : IUserRepository
 {
     private readonly ScreamerDbContext _context;
     private readonly IMapper _mapper;
+
+
     public UserRepository(ScreamerDbContext context, IMapper mapper)
     {
         _mapper = mapper;
@@ -21,10 +23,7 @@ namespace Screamer.Presistance;
 
 
 
-    public async Task<ApplicationUser> GetUserByIdAsync(int id)
-    {
-        return await _context.Users.FindAsync(id);
-    }
+
 
     public async Task<ApplicationUser> GetUserByUsernameAsync(string username)
     {
@@ -43,5 +42,14 @@ namespace Screamer.Presistance;
     public void Update(ApplicationUser user)
     {
         _context.Entry(user).State = EntityState.Modified;
+    }
+    public void Delete(ApplicationUser user)
+    {
+        _context.Users.Remove(user);
+    }
+
+    async Task<ApplicationUser> IUserRepository.GetUserByIdAsync(string id)
+    {
+        return await _context.Users.FindAsync(id);
     }
 }

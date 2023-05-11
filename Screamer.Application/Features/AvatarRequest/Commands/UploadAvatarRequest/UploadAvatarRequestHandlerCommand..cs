@@ -1,4 +1,4 @@
-
+/* 
 using AutoMapper;
 using MediatR;
 using Screamer.Application.Contracts.Exceptions;
@@ -63,4 +63,4 @@ namespace Screamer.Application.Features.AvatarRequest.Commands.CreateAvatarReque
             throw new NotImplementedException();
         }
     }
-}
+} */
