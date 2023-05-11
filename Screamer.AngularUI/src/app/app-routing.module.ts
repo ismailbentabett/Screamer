@@ -26,11 +26,16 @@ const routes: Routes = [
     canActivate: [authGuard],
     children: [
       {
-        path: 'profile',
+        path: '',
         loadChildren: () =>
           import('./features/Account/account.module').then(
             (m) => m.AccountModule
           ),
+      },
+      {
+        path: '',
+        loadChildren: () =>
+          import('./features/Feed/feed.module').then((m) => m.FeedModule),
       },
     ],
   },
