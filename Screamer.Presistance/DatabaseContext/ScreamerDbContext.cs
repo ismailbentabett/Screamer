@@ -17,10 +17,12 @@ namespace Screamer.Presistance.DatabaseContext
         {
         }
 
-   
-        public DbSet<Post> Posts { get; set; }
 
-    
+        public DbSet<Post> Posts { get; set; }
+        public DbSet<Avatar> Avatars { get; set; }
+
+
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -30,7 +32,7 @@ namespace Screamer.Presistance.DatabaseContext
             base.OnModelCreating(modelBuilder);
 
 
-  
+
 
 
         }
@@ -44,13 +46,13 @@ namespace Screamer.Presistance.DatabaseContext
                 if (entry.State == EntityState.Added)
                 {
                     entry.Entity.CreatedAt = DateTime.Now;
-                  
+
                 }
             }
-            
+
 
             return base.SaveChangesAsync(cancellationToken);
         }
 
-}
     }
+}

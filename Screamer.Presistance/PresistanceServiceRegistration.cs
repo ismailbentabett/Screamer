@@ -24,10 +24,11 @@ namespace Screamer.Presistance
         {
 
             services.AddDbContext<ScreamerDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("ScreamerDbConnection")));
-  services.AddIdentity<ApplicationUser, IdentityRole>()
-                .AddEntityFrameworkStores<ScreamerDbContext>().AddDefaultTokenProviders();
-        services.AddScoped(typeof(IGenericRepository<>),  typeof(GenericRepository<>));
-        services.AddScoped<IPostRepository, PostRepository>();
+            services.AddIdentity<ApplicationUser, IdentityRole>()
+                          .AddEntityFrameworkStores<ScreamerDbContext>().AddDefaultTokenProviders();
+            services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+            services.AddScoped<IPostRepository, PostRepository>();
+            services.AddScoped<IAvatarRepository, AvatarRepository>();
 
             return services;
         }
