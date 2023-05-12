@@ -7,12 +7,18 @@ import { RouterModule } from '@angular/router';
 import { LandingComponent } from './landing/landing.component';
 import { AccountModule } from './Account/account.module';
 import { SharedModule } from '../shared/shared.module';
+import { ProfileComponent } from './Settings/profile/profile.component';
+import { AccountComponent } from './Settings/account/account.component';
+import { AuthComponent } from './Settings/auth/auth.component';
 
 @NgModule({
   declarations: [
     LoginComponent,
     SignupComponent,
     LandingComponent,
+    ProfileComponent,
+    AccountComponent,
+    AuthComponent,
   ],
   imports: [
     CommonModule,

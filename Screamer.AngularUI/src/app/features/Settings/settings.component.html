@@ -1,0 +1,169 @@
+<!--
+  This example requires Tailwind CSS v2.0+
+
+  This example requires some changes to your config:
+
+  ```
+  // tailwind.config.js
+  const colors = require('tailwindcss/colors')
+
+  module.exports = {
+    // ...
+    theme: {
+      extend: {
+        colors: {
+          sky: colors.sky,
+          teal: colors.teal,
+        },
+      },
+    },
+    plugins: [
+      // ...
+      require('@tailwindcss/forms'),
+    ],
+  }
+  ```
+-->
+<div>
+  <div class="relative bg-sky-700 pb-32 overflow-hidden">
+    <!-- Menu open: "bg-sky-900", Menu closed: "bg-transparent" -->
+
+    <!-- Menu open: "bottom-0", Menu closed: "inset-y-0" -->
+    <div
+      aria-hidden="true"
+      class="inset-y-0 absolute inset-x-0 left-1/2 transform -translate-x-1/2 w-full overflow-hidden lg:inset-y-0"
+    >
+      <div class="absolute inset-0 flex">
+        <div class="h-full w-1/2" style="background-color: #0a527b"></div>
+        <div class="h-full w-1/2" style="background-color: #065d8c"></div>
+      </div>
+      <div class="relative flex justify-center">
+        <svg
+          class="flex-shrink-0"
+          width="1750"
+          height="308"
+          viewBox="0 0 1750 308"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M284.161 308H1465.84L875.001 182.413 284.161 308z"
+            fill="#0369a1"
+          />
+          <path d="M1465.84 308L16.816 0H1750v308h-284.16z" fill="#065d8c" />
+          <path d="M1733.19 0L284.161 308H0V0h1733.19z" fill="#0a527b" />
+          <path
+            d="M875.001 182.413L1733.19 0H16.816l858.185 182.413z"
+            fill="#0a4f76"
+          />
+        </svg>
+      </div>
+    </div>
+    <header class="relative py-10">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h1 class="text-3xl font-bold text-white">Settings</h1>
+      </div>
+    </header>
+  </div>
+
+  <main class="relative -mt-32">
+    <div class="max-w-screen-xl mx-auto pb-6 px-4 sm:px-6 lg:pb-16 lg:px-8">
+      <div class="bg-white rounded-lg shadow overflow-hidden">
+        <div
+          class="divide-y divide-gray-200 lg:flex lg:divide-y-0 lg:divide-x"
+        >
+          <aside class="py-6  lg:w-1/5">
+            <nav class="space-y-1">
+              <!-- Current: "bg-teal-50 border-teal-500 text-teal-700 hover:bg-teal-50 hover:text-teal-700", Default: "border-transparent text-gray-900 hover:bg-gray-50 hover:text-gray-900" -->
+              <a
+                routerLink="/v/settings/profile"
+                class="bg-teal-50 border-teal-500 text-teal-700 hover:bg-teal-50 hover:text-teal-700 group border-l-4 px-3 py-2 flex items-center text-sm font-medium"
+                aria-current="page"
+              >
+                <!--
+                  Heroicon name: outline/user-circle
+
+                  Current: "text-teal-500 group-hover:text-teal-500", Default: "text-gray-400 group-hover:text-gray-500"
+                -->
+                <svg
+                  class="text-teal-500 group-hover:text-teal-500 flex-shrink-0 -ml-1 mr-3 h-6 w-6"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  aria-hidden="true"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                  />
+                </svg>
+                <span class="truncate"> Profile </span>
+              </a>
+
+              <a
+
+              class="border-transparent text-gray-900 hover:bg-gray-50 hover:text-gray-900 group border-l-4 px-3 py-2 flex items-center text-sm font-medium"
+                routerLink="/v/settings/account"
+              >
+                <!-- Heroicon name: outline/cog -->
+                <svg
+                  class="text-gray-400 group-hover:text-gray-500 flex-shrink-0 -ml-1 mr-3 h-6 w-6"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  aria-hidden="true"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
+                  />
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                  />
+                </svg>
+                <span class="truncate"> Account </span>
+              </a>
+
+              <a
+              routerLink="/v/settings/auth"
+                           class="border-transparent text-gray-900 hover:bg-gray-50 hover:text-gray-900 group border-l-4 px-3 py-2 flex items-center text-sm font-medium"
+              >
+                <!-- Heroicon name: outline/key -->
+                <svg
+                  class="text-gray-400 group-hover:text-gray-500 flex-shrink-0 -ml-1 mr-3 h-6 w-6"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  aria-hidden="true"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"
+                  />
+                </svg>
+                <span class="truncate"> Auth </span>
+              </a>
+            </nav>
+          </aside>
+
+         <!-- router -->
+         <router-outlet></router-outlet>
+
+        </div>
+
+      </div>
+
+    </div>
+  </main>
+</div>
