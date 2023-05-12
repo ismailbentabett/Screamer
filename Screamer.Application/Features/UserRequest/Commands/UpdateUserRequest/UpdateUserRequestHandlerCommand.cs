@@ -64,9 +64,6 @@ namespace Screamer.Application.Features.PostRequest.Commands.UpdatePostRequest
             }
         }
 
-        private Unit NotFoundException(string v, string id)
-        {
-            throw new NotImplementedException();
-        }
+       
     }
 }

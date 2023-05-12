@@ -20,29 +20,37 @@ namespace Screamer.Application.Features.PostRequest.Commands.DeletePostRequest
         >
     {
         private readonly IUserRepository _userRepository;
+        private readonly IUnitOfWork _uow;
 
-        public DeleteUserRequestHandlerCommand(IUserRepository userRepository)
+
+
+        public DeleteUserRequestHandlerCommand(IUserRepository userRepository,
+            IUnitOfWork uow
+        )
         {
             _userRepository = userRepository;
+            _uow = uow;
         }
 
         public async Task<Unit> Handle(DeleteUserRequestCommand request, CancellationToken cancellationToken)
         {
 
-            var UsertoDelete = await
-                  _userRepository.GetUserByIdAsync(request.Id);
+            var user = await _uow.UserRepository.GetUserByIdAsync(request.Id);
 
-            // verify that record exists
-            if (UsertoDelete == null)
+            if (user == null)
             {
-                throw new NotFoundException(nameof(ApplicationUser), request.Id);
+                throw new Exception($"user with ID {request.Id} not found.");
             }
 
-            // remove from database
-            await _userRepository.Delete(UsertoDelete);
+            await _uow.UserRepository.Delete(user);
 
-            // retun record id
-            return Unit.Value;
+            if (await _uow.Complete()) return
+                Unit.Value;
+
+            throw new Exception($"Problem saving changes for user with ID {request.Id}.");
+
+
+
         }
     }
 }
