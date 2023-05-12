@@ -31,6 +31,9 @@ namespace Screamer.Presistance
             services.AddScoped<IPostRepository, PostRepository>();
             services.AddScoped<IAvatarRepository, AvatarRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+
             services.Configure<CloudinarySettings>(Configuration.GetSection("CloudinarySettings"));
 
             return services;

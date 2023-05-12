@@ -10,6 +10,7 @@ using Screamer.Application.Contracts.Logging;
 using Screamer.Application.Models.Email;
 using Screamer.Infrastructure.EmailService;
 using Screamer.Infrastructure.Logging;
+using SendGrid.Extensions.DependencyInjection;
 
 namespace Screamer.Infrastructure
 {
@@ -21,11 +22,15 @@ namespace Screamer.Infrastructure
                 Configuration
         )
         {
-                
+
             services.Configure<EmailSettings>(Configuration.GetSection("EmailSettings"));
             services.AddTransient<IEmailSender, EmailSender>();
             services.AddScoped(typeof(IAppLogger<>), typeof(LoggerAdapter<>));
-
+            services.AddSendGrid(options =>
+            {
+                options.ApiKey = Configuration.GetSection("EmailSettings")
+                .GetValue<string>("ApiKey");
+            });
             return services;
         }
 
