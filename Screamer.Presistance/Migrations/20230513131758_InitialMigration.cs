@@ -40,6 +40,7 @@ namespace Screamer.Presistance.Migrations
                     Phone = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    AvatarUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -260,12 +261,12 @@ namespace Screamer.Presistance.Migrations
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
-                columns: new[] { "Id", "AccessFailedCount", "Bio", "Birthday", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "Gender", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "Password", "PasswordHash", "Phone", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName", "Website" },
+                columns: new[] { "Id", "AccessFailedCount", "AvatarUrl", "Bio", "Birthday", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "Gender", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "Password", "PasswordHash", "Phone", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName", "Website" },
                 values: new object[,]
                 {
-                    { "8e445865-a24d-4543-a6c6-9443d048cdb9", 0, null, null, "7299f6e2-8bfe-4e79-bc45-6fc916d01810", "admin@localhost.com", true, "System", null, "Admin", false, null, "ADMIN@LOCALHOST.COM", "ADMIN@LOCALHOST.COM", null, "AQAAAAIAAYagAAAAEEki2C/f+07TOfAFGKpMuEpytwz+6puGN8iT17KQ5mtlwbBXTDqL00RGpv0cVk+TJw==", null, null, false, "2493237f-41d5-4b7d-8d9c-bf0be8061b6f", false, "admin@localhost.com", null },
-                    { "9e224968-33e4-4652-b7b7-8574d048cdb9", 0, null, null, "bda3deb2-81fe-491e-899d-f93ae607979b", "user@localhost.com", true, "System", null, "User", false, null, "USER@LOCALHOST.COM", "USER@LOCALHOST.COM", null, "AQAAAAIAAYagAAAAEOlD87iPP31UPIfF2Sh38W9SrlhGAo+yjpJXecmaT7OKlofOT7YPTa0TrSv0FkKjmQ==", null, null, false, "f1ffe0ab-055b-4196-ab4d-d03a78667056", false, "user@localhost.com", null },
-                    { "9e224968-33e4-4652-b7b7-agfddsr", 0, null, null, "2de55741-9d2e-4221-875a-872649c776d8", "mod@localhost.com", true, "System", null, "Mod", false, null, "MOD@LOCALHOST.COM", "MOD@LOCALHOST.COM", null, "AQAAAAIAAYagAAAAEOU+4PJbDiYjwztKKvzyUjjYgBD/QPfhpa0iplkNyBp39DZA1HxlgHxDDsQkvetqvA==", null, null, false, "c3cf0366-6112-4b79-afd7-35200e734e5e", false, "mod@localhost.com", null }
+                    { "8e445865-a24d-4543-a6c6-9443d048cdb9", 0, null, null, null, "8388130c-2f27-491c-b61e-4657b07daa94", "admin@localhost.com", true, "System", null, "Admin", false, null, "ADMIN@LOCALHOST.COM", "ADMIN@LOCALHOST.COM", null, "AQAAAAIAAYagAAAAEDo1iUwtFHjpuQ+AfLZLaw5qRWOMMylCJ/VIcfxj+nNdzl7dkxno1oGkG/yte6r4jw==", null, null, false, "2f2e4718-b66d-4619-ad4f-9c73c3de2c35", false, "admin@localhost.com", null },
+                    { "9e224968-33e4-4652-b7b7-8574d048cdb9", 0, null, null, null, "59fb11ae-5c1d-4e87-a87c-34fbedc8404f", "user@localhost.com", true, "System", null, "User", false, null, "USER@LOCALHOST.COM", "USER@LOCALHOST.COM", null, "AQAAAAIAAYagAAAAEGvNwlAhNI26InJOwRDHENDCisTVIOmzGPoGN1hounFWJqTbkxYq5msyjLrVkBMYJg==", null, null, false, "cf2565cb-5e98-49f3-8dc8-bdb94b793c06", false, "user@localhost.com", null },
+                    { "9e224968-33e4-4652-b7b7-agfddsr", 0, null, null, null, "e0906b0d-0896-41ee-9d20-f6d64cc939e2", "mod@localhost.com", true, "System", null, "Mod", false, null, "MOD@LOCALHOST.COM", "MOD@LOCALHOST.COM", null, "AQAAAAIAAYagAAAAEFTjdeh6SYX3yEYfNw1/2A2PE6+I79DveWDqcyDaifN+Hx9Qpd8CgeBXyVT35n2hMg==", null, null, false, "ffbdd577-af08-4789-8940-26591783d26e", false, "mod@localhost.com", null }
                 });
 
             migrationBuilder.InsertData(

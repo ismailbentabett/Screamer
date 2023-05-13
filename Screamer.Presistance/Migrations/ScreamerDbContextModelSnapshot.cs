@@ -315,6 +315,9 @@ namespace Screamer.Presistance.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
+                    b.Property<string>("AvatarUrl")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Bio")
                         .HasColumnType("nvarchar(max)");
 
@@ -400,7 +403,7 @@ namespace Screamer.Presistance.Migrations
                         {
                             Id = "8e445865-a24d-4543-a6c6-9443d048cdb9",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "7299f6e2-8bfe-4e79-bc45-6fc916d01810",
+                            ConcurrencyStamp = "8388130c-2f27-491c-b61e-4657b07daa94",
                             Email = "admin@localhost.com",
                             EmailConfirmed = true,
                             FirstName = "System",
@@ -408,9 +411,9 @@ namespace Screamer.Presistance.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@LOCALHOST.COM",
                             NormalizedUserName = "ADMIN@LOCALHOST.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEEki2C/f+07TOfAFGKpMuEpytwz+6puGN8iT17KQ5mtlwbBXTDqL00RGpv0cVk+TJw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEDo1iUwtFHjpuQ+AfLZLaw5qRWOMMylCJ/VIcfxj+nNdzl7dkxno1oGkG/yte6r4jw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "2493237f-41d5-4b7d-8d9c-bf0be8061b6f",
+                            SecurityStamp = "2f2e4718-b66d-4619-ad4f-9c73c3de2c35",
                             TwoFactorEnabled = false,
                             UserName = "admin@localhost.com"
                         },
@@ -418,7 +421,7 @@ namespace Screamer.Presistance.Migrations
                         {
                             Id = "9e224968-33e4-4652-b7b7-8574d048cdb9",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "bda3deb2-81fe-491e-899d-f93ae607979b",
+                            ConcurrencyStamp = "59fb11ae-5c1d-4e87-a87c-34fbedc8404f",
                             Email = "user@localhost.com",
                             EmailConfirmed = true,
                             FirstName = "System",
@@ -426,9 +429,9 @@ namespace Screamer.Presistance.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "USER@LOCALHOST.COM",
                             NormalizedUserName = "USER@LOCALHOST.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEOlD87iPP31UPIfF2Sh38W9SrlhGAo+yjpJXecmaT7OKlofOT7YPTa0TrSv0FkKjmQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEGvNwlAhNI26InJOwRDHENDCisTVIOmzGPoGN1hounFWJqTbkxYq5msyjLrVkBMYJg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "f1ffe0ab-055b-4196-ab4d-d03a78667056",
+                            SecurityStamp = "cf2565cb-5e98-49f3-8dc8-bdb94b793c06",
                             TwoFactorEnabled = false,
                             UserName = "user@localhost.com"
                         },
@@ -436,7 +439,7 @@ namespace Screamer.Presistance.Migrations
                         {
                             Id = "9e224968-33e4-4652-b7b7-agfddsr",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "2de55741-9d2e-4221-875a-872649c776d8",
+                            ConcurrencyStamp = "e0906b0d-0896-41ee-9d20-f6d64cc939e2",
                             Email = "mod@localhost.com",
                             EmailConfirmed = true,
                             FirstName = "System",
@@ -444,9 +447,9 @@ namespace Screamer.Presistance.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "MOD@LOCALHOST.COM",
                             NormalizedUserName = "MOD@LOCALHOST.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEOU+4PJbDiYjwztKKvzyUjjYgBD/QPfhpa0iplkNyBp39DZA1HxlgHxDDsQkvetqvA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEFTjdeh6SYX3yEYfNw1/2A2PE6+I79DveWDqcyDaifN+Hx9Qpd8CgeBXyVT35n2hMg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "c3cf0366-6112-4b79-afd7-35200e734e5e",
+                            SecurityStamp = "ffbdd577-af08-4789-8940-26591783d26e",
                             TwoFactorEnabled = false,
                             UserName = "mod@localhost.com"
                         });

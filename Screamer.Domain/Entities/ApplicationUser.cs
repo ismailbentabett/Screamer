@@ -24,7 +24,8 @@ namespace Screamer.Identity.Models
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public List<Avatar> Avatars { get; set; } = new();
-        
+        public string AvatarUrl { get; set; }
+
         /* 
         public string? VerificationToken { get; set; }
         public DateTime? VerifiedAt { get; set; }

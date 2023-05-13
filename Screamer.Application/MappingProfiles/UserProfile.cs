@@ -16,11 +16,12 @@ namespace Screamer.Application.MappingProfiles
     {
             public UserProfile()
             {
-                CreateMap<ApplicationUser, UserDto>().ReverseMap();
+                CreateMap<ApplicationUser, UserDto>().ReverseMap()
+                 .ForMember(dest => dest.AvatarUrl, 
+                    opt => opt.MapFrom(src => src.Avatars.FirstOrDefault(x => x.IsMain).Url));
                 CreateMap<UpdateUserRequestCommand, ApplicationUser>().ReverseMap();
                 CreateMap<DeleteUserRequestCommand, ApplicationUser>().ReverseMap();
-        /*         CreateMap<UpdateUserRequestCommand, ApplicationUser>().ReverseMap();
-                CreateMap<DeleteUserRequestCommand, ApplicationUser>().ReverseMap(); */
+       
 
               
             }

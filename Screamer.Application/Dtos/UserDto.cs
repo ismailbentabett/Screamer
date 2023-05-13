@@ -23,6 +23,8 @@ namespace Screamer.Application.Dtos
         public string userName { get; set; }
         public string AvatarUrl { get; set; }
 
+        public List<AvatarDto> Avatars { get; set; } = new();
+
         /*         public string Avatar { get; set; }
          */
 
