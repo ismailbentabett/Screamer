@@ -32,7 +32,9 @@ namespace Screamer.Application.Features.PostRequest.Commands.DeletePostRequest
             // verify that record exists
             if (PostToDelete == null)
             {
-                throw new NotFoundException(nameof(Post), request.Id);
+                throw new NotFoundException(nameof(Post), 
+                    request.Id.ToString()
+                );
             }
 
             // remove from database

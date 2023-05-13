@@ -6,6 +6,8 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Screamer.Application.Contracts.Presistance;
 using Screamer.Application.Features.AvatarRequest.Commands.AddAvatarRequest;
+using Screamer.Application.Features.AvatarRequest.Commands.CreateAvatarRequest;
+using Screamer.Application.Features.AvatarRequest.Commands.DeleteAvatarRequest;
 using Screamer.Application.Features.PostRequest.Commands.UpdateUserRequest;
 using Screamer.Application.Features.PostRequest.Queries;
 using Screamer.Application.Features.PostRequest.Queries.GetPostByIdRequest;
@@ -93,7 +95,7 @@ namespace Screamer.WebApi.Controllers
         [HttpPost("add-avatar/{userId}")]
         public async Task<ActionResult<Avatar>> AddAvatar(
              IFormFile file,
-[FromRoute] string? userId        )
+[FromRoute] string? userId)
         {
 
             var command = new AddAvatarRequestCommand
@@ -105,6 +107,36 @@ namespace Screamer.WebApi.Controllers
             var result = await _mediator.Send(command);
             return Ok(result);
 
+        }
+
+
+        [HttpPut("set-main-avatar/{avatarId}")]
+        public async Task<ActionResult> SetMainAvatar(int avatarId,
+           string? userId
+           )
+        {
+            var command = new SetMainAvatarRequestCommand
+            {
+                avatarId = avatarId,
+                userId = userId
+            };
+            await _mediator.Send(command);
+            return NoContent();
+        }
+
+
+        [HttpDelete("delete-avatar/{avatarId}")]
+        public async Task<ActionResult> DeleteAvatar(int avatarId,
+              string? userId
+               )
+        {
+            var command = new DeleteAvatarRequestCommand
+            {
+                avatarId = avatarId,
+                userId = userId
+            };
+            await _mediator.Send(command);
+            return NoContent();
         }
 
     }

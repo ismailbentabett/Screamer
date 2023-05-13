@@ -8,6 +8,7 @@ namespace Screamer.Application.Features.AvatarRequest.Commands.DeleteAvatarReque
 {
     public class DeleteAvatarRequestCommand : IRequest<Unit>
     {
-        public int Id { get; set; }
+        public int avatarId { get; set; }
+        public string userId { get; set; }
     }
 }

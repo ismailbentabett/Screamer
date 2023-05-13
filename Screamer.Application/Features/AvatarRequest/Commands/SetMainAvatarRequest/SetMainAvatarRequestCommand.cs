@@ -9,7 +9,8 @@ namespace Screamer.Application.Features.AvatarRequest.Commands.CreateAvatarReque
         int
     >
     {
-    public  IFormFile file;
+    public  int avatarId;
+    public  string userId;
 
     }
 }
