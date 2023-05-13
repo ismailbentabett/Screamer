@@ -9,6 +9,7 @@ import { CoreModule } from './core/core.module';
 
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtInterceptor } from './core/interceptors/jwt.interceptor';
+import { LoadingInterceptor } from './core/interceptors/loading.interceptor';
 export function tokenGetter() {
   return localStorage.getItem('access_token');
 }
@@ -23,6 +24,8 @@ export function tokenGetter() {
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    {provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true},
+
   ],
 
   bootstrap: [AppComponent],

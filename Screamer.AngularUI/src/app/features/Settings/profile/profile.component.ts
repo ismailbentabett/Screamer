@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { take } from 'rxjs';
+import { BusyService } from 'src/app/core/services/busy.service';
 import { UserService } from 'src/app/core/services/user.service';
 
 @Component({
@@ -11,7 +12,7 @@ import { UserService } from 'src/app/core/services/user.service';
 export class ProfileComponent {
   form?: FormGroup;
   user: any;
-  constructor(private fb: FormBuilder, private userService: UserService) {
+  constructor(private fb: FormBuilder, private userService: UserService , private busyService : BusyService) {
     this.form = this.fb.group({
       firstName: [' ', Validators.required],
       lastName: [' ', Validators.required],
@@ -42,16 +43,21 @@ export class ProfileComponent {
   }
   ngOnInit(): void {}
   onSubmit() {
+    this.busyService.busy();
+
     this.userService
       .updateUser({
         id: this.user.id,
         ...this.form?.value,
       })
-      .subscribe(
-        () => {
-          console.log('Profile updated');
+      .subscribe({
+        next: () => {
+          this.busyService.idle();
         },
-        (error) => console.error('Profile update failed', error)
-      );
+        error: () => {
+          this.busyService.idle();
+        }
+
+      });
   }
 }

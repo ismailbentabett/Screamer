@@ -21,17 +21,15 @@
             "outputPath": "dist/screamer.angular-ui",
             "index": "src/index.html",
             "main": "src/main.ts",
-            "polyfills": [
-              "zone.js"
-            ],
+            "polyfills": ["zone.js"],
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
-            "assets": [
-              "src/favicon.ico",
-              "src/assets"
-            ],
+            "assets": ["src/favicon.ico", "src/assets"],
             "styles": [
-              "src/styles.scss"
+              "src/styles.scss",
+              "node_modules/ngx-spinner/animations/line-scale-party.css",
+              "node_modules/ngx-spinner/animations/ball-scale-multiple.css"
+
             ],
             "scripts": []
           },
@@ -40,10 +38,10 @@
               "customWebpackConfig": {
                 "path": "./webpack.config.js",
                 "mergeStrategies": {
-                    "module.rules": "replace"
+                  "module.rules": "replace"
                 }
-            }
-        },
+              }
+            },
             "production": {
               "budgets": [
                 {
@@ -84,7 +82,7 @@
             },
             "local": {
               "browserTarget": "Screamer.AngularUI:build:local"
-          },
+            },
             "development": {
               "browserTarget": "Screamer.AngularUI:build:development"
             }
@@ -100,18 +98,14 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "polyfills": [
-              "zone.js",
-              "zone.js/testing"
-            ],
+            "polyfills": ["zone.js", "zone.js/testing"],
             "tsConfig": "tsconfig.spec.json",
             "inlineStyleLanguage": "scss",
-            "assets": [
-              "src/favicon.ico",
-              "src/assets"
-            ],
+            "assets": ["src/favicon.ico", "src/assets"],
             "styles": [
-              "src/styles.scss"
+              "src/styles.scss",
+              "node_modules/ngx-spinner/animations/line-scale-party.css",
+              "node_modules/ngx-spinner/animations/ball-scale-multiple.css"
             ],
             "scripts": []
           }

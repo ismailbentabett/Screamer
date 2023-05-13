@@ -10,6 +10,8 @@ import { SharedModule } from '../shared/shared.module';
 import { ProfileComponent } from './Settings/profile/profile.component';
 import { AccountComponent } from './Settings/account/account.component';
 import { AuthComponent } from './Settings/auth/auth.component';
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -27,6 +29,8 @@ import { AuthComponent } from './Settings/auth/auth.component';
     RouterModule,
     AccountModule,
     SharedModule,
+    NgxSpinnerModule,
+    BrowserAnimationsModule
   ],
   exports: [LoginComponent, SignupComponent],
 })

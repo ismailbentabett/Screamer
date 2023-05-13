@@ -1,3 +1,4 @@
+
 <form
   class="divide-y divide-gray-200 lg:col-span-9"
   [formGroup]="form"
@@ -72,12 +73,12 @@
           >First name</label
         >
         <input
-        type="text"
-        id="firstName"
-        name="firstName"
-        formControlName="firstName"
-        autocomplete="firstName"
-        required
+          type="text"
+          id="firstName"
+          name="firstName"
+          formControlName="firstName"
+          autocomplete="firstName"
+          required
           class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-sky-500 focus:border-sky-500 sm:text-sm"
         />
       </div>
@@ -424,3 +425,11 @@
     </div>
   </div>
 </form>
+<ngx-spinner
+  bdColor="rgba(51,51,51,0.8)"
+  size="medium"
+  color="#fff"
+  type="ball-scale-multiple"
+>
+  <p style="font-size: 20px; color: white">Loading...</p>
+</ngx-spinner>
