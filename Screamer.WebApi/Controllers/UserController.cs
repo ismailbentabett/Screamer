@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Screamer.Application.Contracts.Presistance;
 using Screamer.Application.Features.AvatarRequest.Commands.AddAvatarRequest;
 using Screamer.Application.Features.PostRequest.Commands.UpdateUserRequest;
+using Screamer.Application.Features.PostRequest.Queries;
 using Screamer.Application.Features.PostRequest.Queries.GetPostByIdRequest;
 using Screamer.Application.Features.UserRequest.Commands.DeleteUserRequest;
 using Screamer.Application.Features.UserRequest.Queries.GetUserByUsernameRequest;

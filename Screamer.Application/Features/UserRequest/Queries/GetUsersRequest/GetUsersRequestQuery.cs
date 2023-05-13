@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using MediatR;
 using Screamer.Application.Dtos;
+using Screamer.Identity.Models;
 
-namespace Screamer.Application.Features.UserRequest.Queries.GetUsersRequest;
+namespace Screamer.Application.Features.PostRequest.Queries;
     public record GetUsersRequestQuery : IRequest<List<UserDto>>;
