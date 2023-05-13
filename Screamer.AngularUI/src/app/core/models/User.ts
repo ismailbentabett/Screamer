@@ -7,6 +7,7 @@ import { Role } from './Role';
 import { Social } from './Social';
 
 export interface User extends BaseModel {
+  AvatarUrl: string;
   Username: string;
   Password: string;
   Email: string;

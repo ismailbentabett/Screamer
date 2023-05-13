@@ -47,4 +47,12 @@ export class UserService {
       .get<User>(this.baseUrl + 'User/' + this.user.id)
 
   }
+
+  setMainAvatar(avatarId: any) {
+    return this.http.put(this.baseUrl + 'User/set-main-avatar/' + avatarId, {});
+  }
+
+  deleteAvatar(avatarId: any) {
+    return this.http.delete(this.baseUrl + 'User/delete-avatar/' + avatarId);
+  }
 }

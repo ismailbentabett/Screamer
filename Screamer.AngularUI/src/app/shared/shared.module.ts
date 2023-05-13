@@ -13,6 +13,7 @@ import { NavbarComponent } from './components/header/navbar/navbar.component';
 import { FooterComponent } from './components/bottom/footer/footer.component';
 import { RouterModule } from '@angular/router';
 import { LoginAndSignupNavComponent } from './components/buttons/login-and-signup-nav/login-and-signup-nav.component';
+import { AvatarUploadComponent } from './components/user/avatar-upload/avatar-upload.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { LoginAndSignupNavComponent } from './components/buttons/login-and-signu
     NavbarComponent,
     FooterComponent,
     LoginAndSignupNavComponent,
+    AvatarUploadComponent,
   ],
   imports: [CommonModule, HttpClientModule , RouterModule],
   exports : [

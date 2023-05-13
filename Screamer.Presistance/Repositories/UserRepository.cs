@@ -28,15 +28,15 @@ public class UserRepository : IUserRepository
     public async Task<ApplicationUser> GetUserByUsernameAsync(string username)
     {
         return await _context.Users
-/*             .Include(p => p.Avatars)
- */            .SingleOrDefaultAsync(x => x.UserName == username);
+            .Include(p => p.Avatars)
+           .SingleOrDefaultAsync(x => x.UserName == username);
     }
 
     public async Task<IEnumerable<ApplicationUser>> GetUsersAsync()
     {
         return await _context.Users
-/*             .Include(p => p.Avatars)
- */            .ToListAsync();
+             .Include(p => p.Avatars)
+           .ToListAsync();
     }
 
     public async Task<ApplicationUser> Update(ApplicationUser user)
