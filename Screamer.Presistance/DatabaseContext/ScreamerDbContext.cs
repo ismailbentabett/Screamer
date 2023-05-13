@@ -19,8 +19,7 @@ namespace Screamer.Presistance.DatabaseContext
 
 
         public DbSet<Post> Posts { get; set; }
-/*         public DbSet<Avatar> Avatars { get; set; }
- */
+
 
 
 

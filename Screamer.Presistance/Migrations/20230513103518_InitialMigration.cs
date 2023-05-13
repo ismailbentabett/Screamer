@@ -33,7 +33,6 @@ namespace Screamer.Presistance.Migrations
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Password = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Cover = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Bio = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Website = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Birthday = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -187,6 +186,29 @@ namespace Screamer.Presistance.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Avatar",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Url = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsMain = table.Column<bool>(type: "bit", nullable: false),
+                    PublicId = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Avatar", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Avatar_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Comment",
                 columns: table => new
                 {
@@ -238,12 +260,12 @@ namespace Screamer.Presistance.Migrations
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
-                columns: new[] { "Id", "AccessFailedCount", "Bio", "Birthday", "ConcurrencyStamp", "Cover", "Email", "EmailConfirmed", "FirstName", "Gender", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "Password", "PasswordHash", "Phone", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName", "Website" },
+                columns: new[] { "Id", "AccessFailedCount", "Bio", "Birthday", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "Gender", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "Password", "PasswordHash", "Phone", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName", "Website" },
                 values: new object[,]
                 {
-                    { "8e445865-a24d-4543-a6c6-9443d048cdb9", 0, null, null, "181a1316-05b4-47a9-b1cd-0eb964ed111b", null, "admin@localhost.com", true, "System", null, "Admin", false, null, "ADMIN@LOCALHOST.COM", "ADMIN@LOCALHOST.COM", null, "AQAAAAIAAYagAAAAEHTUxvzBIFBb+uKIu/NKDo7ijfCUsyNL/p/At6ekpTyT52zPG7QmizYVLAaVyLBg1A==", null, null, false, "2fd1e7ee-37ba-45bd-b87a-c639b749313e", false, "admin@localhost.com", null },
-                    { "9e224968-33e4-4652-b7b7-8574d048cdb9", 0, null, null, "3eb98bf5-2d70-4e10-89fd-fd8cf473a54f", null, "user@localhost.com", true, "System", null, "User", false, null, "USER@LOCALHOST.COM", "USER@LOCALHOST.COM", null, "AQAAAAIAAYagAAAAEMczOni3GLEz/Ll3PvnbcGVl0qCiHhBEKglb/6SJ+Dk6+9A1rL6C2igtHeclbeoMmg==", null, null, false, "8c8e032f-2465-460e-af01-3c6fcd5b045e", false, "user@localhost.com", null },
-                    { "9e224968-33e4-4652-b7b7-agfddsr", 0, null, null, "0e3bf90c-8dbe-40cc-85c1-95844f5aa5f7", null, "mod@localhost.com", true, "System", null, "Mod", false, null, "MOD@LOCALHOST.COM", "MOD@LOCALHOST.COM", null, "AQAAAAIAAYagAAAAEFnwsyWYGoMQooqX3I/JpeIBeb7m9LbqInCFIaGKvlCf2WYKXUOntm0RlEaKjTjrpw==", null, null, false, "4c2deb14-0136-4b7d-9d18-9f23c3e692a2", false, "mod@localhost.com", null }
+                    { "8e445865-a24d-4543-a6c6-9443d048cdb9", 0, null, null, "7299f6e2-8bfe-4e79-bc45-6fc916d01810", "admin@localhost.com", true, "System", null, "Admin", false, null, "ADMIN@LOCALHOST.COM", "ADMIN@LOCALHOST.COM", null, "AQAAAAIAAYagAAAAEEki2C/f+07TOfAFGKpMuEpytwz+6puGN8iT17KQ5mtlwbBXTDqL00RGpv0cVk+TJw==", null, null, false, "2493237f-41d5-4b7d-8d9c-bf0be8061b6f", false, "admin@localhost.com", null },
+                    { "9e224968-33e4-4652-b7b7-8574d048cdb9", 0, null, null, "bda3deb2-81fe-491e-899d-f93ae607979b", "user@localhost.com", true, "System", null, "User", false, null, "USER@LOCALHOST.COM", "USER@LOCALHOST.COM", null, "AQAAAAIAAYagAAAAEOlD87iPP31UPIfF2Sh38W9SrlhGAo+yjpJXecmaT7OKlofOT7YPTa0TrSv0FkKjmQ==", null, null, false, "f1ffe0ab-055b-4196-ab4d-d03a78667056", false, "user@localhost.com", null },
+                    { "9e224968-33e4-4652-b7b7-agfddsr", 0, null, null, "2de55741-9d2e-4221-875a-872649c776d8", "mod@localhost.com", true, "System", null, "Mod", false, null, "MOD@LOCALHOST.COM", "MOD@LOCALHOST.COM", null, "AQAAAAIAAYagAAAAEOU+4PJbDiYjwztKKvzyUjjYgBD/QPfhpa0iplkNyBp39DZA1HxlgHxDDsQkvetqvA==", null, null, false, "c3cf0366-6112-4b79-afd7-35200e734e5e", false, "mod@localhost.com", null }
                 });
 
             migrationBuilder.InsertData(
@@ -296,6 +318,11 @@ namespace Screamer.Presistance.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Avatar_UserId",
+                table: "Avatar",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Comment_PostId",
                 table: "Comment",
                 column: "PostId");
@@ -323,6 +350,9 @@ namespace Screamer.Presistance.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens");
+
+            migrationBuilder.DropTable(
+                name: "Avatar");
 
             migrationBuilder.DropTable(
                 name: "Comment");

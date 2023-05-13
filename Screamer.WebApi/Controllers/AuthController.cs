@@ -32,13 +32,13 @@ namespace HR.LeaveManagement.Api.Controllers
         {
             return Ok(await _authenticationService.Login(request));
         }
-/* 
+ 
         [HttpPost("register")]
         public async Task<ActionResult<RegistrationResponse>> Register(RegistrationRequest request)
         {
             return Ok(await _authenticationService.Register(request));
         }
-        [HttpPost("verify")]
+       /*  [HttpPost("verify")]
         public async Task<IActionResult> Verify(string token)
         {
             var user = await _context.Users.FirstOrDefaultAsync(u => u.VerificationToken == token);
@@ -112,7 +112,7 @@ namespace HR.LeaveManagement.Api.Controllers
 
         private string CreateRandomToken()
         {
-            return Convert.ToHexString(RandomNumberGenerator.GetBytes(64));
+             return Convert.ToHexString(RandomNumberGenerator.GetBytes(64));
         }*/
     } 
 }

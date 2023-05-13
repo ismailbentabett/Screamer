@@ -22,7 +22,10 @@ namespace Screamer.Identity.Models
         public string Gender { get; set; }
         public string Phone { get; set; }
         public string FirstName { get; set; }
-        public string LastName { get; set; }/* 
+        public string LastName { get; set; }
+        public List<Avatar> Avatars { get; set; } = new();
+        
+        /* 
         public string? VerificationToken { get; set; }
         public DateTime? VerifiedAt { get; set; }
         public string? PasswordResetToken { get; set; }

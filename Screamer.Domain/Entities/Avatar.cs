@@ -15,7 +15,8 @@ namespace Screamer.Domain.Common
         public bool IsMain { get; set; }
         public string PublicId { get; set; }
 
-        public int UserId { get; set; }
+        public string UserId { get; set; }
+        [ForeignKey("UserId")]
         public ApplicationUser User { get; set; }
 
     }

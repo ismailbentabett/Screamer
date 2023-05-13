@@ -4,12 +4,12 @@ using Microsoft.AspNetCore.Http;
 
 namespace Screamer.Application.Features.AvatarRequest.Commands.CreateAvatarRequest
 {
-    public record CreateAvatarRequestCommand :
+    public record SetMainAvatarRequestCommand :
     IRequest<
         int
     >
     {
     public  IFormFile file;
-    public int userId;
+
     }
 }

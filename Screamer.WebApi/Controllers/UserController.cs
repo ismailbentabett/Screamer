@@ -5,11 +5,13 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Screamer.Application.Contracts.Presistance;
+using Screamer.Application.Features.AvatarRequest.Commands.AddAvatarRequest;
 using Screamer.Application.Features.PostRequest.Commands.UpdateUserRequest;
 using Screamer.Application.Features.PostRequest.Queries.GetPostByIdRequest;
 using Screamer.Application.Features.UserRequest.Commands.DeleteUserRequest;
 using Screamer.Application.Features.UserRequest.Queries.GetUserByUsernameRequest;
 using Screamer.Application.Features.UserRequest.Queries.GetUsersRequest;
+using Screamer.Domain.Common;
 
 namespace Screamer.WebApi.Controllers
 {
@@ -84,5 +86,26 @@ namespace Screamer.WebApi.Controllers
             await _mediator.Send(command);
             return NoContent();
         }
+
+
+
+        [HttpPost("add-avatar/{userId}")]
+        public async Task<ActionResult<Avatar>> AddAvatar(
+             IFormFile file,
+[FromRoute] string? userId        )
+        {
+
+            var command = new AddAvatarRequestCommand
+            {
+
+                file = file,
+                userId = userId
+            };
+            var result = await _mediator.Send(command);
+            return Ok(result);
+
+        }
+
     }
+
 }
