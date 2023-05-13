@@ -3,15 +3,14 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { AuthenticationService } from './authentication.service';
 import { User } from '../models/User';
-import { take } from 'rxjs';
+import { BehaviorSubject, take } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
   baseUrl = environment.baseWebApiUrl;
-  user?: User;
-
+  user?: any;
   constructor(
     private http: HttpClient,
     private authService: AuthenticationService
@@ -42,5 +41,10 @@ export class UserService {
 
   getUserByUsername(username: string) {
     return this.http.get<User>(this.baseUrl + 'User/username/' + username);
+  }
+  getCurrentUserData() {
+    return this.http
+      .get<User>(this.baseUrl + 'User/' + this.user.id)
+
   }
 }

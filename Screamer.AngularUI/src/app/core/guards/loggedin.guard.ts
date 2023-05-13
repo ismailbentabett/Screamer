@@ -9,7 +9,6 @@ export const loggedinGuard: CanActivateFn = (route, state) => {
   return inject(AuthenticationService).currentUser$.pipe(
     //use rote and state
     map((user: any) => {
-      console.log(user);
 
       if (user) {
         router.navigateByUrl('/v/feed');

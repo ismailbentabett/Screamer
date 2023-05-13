@@ -36,7 +36,6 @@ export class AuthenticationService {
   }
 
   setCurrentUser(user: User) {
-    console.log(user)
     localStorage.setItem('user', JSON.stringify(user));
     this.currentUserSource.next(user)
 
