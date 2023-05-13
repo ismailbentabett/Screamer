@@ -7,7 +7,14 @@ namespace Screamer.Application.Contracts.Exceptions
 {
     public class NotFoundException : Exception
     {
-        public NotFoundException(string name, object key) : base($"Entity \"{name}\" ({key}) was not found.")
+        private string userId;
+
+        public NotFoundException(string message, string userId) : base(message)
+        {
+            this.userId = userId;
+        }
+
+        public NotFoundException(string name, object key, object var) : base($"Entity \"{name}\" ({key}) was not found.")
         {
             
         }
