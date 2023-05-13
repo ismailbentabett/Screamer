@@ -72,8 +72,8 @@
                 <div class="flex">
                   <img
                     class="h-24 w-24 rounded-full ring-4 ring-white sm:h-32 sm:w-32"
-                    src="https://images.unsplash.com/photo-1463453091185-61582044d556?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80"
                     alt=""
+                    [src]="user.avatarUrl"
                   />
                 </div>
                 <div
@@ -81,7 +81,7 @@
                 >
                   <div class="sm:hidden 2xl:block mt-6 min-w-0 flex-1">
                     <h1 class="text-2xl font-bold text-gray-900 truncate">
-                      Ricardo Cooper
+                     {{user.firstName}}
                     </h1>
                   </div>
                   <div
