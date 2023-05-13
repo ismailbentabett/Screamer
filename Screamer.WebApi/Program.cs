@@ -14,6 +14,7 @@ builder.Services.AddInfrastructureServices(builder.Configuration);
 builder.Services.AddPresistanceServices(builder.Configuration);
 builder.Services.AddIdentityServices(builder.Configuration);
 
+
 builder.Services.AddControllers();
 
 builder.Services.AddCors(options =>

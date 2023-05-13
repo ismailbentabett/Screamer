@@ -14,6 +14,7 @@ import { FooterComponent } from './components/bottom/footer/footer.component';
 import { RouterModule } from '@angular/router';
 import { LoginAndSignupNavComponent } from './components/buttons/login-and-signup-nav/login-and-signup-nav.component';
 import { AvatarUploadComponent } from './components/user/avatar-upload/avatar-upload.component';
+import { FileUploadModule } from "ng2-file-upload";   //Should import HERE
 
 @NgModule({
   declarations: [
@@ -26,8 +27,9 @@ import { AvatarUploadComponent } from './components/user/avatar-upload/avatar-up
     FooterComponent,
     LoginAndSignupNavComponent,
     AvatarUploadComponent,
+
   ],
-  imports: [CommonModule, HttpClientModule , RouterModule],
+  imports: [CommonModule, HttpClientModule , RouterModule , FileUploadModule],
   exports : [
     MyDirectiveDirective,
     MyPipePipe,
@@ -37,6 +39,8 @@ import { AvatarUploadComponent } from './components/user/avatar-upload/avatar-up
     NavbarComponent,
     FooterComponent,
     LoginAndSignupNavComponent,
+    AvatarUploadComponent,
+
   ]
 })
 export class SharedModule {}

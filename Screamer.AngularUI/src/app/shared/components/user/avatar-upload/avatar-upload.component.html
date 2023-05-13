@@ -1,1 +1,144 @@
-<p>avatar-upload works!</p>
+<p class="text-sm font-medium text-gray-700" aria-hidden="true">Photo</p>
+<div class="mt-1 lg:hidden">
+  <div class="flex items-center">
+    <div
+      class="flex-shrink-0 inline-block rounded-full overflow-hidden h-12 w-12"
+      aria-hidden="true"
+    >
+      <img
+        class="rounded-full h-full w-full"
+        src="https://images.unsplash.com/photo-1517365830460-955ce3ccd263?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=320&h=320&q=80"
+        alt=""
+      />
+    </div>
+    <div class="ml-5 rounded-md shadow-sm">
+      <div
+        class="group relative border border-gray-300 rounded-md py-2 px-3 flex items-center justify-center hover:bg-gray-50 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-sky-500"
+      >
+        <label
+          for="mobile-user-photo"
+          class="relative text-sm leading-4 font-medium text-gray-700 pointer-events-none"
+        >
+          <span>Change</span>
+          <span class="sr-only"> user photo</span>
+        </label>
+
+        <input
+          id="mobile-user-photo"
+          name="user-photo"
+          type="file"
+          class="absolute w-full h-full opacity-0 cursor-pointer border-gray-300 rounded-md"
+          ng2FileSelect
+          [uploader]="uploader"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="hidden relative rounded-full overflow-hidden lg:block">
+  <img
+    class="relative rounded-full w-40 h-40"
+    src="https://images.unsplash.com/photo-1517365830460-955ce3ccd263?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=320&h=320&q=80"
+    alt=""
+  />
+  <label
+    for="desktop-user-photo"
+    class="absolute inset-0 w-full h-full bg-black bg-opacity-75 flex items-center justify-center text-sm font-medium text-white opacity-0 hover:opacity-100 focus-within:opacity-100"
+  >
+    <span>Change</span>
+    <span class="sr-only"> user photo</span>
+    <input
+      type="file"
+      ng2FileSelect
+      [uploader]="uploader"
+      id="desktop-user-photo"
+      name="user-photo"
+      class="absolute inset-0 w-full h-full opacity-0 cursor-pointer border-gray-300 rounded-md"
+    />
+  </label>
+</div>
+
+<!--   <div class="col-2 mb-1" *ngFor="let photo of user?.Avatars">
+      <img src="{{photo.url}}" alt="photo of user" class="img-thumbnail mb-1">
+      <div class="text-center">
+          <button
+              class="btn btn-sm"
+              [disabled]="photo.isMain"
+              (click)="setMainPhoto(photo)"
+              [ngClass]="photo.isMain ? 'btn-success active' : 'btn-outline-success' "
+          >Main</button>
+          <button
+              class="btn btn-sm btn-danger"
+              [disabled]="photo.isMain"
+              (click)="deletePhoto(photo.id)"
+          ><i class="fa fa-trash"></i></button>
+      </div>
+  </div>
+ -->
+<div class="row">
+  <div
+    class="col-9"
+    style="margin-bottom: 40px"
+    *ngIf="uploader?.queue?.length"
+  >
+    <h3>Upload queue</h3>
+    <p>Queue length: {{ uploader?.queue?.length }}</p>
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th width="50%">Name</th>
+          <th>Size</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of uploader?.queue">
+          <td>
+            <strong>{{ item?.file?.name }}</strong>
+          </td>
+          <td *ngIf="uploader?.options?.isHTML5" nowrap>
+            {{ item?.file?.size / 1024 / 1024 | number : ".2" }} MB
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div>
+      <div>
+        Queue progress:
+        <div class="progress">
+          <div
+            class="progress-bar"
+            role="progressbar"
+            [ngStyle]="{ width: uploader?.progress + '%' }"
+          ></div>
+        </div>
+      </div>
+      <button
+        type="button"
+        class="btn btn-success btn-s"
+        (click)="uploader?.uploadAll()"
+        [disabled]="!uploader?.getNotUploadedItems()?.length"
+      >
+        <span class="fa fa-upload"></span> Upload
+      </button>
+      <button
+        type="button"
+        class="btn btn-warning btn-s"
+        (click)="uploader?.cancelAll()"
+        [disabled]="!uploader?.isUploading"
+      >
+        <span class="fa fa-ban"></span> Cancel
+      </button>
+      <button
+        type="button"
+        class="btn btn-danger btn-s"
+        (click)="uploader?.clearQueue()"
+        [disabled]="!uploader?.queue?.length"
+      >
+        <span class="fa fa-trash"></span> Remove
+      </button>
+    </div>
+  </div>
+</div>

@@ -17,7 +17,7 @@ export class AvatarUploadComponent {
   uploader: FileUploader | undefined;
   hasBaseDropZoneOver = false;
   baseUrl = environment.baseWebApiUrl;
-  userData: User | undefined;
+  userData: any | undefined;
 
   constructor(private authService: AuthenticationService, private userService: UserService) {
     this.authService.currentUser$.pipe(take(1)).subscribe({
@@ -62,15 +62,16 @@ export class AvatarUploadComponent {
   }
 
   initializeUploader() {
+
     this.uploader = new FileUploader({
-      url: this.baseUrl + `User/add-avatar/${this.userData?.Id}`,
+      url: this.baseUrl + `User/add-avatar/${this.userData?.id}`,
       authToken: 'Bearer ' + this.userData?.token,
       isHTML5: true,
       allowedFileType: ['image'],
       removeAfterUpload: true,
       autoUpload: false,
       maxFileSize: 10 * 1024 * 1024
-    });
+    })
 
     this.uploader.onAfterAddingFile = (file) => {
       file.withCredentials = false
