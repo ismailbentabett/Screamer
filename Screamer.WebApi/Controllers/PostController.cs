@@ -13,7 +13,7 @@ using Screamer.Application.Features.PostRequest.Queries.GetPostByIdRequest;
 using Screamer.Application.Features.PostRequest.Queries.GetPostByUserIdRequest;
 namespace Screamer.WebApi.Controllers
 {
-/*     [ApiController]
+    [ApiController]
     [Route("api/[controller]")]
         [Authorize]
     public class PostController : ControllerBase
@@ -93,5 +93,5 @@ namespace Screamer.WebApi.Controllers
             return Ok(result);
         }
 
-    } */
+    } 
 }

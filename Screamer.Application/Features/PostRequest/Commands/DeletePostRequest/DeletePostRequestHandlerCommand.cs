@@ -18,30 +18,33 @@ namespace Screamer.Application.Features.PostRequest.Commands.DeletePostRequest
         >
     {
         private readonly IPostRepository _postRepository;
+        private readonly IUnitOfWork _uow;
 
-        public DeletePostRequestHandlerCommand(IPostRepository postRepository)
+
+        public DeletePostRequestHandlerCommand(IPostRepository postRepository,
+            IUnitOfWork uow
+        )
         {
             _postRepository = postRepository;
+            _uow = uow;
         }
 
-    public async Task<Unit> Handle(DeletePostRequestCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(DeletePostRequestCommand request, CancellationToken cancellationToken)
         {
-          
-      var PostToDelete = await _postRepository.GetByIdAsync(request.Id);
 
-            // verify that record exists
+            var PostToDelete =
+                  await _uow
+                      .PostRepository
+                      .GetByIdAsync(request.postId);
+
             if (PostToDelete == null)
             {
-                throw new NotFoundException(nameof(Post), 
-                    request.Id.ToString()
-                );
+                throw new NotFoundException(nameof(Post), request.postId.ToString());
             }
-
-            // remove from database
-            await _postRepository.DeleteAsync(PostToDelete);
-
-            // retun record id
+            await _uow.PostRepository.DeleteAsync(PostToDelete);
+            await _uow.Complete();
             return Unit.Value;
+
+        }
     }
-}
 }

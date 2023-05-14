@@ -8,6 +8,7 @@ using Screamer.Application.Contracts.Exceptions;
 using Screamer.Application.Contracts.Presistance;
 using Screamer.Application.Dtos;
 using Screamer.Domain.Common;
+using Screamer.Identity.Models;
 
 namespace Screamer.Application.Features.PostRequest.Commands.CreatePostRequest
 {
@@ -20,10 +21,15 @@ namespace Screamer.Application.Features.PostRequest.Commands.CreatePostRequest
         private readonly IPostRepository _postRepository;
         private readonly IMapper _mapper;
 
-        public CreatePostRequestHandlerCommand(IPostRepository postRepository, IMapper mapper)
+        private readonly IUnitOfWork _uow;
+
+        public CreatePostRequestHandlerCommand(IPostRepository postRepository, IMapper mapper,
+            IUnitOfWork uow
+        )
         {
             _postRepository = postRepository;
             _mapper = mapper;
+            _uow = uow;
         }
 
         public async Task<int> Handle(CreatePostRequestCommand request, CancellationToken cancellationToken)
@@ -37,13 +43,18 @@ namespace Screamer.Application.Features.PostRequest.Commands.CreatePostRequest
                     $"Command validation errors for type {typeof(CreatePostRequestCommand).Name}",
                     validationResult.Errors
                 );
-            } 
+            }
 
-            var post = _mapper.Map<Post>(request);
+            var user = await _uow.UserRepository.GetUserByIdAsync(request.UserId);
 
-            post = await _postRepository.AddAsync(post);
-
+            if (user == null) throw new NotFoundException(
+                nameof(ApplicationUser), request.UserId);
+            var post = _mapper.Map<CreatePostRequestCommand, Post>(request);
+            post.User = user;
+            await _postRepository.AddAsync(post);
+            await _uow.Complete();
             return post.Id;
+
         }
     }
 }

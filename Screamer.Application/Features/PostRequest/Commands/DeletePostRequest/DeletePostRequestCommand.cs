@@ -8,6 +8,6 @@ namespace Screamer.Application.Features.PostRequest.Commands.DeletePostRequest
 {
     public class DeletePostRequestCommand : IRequest<Unit>
     {
-        public int Id { get; set; }
+        public int postId { get; set; }
     }
 }

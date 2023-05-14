@@ -17,11 +17,6 @@ namespace Screamer.Application.Features.PostRequest.Commands.CreatePostRequest
       public string Title { get; set; }
         public string Content { get; set; }
         public string ImageUrl { get; set; }
-        public int UserId { get; set; }
-     /*    [ForeignKey("UserId")]
-        public User User { get; set; } */
-        public ICollection<Comment> Comments { get; set; }
-        public ICollection<Reaction> Reactions { get; set; } 
-        public int Views { get; set; }
+        public string UserId { get; set; }
     }
 }

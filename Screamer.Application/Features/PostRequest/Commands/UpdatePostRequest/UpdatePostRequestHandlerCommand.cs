@@ -7,6 +7,8 @@ using MediatR;
 using Screamer.Application.Contracts.Exceptions;
 using Screamer.Application.Contracts.Presistance;
 using Screamer.Application.Dtos;
+using Screamer.Domain.Common;
+using Screamer.Identity.Models;
 
 namespace Screamer.Application.Features.PostRequest.Commands.UpdatePostRequest
 {
@@ -18,11 +20,14 @@ namespace Screamer.Application.Features.PostRequest.Commands.UpdatePostRequest
     {
         private readonly IPostRepository _postRepository;
         private readonly IMapper _mapper;
-
-        public UpdatePostRequestHandlerCommand(IPostRepository postRepository, IMapper mapper)
+        private readonly IUnitOfWork _uow;
+        public UpdatePostRequestHandlerCommand(IPostRepository postRepository, IMapper mapper,
+        IUnitOfWork uow
+        )
         {
             _postRepository = postRepository;
             _mapper = mapper;
+            _uow = uow;
         }
 
         public async Task<Unit> Handle(UpdatePostRequestCommand request, CancellationToken cancellationToken)
@@ -38,19 +43,22 @@ namespace Screamer.Application.Features.PostRequest.Commands.UpdatePostRequest
                 );
             }
 
-            var post = await _postRepository.GetByIdAsync(request.Id);
+            var user = await _uow.UserRepository.GetUserByIdAsync(request.UserId);
 
-            if (post == null)
-            {
-                throw new Exception($"Post with ID {request.Id} not found.");
-            }
+            if (user == null) throw new NotFoundException(
+                nameof(ApplicationUser), request.UserId);
+            var post = await _postRepository.GetByIdAsync(request.postId);
+            if (post == null) throw new NotFoundException(
+                nameof(Post), request.postId.ToString());
+
 
             var postInputDto = _mapper.Map<PostInputDto>(request);
             _mapper.Map(postInputDto, post);
 
-            await _postRepository.UpdateAsync(post);
-
+            await _uow.PostRepository.UpdateAsync(post);
+            await _uow.Complete();
             return Unit.Value;
+
 
         }
     }
