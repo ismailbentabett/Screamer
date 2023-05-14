@@ -8,7 +8,8 @@
       <img
         class="rounded-full h-full w-full bg-contain"
         [style.background-image]="ImgUrl"
-        *ngIf="ImgUrl"        alt=""
+        *ngIf="ImgUrl"
+        alt=""
       />
     </div>
     <div class="ml-5 rounded-md shadow-sm">
@@ -38,12 +39,12 @@
 
 <div class="hidden relative rounded-full overflow-hidden lg:block">
   <img
-    class="relative rounded-full w-40 h-40  bg-contain"
+    class="relative rounded-full w-40 h-40 bg-contain"
     [style.background-image]="ImgUrl"
-        *ngIf="ImgUrl"
-
+    *ngIf="ImgUrl"
     alt=""
   />
+
   <label
     for="desktop-user-photo"
     class="absolute inset-0 w-full h-full bg-black bg-opacity-75 flex items-center justify-center text-sm font-medium text-white opacity-0 hover:opacity-100 focus-within:opacity-100"
@@ -78,68 +79,38 @@
       </div>
   </div>
  -->
-<div class="row">
+<div class="row mt-4">
   <div
     class="col-9"
     style="margin-bottom: 40px"
     *ngIf="uploader?.queue?.length"
   >
-    <h3>Upload queue</h3>
-    <p>Queue length: {{ uploader?.queue?.length }}</p>
 
-    <table class="table">
-      <thead>
-        <tr>
-          <th width="50%">Name</th>
-          <th>Size</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let item of uploader?.queue">
-          <td>
-            <strong>{{ item?.file?.name }}</strong>
-          </td>
-          <td *ngIf="uploader?.options?.isHTML5" nowrap>
-            {{ item?.file?.size / 1024 / 1024 | number : ".2" }} MB
-          </td>
-        </tr>
-      </tbody>
-    </table>
 
-    <div>
-      <div>
-        Queue progress:
-        <div class="progress">
-          <div
-            class="progress-bar"
-            role="progressbar"
-            [ngStyle]="{ width: uploader?.progress + '%' }"
-          ></div>
-        </div>
-      </div>
+    <div class="space-x-3 ">
       <button
         type="button"
-        class="btn btn-success btn-s"
+        class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-indigo-100 text-indigo-800 space-x-1 p-2 cursor-pointer"
         (click)="upload()"
         [disabled]="!uploader?.getNotUploadedItems()?.length"
       >
-        <span class="fa fa-upload"></span> Upload
+        <span class="fa fa-upload mr-2"></span> Upload
       </button>
       <button
         type="button"
-        class="btn btn-warning btn-s"
-        (click)="cancel()"
+        class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-red-100 text-red-800 space-x-1 cursor-pointer"
+        (click)="Cancel()"
         [disabled]="!uploader?.isUploading"
       >
-        <span class="fa fa-ban"></span> Cancel
+        <span class="fa fa-ban mr-2"></span> Cancel
       </button>
       <button
         type="button"
-        class="btn btn-danger btn-s"
+        class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-yellow-100 text-yellow-800 space-x-1 cursor-pointer"
         (click)="Clear()"
         [disabled]="!uploader?.queue?.length"
       >
-        <span class="fa fa-trash"></span> Remove
+        <span class="fa fa-trash mr-2"></span> Clear
       </button>
     </div>
   </div>

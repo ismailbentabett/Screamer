@@ -18,7 +18,7 @@ namespace Screamer.Application.MappingProfiles
         {
             CreateMap<ApplicationUser, UserDto>()
              //get the first avatar 
-                .ForMember(dest => dest.AvatarUrl, opt => opt.MapFrom(src => src.Avatars.FirstOrDefault().Url))
+                .ForMember(dest => dest.AvatarUrl, opt => opt.MapFrom(src => src.Avatars.LastOrDefault().Url))
                 .ForMember(dest => dest.Avatars, opt => opt.MapFrom(src => src.Avatars));
                 
             CreateMap<UpdateUserRequestCommand, ApplicationUser>().ReverseMap();

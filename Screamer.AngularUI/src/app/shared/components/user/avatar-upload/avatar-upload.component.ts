@@ -8,6 +8,7 @@ import { BusyService } from 'src/app/core/services/busy.service';
 import { UserService } from 'src/app/core/services/user.service';
 import { environment } from 'src/environments/environment';
 import { DomSanitizer } from '@angular/platform-browser';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-avatar-upload',
@@ -28,7 +29,8 @@ export class AvatarUploadComponent {
     private userService: UserService,
     private busyService: BusyService,
     public domSanitizer: DomSanitizer,
-    private changeDetector: ChangeDetectorRef
+    private changeDetector: ChangeDetectorRef,
+    private router : Router
   ) {
     this.authService.currentUser$.pipe(take(1)).subscribe({
       next: (userData) => {
@@ -51,15 +53,17 @@ export class AvatarUploadComponent {
     this.busyService.busy();
 
     this.uploader?.uploadAll();
+
+      this.router.navigateByUrl(
+        `/v/user/${this.userData?.userName}`
+      )
   }
   async Cancel() {
-    this.busyService.busy();
 
     await this.uploader?.cancelAll();
+
   }
   async Clear() {
-    this.busyService.busy();
-
     await this.uploader?.clearQueue();
   }
 
