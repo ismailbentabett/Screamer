@@ -15,6 +15,7 @@ import { RouterModule } from '@angular/router';
 import { LoginAndSignupNavComponent } from './components/buttons/login-and-signup-nav/login-and-signup-nav.component';
 import { AvatarUploadComponent } from './components/user/avatar-upload/avatar-upload.component';
 import { FileUploadModule } from "ng2-file-upload";   //Should import HERE
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,7 @@ import { FileUploadModule } from "ng2-file-upload";   //Should import HERE
     AvatarUploadComponent,
 
   ],
-  imports: [CommonModule, HttpClientModule , RouterModule , FileUploadModule],
+  imports: [CommonModule, HttpClientModule , RouterModule , FileUploadModule , NgxSpinnerModule],
   exports : [
     MyDirectiveDirective,
     MyPipePipe,
@@ -40,6 +41,7 @@ import { FileUploadModule } from "ng2-file-upload";   //Should import HERE
     FooterComponent,
     LoginAndSignupNavComponent,
     AvatarUploadComponent,
+
 
   ]
 })

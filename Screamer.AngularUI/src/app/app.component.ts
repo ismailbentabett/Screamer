@@ -14,7 +14,7 @@ export class AppComponent {
 
   constructor(
     private authService: AuthenticationService,
-    private router: Router
+    private router: Router,
   ) {}
 
   ngOnInit(): void {
@@ -24,6 +24,8 @@ export class AppComponent {
         this.shouldShowNavAndFooterComponent = this.router.url !== '/';
       }
     });
+
+
   }
 
   setCurrentUser() {

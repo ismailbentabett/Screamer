@@ -6,9 +6,9 @@
       aria-hidden="true"
     >
       <img
-        class="rounded-full h-full w-full"
-        src="https://images.unsplash.com/photo-1517365830460-955ce3ccd263?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=320&h=320&q=80"
-        alt=""
+        class="rounded-full h-full w-full bg-contain"
+        [style.background-image]="ImgUrl"
+        *ngIf="ImgUrl"        alt=""
       />
     </div>
     <div class="ml-5 rounded-md shadow-sm">
@@ -38,8 +38,10 @@
 
 <div class="hidden relative rounded-full overflow-hidden lg:block">
   <img
-    class="relative rounded-full w-40 h-40"
-    src="https://images.unsplash.com/photo-1517365830460-955ce3ccd263?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=320&h=320&q=80"
+    class="relative rounded-full w-40 h-40  bg-contain"
+    [style.background-image]="ImgUrl"
+        *ngIf="ImgUrl"
+
     alt=""
   />
   <label
@@ -118,7 +120,7 @@
       <button
         type="button"
         class="btn btn-success btn-s"
-        (click)="uploader?.uploadAll()"
+        (click)="upload()"
         [disabled]="!uploader?.getNotUploadedItems()?.length"
       >
         <span class="fa fa-upload"></span> Upload
@@ -126,7 +128,7 @@
       <button
         type="button"
         class="btn btn-warning btn-s"
-        (click)="uploader?.cancelAll()"
+        (click)="cancel()"
         [disabled]="!uploader?.isUploading"
       >
         <span class="fa fa-ban"></span> Cancel
@@ -134,7 +136,7 @@
       <button
         type="button"
         class="btn btn-danger btn-s"
-        (click)="uploader?.clearQueue()"
+        (click)="Clear()"
         [disabled]="!uploader?.queue?.length"
       >
         <span class="fa fa-trash"></span> Remove
@@ -142,3 +144,11 @@
     </div>
   </div>
 </div>
+<ngx-spinner
+  bdColor="rgba(51,51,51,0.8)"
+  size="medium"
+  color="#fff"
+  type="ball-scale-multiple"
+>
+  <p style="font-size: 20px; color: white">Loading...</p>
+</ngx-spinner>

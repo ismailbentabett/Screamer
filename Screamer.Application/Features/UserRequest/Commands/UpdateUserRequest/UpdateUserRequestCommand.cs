@@ -17,6 +17,7 @@ namespace Screamer.Application.Features.PostRequest.Commands.UpdateUserRequest
         public string Phone { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
+        public string userName { get; set; }
 
 /*         public string Avatar { get; set; }
  */

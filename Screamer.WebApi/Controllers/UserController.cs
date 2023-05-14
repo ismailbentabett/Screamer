@@ -95,7 +95,7 @@ namespace Screamer.WebApi.Controllers
         [HttpPost("add-avatar/{userId}")]
         public async Task<ActionResult<Avatar>> AddAvatar(
              IFormFile file,
-[FromRoute] string? userId)
+[FromRoute] string userId)
         {
 
             var command = new AddAvatarRequestCommand
@@ -112,7 +112,7 @@ namespace Screamer.WebApi.Controllers
 
         [HttpPut("set-main-avatar/{avatarId}")]
         public async Task<ActionResult> SetMainAvatar(int avatarId,
-           string? userId
+           string userId
            )
         {
             var command = new SetMainAvatarRequestCommand
@@ -127,7 +127,7 @@ namespace Screamer.WebApi.Controllers
 
         [HttpDelete("delete-avatar/{avatarId}")]
         public async Task<ActionResult> DeleteAvatar(int avatarId,
-              string? userId
+              string userId
                )
         {
             var command = new DeleteAvatarRequestCommand
