@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { FeedRoutingModule } from './feed-routing.module';
 import { FeedComponent } from './feed/feed.component';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 
 @NgModule({
@@ -11,7 +12,8 @@ import { FeedComponent } from './feed/feed.component';
   ],
   imports: [
     CommonModule,
-    FeedRoutingModule
+    FeedRoutingModule,
+    SharedModule
   ]
 })
 export class FeedModule { }

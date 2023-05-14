@@ -16,6 +16,9 @@ import { LoginAndSignupNavComponent } from './components/buttons/login-and-signu
 import { AvatarUploadComponent } from './components/user/avatar-upload/avatar-upload.component';
 import { FileUploadModule } from "ng2-file-upload";   //Should import HERE
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { PostComponent } from './components/post/post/post.component';
+import { AddPostFormComponent } from './components/post/add-post-form/add-post-form.component';
+import { AddPostComponent } from './components/post/add-post/add-post.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +31,9 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     FooterComponent,
     LoginAndSignupNavComponent,
     AvatarUploadComponent,
+    PostComponent,
+    AddPostFormComponent,
+    AddPostComponent,
 
   ],
   imports: [CommonModule, HttpClientModule , RouterModule , FileUploadModule , NgxSpinnerModule],
@@ -41,6 +47,9 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     FooterComponent,
     LoginAndSignupNavComponent,
     AvatarUploadComponent,
+    PostComponent,
+    AddPostFormComponent,
+    AddPostComponent,
 
 
   ]
