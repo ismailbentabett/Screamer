@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectorRef, Component, Input } from '@angular/core';
 import { FileUploader } from 'ng2-file-upload';
 import { take } from 'rxjs';
 import { Avatar } from 'src/app/core/models/Avatar';
@@ -16,18 +16,19 @@ import { DomSanitizer } from '@angular/platform-browser';
 })
 export class AvatarUploadComponent {
   @Input() user: User | undefined;
-  uploader: FileUploader | undefined;
+  uploader!: FileUploader;
   hasBaseDropZoneOver = false;
   baseUrl = environment.baseWebApiUrl;
   userData: any;
   @Input() avatarUrl?: string;
-  public ImgUrl : any;
+  public ImgUrl: any;
 
   constructor(
     private authService: AuthenticationService,
     private userService: UserService,
     private busyService: BusyService,
-    public domSanitizer: DomSanitizer
+    public domSanitizer: DomSanitizer,
+    private changeDetector: ChangeDetectorRef
   ) {
     this.authService.currentUser$.pipe(take(1)).subscribe({
       next: (userData) => {
@@ -40,7 +41,9 @@ export class AvatarUploadComponent {
     this.initializeUploader();
     console.log(this.avatarUrl);
     if (this.avatarUrl) {
-      this.ImgUrl =this.domSanitizer.bypassSecurityTrustStyle(`url(${this.avatarUrl})`);
+      this.ImgUrl = this.domSanitizer.bypassSecurityTrustStyle(
+        `url(${this.avatarUrl})`
+      );
     }
   }
 
@@ -48,20 +51,16 @@ export class AvatarUploadComponent {
     this.busyService.busy();
 
     this.uploader?.uploadAll();
-
-    this.busyService.idle();
   }
   async Cancel() {
     this.busyService.busy();
 
     await this.uploader?.cancelAll();
-    this.busyService.idle();
   }
   async Clear() {
     this.busyService.busy();
 
     await this.uploader?.clearQueue();
-    this.busyService.idle();
   }
 
   fileOverBase(e: any) {
@@ -121,6 +120,7 @@ export class AvatarUploadComponent {
           this.authService.setCurrentUser(this.userData);
         }
       }
+      this.busyService.idle();
     };
   }
 }
