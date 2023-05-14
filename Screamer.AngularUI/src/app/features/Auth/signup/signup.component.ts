@@ -36,7 +36,7 @@ export class SignupComponent {
   onSubmit() {
     this.authService.register(this.form.value).subscribe(
       () => {
-        this.router.navigate(['/v/feed']);
+        this.router.navigate(['/auth/login']);
       },
       (error) => console.error('Registration failed', error)
     );

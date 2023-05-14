@@ -19,6 +19,8 @@
     "@angular/platform-browser-dynamic": "^16.0.0",
     "@angular/router": "^16.0.0",
     "@auth0/angular-jwt": "^5.1.2",
+    "@dicebear/collection": "^6.0.3",
+    "@dicebear/core": "^6.0.3",
     "ng2-file-upload": "^3.0.0",
     "ngx-spinner": "^15.0.1",
     "rxjs": "~7.8.0",

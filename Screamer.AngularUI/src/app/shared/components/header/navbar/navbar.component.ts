@@ -16,11 +16,19 @@ export class NavbarComponent {
     public authService: AuthenticationService,
     private router: Router
   ) {
-    this.authService.currentUser$.pipe(take(1)).subscribe({
-      next: (user) => (this.user = user as User),
-    });
+    this.authService.currentUser$
+      .pipe()
+      .subscribe((user) => (this.user = user));
+
+
+
   }
 
+
+  //oninit
+  ngOnInit(): void {
+
+  }
   logout() {
     this.authService.logout();
     this.router.navigateByUrl('/');

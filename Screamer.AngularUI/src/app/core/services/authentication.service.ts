@@ -12,13 +12,14 @@ export class AuthenticationService {
   private currentUserSource = new BehaviorSubject<User | null>(null);
   currentUser$ = this.currentUserSource.asObservable();
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient ) {}
 
   login(model: any) {
     return this.http.post<User>(this.baseUrl + 'Auth/login', model).pipe(
       map((response: User) => {
         const user = response;
         if (user) {
+          console.log(user)
           this.setCurrentUser(user);
         }
       })
@@ -26,13 +27,7 @@ export class AuthenticationService {
   }
 
   register(model: any) {
-    return this.http.post<User>(this.baseUrl + 'Auth/register', model).pipe(
-      map((user) => {
-        if (user) {
-          this.setCurrentUser(user);
-        }
-      })
-    );
+    return this.http.post<User>(this.baseUrl + 'Auth/register', model)
   }
 
   setCurrentUser(user: User) {
