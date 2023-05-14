@@ -19,6 +19,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { PostComponent } from './components/post/post/post.component';
 import { AddPostFormComponent } from './components/post/add-post-form/add-post-form.component';
 import { AddPostComponent } from './components/post/add-post/add-post.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,7 @@ import { AddPostComponent } from './components/post/add-post/add-post.component'
     AddPostComponent,
 
   ],
-  imports: [CommonModule, HttpClientModule , RouterModule , FileUploadModule , NgxSpinnerModule],
+  imports: [CommonModule, HttpClientModule , RouterModule , FileUploadModule , NgxSpinnerModule , ReactiveFormsModule],
   exports : [
     MyDirectiveDirective,
     MyPipePipe,

@@ -8,23 +8,9 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root',
 })
 export class PostService {
-  user!: {};
   baseUrl = environment.baseWebApiUrl;
 
-  constructor(
-    private http: HttpClient,
-    private authService: AuthenticationService
-  ) {
-    this.authService.currentUser$.pipe(take(1)).subscribe({
-      next: (user) => {
-        if (user) {
-          this.user = user;
-        }
-      },
-    });
-  }
-
-
+  constructor(private http: HttpClient) {}
 
   getPosts() {
     return this.http.get(this.baseUrl + 'Post');
