@@ -1,8 +1,9 @@
 <span class="inline-block relative">
   <img
-    class=" 'w-60 rounded-full bg-contain h-60"
-
-    [src]="url ??avatar"
+    class="rounded-full bg-contain"
+    [class]="avatarStyle"
+    [src]="url ?? avatar"
+    *ngIf="avatar"
     alt=""
   />
   <span

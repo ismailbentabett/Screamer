@@ -12,7 +12,8 @@ import { bigEarsNeutral } from '@dicebear/collection';
 export class AvatarComponent {
   @Input() url?: string;
   @Input() user?: User;
-  @Input() size?: number;
+  @Input() avatarStyle?: string;
+
   avatar: any;
 
   constructor() {
@@ -24,6 +25,5 @@ export class AvatarComponent {
 
     this.avatar = 'data:image/svg+xml;utf8,' + encodeURIComponent(url);
 
-    console.log(this.avatar)
   }
 }
