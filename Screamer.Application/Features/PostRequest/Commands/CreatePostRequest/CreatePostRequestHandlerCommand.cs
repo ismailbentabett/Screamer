@@ -34,7 +34,7 @@ namespace Screamer.Application.Features.PostRequest.Commands.CreatePostRequest
 
         public async Task<int> Handle(CreatePostRequestCommand request, CancellationToken cancellationToken)
         {
-            var validator = new CreatePostRequestCommandValidator();
+      /*       var validator = new CreatePostRequestCommandValidator();
             var validationResult = await validator.ValidateAsync(request);
             if (validationResult.IsValid)
             {
@@ -43,7 +43,7 @@ namespace Screamer.Application.Features.PostRequest.Commands.CreatePostRequest
                     $"Command validation errors for type {typeof(CreatePostRequestCommand).Name}",
                     validationResult.Errors
                 );
-            }
+            } */
 
             var user = await _uow.UserRepository.GetUserByIdAsync(request.UserId);
 

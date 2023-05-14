@@ -45,7 +45,7 @@ namespace Screamer.WebApi.Controllers
 
         //userid 
         [HttpGet("user/{id}")]
-        public async Task<IActionResult> GetPostsByUserId(int id)
+        public async Task<IActionResult> GetPostsByUserId(string id)
         {
             var query = new GetPostByUserIdRequestQuery
             {
@@ -84,11 +84,11 @@ namespace Screamer.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesDefaultResponseType]
-        public async Task<IActionResult> DeletePost(int id)
+        public async Task<IActionResult> DeletePost(int postId)
         {
             var result = await _mediator.Send(new DeletePostRequestCommand
             {
-                Id = id
+                postId = postId
             });
             return Ok(result);
         }

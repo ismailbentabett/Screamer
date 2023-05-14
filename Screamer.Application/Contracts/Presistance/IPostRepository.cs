@@ -8,6 +8,6 @@ namespace Screamer.Application.Contracts.Presistance
 {
     public interface IPostRepository : IGenericRepository<Post>
     {
-        Task<IEnumerable<Post>> GetPostsByUserId(int userId);
+        Task<IEnumerable<Post>> GetPostsByUserId(string userId);
     }
 }

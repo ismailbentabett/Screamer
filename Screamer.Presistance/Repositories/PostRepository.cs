@@ -19,7 +19,7 @@ namespace Screamer.Presistance.Repositories
 
 
 
-        public async Task<IEnumerable<Post>> GetPostsByUserId(int userId)
+        public async Task<IEnumerable<Post>> GetPostsByUserId(string userId)
         {
             return await _context.Posts.Where(p => p.UserId == userId).AsNoTracking().ToListAsync();
         }

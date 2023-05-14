@@ -10,5 +10,5 @@ namespace Screamer.Application.Features.PostRequest.Queries.GetPostByUserIdReque
     public record GetPostByUserIdRequestQuery : IRequest<PostDto>
 
     {
-        public int UserId { get; set; }
+        public string UserId { get; set; }
     }
