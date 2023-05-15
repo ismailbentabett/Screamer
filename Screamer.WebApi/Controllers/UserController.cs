@@ -14,6 +14,7 @@ using Screamer.Application.Features.PostRequest.Queries.GetPostByIdRequest;
 using Screamer.Application.Features.UserRequest.Commands.DeleteUserRequest;
 using Screamer.Application.Features.UserRequest.Queries.GetUserByUsernameRequest;
 using Screamer.Application.Features.UserRequest.Queries.GetUsersRequest;
+using Screamer.Application.Helpers;
 using Screamer.Domain.Common;
 
 namespace Screamer.WebApi.Controllers
@@ -30,9 +31,16 @@ namespace Screamer.WebApi.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAllUsers()
+        public async Task<IActionResult> GetAllUsers(
+            [FromQuery] UserParams userParams,
+            [FromQuery] string userId
+        )
         {
-            var query = new GetUsersRequestQuery();
+            var query = new GetUsersRequestQuery
+            {
+                userParams = userParams,
+                userId = userId
+            };
             var result = await _mediator.Send(query);
             return Ok(result);
         }

@@ -3,6 +3,8 @@ using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;
 using Screamer.Application.Contracts.Presistance;
+using Screamer.Application.Dtos;
+using Screamer.Application.Helpers;
 using Screamer.Identity.Models;
 using Screamer.Presistance.DatabaseContext;
 
@@ -32,26 +34,47 @@ public class UserRepository : IUserRepository
            .SingleOrDefaultAsync(x => x.UserName == username);
     }
 
-    public async Task<IEnumerable<ApplicationUser>> GetUsersAsync()
+    public async Task<PagedList<ApplicationUser>> GetUsersAsync(
+        UserParams userParams
+    )
     {
-        return await _context.Users
-             .Include(p => p.Avatars)
-           .ToListAsync();
+        var query = _context.Users.AsQueryable();
+
+       
+
+
+
+
+        query = userParams.OrderBy switch
+        {
+            "CreatedAt" => query.OrderByDescending(u => u.CreatedAt),
+            _ => query.OrderByDescending(u => u.CreatedAt)
+        };
+
+        return await PagedList<ApplicationUser>.CreateAsync(query, userParams.PageNumber, userParams.PageSize);
+
+
+
     }
 
-    public async Task<ApplicationUser> Update(ApplicationUser user)
-    {
-        return await Task.FromResult(_context.Users.Update(user).Entity);
-    }
-    public async Task<ApplicationUser> Delete(ApplicationUser user)
-    {
-        return await Task.FromResult(_context.Users.Remove(user).Entity);
-    }
 
-    async Task<ApplicationUser> IUserRepository.GetUserByIdAsync(string id)
-    {
-        return await _context.Users
-                    .Include(p => p.Avatars)
-                    .SingleOrDefaultAsync(x => x.Id == id);
-    }
+
+
+public async Task<ApplicationUser> Update(ApplicationUser user)
+{
+    return await Task.FromResult(_context.Users.Update(user).Entity);
+}
+public async Task<ApplicationUser> Delete(ApplicationUser user)
+{
+    return await Task.FromResult(_context.Users.Remove(user).Entity);
+}
+
+async Task<ApplicationUser> IUserRepository.GetUserByIdAsync(string id)
+{
+    return await _context.Users
+                .Include(p => p.Avatars)
+                .SingleOrDefaultAsync(x => x.Id == id);
+}
+
+   
 }

@@ -26,12 +26,15 @@ namespace Screamer.Identity.Models
         public List<Avatar> Avatars { get; set; } = new();
         public string AvatarUrl { get; set; }
 public ICollection<Post> Posts { get; set; }
+
+        public DateTime CreatedAt { get; set; }
+        public DateTime UpdatedAt { get; set; }        
         /* 
-        public string? VerificationToken { get; set; }
-        public DateTime? VerifiedAt { get; set; }
-        public string? PasswordResetToken { get; set; }
-        public DateTime? ResetTokenExpires { get; set; }
-        public byte[] PasswordSalt { get; set; } = new byte[32]; */
+public string? VerificationToken { get; set; }
+public DateTime? VerifiedAt { get; set; }
+public string? PasswordResetToken { get; set; }
+public DateTime? ResetTokenExpires { get; set; }
+public byte[] PasswordSalt { get; set; } = new byte[32]; */
 
         /*         public string Avatar { get; set; }
          */

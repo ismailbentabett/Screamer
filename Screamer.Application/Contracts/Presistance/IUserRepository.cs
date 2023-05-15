@@ -1,9 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Screamer.Identity.Models;
-
+using Screamer.Application.Helpers;
 namespace Screamer.Application.Contracts.Presistance
 {
     public interface IUserRepository
@@ -12,7 +8,7 @@ namespace Screamer.Application.Contracts.Presistance
         Task<ApplicationUser> Delete(ApplicationUser user);
 
          
-        Task<IEnumerable<ApplicationUser>> GetUsersAsync();
+        Task<PagedList<ApplicationUser>> GetUsersAsync(UserParams  userParams);
         Task<ApplicationUser> GetUserByIdAsync(string id);
         Task<ApplicationUser> GetUserByUsernameAsync(string username);
     }
