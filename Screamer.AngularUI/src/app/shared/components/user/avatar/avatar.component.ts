@@ -17,13 +17,21 @@ export class AvatarComponent {
   avatar: any;
 
   constructor() {
+
+
+
+  }
+
+  ngOnInit(): void {
+    console.log(this.user)
     const url = createAvatar(bigEarsNeutral, {
-      seed: 'John Doe',
+      seed: `
+      ${this.user?.firstName} ${this.user?.lastName}
+      `,
 
       // ... other options
     }).toString();
 
-    this.avatar = 'data:image/svg+xml;utf8,' + encodeURIComponent(url);
+    this.avatar = 'data:image/svg+xml;utf8,' + encodeURIComponent(url);  }
 
-  }
 }

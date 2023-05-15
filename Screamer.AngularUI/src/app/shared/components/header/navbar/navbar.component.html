@@ -163,6 +163,7 @@
             >
               <span class="sr-only">Open user menu</span>
               <app-avatar
+              [user]="user"
               avatarStyle="h-8 w-8 rounded-full ring-4 ring-white sm:h-10 sm:w-10"
 
               ></app-avatar>
@@ -290,6 +291,7 @@
     <div class="border-t border-gray-200 pt-4 pb-3" *ngIf="user">
       <div class="px-4 flex items-center">
       <app-avatar
+      [user]="user"
       avatarStyle="h-10 w-10 rounded-full ring-4 ring-white sm:h-10 sm:w-10"
 
       ></app-avatar>

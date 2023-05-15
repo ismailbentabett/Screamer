@@ -21,6 +21,7 @@ import { AddPostFormComponent } from './components/post/add-post-form/add-post-f
 import { AddPostComponent } from './components/post/add-post/add-post.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SafeHtmlPipe } from './pipes/safe-html-pipe.pipe';
+import { UserCardComponent } from './components/card/user-card/user-card.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { SafeHtmlPipe } from './pipes/safe-html-pipe.pipe';
     PostComponent,
     AddPostFormComponent,
     AddPostComponent,
-    SafeHtmlPipe
+    SafeHtmlPipe,
+    UserCardComponent
   ],
   imports: [CommonModule, HttpClientModule , RouterModule , FileUploadModule , NgxSpinnerModule , ReactiveFormsModule],
   exports : [
@@ -52,7 +54,10 @@ import { SafeHtmlPipe } from './pipes/safe-html-pipe.pipe';
     PostComponent,
     AddPostFormComponent,
     AddPostComponent,
-AvatarComponent
+AvatarComponent,
+SafeHtmlPipe,
+UserCardComponent
+
 
   ],
   providers : [

@@ -1,5 +1,12 @@
-<p>user-list works!</p>
+<!-- This example requires Tailwind CSS v2.0+ -->
+<ul role="list" class="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4" >
 
-<p>{{
-users | json
-}}</p>
+  <div *ngFor="let user of users">
+    <app-user-card *ngIf="user" [user]="user">
+
+    </app-user-card>
+  </div>
+
+
+  <!-- More people... -->
+</ul>

@@ -65,7 +65,7 @@
         class="mt-6 flex-grow lg:mt-0 lg:ml-6 lg:flex-grow-0 lg:flex-shrink-0"
       >
         <!-- image uploader -->
-        <app-avatar-upload *ngIf="user" [avatarUrl]="user.avatarUrl | json"></app-avatar-upload>
+        <app-avatar-upload *ngIf="user" [user]="user" ></app-avatar-upload>
       </div>
     </div>
 
