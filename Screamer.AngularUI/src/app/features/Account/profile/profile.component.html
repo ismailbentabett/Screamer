@@ -89,8 +89,8 @@
                 <div
                   class="mt-6 flex flex-col justify-stretch space-y-3 sm:flex-row sm:space-y-0 sm:space-x-4"
                 >
-                  <app-chat></app-chat>
-                  <app-follow></app-follow>
+                  <app-chat *ngIf="user.id != currentUser.id"></app-chat>
+                  <app-follow *ngIf="user.id != currentUser.id"></app-follow>
                 </div>
               </div>
             </div>
