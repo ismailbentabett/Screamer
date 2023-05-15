@@ -8,7 +8,9 @@ using Screamer.Application.Contracts.Exceptions;
 using Screamer.Application.Contracts.Presistance;
 using Screamer.Application.Dtos;
 using Screamer.Domain.Common;
+using Screamer.Domain.Entities;
 using Screamer.Identity.Models;
+using Screamer.Presistance.Repositories;
 
 namespace Screamer.Application.Features.MessageRequest
 {
@@ -18,24 +20,46 @@ namespace Screamer.Application.Features.MessageRequest
         int
         >
     {
-        private readonly IPostRepository _postRepository;
+        private readonly IMessageRepository _messageRepository;
         private readonly IMapper _mapper;
 
         private readonly IUnitOfWork _uow;
 
-        public DeleteMessageRequestHandlerCommand(IPostRepository postRepository, IMapper mapper,
+        public DeleteMessageRequestHandlerCommand(
+            IMessageRepository messageRepository
+            , IMapper mapper,
             IUnitOfWork uow
         )
         {
-            _postRepository = postRepository;
             _mapper = mapper;
             _uow = uow;
+            _messageRepository = messageRepository;
         }
 
         public async Task<int> Handle(DeleteMessageRequestCommand request, CancellationToken cancellationToken)
         {
-  return 1;
+ var username = request.userName;
 
+            var message = await _uow.MessageRepository.GetMessage(request.messageId);
+
+            if (message.SenderUsername != username && message.RecipientUsername != username) 
+                throw new NotFoundException(
+                    nameof(Message),
+                    request.messageId
+                );
+
+            if (message.SenderUsername == username) message.SenderDeleted = true;
+            if (message.RecipientUsername == username) message.RecipientDeleted = true;
+
+            if (message.SenderDeleted && message.RecipientDeleted) 
+            {
+                _uow.MessageRepository.DeleteMessage(message);
+            }
+
+            if (await _uow.Complete()) return 
+                request.messageId;
+
+            throw new BadRequestException("Problem deleting the message");
         }
     }
 }

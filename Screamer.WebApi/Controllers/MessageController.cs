@@ -1,7 +1,12 @@
-/* 
+
 using AutoMapper;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Screamer.Application.Contracts.Presistance;
+using Screamer.Application.Dtos;
+using Screamer.Application.Features.MessageRequest;
+using Screamer.Application.Helpers;
+using Screamer.Domain.Entities;
+using Screamer.Presistance;
 
 namespace HR.LeaveManagement.Api.Controllers
 {
@@ -10,78 +15,61 @@ namespace HR.LeaveManagement.Api.Controllers
     public class MessageController : ControllerBase
     {
         private readonly IMapper _mapper;
-        private readonly IUnitOfWork _uow;
-        public MessagesController(IMapper mapper, IUnitOfWork uow)
+        private readonly IMediator _mediator;
+
+
+        public MessageController(IMapper mapper,
+            IMediator mediator)
         {
-            _uow = uow;
             _mapper = mapper;
+            _mediator = mediator;
         }
 
+
         [HttpPost]
-        public async Task<ActionResult<MessageDto>> CreateMessage(CreateMessageDto createMessageDto)
+        public async Task<ActionResult<MessageDto>> CreateMessage(CreateMessageDto createMessageDto, string userName)
         {
-            var username = User.GetUsername();
-
-            if (username == createMessageDto.RecipientUsername.ToLower())
-                return BadRequest("You cannot send messages to yourself");
-
-            var sender = await _uow.UserRepository.GetUserByUsernameAsync(username);
-            var recipient = await _uow.UserRepository.GetUserByUsernameAsync(createMessageDto.RecipientUsername);
-
-            if (recipient == null) return NotFound();
-
-            var message = new Message
+            var command = new
+                CreateMessageRequestCommand
             {
-                Sender = sender,
-                Recipient = recipient,
-                SenderUsername = sender.UserName,
-                RecipientUsername = recipient.UserName,
-                Content = createMessageDto.Content
+                createMessageDto = createMessageDto,
+                userName = userName
             };
 
-            _uow.MessageRepository.AddMessage(message);
 
-            if (await _uow.Complete()) return Ok(_mapper.Map<MessageDto>(message));
+            var messageDto = await _mediator.Send(command);
 
-            return BadRequest("Failed to send message");
+            return Ok(messageDto);
+
         }
 
         [HttpGet]
         public async Task<ActionResult<PagedList<MessageDto>>> GetMessagesForUser([FromQuery]
-            MessageParams messageParams)
+            MessageParams messageParams,
+            string userName
+            )
         {
-            messageParams.Username = User.GetUsername();
+            var query = new GetMessagesForUserRequestQuery
+            {
+                messageParams = messageParams,
+                userName = userName
 
-            var messages = await _uow.MessageRepository.GetMessagesForUser(messageParams);
+            };
 
-            Response.AddPaginationHeader(new PaginationHeader(messages.CurrentPage, messages.PageSize, 
-                messages.TotalCount, messages.TotalPages));
-            
-            return messages;
+            var messages = await _mediator.Send(query);
+            return Ok(messages);
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult> DeleteMessage(int id)
+        public async Task<ActionResult> DeleteMessage(int messageId , string userName)
         {
-            var username = User.GetUsername();
 
-            var message = await _uow.MessageRepository.GetMessage(id);
-
-            if (message.SenderUsername != username && message.RecipientUsername != username) 
-                return Unauthorized();
-
-            if (message.SenderUsername == username) message.SenderDeleted = true;
-            if (message.RecipientUsername == username) message.RecipientDeleted = true;
-
-            if (message.SenderDeleted && message.RecipientDeleted) 
-            {
-                _uow.MessageRepository.DeleteMessage(message);
-            }
-
-            if (await _uow.Complete()) return Ok();
-
-            return BadRequest("Problem deleting the message");
-
+            var command = new DeleteMessageRequestCommand{
+                messageId = messageId,
+                userName = userName
+            };
+            await _mediator.Send(command);
+            return NoContent();
         }
     }
-} */
+}
