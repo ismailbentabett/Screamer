@@ -34,14 +34,18 @@ export class UserService {
   }
 
   getUserParams() {
+    this.userParams = new UserParams();
+    this.userParams.orderBy = 'CreatedAt';
+    this.userParams.pageNumber = 1;
+    this.userParams.pageSize = 5;
+    this.userParams.userId = this.user.id;
+    console.log(this.userParams);
+
     return this.userParams;
   }
 
   setUserParams(params: UserParams) {
     this.userParams = params;
-  }
-  getUser() {
-    return this.http.get<User>(this.baseUrl + 'User');
   }
 
   resetUserParams() {
@@ -51,12 +55,14 @@ export class UserService {
     return;
   }
   getUsers(userParams: UserParams) {
+    console.log('userParams');
     let params = getPaginationHeaders(
+      userParams.orderBy.toString(),
+      userParams.userId.toString(),
+
       userParams.pageNumber,
       userParams.pageSize
     );
-
-    params = params.append('orderBy', userParams?.orderBy);
 
     return getPaginatedResult<User[]>(
       this.baseUrl + 'User',
@@ -64,6 +70,7 @@ export class UserService {
       this.http
     ).pipe(
       map((response: any) => {
+        console.log(response);
         return response;
       })
     );

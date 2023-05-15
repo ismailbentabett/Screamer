@@ -27,12 +27,16 @@ export class UserListComponent {
     this.loadUsers();
   }
   loadUsers() {
+    console.log("haha")
+    console.log(this.userParams)
     if (this.userParams) {
       this.userService.setUserParams(this.userParams);
       this.userService.getUsers(this.userParams).subscribe({
         next: response => {
+          console.log(response)
           if (response.result && response.pagination) {
             this.users = response.result;
+            console.log(this.users)
             this.pagination = response.pagination;
           }
         }

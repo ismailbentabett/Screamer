@@ -18,8 +18,14 @@ export function getPaginatedResult<T>(url: string, params: HttpParams, http: Htt
     );
   }
 
-  export function getPaginationHeaders(pageNumber: number, pageSize: number) {
+  export function getPaginationHeaders(    orderBy: string, userId: string
+ ,     pageNumber: number, pageSize: number ,
+
+    ) {
     let params = new HttpParams();
+    params = params.append('userId',userId);
+
+    params = params.append('orderBy',orderBy);
 
     params = params.append('pageNumber', pageNumber);
     params = params.append('pageSize', pageSize);
