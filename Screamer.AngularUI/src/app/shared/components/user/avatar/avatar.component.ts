@@ -14,6 +14,7 @@ export class AvatarComponent {
   @Input() user?: User;
   @Input() avatarStyle?: string;
 
+
   avatar: any;
 
   constructor() {
