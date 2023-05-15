@@ -19,7 +19,9 @@ namespace Screamer.Presistance.DatabaseContext
 
 
         public DbSet<Post> Posts { get; set; }
-
+ public DbSet<Message> Messages { get; set; }
+        public DbSet<Group> Groups { get; set; }
+        public DbSet<Connection> Connections { get; set; }
 
 
 
@@ -31,7 +33,15 @@ namespace Screamer.Presistance.DatabaseContext
             base.OnModelCreating(modelBuilder);
 
 
-
+modelBuilder.Entity<Message>()
+                .HasOne(u => u.Recipient)
+                .WithMany(m => m.MessagesReceived)
+                .OnDelete(DeleteBehavior.Restrict);
+            
+            modelBuilder.Entity<Message>()
+                .HasOne(u => u.Sender)
+                .WithMany(m => m.MessagesSent)
+                .OnDelete(DeleteBehavior.Restrict);
 
 
         }

@@ -28,7 +28,10 @@ namespace Screamer.Identity.Models
 public ICollection<Post> Posts { get; set; }
 
         public DateTime CreatedAt { get; set; }
-        public DateTime UpdatedAt { get; set; }        
+        public DateTime UpdatedAt { get; set; }
+            public List<Message> MessagesSent { get; set; }
+        public List<Message> MessagesReceived { get; set; }
+        
         /* 
 public string? VerificationToken { get; set; }
 public DateTime? VerifiedAt { get; set; }
