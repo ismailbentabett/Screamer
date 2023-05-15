@@ -5,12 +5,10 @@
       class="flex-shrink-0 inline-block rounded-full overflow-hidden h-12 w-12"
       aria-hidden="true"
     >
-      <img
-        class="rounded-full h-full w-full bg-contain"
-        [style.background-image]="ImgUrl"
-        *ngIf="ImgUrl"
-        alt=""
-      />
+      <app-avatar
+        [user]="user"
+        avatarStyle="h-12 w-12 rounded-full ring-4 ring-white sm:h-12 sm:w-12"
+      ></app-avatar>
     </div>
     <div class="ml-5 rounded-md shadow-sm">
       <div
@@ -38,12 +36,11 @@
 </div>
 
 <div class="hidden relative rounded-full overflow-hidden lg:block">
-  <img
-    class="relative rounded-full w-40 h-40 bg-contain"
-    [style.background-image]="ImgUrl"
-    *ngIf="ImgUrl"
-    alt=""
-  />
+  <app-avatar
+    *ngIf="user"
+    [user]="user"
+    avatarStyle="h-40 w-40 rounded-full ring-4 ring-white sm:h-40 sm:w-40"
+  ></app-avatar>
 
   <label
     for="desktop-user-photo"
@@ -85,9 +82,7 @@
     style="margin-bottom: 40px"
     *ngIf="uploader?.queue?.length"
   >
-
-
-    <div class="space-x-3 ">
+    <div class="space-x-3">
       <button
         type="button"
         class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-indigo-100 text-indigo-800 space-x-1 p-2 cursor-pointer"

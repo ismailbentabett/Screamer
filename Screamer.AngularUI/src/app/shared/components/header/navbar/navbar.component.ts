@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { take } from 'rxjs';
 import { User } from 'src/app/core/models/User';
 import { AuthenticationService } from 'src/app/core/services/authentication.service';
+import { UserService } from 'src/app/core/services/user.service';
 
 @Component({
   selector: 'app-navbar',
@@ -11,10 +12,12 @@ import { AuthenticationService } from 'src/app/core/services/authentication.serv
 })
 export class NavbarComponent {
   user: User | null = null;
+  userData! : User
 
   constructor(
     public authService: AuthenticationService,
-    private router: Router
+    private router: Router,
+    private userService : UserService
   ) {
     this.authService.currentUser$
       .pipe()
@@ -27,7 +30,10 @@ export class NavbarComponent {
 
   //oninit
   ngOnInit(): void {
-
+    this.userService.getUserById(
+      this.user!.id
+    ).pipe()
+    .subscribe((data) => (this.userData = data));
   }
   logout() {
     this.authService.logout();

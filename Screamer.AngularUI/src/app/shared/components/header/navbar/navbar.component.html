@@ -163,7 +163,8 @@
             >
               <span class="sr-only">Open user menu</span>
               <app-avatar
-              [user]="user"
+              *ngIf="userData"
+              [user]="userData"
               avatarStyle="h-8 w-8 rounded-full ring-4 ring-white sm:h-10 sm:w-10"
 
               ></app-avatar>
