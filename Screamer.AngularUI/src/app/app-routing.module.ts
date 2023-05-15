@@ -44,6 +44,11 @@ const routes: Routes = [
             (m) => m.SettingsModule
           ),
       },
+      {
+        path: 'list',
+        loadChildren: () =>
+          import('./features/Lists/lists.module').then((m) => m.ListsModule),
+      }
     ],
   },
 

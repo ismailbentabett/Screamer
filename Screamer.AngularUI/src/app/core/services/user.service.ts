@@ -3,7 +3,12 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { AuthenticationService } from './authentication.service';
 import { User } from '../models/User';
-import { BehaviorSubject, take } from 'rxjs';
+import { BehaviorSubject, map, of, take } from 'rxjs';
+import { UserParams } from '../models/userParams';
+import {
+  getPaginatedResult,
+  getPaginationHeaders,
+} from '../Helpers/paginationHelper';
 
 @Injectable({
   providedIn: 'root',
@@ -11,6 +16,10 @@ import { BehaviorSubject, take } from 'rxjs';
 export class UserService {
   baseUrl = environment.baseWebApiUrl;
   user?: any;
+  users: User[] = [];
+  userParams: UserParams | undefined;
+  memberCache: any;
+
   constructor(
     private http: HttpClient,
     private authService: AuthenticationService
@@ -24,9 +33,42 @@ export class UserService {
     });
   }
 
+  getUserParams() {
+    return this.userParams;
+  }
+
+  setUserParams(params: UserParams) {
+    this.userParams = params;
+  }
   getUser() {
     return this.http.get<User>(this.baseUrl + 'User');
   }
+
+  resetUserParams() {
+    if (this.user) {
+      return this.userParams;
+    }
+    return;
+  }
+  getUsers(userParams: UserParams) {
+    let params = getPaginationHeaders(
+      userParams.pageNumber,
+      userParams.pageSize
+    );
+
+    params = params.append('orderBy', userParams?.orderBy);
+
+    return getPaginatedResult<User[]>(
+      this.baseUrl + 'User',
+      params,
+      this.http
+    ).pipe(
+      map((response: any) => {
+        return response;
+      })
+    );
+  }
+
   updateUser(user: User) {
     return this.http.put(this.baseUrl + 'User', user);
   }
@@ -43,9 +85,7 @@ export class UserService {
     return this.http.get<User>(this.baseUrl + 'User/username/' + username);
   }
   getCurrentUserData() {
-    return this.http
-      .get<User>(this.baseUrl + 'User/' + this.user.id)
-
+    return this.http.get<User>(this.baseUrl + 'User/' + this.user.id);
   }
 
   setMainAvatar(avatarId: any) {
