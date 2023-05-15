@@ -48,6 +48,11 @@ const routes: Routes = [
         path: 'list',
         loadChildren: () =>
           import('./features/Lists/lists.module').then((m) => m.ListsModule),
+      },
+      {
+        path: 'chat',
+        loadChildren: () =>
+          import('./features/Chat/chat.module').then((m) => m.ChatModule),
       }
     ],
   },
