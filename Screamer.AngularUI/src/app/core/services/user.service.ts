@@ -37,7 +37,7 @@ export class UserService {
     this.userParams = new UserParams();
     this.userParams.orderBy = 'CreatedAt';
     this.userParams.pageNumber = 1;
-    this.userParams.pageSize = 5;
+    this.userParams.pageSize = 1;
     this.userParams.userId = this.user.id;
     console.log(this.userParams);
 
