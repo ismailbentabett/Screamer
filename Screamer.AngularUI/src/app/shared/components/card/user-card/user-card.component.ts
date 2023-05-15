@@ -7,7 +7,7 @@ import { User } from 'src/app/core/models/User';
   styleUrls: ['./user-card.component.scss']
 })
 export class UserCardComponent {
-@Input () user! : User
+@Input () user! : User | any
 
 /**
  *
