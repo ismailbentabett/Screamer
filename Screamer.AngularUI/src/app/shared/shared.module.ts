@@ -22,6 +22,8 @@ import { AddPostComponent } from './components/post/add-post/add-post.component'
 import { ReactiveFormsModule } from '@angular/forms';
 import { SafeHtmlPipe } from './pipes/safe-html-pipe.pipe';
 import { UserCardComponent } from './components/card/user-card/user-card.component';
+import { FollowComponent } from './components/buttons/follow/follow.component';
+import { ChatComponent } from './components/buttons/chat/chat.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +40,9 @@ import { UserCardComponent } from './components/card/user-card/user-card.compone
     AddPostFormComponent,
     AddPostComponent,
     SafeHtmlPipe,
-    UserCardComponent
+    UserCardComponent,
+    FollowComponent,
+    ChatComponent
   ],
   imports: [CommonModule, HttpClientModule , RouterModule , FileUploadModule , NgxSpinnerModule , ReactiveFormsModule],
   exports : [
@@ -56,7 +60,9 @@ import { UserCardComponent } from './components/card/user-card/user-card.compone
     AddPostComponent,
 AvatarComponent,
 SafeHtmlPipe,
-UserCardComponent
+UserCardComponent,
+FollowComponent,
+ChatComponent
 
 
   ],

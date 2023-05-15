@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { take } from 'rxjs';
 import { BusyService } from 'src/app/core/services/busy.service';
 import { UserService } from 'src/app/core/services/user.service';
@@ -10,21 +11,31 @@ import { UserService } from 'src/app/core/services/user.service';
 })
 export class ProfileComponent {
   user: any;
-
+  currentUser : any;
   /**
    *
    */
-  constructor(private userService: UserService ,  private busyService : BusyService) {
+  constructor(private userService: UserService ,  private busyService : BusyService , private route: ActivatedRoute) {
     this.busyService.busy()
     this.userService
       .getCurrentUserData()
       .pipe(take(1))
       .subscribe({
         next: (user: any) => {
-          this.user = user;
+          this.currentUser = user;
           this.busyService.idle()
         },
       });
   }
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.route.params.subscribe((params) => {
+      this.userService.getUserById(params['id']).subscribe({
+        next: (user) => {
+          this.user = user;
+        },
+      });
+    }
+
+    );
+  }
 }
