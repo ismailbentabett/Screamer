@@ -6,11 +6,13 @@ import { UserListComponent } from './user-list/user-list.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { AccordionModule } from 'ngx-bootstrap/accordion';
+import { UserPostListComponent } from './user-post-list/user-post-list.component';
 
 
 @NgModule({
   declarations: [
-    UserListComponent
+    UserListComponent,
+    UserPostListComponent
   ],
   imports: [
     CommonModule,
