@@ -10,6 +10,7 @@ import {
   getPaginationHeaders,
   getThePaginationHeaders,
 } from '../Helpers/paginationHelper';
+import { FollowParams } from '../models/FollowParams';
 
 @Injectable({
   providedIn: 'root',
@@ -104,7 +105,7 @@ export class UserService {
     return this.http.delete(this.baseUrl + 'User/delete-avatar/' + avatarId);
   }
 
-  addFollow(targetUserId: string, sourceUserId: string) {
+  addFollow( sourceUserId: string, targetUserId: string) {
     return this.http.post(
       this.baseUrl +
         `Follow` +
@@ -115,7 +116,7 @@ export class UserService {
       {}
     );
   }
-  removeFollow(targetUserId: string, sourceUserId: string) {
+  removeFollow( sourceUserId: string, targetUserId: string) {
     return this.http.delete(
       this.baseUrl +
         `Follow` +
@@ -128,15 +129,12 @@ export class UserService {
   }
 
   getFollows(
-    predicate: string,
-    pageNumber: number,
-    pageSize: number,
-    userId: string
+   followParams : FollowParams
   ) {
-    let params = getThePaginationHeaders(pageNumber, pageSize);
+    let params = getThePaginationHeaders(followParams.pageNumber, followParams.pageSize);
 
-    params = params.append('predicate', predicate);
-    params = params.append('UserId', userId.toString());
+    params = params.append('predicate', followParams.predicate!);
+    params = params.append('UserId', followParams.userId!.toString());
 
     return getPaginatedResult<User[]>(
       this.baseUrl + 'Follow',
