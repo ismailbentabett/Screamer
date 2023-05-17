@@ -13,6 +13,6 @@ public record GetUserFollowsRequestQuery : IRequest<List<FollowDto>>
 {
 
     public FollowParams followParams; 
-    public string userId;
+    public string UserId;
 
 }

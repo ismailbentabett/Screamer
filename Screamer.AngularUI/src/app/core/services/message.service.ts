@@ -4,7 +4,7 @@ import { BehaviorSubject } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { BusyService } from './busy.service';
 import { Message } from '../models/Message';
-import { getPaginatedResult, getPaginationHeadersMessages } from '../Helpers/paginationHelper';
+import { getPaginatedResult, getThePaginationHeaders } from '../Helpers/paginationHelper';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +17,7 @@ export class MessageService {
   constructor(private http: HttpClient, private busyService: BusyService) { }
 
   getMessages(pageNumber: number, pageSize: number, container: string) {
-    let params = getPaginationHeadersMessages(pageNumber, pageSize);
+    let params = getThePaginationHeaders(pageNumber, pageSize);
     params = params.append('Container', container);
     return getPaginatedResult<Message[]>(this.baseUrl + 'messages', params, this.http);
   }

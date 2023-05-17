@@ -46,13 +46,12 @@ namespace Screamer.WebApi.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<PagedList<FollowDto>>> GetUserFollows([FromQuery] FollowParams followParams, string userId)
+        public async Task<ActionResult<PagedList<FollowDto>>> GetUserFollows([FromQuery] FollowParams followParams)
         {
-            followParams.UserId = userId;
             var query = new GetUserFollowsRequestQuery
             {
                 followParams = followParams,
-                userId = userId
+                UserId = followParams.UserId
             };
 
             var users = await _mediator.Send(query);

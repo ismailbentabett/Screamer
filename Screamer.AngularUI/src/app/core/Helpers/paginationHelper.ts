@@ -41,7 +41,7 @@ export function getPaginationHeaders(
 
   return params;
 }
-export function getPaginationHeadersMessages(
+export function getThePaginationHeaders(
   pageNumber: number,
   pageSize: number
 ) {
@@ -53,3 +53,4 @@ export function getPaginationHeadersMessages(
 
   return params;
 }
+

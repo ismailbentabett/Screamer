@@ -38,7 +38,7 @@ namespace Screamer.Application.Features.PostRequest.Queries.GetPostRequest
 
         public async Task<List<FollowDto>> Handle(GetUserFollowsRequestQuery request, CancellationToken cancellationToken)
         {
-            request.followParams.UserId = request.userId;
+            request.followParams.UserId = request.UserId;
 
             var users = await _uow.FollowRepository.GetUserFollows(request.followParams);
             HttpContext httpContext = _httpContextAccessor.HttpContext;
