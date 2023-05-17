@@ -54,10 +54,8 @@ loadPosts() {
     this.postService.setPostParams(this.postParams);
     this.postService.getPostsByUserId(this.postParams).subscribe({
       next: response => {
-        console.log("response")
         if (response.result && response.pagination) {
           this.posts = response.result;
-          console.log(this.posts)
           this.pagination = response.pagination;
         }
       }

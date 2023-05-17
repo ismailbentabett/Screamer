@@ -41,7 +41,6 @@ export class AvatarUploadComponent {
 
   ngOnInit(): void {
     this.initializeUploader();
-    console.log(this.avatarUrl);
     if (this.avatarUrl) {
       this.ImgUrl = this.domSanitizer.bypassSecurityTrustStyle(
         `url(${this.avatarUrl})`

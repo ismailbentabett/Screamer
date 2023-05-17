@@ -19,7 +19,6 @@ constructor() {
 //oninit void
 ngOnInit(): void {
 
-  console.log(this.user)
 }
 
 

@@ -28,16 +28,13 @@ this.next = '<svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 
     this.loadUsers();
   }
   loadUsers() {
-    console.log("haha")
-    console.log(this.userParams)
+
     if (this.userParams) {
       this.userService.setUserParams(this.userParams);
       this.userService.getUsers(this.userParams).subscribe({
         next: response => {
-          console.log(response)
           if (response.result && response.pagination) {
             this.users = response.result;
-            console.log(this.users)
             this.pagination = response.pagination;
           }
         }

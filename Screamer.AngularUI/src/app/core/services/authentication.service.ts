@@ -19,7 +19,6 @@ export class AuthenticationService {
       map((response: User) => {
         const user = response;
         if (user) {
-          console.log(user)
           this.setCurrentUser(user);
         }
       })

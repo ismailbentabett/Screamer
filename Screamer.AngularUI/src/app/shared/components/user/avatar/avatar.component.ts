@@ -24,7 +24,6 @@ export class AvatarComponent {
   }
 
   ngOnInit(): void {
-    console.log(this.user)
     const url = createAvatar(bigEarsNeutral, {
       seed: `
       ${this.user?.firstName} ${this.user?.lastName}

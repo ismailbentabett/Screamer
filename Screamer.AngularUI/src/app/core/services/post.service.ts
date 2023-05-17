@@ -59,7 +59,6 @@ export class PostService {
       this.http
     ).pipe(
       map((response: any) => {
-        console.log(response);
         return response;
       })
     );  }
@@ -95,7 +94,6 @@ export class PostService {
       this.http
     ).pipe(
       map((response: any) => {
-        console.log(response);
         return response;
       })
     );  }

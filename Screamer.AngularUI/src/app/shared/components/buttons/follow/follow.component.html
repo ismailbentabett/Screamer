@@ -36,10 +36,10 @@
 
 <h1>
   "followers"
-  {{ followers}}
+  {{ followers | async}}
 
 </h1>
 <h1>
   "following"
-  {{ followings}}
+  {{ followings | json}}
       </h1>

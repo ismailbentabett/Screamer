@@ -69,15 +69,12 @@ export class AddPostFormComponent {
   }
 
   createPost(){
-    console.log(
-      this.form.value
-    )
+
     this.postService.createPost({
       userId : this.user.id,
       ...this.form.value
     }).subscribe({
       next: (post) => {
-        console.log(post);
       },
     });
   }

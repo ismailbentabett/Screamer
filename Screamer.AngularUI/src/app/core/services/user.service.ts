@@ -38,8 +38,6 @@ export class UserService {
         }
       },
     });
-
-
   }
 
   getUserParams() {
@@ -48,7 +46,6 @@ export class UserService {
     this.userParams.pageNumber = 1;
     this.userParams.pageSize = 1;
     this.userParams.userId = this.user.id;
-    console.log(this.userParams);
 
     return this.userParams;
   }
@@ -64,7 +61,6 @@ export class UserService {
     return;
   }
   getUsers(userParams: UserParams) {
-    console.log('userParams');
     let params = getPaginationHeaders(
       userParams.orderBy.toString(),
       userParams.userId.toString(),
@@ -79,7 +75,6 @@ export class UserService {
       this.http
     ).pipe(
       map((response: any) => {
-        console.log(response);
         return response;
       })
     );
@@ -137,7 +132,7 @@ export class UserService {
     params = params.append('predicate', followParams.predicate!);
     params = params.append('UserId', followParams.userId!.toString());
 
-    return getPaginatedResult<User[]>(
+    return getPaginatedResult<any[]>(
       this.baseUrl + 'Follow',
       params,
       this.http
@@ -145,30 +140,26 @@ export class UserService {
   }
 
   getUserFollowers(userId: string) {
-     this.getFollows({
-      predicate: 'followers',
-      pageNumber: this.followeParams.pageNumber,
-      pageSize: this.followeParams.pageSize,
+    let followParams: FollowParams = {
+      predicate: 'following',
+      pageNumber: 1,
+      pageSize: 5,
       userId: userId,
-    } as FollowParams).subscribe({
-      next: (data) => {
-          this.followersSource
-          .next(data);
-      },
+    };
+    this.getFollows(followParams).subscribe((data) => {
+      this.followersSource.next(data);
     });
   }
+
   getUserFollowing(userId: string) {
-     this.getFollows({
-      predicate: 'following',
-      pageNumber: this.followeParams.pageNumber,
-      pageSize: this.followeParams.pageSize,
+    let followParams: FollowParams = {
+      predicate: 'followers',
+      pageNumber: 1,
+      pageSize: 5,
       userId: userId,
-    } as FollowParams).subscribe({
-      next: (data) => {
-        console.log(data)
-        this.followingsSource
-          .next(data);
-      },
+    };
+    this.getFollows(followParams).subscribe((data) => {
+      this.followingsSource.next(data);
     });
   }
 }
