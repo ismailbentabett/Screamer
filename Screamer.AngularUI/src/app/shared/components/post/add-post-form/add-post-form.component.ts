@@ -22,6 +22,8 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
       state(
         'closed',
         style({
+          display:'none',
+
           transform: 'opacity-0 scale-95',
           opacity: 0,
         })
@@ -67,6 +69,9 @@ export class AddPostFormComponent {
   }
 
   createPost(){
+    console.log(
+      this.form.value
+    )
     this.postService.createPost({
       userId : this.user.id,
       ...this.form.value

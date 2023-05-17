@@ -46,7 +46,7 @@ export class NavbarComponent {
   //oninit
   ngOnInit(): void {
     this.userService.getUserById(
-      this.user!.id
+      this.user!.id as any
     ).pipe()
     .subscribe((data) => (this.userData = data));
   }

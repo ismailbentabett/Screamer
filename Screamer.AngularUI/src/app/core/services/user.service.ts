@@ -81,7 +81,7 @@ export class UserService {
     return this.http.put(this.baseUrl + 'User', user);
   }
 
-  getUserById(id: number) {
+  getUserById(id: string) {
     return this.http.get<User>(this.baseUrl + 'User/' + id);
   }
 

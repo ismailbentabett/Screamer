@@ -6,6 +6,7 @@ import { environment } from 'src/environments/environment';
 import { getPaginatedResult, getPaginationHeaders } from '../Helpers/paginationHelper';
 import { PostParams } from '../models/PostParams';
 import { Post } from '../models/Post';
+import { User } from '../models/User';
 
 @Injectable({
   providedIn: 'root',
@@ -13,29 +14,21 @@ import { Post } from '../models/Post';
 export class PostService {
   baseUrl = environment.baseWebApiUrl;
   PostParams: PostParams | undefined;
-  user?: any;
 
   constructor(
     private http: HttpClient,
     private authService: AuthenticationService
   ) {
 
-    this.authService.currentUser$.pipe(take(1)).subscribe({
-      next: (user) => {
-        if (user) {
-          this.user = user;
-        }
-      },
-    });
+
   }
 
-  getPostParams() {
+  getPostParams(userId : string) {
     this.PostParams = new PostParams();
     this.PostParams.orderBy = 'CreatedAt';
     this.PostParams.pageNumber = 1;
     this.PostParams.pageSize = 1;
-    this.PostParams.userId = this.user.id;
-    console.log(this.PostParams);
+    this.PostParams.userId = userId;
 
     return this.PostParams;
   }
@@ -44,8 +37,8 @@ export class PostService {
     this.PostParams = params;
   }
 
-  resetPostParams() {
-    if (this.user) {
+  resetPostParams(user : User) {
+    if (user) {
       return this.PostParams;
     }
     return;
