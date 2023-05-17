@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Screamer.Application.Contracts.Presistance;
 using Screamer.Application.Dtos;
 using Screamer.Application.Features.AvatarRequest.Commands.AddAvatarRequest;
+using Screamer.Application.Features.FollowRequest.Commands.RemoveFollowRequest;
 using Screamer.Application.Features.PostRequest.Queries.GetPostByUserIdRequest;
 using Screamer.Application.Helpers;
 
@@ -56,7 +57,21 @@ namespace Screamer.WebApi.Controllers
 
             var users = await _mediator.Send(query);
             return Ok(users);
-            
+
+        }
+
+        [HttpDelete]
+        public async Task<IActionResult> DeleteFollow(string targetUserId, string sourceUserId)
+        {
+            var command = new RemoveFollowRequestCommand
+            {
+                targetUserId = targetUserId,
+                sourceUserId = sourceUserId
+            };
+
+            await _mediator.Send(command);
+
+            return NoContent();
         }
     }
 }
