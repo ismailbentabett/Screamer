@@ -32,6 +32,8 @@ export class AuthenticationService {
 
   setCurrentUser(user: User) {
     localStorage.setItem('user', JSON.stringify(user));
+    //token
+    localStorage.setItem('token', JSON.stringify(user.token));
     this.currentUserSource.next(user)
 
   }
