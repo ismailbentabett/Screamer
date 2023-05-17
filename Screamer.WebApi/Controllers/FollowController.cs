@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Screamer.Application.Contracts.Presistance;
 using Screamer.Application.Dtos;
 using Screamer.Application.Features.AvatarRequest.Commands.AddAvatarRequest;
+using Screamer.Application.Features.PostRequest.Queries.GetPostByUserIdRequest;
 using Screamer.Application.Helpers;
 
 namespace Screamer.WebApi.Controllers
@@ -48,13 +49,15 @@ namespace Screamer.WebApi.Controllers
         public async Task<ActionResult<PagedList<FollowDto>>> GetUserFollows([FromQuery] FollowParams followParams, string userId)
         {
             followParams.UserId = userId;
+            var query = new GetUserFollowsRequestQuery
+            {
+                followParams = followParams,
+                userId = userId
+            };
 
-            var users = await _uow.FollowRepository.GetUserFollows(followParams);
-
-            Response.AddPaginationHeader(new PaginationHeader(users.CurrentPage,
-                users.PageSize, users.TotalCount, users.TotalPages));
-
+            var users = await _mediator.Send(query);
             return Ok(users);
+            
         }
     }
 }
