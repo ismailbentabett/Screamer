@@ -11,6 +11,7 @@ namespace Screamer.Application.Contracts.Presistance
         IAvatarRepository AvatarRepository { get; }
 
         IMessageRepository MessageRepository { get; }
+        IFollowRepository FollowRepository { get; }
 
 
         Task<bool> Complete();

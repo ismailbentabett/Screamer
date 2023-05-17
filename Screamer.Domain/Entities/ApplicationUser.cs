@@ -31,6 +31,9 @@ public ICollection<Post> Posts { get; set; }
         public DateTime UpdatedAt { get; set; }
             public List<Message> MessagesSent { get; set; }
         public List<Message> MessagesReceived { get; set; }
+
+         public List<Follow> Followers { get; set; }
+        public List<Follow> Following { get; set; }
         
         /* 
 public string? VerificationToken { get; set; }

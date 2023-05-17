@@ -19,9 +19,11 @@ namespace Screamer.Presistance.DatabaseContext
 
 
         public DbSet<Post> Posts { get; set; }
- public DbSet<Message> Messages { get; set; }
+        public DbSet<Message> Messages { get; set; }
         public DbSet<Group> Groups { get; set; }
         public DbSet<Connection> Connections { get; set; }
+
+        public DbSet<Follow> Follows { get; set; }
 
 
 
@@ -33,16 +35,29 @@ namespace Screamer.Presistance.DatabaseContext
             base.OnModelCreating(modelBuilder);
 
 
-modelBuilder.Entity<Message>()
-                .HasOne(u => u.Recipient)
-                .WithMany(m => m.MessagesReceived)
-                .OnDelete(DeleteBehavior.Restrict);
-            
+            modelBuilder.Entity<Message>()
+                            .HasOne(u => u.Recipient)
+                            .WithMany(m => m.MessagesReceived)
+                            .OnDelete(DeleteBehavior.Restrict);
+
             modelBuilder.Entity<Message>()
                 .HasOne(u => u.Sender)
                 .WithMany(m => m.MessagesSent)
                 .OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<Follow>()
+                            .HasKey(k => new { k.SourceUserId, k.TargetUserId });
 
+            modelBuilder.Entity<Follow>()
+                .HasOne(s => s.SourceUser)
+                .WithMany(l => l.Following)
+                .HasForeignKey(s => s.SourceUserId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<Follow>()
+                .HasOne(s => s.TargetUser)
+                .WithMany(l => l.Followers)
+                .HasForeignKey(s => s.TargetUserId)
+                .OnDelete(DeleteBehavior.Cascade);
 
         }
 

@@ -32,7 +32,10 @@ namespace Screamer.Presistance
             services.AddScoped<IAvatarRepository, AvatarRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IMessageRepository, MessageRepository>();
+            services.AddScoped<IFollowRepository, FollowRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+            
 
 
             services.Configure<CloudinarySettings>(Configuration.GetSection("CloudinarySettings"));
