@@ -6,6 +6,7 @@ using Screamer.Application.Contracts.Presistance;
 using Screamer.Domain.Common;
 using Screamer.Identity.Models;
 using Microsoft.AspNetCore.Mvc;
+using Screamer.Domain;
 
 namespace Screamer.Application.Features.AvatarRequest.Commands.AddAvatarRequest
 {
@@ -35,28 +36,37 @@ namespace Screamer.Application.Features.AvatarRequest.Commands.AddAvatarRequest
             if (followedUser == null) throw new NotFoundException(
                 nameof(ApplicationUser),
                 request.targetUserId
-            );  
+            );
 
-            if (sourceUser.Id == request.sourceUserId) throw new BadRequestException("You cannot like yourself");
+            if (sourceUser.Id == request.targetUserId) throw new BadRequestException("You cannot follow yourself");
 
             var userFollow = await _uow.FollowRepository.GetUserFollow(request.sourceUserId, followedUser.Id);
 
-            if (userFollow != null) throw new BadRequestException("You already like this user");
+            if (userFollow != null) throw new BadRequestException("You already follow this user");
 
-            userFollow = new Domain.Follow
+
+
+            userFollow = new Follow
             {
                 SourceUserId = request.sourceUserId,
                 TargetUserId = followedUser.Id
             };
+            if (sourceUser.Following == null)
+            {
+                sourceUser.Following = new List<Follow>(); // Initialize the Following collection if it's null
+            }
 
             sourceUser.Following.Add(userFollow);
 
-            if (await _uow.Complete()) {
+
+
+            if (await _uow.Complete())
+            {
                 return userFollow.Id;
             }
 
-            throw new BadRequestException("Failed to like user");
- 
+            throw new BadRequestException("Failed to follow user");
+
         }
     }
 }

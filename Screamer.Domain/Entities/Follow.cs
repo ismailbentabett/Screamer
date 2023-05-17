@@ -10,10 +10,17 @@ namespace Screamer.Domain
 {
     public class Follow : BaseEntity
     {
+        [
+            ForeignKey("SourceUserId")
+        
+        ]
        public ApplicationUser SourceUser { get; set; }
-        public string SourceUserId { get; set; }
+        public string? SourceUserId { get; set; }
+        [
+            ForeignKey("TargetUserId")
+        ]
         public ApplicationUser TargetUser { get; set; }
-        public string TargetUserId { get; set; }
+        public string? TargetUserId { get; set; }
        
     }
 }

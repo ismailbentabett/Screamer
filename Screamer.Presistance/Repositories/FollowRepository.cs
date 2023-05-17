@@ -21,23 +21,23 @@ namespace Screamer.Presistance.Repositories
             _context = context;
         }
 
-        public async Task<Follow> GetUserFollows(string sourceUserId, string targetUserId)
+        public async Task<Follow> GetUserFollow(string sourceUserId, string targetUserId)
         {
              return await _context.Follows.FindAsync(sourceUserId, targetUserId);
         }
 
-        public async Task<PagedList<FollowDto>> GetUserFollowss(FollowParams followParams)
+        public async Task<PagedList<FollowDto>> GetUserFollows(FollowParams followParams)
         {
             var users = _context.Users.OrderBy(u => u.UserName).AsQueryable();
             var follows = _context.Follows.AsQueryable();
 
-            if (followParams.Predicate == "following")
+            if (followParams.Predicate == "followers")
             {
                 follows = follows.Where(follow => follow.SourceUserId == followParams.UserId);
                 users = follows.Select(follow => follow.TargetUser);
             }
 
-            if (followParams.Predicate == "followers")
+            if (followParams.Predicate == "following")
             {
                 follows = follows.Where(follow => follow.TargetUserId == followParams.UserId);
                 users = follows.Select(follow => follow.SourceUser);
@@ -80,15 +80,9 @@ namespace Screamer.Presistance.Repositories
             throw new NotImplementedException();
         }
 
-        Task<Follow> IFollowRepository.GetUserFollow(string sourceUserId, string targetUserId)
-        {
-            throw new NotImplementedException();
-        }
+      
 
-        Task<PagedList<FollowDto>> IFollowRepository.GetUserFollows(FollowParams followParams)
-        {
-            throw new NotImplementedException();
-        }
+      
 
         Task<Follow> IGenericRepository<Follow>.UpdateAsync(Follow entity)
         {

@@ -12,7 +12,7 @@ using Screamer.Presistance.DatabaseContext;
 namespace Screamer.Presistance.Migrations
 {
     [DbContext(typeof(ScreamerDbContext))]
-    [Migration("20230515093815_InitialMigration")]
+    [Migration("20230517183820_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
@@ -264,6 +264,114 @@ namespace Screamer.Presistance.Migrations
                     b.ToTable("Posts");
                 });
 
+            modelBuilder.Entity("Screamer.Domain.Entities.Connection", b =>
+                {
+                    b.Property<string>("ConnectionId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("GroupName")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Username")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ConnectionId");
+
+                    b.HasIndex("GroupName");
+
+                    b.ToTable("Connections");
+                });
+
+            modelBuilder.Entity("Screamer.Domain.Entities.Group", b =>
+                {
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Name");
+
+                    b.ToTable("Groups");
+                });
+
+            modelBuilder.Entity("Screamer.Domain.Entities.Message", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Content")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DateRead")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("MessageSent")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("RecipientDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("RecipientId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("RecipientId1")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("RecipientUsername")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("SenderDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("SenderId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("SenderId1")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("SenderUsername")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RecipientId1");
+
+                    b.HasIndex("SenderId1");
+
+                    b.ToTable("Messages");
+                });
+
+            modelBuilder.Entity("Screamer.Domain.Follow", b =>
+                {
+                    b.Property<string>("SourceUserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("TargetUserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("SourceUserId", "TargetUserId");
+
+                    b.HasIndex("TargetUserId");
+
+                    b.ToTable("Follows");
+                });
+
             modelBuilder.Entity("Screamer.Identity.Models.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
@@ -366,7 +474,7 @@ namespace Screamer.Presistance.Migrations
                         {
                             Id = "8e445865-a24d-4543-a6c6-9443d048cdb9",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "f74ef64f-9d2b-4252-8fc0-24c59811dd18",
+                            ConcurrencyStamp = "749301f0-0391-4230-b13f-4ad8179c5423",
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "admin@localhost.com",
                             EmailConfirmed = true,
@@ -375,9 +483,9 @@ namespace Screamer.Presistance.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@LOCALHOST.COM",
                             NormalizedUserName = "ADMIN@LOCALHOST.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEKRwHtrv4jb5HFs6K3B5iSzwsXf6jGWDfSOwD7XRZStJbRo4fHXgTWU/Zbx5gLXEkQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEC/ZpsWDz4KGX+K8V7jdsm4ok4XjfoRLGZIv4KR4hAeeeSvG2iWxQYGNaw5XwQNUDw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "0a8b5127-4f5a-45b9-90f1-d86652d1f0e8",
+                            SecurityStamp = "1bd2ff41-7294-4b7b-b254-1feb013e71f5",
                             TwoFactorEnabled = false,
                             UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UserName = "admin@localhost.com"
@@ -386,7 +494,7 @@ namespace Screamer.Presistance.Migrations
                         {
                             Id = "9e224968-33e4-4652-b7b7-8574d048cdb9",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "bb533ef5-df23-442e-97ba-3017898f4160",
+                            ConcurrencyStamp = "be21b0fc-78cd-49f3-8187-a645bb4d1621",
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "user@localhost.com",
                             EmailConfirmed = true,
@@ -395,9 +503,9 @@ namespace Screamer.Presistance.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "USER@LOCALHOST.COM",
                             NormalizedUserName = "USER@LOCALHOST.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEHLkmZPnpYekVjnE5FO/rl2h5+Q2rrZdQaJrKMUnAs3rC9PtN6xjy1eY5xMoCRnyng==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEONzQsuRqfr0/T2hbAmA50Qv5YJ9xJin0qbjn7ppdCgzARanY68ZKmagGH6tvV3cXQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "fd4340a7-5995-4300-9bd7-519bf509cb72",
+                            SecurityStamp = "5b293101-5987-4ce2-945c-85c2c576221a",
                             TwoFactorEnabled = false,
                             UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UserName = "user@localhost.com"
@@ -406,7 +514,7 @@ namespace Screamer.Presistance.Migrations
                         {
                             Id = "9e224968-33e4-4652-b7b7-agfddsr",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "94ff0c43-8755-40be-b823-60838d1bbb56",
+                            ConcurrencyStamp = "2071ffdd-2eec-40f6-b038-8057ad1c338d",
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "mod@localhost.com",
                             EmailConfirmed = true,
@@ -415,9 +523,9 @@ namespace Screamer.Presistance.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "MOD@LOCALHOST.COM",
                             NormalizedUserName = "MOD@LOCALHOST.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEAtWNRRK3WuVazCh00WNBMeYKqnUqngkhwd6bTfyCnhePNf2iYZxQzFZUQs+JId0IA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEJXNDqe67HbNEAePfdidK1TInbHwcg5GpOBUo1J7m8CyoaeFxu6PftTfBSswFGAzbQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "272acc70-68e5-46ec-af45-805fd301ee64",
+                            SecurityStamp = "f6f98f14-e7fa-4fe6-a00b-5f26bd906626",
                             TwoFactorEnabled = false,
                             UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UserName = "mod@localhost.com"
@@ -493,9 +601,65 @@ namespace Screamer.Presistance.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("Screamer.Domain.Entities.Connection", b =>
+                {
+                    b.HasOne("Screamer.Domain.Entities.Group", null)
+                        .WithMany("Connections")
+                        .HasForeignKey("GroupName");
+                });
+
+            modelBuilder.Entity("Screamer.Domain.Entities.Message", b =>
+                {
+                    b.HasOne("Screamer.Identity.Models.ApplicationUser", "Recipient")
+                        .WithMany("MessagesReceived")
+                        .HasForeignKey("RecipientId1")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("Screamer.Identity.Models.ApplicationUser", "Sender")
+                        .WithMany("MessagesSent")
+                        .HasForeignKey("SenderId1")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.Navigation("Recipient");
+
+                    b.Navigation("Sender");
+                });
+
+            modelBuilder.Entity("Screamer.Domain.Follow", b =>
+                {
+                    b.HasOne("Screamer.Identity.Models.ApplicationUser", "SourceUser")
+                        .WithMany("Following")
+                        .HasForeignKey("SourceUserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Screamer.Identity.Models.ApplicationUser", "TargetUser")
+                        .WithMany("Followers")
+                        .HasForeignKey("TargetUserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("SourceUser");
+
+                    b.Navigation("TargetUser");
+                });
+
+            modelBuilder.Entity("Screamer.Domain.Entities.Group", b =>
+                {
+                    b.Navigation("Connections");
+                });
+
             modelBuilder.Entity("Screamer.Identity.Models.ApplicationUser", b =>
                 {
                     b.Navigation("Avatars");
+
+                    b.Navigation("Followers");
+
+                    b.Navigation("Following");
+
+                    b.Navigation("MessagesReceived");
+
+                    b.Navigation("MessagesSent");
 
                     b.Navigation("Posts");
                 });

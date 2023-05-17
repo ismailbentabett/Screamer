@@ -35,6 +35,12 @@ public ICollection<Post> Posts { get; set; }
          public List<Follow> Followers { get; set; }
         public List<Follow> Following { get; set; }
         
+
+
+
+
+
+        
         /* 
 public string? VerificationToken { get; set; }
 public DateTime? VerifiedAt { get; set; }

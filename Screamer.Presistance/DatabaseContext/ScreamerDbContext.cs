@@ -44,20 +44,24 @@ namespace Screamer.Presistance.DatabaseContext
                 .HasOne(u => u.Sender)
                 .WithMany(m => m.MessagesSent)
                 .OnDelete(DeleteBehavior.Restrict);
+
             modelBuilder.Entity<Follow>()
                             .HasKey(k => new { k.SourceUserId, k.TargetUserId });
 
-            modelBuilder.Entity<Follow>()
-                .HasOne(s => s.SourceUser)
-                .WithMany(l => l.Following)
-                .HasForeignKey(s => s.SourceUserId)
-                .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<Follow>()
-                .HasOne(s => s.TargetUser)
-                .WithMany(l => l.Followers)
-                .HasForeignKey(s => s.TargetUserId)
-                .OnDelete(DeleteBehavior.Cascade);
+                .HasOne(u => u.SourceUser)
+                .WithMany(m => m.Following)
+                .HasForeignKey(f => f.SourceUserId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Follow>()
+                .HasOne(u => u.TargetUser)
+                .WithMany(m => m.Followers)
+                .HasForeignKey(f => f.TargetUserId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+                    
 
         }
 
