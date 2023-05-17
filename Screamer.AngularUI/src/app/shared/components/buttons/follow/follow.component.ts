@@ -31,6 +31,12 @@ constructor(
 }
 
 ngOnInit(): void {
+  this.followers = this.userService.getUserFollowers(
+    this.targetUser.id as any
+  )
+  this.followings = this.userService.getUserFollowing(
+    this.targetUser.id as any
+  )
 
 }
 
@@ -64,32 +70,5 @@ unfollow() {
   })
   }
 
-  getUserFollowers
-  (userId : string) {
-    this.userService.getFollows( {
-      predicate: 'followers',
-      pageNumber: this.followeParams.pageNumber,
-      pageSize: this.followeParams.pageSize,
-      userId: userId
 
-    } as FollowParams).subscribe({
-      next: (data) => {
-        this.followers = data;
-      }
-    })
-  }
-  getUserFollowing
-  (userId : string) {
-    this.userService.getFollows( {
-      predicate: 'following',
-      pageNumber: this.followeParams.pageNumber,
-      pageSize: this.followeParams.pageSize,
-      userId: userId
-
-    } as FollowParams).subscribe({
-      next: (data) => {
-        this.followings = data;
-      }
-    })
-  }
 }

@@ -21,7 +21,7 @@ export class UserService {
   users: User[] = [];
   userParams: UserParams | undefined;
   memberCache: any;
-
+  followeParams!: FollowParams;
   constructor(
     private http: HttpClient,
     private authService: AuthenticationService
@@ -105,7 +105,7 @@ export class UserService {
     return this.http.delete(this.baseUrl + 'User/delete-avatar/' + avatarId);
   }
 
-  addFollow( sourceUserId: string, targetUserId: string) {
+  addFollow(sourceUserId: string, targetUserId: string) {
     return this.http.post(
       this.baseUrl +
         `Follow` +
@@ -116,7 +116,7 @@ export class UserService {
       {}
     );
   }
-  removeFollow( sourceUserId: string, targetUserId: string) {
+  removeFollow(sourceUserId: string, targetUserId: string) {
     return this.http.delete(
       this.baseUrl +
         `Follow` +
@@ -128,10 +128,11 @@ export class UserService {
     );
   }
 
-  getFollows(
-   followParams : FollowParams
-  ) {
-    let params = getThePaginationHeaders(followParams.pageNumber, followParams.pageSize);
+  getFollows(followParams: FollowParams) {
+    let params = getThePaginationHeaders(
+      followParams.pageNumber,
+      followParams.pageSize
+    );
 
     params = params.append('predicate', followParams.predicate!);
     params = params.append('UserId', followParams.userId!.toString());
@@ -141,5 +142,30 @@ export class UserService {
       params,
       this.http
     );
+  }
+
+  getUserFollowers(userId: string) {
+    return this.getFollows({
+      predicate: 'followers',
+      pageNumber: this.followeParams.pageNumber,
+      pageSize: this.followeParams.pageSize,
+      userId: userId,
+    } as FollowParams).subscribe({
+      next: (data) => {
+        return data;
+      },
+    });
+  }
+  getUserFollowing(userId: string) {
+    return this.getFollows({
+      predicate: 'following',
+      pageNumber: this.followeParams.pageNumber,
+      pageSize: this.followeParams.pageSize,
+      userId: userId,
+    } as FollowParams).subscribe({
+      next: (data) => {
+        return data;
+      },
+    });
   }
 }
