@@ -20,9 +20,20 @@ namespace Screamer.Presistance.Repositories
 
 
 
-        public async Task<IEnumerable<Post>> GetPostsByUserId(string userId)
+        public async Task<PagedList<Post>> GetPostsByUserId(string userId, PostParams postParams
+)
         {
-            return await _context.Posts.Where(p => p.UserId == userId).AsNoTracking().ToListAsync();
+            var query = _context.Posts.AsQueryable();
+
+            query = query.Where(u => u.UserId == userId);
+
+            query = postParams.OrderBy switch
+            {
+                "CreatedAt" => query.OrderByDescending(u => u.CreatedAt),
+                _ => query.OrderByDescending(u => u.CreatedAt)
+            };
+
+            return await PagedList<Post>.CreateAsync(query, postParams.PageNumber, postParams.PageSize);
         }
 
 

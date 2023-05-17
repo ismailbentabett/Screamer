@@ -9,7 +9,7 @@ namespace Screamer.Application.Contracts.Presistance
 {
     public interface IPostRepository : IGenericRepository<Post>
     {
-        Task<IEnumerable<Post>> GetPostsByUserId(string userId);
+        Task<PagedList<Post>> GetPostsByUserId(string userId , PostParams  postParams);
         Task<PagedList<Post>> GetAllAsync(PostParams  postParams);
 
     }

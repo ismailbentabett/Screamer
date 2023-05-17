@@ -22,9 +22,10 @@ namespace Screamer.Application.Features.PostRequest.Queries.GetAllPostsRequest
 
         private readonly IUnitOfWork _uow;
 
+                private readonly IHttpContextAccessor _httpContextAccessor;
+
         private readonly IAppLogger<GetAllPostsRequestHandlerQuery> _logger;
 
-                private readonly IHttpContextAccessor _httpContextAccessor;
 
 
         public GetAllPostsRequestHandlerQuery(IPostRepository postRepository, IMapper mapper,

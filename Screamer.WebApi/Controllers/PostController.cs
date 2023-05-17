@@ -52,11 +52,17 @@ namespace Screamer.WebApi.Controllers
 
         //userid 
         [HttpGet("user/{id}")]
-        public async Task<IActionResult> GetPostsByUserId(string id)
+        public async Task<IActionResult> GetPostsByUserId(
+
+                        [FromQuery] PostParams postParams
+
+            , string userId
+        )
         {
             var query = new GetPostByUserIdRequestQuery
             {
-                UserId = id
+                postParams = postParams,
+                UserId = userId
             };
             var result = await _mediator.Send(query);
             return Ok(result);
