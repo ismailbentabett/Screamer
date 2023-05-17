@@ -31,18 +31,54 @@ constructor(
 }
 
 ngOnInit(): void {
-  this.followers = this.userService.getUserFollowers(
+   this.userService.getUserFollowers(
+    this.targetUser.id as any
+
+  )
+
+  console.log(
+    "followers" ,
+    this.followers
+  )
+   this.userService.getUserFollowing(
     this.targetUser.id as any
   )
-  this.followings = this.userService.getUserFollowing(
-    this.targetUser.id as any
-  )
+
+  this.userService.followers$
+  .pipe(take(1))
+  .subscribe({
+    next: (followers: any) => {
+      console.log(
+        "followers" ,
+        followers
+      )
+      this.followers = followers;
+    }
+  });
+  this.userService.followings$
+  .pipe(take(1))
+  .subscribe({
+    next: (followings: any) => {
+      console.log(
+        "followings" ,
+        followings
+      )
+      this.followings = followings;
+    }
+  });
 
 }
 
 follow() {
+  console.log(
+    "target" ,
+    this.sourceUser!.id as any   )
+  console.log(
+    "source" ,
+    this.targetUser!.id as any
+  )
   this.userService.addFollow(
-    this.sourceUser!.id as any,
+    this.sourceUser!.id as any ,
     this.targetUser!.id as any
   ).
   subscribe({

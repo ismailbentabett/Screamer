@@ -22,6 +22,11 @@ export class UserService {
   userParams: UserParams | undefined;
   memberCache: any;
   followeParams!: FollowParams;
+  private followersSource = new BehaviorSubject<any | null>(null);
+  followers$ = this.followersSource.asObservable();
+  private followingsSource = new BehaviorSubject<any | null>(null);
+  followings$ = this.followingsSource.asObservable();
+
   constructor(
     private http: HttpClient,
     private authService: AuthenticationService
@@ -33,6 +38,8 @@ export class UserService {
         }
       },
     });
+
+
   }
 
   getUserParams() {
@@ -105,25 +112,18 @@ export class UserService {
     return this.http.delete(this.baseUrl + 'User/delete-avatar/' + avatarId);
   }
 
-  addFollow(sourceUserId: string, targetUserId: string) {
+  addFollow(sourceUserId: any, targetUserId: any) {
     return this.http.post(
       this.baseUrl +
-        `Follow` +
-        {
-          targetUserId,
-          sourceUserId,
-        },
+        `Follow?targetUserId=${targetUserId}&sourceUserId=${sourceUserId}`,
       {}
     );
   }
+
   removeFollow(sourceUserId: string, targetUserId: string) {
     return this.http.delete(
       this.baseUrl +
-        `Follow` +
-        {
-          targetUserId,
-          sourceUserId,
-        },
+        `Follow?targetUserId=${targetUserId}&sourceUserId=${sourceUserId}`,
       {}
     );
   }
@@ -145,26 +145,29 @@ export class UserService {
   }
 
   getUserFollowers(userId: string) {
-    return this.getFollows({
+     this.getFollows({
       predicate: 'followers',
       pageNumber: this.followeParams.pageNumber,
       pageSize: this.followeParams.pageSize,
       userId: userId,
     } as FollowParams).subscribe({
       next: (data) => {
-        return data;
+          this.followersSource
+          .next(data);
       },
     });
   }
   getUserFollowing(userId: string) {
-    return this.getFollows({
+     this.getFollows({
       predicate: 'following',
       pageNumber: this.followeParams.pageNumber,
       pageSize: this.followeParams.pageSize,
       userId: userId,
     } as FollowParams).subscribe({
       next: (data) => {
-        return data;
+        console.log(data)
+        this.followingsSource
+          .next(data);
       },
     });
   }
