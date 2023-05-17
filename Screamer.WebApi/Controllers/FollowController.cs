@@ -2,9 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Screamer.Application.Contracts.Presistance;
 using Screamer.Application.Dtos;
+using Screamer.Application.Features.AvatarRequest.Commands.AddAvatarRequest;
 using Screamer.Application.Helpers;
 
 namespace Screamer.WebApi.Controllers
@@ -13,48 +15,43 @@ namespace Screamer.WebApi.Controllers
     [Route("api/[controller]")]
     public class FollowController : ControllerBase
     {
-        
- private readonly IUnitOfWork _uow;
-        public FollowController(IUnitOfWork uow)
+
+        private readonly IUnitOfWork _uow;
+        private readonly IMediator _mediator;
+
+        public FollowController(IUnitOfWork uow,
+        IMediator mediator
+        )
         {
             _uow = uow;
+            _mediator = mediator;
         }
 
-        [HttpPost("{username}")]
-        public async Task<ActionResult> AddFollow(string targetUserId , string sourceUserId)
+        [HttpPost("{targetUserId}")]
+        public async Task<ActionResult> AddFollow(string targetUserId, string sourceUserId)
         {
-            var followedUser = await _uow.UserRepository.GetUserByIdAsync(targetUserId);
-            var sourceUser = await _uow.FollowRepository.GetUserWithFollows(sourceUserId);
 
-            if (followedUser == null) return NotFound();
-
-            if (sourceUser.Id == sourceUserId) return BadRequest("You cannot like yourself");
-
-            var userFollow = await _uow.FollowRepository.GetUserFollow(sourceUserId, followedUser.Id);
-
-            if (userFollow != null) return BadRequest("You already like this user");
-
-            userFollow = new Domain.Follow
+            var command = new
+                AddFollowRequestCommand
             {
-                SourceUserId = sourceUserId,
-                TargetUserId = followedUser.Id
+                targetUserId = targetUserId,
+                sourceUserId = sourceUserId
             };
 
-            sourceUser.Following.Add(userFollow);
+            await _mediator.Send(command);
 
-            if (await _uow.Complete()) return Ok();
+            return Ok();
 
-            return BadRequest("Failed to like user");
         }
 
         [HttpGet]
-        public async Task<ActionResult<PagedList<FollowDto>>> GetUserFollows([FromQuery]FollowParams followParams , string userId)
+        public async Task<ActionResult<PagedList<FollowDto>>> GetUserFollows([FromQuery] FollowParams followParams, string userId)
         {
             followParams.UserId = userId;
 
             var users = await _uow.FollowRepository.GetUserFollows(followParams);
 
-            Response.AddPaginationHeader(new PaginationHeader(users.CurrentPage, 
+            Response.AddPaginationHeader(new PaginationHeader(users.CurrentPage,
                 users.PageSize, users.TotalCount, users.TotalPages));
 
             return Ok(users);
