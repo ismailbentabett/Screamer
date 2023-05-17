@@ -11,6 +11,8 @@ using Screamer.Application.Features.PostRequest.Commands.UpdatePostRequest;
 using Screamer.Application.Features.PostRequest.Queries.GetAllPostsRequest;
 using Screamer.Application.Features.PostRequest.Queries.GetPostByIdRequest;
 using Screamer.Application.Features.PostRequest.Queries.GetPostByUserIdRequest;
+using Screamer.Application.Helpers;
+
 namespace Screamer.WebApi.Controllers
 {
     [ApiController]
@@ -26,9 +28,14 @@ namespace Screamer.WebApi.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAllPosts()
+        public async Task<IActionResult> GetAllPosts(
+            [FromQuery] PostParams postParams
+        )
         {
-            var query = new GetAllPostsRequestQuery();
+            var query = new GetAllPostsRequestQuery
+            {
+                postParams = postParams
+            };
             var result = await _mediator.Send(query);
             return Ok(result);
         }
