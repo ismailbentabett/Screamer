@@ -4,6 +4,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using MediatR;
 using Screamer.Application.Dtos;
+using Screamer.Application.Helpers;
 
 namespace Screamer.Application.Features.PostRequest.Queries.GetAllPostsRequest;
-    public record GetAllPostsRequestQuery : IRequest<List<PostDto>>;
+    public record GetAllPostsRequestQuery : IRequest<List<PostDto>>{
+            public PostParams postParams { get; set; }
+
+
+         
+    }
+    

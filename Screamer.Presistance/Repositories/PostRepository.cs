@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Screamer.Application.Contracts.Presistance;
+using Screamer.Application.Helpers;
 using Screamer.Domain.Common;
 using Screamer.Presistance.DatabaseContext;
 
@@ -23,5 +24,27 @@ namespace Screamer.Presistance.Repositories
         {
             return await _context.Posts.Where(p => p.UserId == userId).AsNoTracking().ToListAsync();
         }
+
+
+
+        public async Task<PagedList<Post>> GetAllAsync(
+            PostParams postParams
+        )
+        {
+            var query = _context.Posts.AsQueryable();
+
+            query = postParams.OrderBy switch
+            {
+                "CreatedAt" => query.OrderByDescending(u => u.CreatedAt),
+                _ => query.OrderByDescending(u => u.CreatedAt)
+            };
+
+            return await PagedList<Post>.CreateAsync(query, postParams.PageNumber, postParams.PageSize);
+
+
+
+        }
+
+
     }
 }
