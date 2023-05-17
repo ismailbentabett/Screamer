@@ -107,7 +107,18 @@ export class UserService {
   addFollow(targetUserId: string, sourceUserId: string) {
     return this.http.post(
       this.baseUrl +
-        `Follow/${targetUserId}` +
+        `Follow` +
+        {
+          targetUserId,
+          sourceUserId,
+        },
+      {}
+    );
+  }
+  removeFollow(targetUserId: string, sourceUserId: string) {
+    return this.http.delete(
+      this.baseUrl +
+        `Follow` +
         {
           targetUserId,
           sourceUserId,
@@ -116,7 +127,12 @@ export class UserService {
     );
   }
 
-  getFollows(predicate: string, pageNumber: number, pageSize: number , userId : string) {
+  getFollows(
+    predicate: string,
+    pageNumber: number,
+    pageSize: number,
+    userId: string
+  ) {
     let params = getThePaginationHeaders(pageNumber, pageSize);
 
     params = params.append('predicate', predicate);

@@ -29,7 +29,7 @@ namespace Screamer.WebApi.Controllers
             _mediator = mediator;
         }
 
-        [HttpPost("{targetUserId}")]
+        [HttpPost]
         public async Task<ActionResult> AddFollow(string targetUserId, string sourceUserId)
         {
 
