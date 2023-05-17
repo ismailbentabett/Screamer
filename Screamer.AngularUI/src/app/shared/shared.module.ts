@@ -25,6 +25,7 @@ import { UserCardComponent } from './components/card/user-card/user-card.compone
 import { FollowComponent } from './components/buttons/follow/follow.component';
 import { ChatComponent } from './components/buttons/chat/chat.component';
 import { MessagesComponent } from './components/chat/messages/messages.component';
+import { UserPostListComponent } from './components/list/user-post-list/user-post-list.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { MessagesComponent } from './components/chat/messages/messages.component
     FollowComponent,
     ChatComponent,
     MessagesComponent,
+    UserPostListComponent
   ],
   imports: [CommonModule, HttpClientModule , RouterModule , FileUploadModule , NgxSpinnerModule , ReactiveFormsModule],
   exports : [
@@ -64,7 +66,8 @@ AvatarComponent,
 SafeHtmlPipe,
 UserCardComponent,
 FollowComponent,
-ChatComponent
+ChatComponent,
+UserPostListComponent
 
 
   ],
