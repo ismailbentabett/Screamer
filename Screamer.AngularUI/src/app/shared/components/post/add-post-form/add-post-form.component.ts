@@ -4,11 +4,32 @@ import { take } from 'rxjs';
 import { User } from 'src/app/core/models/User';
 import { AuthenticationService } from 'src/app/core/services/authentication.service';
 import { PostService } from 'src/app/core/services/post.service';
+import { trigger, state, style, transition, animate } from '@angular/animations';
 
 @Component({
   selector: 'app-add-post-form',
   templateUrl: './add-post-form.component.html',
-  styleUrls: ['./add-post-form.component.scss']
+  styleUrls: ['./add-post-form.component.scss'],
+  animations: [
+    trigger('dropdownAnimation', [
+      state(
+        'open',
+        style({
+          transform: 'opacity-100 scale-100',
+          opacity: 1,
+        })
+      ),
+      state(
+        'closed',
+        style({
+          transform: 'opacity-0 scale-95',
+          opacity: 0,
+        })
+      ),
+      transition('closed => open', animate('100ms ease-out')),
+      transition('open => closed', animate('75ms ease-in')),
+    ]),
+  ],
 })
 export class AddPostFormComponent {
   user!: User;
@@ -54,6 +75,22 @@ export class AddPostFormComponent {
         console.log(post);
       },
     });
+  }
+
+
+
+  isAssignOpen = false;
+  isLabelOpen = false;
+  isDueDateOpen = false;
+
+  toggleAssignDropdown() {
+    this.isAssignOpen = !this.isAssignOpen;
+  }
+  toggleLabelDropdown() {
+    this.isLabelOpen = !this.isLabelOpen;
+  }
+  toggleDueDateDropdown() {
+    this.isDueDateOpen = !this.isDueDateOpen;
   }
 
 }

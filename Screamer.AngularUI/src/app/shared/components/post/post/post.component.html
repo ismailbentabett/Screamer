@@ -23,6 +23,7 @@
           <div class="relative inline-block text-left">
             <div>
               <button
+              (click)="toggleDropdown()"
                 type="button"
                 class="-m-2 p-2 rounded-full flex items-center text-gray-400 hover:text-gray-600"
                 id="options-menu-0-button"
@@ -56,6 +57,8 @@
                 To: "transform opacity-0 scale-95"
             -->
             <div
+            [class.open]="isOpen"
+            [@dropdownAnimation]="isOpen ? 'open' : 'closed'"
               class="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
               role="menu"
               aria-orientation="vertical"
@@ -151,7 +154,7 @@
       </h2>
     </div>
     <div class="mt-2 text-sm text-gray-700 space-y-4">
-   {{post.content}}
+      {{ post.content }}
     </div>
     <div class="mt-6 flex justify-between space-x-8">
       <div class="flex space-x-6">

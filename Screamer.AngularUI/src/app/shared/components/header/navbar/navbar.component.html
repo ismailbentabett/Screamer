@@ -208,6 +208,8 @@
             >
               <span class="sr-only">Open user menu</span>
               <app-avatar
+              (click)="toggleDropdown()"
+
                 *ngIf="userData"
                 [user]="userData"
                 avatarStyle="h-8 w-8 rounded-full ring-4 ring-white sm:h-10 sm:w-10"
@@ -226,6 +228,7 @@
               To: "transform opacity-0 scale-95"
           -->
           <div
+          [class.open]="isOpen" [@dropdownAnimation]="isOpen ? 'open' : 'closed'"
             class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 py-1 focus:outline-none"
             role="menu"
             aria-orientation="vertical"
