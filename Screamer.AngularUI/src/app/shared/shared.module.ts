@@ -26,6 +26,7 @@ import { FollowComponent } from './components/buttons/follow/follow.component';
 import { ChatComponent } from './components/buttons/chat/chat.component';
 import { MessagesComponent } from './components/chat/messages/messages.component';
 import { UserPostListComponent } from './components/list/user-post-list/user-post-list.component';
+import { SideContentComponent } from './components/aside/side-content/side-content.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { UserPostListComponent } from './components/list/user-post-list/user-pos
     FollowComponent,
     ChatComponent,
     MessagesComponent,
-    UserPostListComponent
+    UserPostListComponent,
+    SideContentComponent
   ],
   imports: [CommonModule, HttpClientModule , RouterModule , FileUploadModule , NgxSpinnerModule , ReactiveFormsModule],
   exports : [
@@ -67,7 +69,8 @@ SafeHtmlPipe,
 UserCardComponent,
 FollowComponent,
 ChatComponent,
-UserPostListComponent
+UserPostListComponent,
+SideContentComponent
 
 
   ],
