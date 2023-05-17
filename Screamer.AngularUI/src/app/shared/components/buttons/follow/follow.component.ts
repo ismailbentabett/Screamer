@@ -18,7 +18,7 @@ export class FollowComponent {
   followers!: PaginatedResult<any>;
   followings!: PaginatedResult<any>;
 
-  constructor(public userService: UserService) {
+  constructor(private userService: UserService) {
     this.userService
       .getCurrentUserData()
       .pipe(take(1))
@@ -27,6 +27,8 @@ export class FollowComponent {
           this.sourceUser = user;
         },
       });
+
+
   }
 
   follow() {
@@ -39,9 +41,9 @@ export class FollowComponent {
 
   //ngoninit
   ngOnInit(): void {
-    this.userService.getUserFollowers(this.sourceUser.id as any);
+    this.userService.getUserFollowers(this.targetUser.id as any);
 
-    this.userService.getUserFollowing(this.sourceUser.id as any);
+    this.userService.getUserFollowing(this.targetUser.id as any);
   }
 
   unfollow() {
@@ -51,5 +53,4 @@ export class FollowComponent {
         next: () => {},
       });
   }
-
 }
