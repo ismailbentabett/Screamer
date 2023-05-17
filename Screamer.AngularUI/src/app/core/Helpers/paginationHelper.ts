@@ -29,7 +29,10 @@ export function getPaginationHeaders(
   pageSize: number
 ) {
   let params = new HttpParams();
-  params = params.append('userId', userId);
+  if(userId){
+    params = params.append('userId', userId);
+
+  }
 
   params = params.append('orderBy', orderBy);
 
