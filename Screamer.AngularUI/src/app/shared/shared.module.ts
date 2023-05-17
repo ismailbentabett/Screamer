@@ -24,6 +24,7 @@ import { SafeHtmlPipe } from './pipes/safe-html-pipe.pipe';
 import { UserCardComponent } from './components/card/user-card/user-card.component';
 import { FollowComponent } from './components/buttons/follow/follow.component';
 import { ChatComponent } from './components/buttons/chat/chat.component';
+import { MessagesComponent } from './components/chat/messages/messages.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { ChatComponent } from './components/buttons/chat/chat.component';
     SafeHtmlPipe,
     UserCardComponent,
     FollowComponent,
-    ChatComponent
+    ChatComponent,
+    MessagesComponent,
   ],
   imports: [CommonModule, HttpClientModule , RouterModule , FileUploadModule , NgxSpinnerModule , ReactiveFormsModule],
   exports : [
