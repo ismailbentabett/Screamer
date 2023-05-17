@@ -9,98 +9,47 @@ import { UserService } from 'src/app/core/services/user.service';
 @Component({
   selector: 'app-follow',
   templateUrl: './follow.component.html',
-  styleUrls: ['./follow.component.scss']
+  styleUrls: ['./follow.component.scss'],
 })
 export class FollowComponent {
-  @Input () targetUser ! : User;
-   sourceUser! : User;
-   followeParams! : FollowParams
-   followers! : PaginatedResult<any>;
-    followings! : PaginatedResult<any>;
+  @Input() targetUser!: User;
+  sourceUser!: User;
+  followeParams!: FollowParams;
+  followers!: PaginatedResult<any>;
+  followings!: PaginatedResult<any>;
 
-constructor(
-  private userService : UserService
-) {
-  this.userService
-  .getCurrentUserData()
-  .pipe(take(1))
-  .subscribe({
-    next: (user: any) => {
-      this.sourceUser = user;
-    },
-  });
-
-
-
-
-
-
-
-  this.userService.followers$
-  .pipe(take(1))
-  .subscribe({
-    next: (followers: any) => {
-
-      if (followers) {
-
-      this.followers = followers?.result;
-      }
-    }
-  });
-  this.userService.followings$
-  .pipe(take(1))
-  .subscribe({
-    next: (followings: any) => {
-      if (followings) {
-        this.followings = followings?.result;
-
-      }
-
-
-    }
-  });
-
-}
-
-follow() {
-
-  this.userService.addFollow(
-    this.sourceUser!.id as any ,
-    this.targetUser!.id as any
-  ).
-  subscribe({
-    next: () => {
-
-    }
-  })
-
-
-}
-
-//ngoninit
-  ngOnInit() : void {
-    this.userService.getUserFollowers(
-      this.targetUser.id as any
-
-    )
-
-
-     this.userService.getUserFollowing(
-      this.targetUser.id as any
-    )
+  constructor(public userService: UserService) {
+    this.userService
+      .getCurrentUserData()
+      .pipe(take(1))
+      .subscribe({
+        next: (user: any) => {
+          this.sourceUser = user;
+        },
+      });
   }
 
-unfollow() {
-  this.userService.removeFollow(
-    this.sourceUser!.id as any,
-    this.targetUser!.id as any
-  ).
-  subscribe({
-    next: () => {
-
-    }
-  })
+  follow() {
+    this.userService
+      .addFollow(this.sourceUser!.id as any, this.targetUser!.id as any)
+      .subscribe({
+        next: () => {},
+      });
   }
 
+  //ngoninit
+  ngOnInit(): void {
+    this.userService.getUserFollowers(this.sourceUser.id as any);
+
+    this.userService.getUserFollowing(this.sourceUser.id as any);
+  }
+
+  unfollow() {
+    this.userService
+      .removeFollow(this.sourceUser!.id as any, this.targetUser!.id as any)
+      .subscribe({
+        next: () => {},
+      });
+  }
 
 }
