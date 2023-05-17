@@ -51,12 +51,11 @@ namespace Screamer.WebApi.Controllers
         }
 
         //userid 
-        [HttpGet("user/{id}")]
+        [HttpGet("user")]
         public async Task<IActionResult> GetPostsByUserId(
 
-                        [FromQuery] PostParams postParams
-
-            , string userId
+                        [FromQuery] PostParams postParams,
+[FromQuery] string userId
         )
         {
             var query = new GetPostByUserIdRequestQuery

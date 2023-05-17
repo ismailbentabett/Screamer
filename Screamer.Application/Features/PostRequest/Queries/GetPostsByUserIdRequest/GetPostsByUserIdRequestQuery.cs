@@ -8,7 +8,7 @@ using Screamer.Application.Helpers;
 
 namespace Screamer.Application.Features.PostRequest.Queries.GetPostByUserIdRequest;
 
-    public record GetPostByUserIdRequestQuery : IRequest<PostDto>
+    public record GetPostByUserIdRequestQuery : IRequest<List<PostDto>>
 
     {
         

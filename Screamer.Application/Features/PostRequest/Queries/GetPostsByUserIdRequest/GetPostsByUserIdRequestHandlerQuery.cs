@@ -14,7 +14,7 @@ using Screamer.Application.Helpers;
 namespace Screamer.Application.Features.PostRequest.Queries.GetPostRequest
 {
     public class GetPostByUserIdRequestHandlerQuery : IRequestHandler<
-        GetPostByUserIdRequestQuery, PostDto
+        GetPostByUserIdRequestQuery,List<PostDto>
      >
     {
         private readonly IPostRepository _postRepository;
@@ -40,18 +40,21 @@ namespace Screamer.Application.Features.PostRequest.Queries.GetPostRequest
         }
 
 
-        public async Task<PostDto> Handle(GetPostByUserIdRequestQuery request, CancellationToken cancellationToken)
+        public async Task<List<PostDto>> Handle(GetPostByUserIdRequestQuery request, CancellationToken cancellationToken)
         {
-            var post = await _uow.PostRepository.GetPostsByUserId(request.UserId, request.postParams);
+            var posts = await _uow.PostRepository.GetPostsByUserId(request.UserId , 
+                request.postParams
+            )   
+            ;
 
             HttpContext httpContext = _httpContextAccessor.HttpContext;
             HttpResponse Response = httpContext.Response;
-            Response.AddPaginationHeader(new PaginationHeader(post.CurrentPage, post.PageSize,
-              post.TotalCount, post.TotalPages));
+            Response.AddPaginationHeader(new PaginationHeader(posts.CurrentPage, posts.PageSize,
+              posts.TotalCount, posts.TotalPages));
 
-            var data = _mapper.Map<PostDto>(post);
-
+            var data = _mapper.Map<List<PostDto>>(posts);
             return data;
+            
         }
     }
 }

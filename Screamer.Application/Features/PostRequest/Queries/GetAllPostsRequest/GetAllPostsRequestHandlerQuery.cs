@@ -14,7 +14,7 @@ namespace Screamer.Application.Features.PostRequest.Queries.GetAllPostsRequest
 {
     public class GetAllPostsRequestHandlerQuery : IRequestHandler<
         GetAllPostsRequestQuery,
-        IEnumerable<PostDto>
+        List<PostDto>
     >
     {
         private readonly IPostRepository _postRepository;
@@ -41,7 +41,7 @@ namespace Screamer.Application.Features.PostRequest.Queries.GetAllPostsRequest
             _httpContextAccessor = httpContextAccessor;
         }
 
-        public async Task<IEnumerable<PostDto>> Handle(GetAllPostsRequestQuery request, CancellationToken cancellationToken)
+        public async Task<List<PostDto>> Handle(GetAllPostsRequestQuery request, CancellationToken cancellationToken)
         {
           
             var posts = await _uow.PostRepository.GetAllAsync(request.postParams);
