@@ -20,25 +20,48 @@
       class="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full sm:p-6"
     >
       <div class="">
-        <div class="flow-root mt-6">
+        <div class="flow-root mt-6 p-5">
+          <div class="sm:block absolute top-0 right-0 pt-4 pr-4">
+            <button
+              type="button"
+              class="bg-white rounded-md text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              (click)="closePopup()"
+            >
+              <span class="sr-only">Close</span>
+              <!-- Heroicon name: outline/x -->
+              <svg
+                class="h-6 w-6"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                aria-hidden="true"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            </button>
+          </div>
           <ul role="list" class="-my-5 divide-y divide-gray-200">
-            <button (click)="closePopup()">close</button>
             <div *ngIf="Predicate == 'followers'">
-              <app-follow-card
-                *ngFor="let follow of followers"
-                [userid]="follow"
-              ></app-follow-card>
-            </div>
-            <div *ngIf="Predicate == 'following'">
-              <div *ngFor="let follow of followings">
-                {{typeofff(follow) }}
+              <div *ngFor="let follow of followers">
                 <app-follow-card
-                *ngIf="follow | json"
-
+                  *ngIf="follow | json"
                   [follow]="follow"
                 ></app-follow-card>
               </div>
-
+            </div>
+            <div *ngIf="Predicate == 'following'">
+              <div *ngFor="let follow of followings">
+                <app-follow-card
+                  *ngIf="follow | json"
+                  [follow]="follow"
+                ></app-follow-card>
+              </div>
             </div>
           </ul>
         </div>

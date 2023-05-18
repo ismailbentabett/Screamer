@@ -1,23 +1,20 @@
-
-{{user | json}}
 <li class="py-4" *ngIf="user">
   <div class="flex items-center space-x-4">
     <app-avatar
-
       *ngIf="user"
       [user]="user"
       avatarStyle="h-8 w-8 rounded-full ring-4 ring-white sm:h-10 sm:w-10"
     ></app-avatar>
     <div class="flex-1 min-w-0">
       <p class="text-sm font-medium text-gray-900 truncate">
-        {{user.firstName}} {{user.lastName}}
+        {{ user.firstName }} {{ user.lastName }}
       </p>
-      <p class="text-sm text-gray-500 truncate">@{{user.userName}}</p>
+      <p class="text-sm text-gray-500 truncate">@{{ user.userName }}</p>
     </div>
     <div>
       <a
-      [routerLink]="['/v/user', user.id]"
-      class="inline-flex items-center shadow-sm px-2.5 py-0.5 border border-gray-300 text-sm leading-5 font-medium rounded-full text-gray-700 bg-white hover:bg-gray-50"
+        [routerLink]="['/v/user', user.id]"
+        class="inline-flex items-center shadow-sm px-2.5 py-0.5 border border-gray-300 text-sm leading-5 font-medium rounded-full text-gray-700 bg-white hover:bg-gray-50"
       >
         View
       </a>
