@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { Follow } from 'src/app/core/models/Follow';
 import { FollowParams } from 'src/app/core/models/FollowParams';
 import { Pagination } from 'src/app/core/models/Pagination';
 import { ModalService } from 'src/app/core/services/modal.service';
@@ -17,8 +18,8 @@ export class FollowModalComponent {
   followersPagination: any;
   followingsPagination: any;
   @Input() user: any;
-  followers: any[] | undefined;
-  followings: any[] | undefined;
+  followers: Follow[] | undefined;
+  followings: Follow[] | undefined;
 
   constructor(
     public modalService: ModalService,
@@ -68,6 +69,9 @@ export class FollowModalComponent {
       },
     });
   }
+
+  typeofff(val : any): any { return typeof val }
+
   loadFollowings() {
     let parameters: FollowParams = {
       predicate: this.Predicate,
@@ -76,12 +80,15 @@ export class FollowModalComponent {
       userId: this.user.id as any,
     };
 
+
+
     this.userService.getFollows(parameters).subscribe({
       next: (response) => {
+
+        this.followings = response.result as Array<Follow>;
         console.log(
-          response
+          this.followings
         )
-        this.followings = response.result;
         this.followingsPagination = response.pagination;
       },
     });

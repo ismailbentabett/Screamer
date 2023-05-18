@@ -22,30 +22,23 @@
       <div class="">
         <div class="flow-root mt-6">
           <ul role="list" class="-my-5 divide-y divide-gray-200">
-followers {{
-  followers
-}}
-<br>
-followings {{
-  followings
-}}
-<br>
-Predicate {{
-  Predicate
-}}
-
-<button (click)="closePopup()">close</button>
+            <button (click)="closePopup()">close</button>
             <div *ngIf="Predicate == 'followers'">
               <app-follow-card
                 *ngFor="let follow of followers"
-                [userid]="follow.userId"
+                [userid]="follow"
               ></app-follow-card>
             </div>
             <div *ngIf="Predicate == 'following'">
-              <app-follow-card
-                *ngFor="let follow of followings"
-                [userid]="follow.userId"
-              ></app-follow-card>
+              <div *ngFor="let follow of followings">
+                {{typeofff(follow) }}
+                <app-follow-card
+                *ngIf="follow | json"
+
+                  [follow]="follow"
+                ></app-follow-card>
+              </div>
+
             </div>
           </ul>
         </div>
