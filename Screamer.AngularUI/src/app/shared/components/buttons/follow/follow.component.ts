@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { take } from 'rxjs';
 import { Follow } from 'src/app/core/models/Follow';
 import { FollowParams } from 'src/app/core/models/FollowParams';
-import { PaginatedResult } from 'src/app/core/models/Pagination';
+import { PaginatedResult, Pagination } from 'src/app/core/models/Pagination';
 import { User } from 'src/app/core/models/User';
 import { UserService } from 'src/app/core/services/user.service';
 
@@ -14,19 +14,24 @@ import { UserService } from 'src/app/core/services/user.service';
 export class FollowComponent {
   @Input() targetUser!: User;
   sourceUser!: User;
-  followeParams!: FollowParams;
-  followers!: PaginatedResult<any>;
-  followings!: PaginatedResult<any>;
+  followeParams!: any;
+  followings!: any;
+  followers!: any;
+
+
+
+  followersPredicate = 'followers';
+  followingPredicate = 'following';
+  pageNumber = 1;
+  pageSize = 5;
+  followersPagination: Pagination | undefined;
+
+  followingsPagination: Pagination | undefined;
+
+
 
   constructor(private userService: UserService) {
-    this.userService
-      .getCurrentUserData()
-      .pipe(take(1))
-      .subscribe({
-        next: (user: any) => {
-          this.sourceUser = user;
-        },
-      });
+
 
 
   }
@@ -35,22 +40,96 @@ export class FollowComponent {
     this.userService
       .addFollow(this.sourceUser!.id as any, this.targetUser!.id as any)
       .subscribe({
-        next: () => {},
+        next: () => {
+
+        },
       });
   }
 
   //ngoninit
   ngOnInit(): void {
-    this.userService.getUserFollowers(this.targetUser.id as any);
+    this.userService
+      .getCurrentUserData()
+      .pipe(take(1))
+      .subscribe({
+        next: (user: any) => {
+          this.sourceUser = user;
+          this.loadFollowers();
+          this.loadFollowings();
+        },
+      });
 
-    this.userService.getUserFollowing(this.targetUser.id as any);
+
+
+    console.log(
+      'this.followersPagination',
+      this.followersPagination,
+      'this.followingsPagination',
+      this.followingsPagination
+
+    )
+    console.log(
+      'this.followers',
+      this.followers,
+      'this.followings',
+      this.followings
+    )
+
+
+
   }
 
   unfollow() {
+
     this.userService
       .removeFollow(this.sourceUser!.id as any, this.targetUser!.id as any)
       .subscribe({
         next: () => {},
       });
+  }
+
+
+  loadFollowers() {
+    let parameters : FollowParams = {
+      predicate: "followers",
+      pageNumber: this.pageNumber,
+      pageSize: this.pageSize,
+        userId :     this.sourceUser.id as any
+    }
+
+    console.log(
+      parameters
+    )
+    this.userService.getFollows(parameters).subscribe({
+      next: response => {
+        console.log(response)
+        this.followers = response.result ;
+        this.followersPagination = response.pagination;
+      }
+    })
+  }
+  loadFollowings() {
+
+    let parameters : FollowParams = {
+      predicate: this.followingPredicate,
+      pageNumber: this.pageNumber,
+      pageSize: this.pageSize,
+        userId :     this.sourceUser.id as any
+    }
+
+    this.userService.getFollows(parameters).subscribe({
+      next: response => {
+        this.followings = response.result;
+        this.followingsPagination = response.pagination;
+      }
+    })
+  }
+
+  pageChanged(event: any) {
+    if (this.pageNumber !== event.page) {
+      this.pageNumber = event.page;
+      this.loadFollowers();
+      this.loadFollowings();
+    }
   }
 }

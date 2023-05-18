@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Screamer.Presistance.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialMigration : Migration
+    public partial class INitialMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -324,9 +324,9 @@ namespace Screamer.Presistance.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "AvatarUrl", "Bio", "Birthday", "ConcurrencyStamp", "CreatedAt", "Email", "EmailConfirmed", "FirstName", "Gender", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "Password", "PasswordHash", "Phone", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UpdatedAt", "UserName", "Website" },
                 values: new object[,]
                 {
-                    { "8e445865-a24d-4543-a6c6-9443d048cdb9", 0, null, null, null, "749301f0-0391-4230-b13f-4ad8179c5423", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "admin@localhost.com", true, "System", null, "Admin", false, null, "ADMIN@LOCALHOST.COM", "ADMIN@LOCALHOST.COM", null, "AQAAAAIAAYagAAAAEC/ZpsWDz4KGX+K8V7jdsm4ok4XjfoRLGZIv4KR4hAeeeSvG2iWxQYGNaw5XwQNUDw==", null, null, false, "1bd2ff41-7294-4b7b-b254-1feb013e71f5", false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "admin@localhost.com", null },
-                    { "9e224968-33e4-4652-b7b7-8574d048cdb9", 0, null, null, null, "be21b0fc-78cd-49f3-8187-a645bb4d1621", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "user@localhost.com", true, "System", null, "User", false, null, "USER@LOCALHOST.COM", "USER@LOCALHOST.COM", null, "AQAAAAIAAYagAAAAEONzQsuRqfr0/T2hbAmA50Qv5YJ9xJin0qbjn7ppdCgzARanY68ZKmagGH6tvV3cXQ==", null, null, false, "5b293101-5987-4ce2-945c-85c2c576221a", false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "user@localhost.com", null },
-                    { "9e224968-33e4-4652-b7b7-agfddsr", 0, null, null, null, "2071ffdd-2eec-40f6-b038-8057ad1c338d", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "mod@localhost.com", true, "System", null, "Mod", false, null, "MOD@LOCALHOST.COM", "MOD@LOCALHOST.COM", null, "AQAAAAIAAYagAAAAEJXNDqe67HbNEAePfdidK1TInbHwcg5GpOBUo1J7m8CyoaeFxu6PftTfBSswFGAzbQ==", null, null, false, "f6f98f14-e7fa-4fe6-a00b-5f26bd906626", false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "mod@localhost.com", null }
+                    { "8e445865-a24d-4543-a6c6-9443d048cdb9", 0, null, null, null, "38936be5-ed90-4efd-9b92-dff8dad51fbd", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "admin@localhost.com", true, "System", null, "Admin", false, null, "ADMIN@LOCALHOST.COM", "ADMIN@LOCALHOST.COM", null, "AQAAAAIAAYagAAAAELwlhFKGEbRdAKnNs2zE4bRnJQ32mWwYPspfWbb0QMrX2Bdj5NelR092MEmJFYawtA==", null, null, false, "01197dc3-7b06-4959-8098-512d09883cca", false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "admin@localhost.com", null },
+                    { "9e224968-33e4-4652-b7b7-8574d048cdb9", 0, null, null, null, "37fddefe-7575-48e3-a978-038ae0c9eff5", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "user@localhost.com", true, "System", null, "User", false, null, "USER@LOCALHOST.COM", "USER@LOCALHOST.COM", null, "AQAAAAIAAYagAAAAEJgrCkfGDjvsi0Hwka4LnooaP1y5ctdwCPv0BUBl3MBA6Ssv2PKQjSkTumAby56DKA==", null, null, false, "a6b86878-8ac3-439a-a390-73b9caa4ea7d", false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "user@localhost.com", null },
+                    { "9e224968-33e4-4652-b7b7-agfddsr", 0, null, null, null, "554c5ac5-32d3-480f-9a3d-09a128f487d8", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "mod@localhost.com", true, "System", null, "Mod", false, null, "MOD@LOCALHOST.COM", "MOD@LOCALHOST.COM", null, "AQAAAAIAAYagAAAAEDQarDzyZ6G7MvTJX2SBxf80GzU/X1mj0kDGiyVyF66dvXvMYcmyUJCwaGvOoJe7GA==", null, null, false, "b551650d-b6a2-404f-b2ba-ca3236d0c7dc", false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "mod@localhost.com", null }
                 });
 
             migrationBuilder.InsertData(

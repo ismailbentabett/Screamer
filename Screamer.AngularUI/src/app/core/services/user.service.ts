@@ -22,10 +22,6 @@ export class UserService {
   userParams: UserParams | undefined;
   memberCache: any;
   followeParams!: FollowParams;
-  private followersSource = new BehaviorSubject<any | null>(null);
-  followers$ = this.followersSource.asObservable();
-  private followingsSource = new BehaviorSubject<any | null>(null);
-  followings$ = this.followingsSource.asObservable();
 
   constructor(
     private http: HttpClient,
@@ -124,6 +120,7 @@ export class UserService {
   }
 
   getFollows(followParams: FollowParams) {
+
     let params = getThePaginationHeaders(
       followParams.pageNumber,
       followParams.pageSize
@@ -139,27 +136,6 @@ export class UserService {
     );
   }
 
-  getUserFollowers(userId: string) {
-    let followParams: FollowParams = {
-      predicate: 'following',
-      pageNumber: 1,
-      pageSize: 5,
-      userId: userId,
-    };
-    this.getFollows(followParams).subscribe((data) => {
-      this.followersSource.next(data);
-    });
-  }
 
-  getUserFollowing(userId: string) {
-    let followParams: FollowParams = {
-      predicate: 'followers',
-      pageNumber: 1,
-      pageSize: 5,
-      userId: userId,
-    };
-    this.getFollows(followParams).subscribe((data) => {
-      this.followingsSource.next(data);
-    });
-  }
+
 }

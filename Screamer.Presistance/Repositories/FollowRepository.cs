@@ -31,13 +31,13 @@ namespace Screamer.Presistance.Repositories
             var users = _context.Users.OrderBy(u => u.UserName).AsQueryable();
             var follows = _context.Follows.AsQueryable();
 
-            if (followParams.Predicate == "followers")
+            if (followParams.Predicate == "following")
             {
                 follows = follows.Where(follow => follow.SourceUserId == followParams.UserId);
                 users = follows.Select(follow => follow.TargetUser);
             }
 
-            if (followParams.Predicate == "following")
+            if (followParams.Predicate == "followers")
             {
                 follows = follows.Where(follow => follow.TargetUserId == followParams.UserId);
                 users = follows.Select(follow => follow.SourceUser);
