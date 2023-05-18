@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { take } from 'rxjs';
+import { find, take } from 'rxjs';
 import { Follow } from 'src/app/core/models/Follow';
 import { FollowParams } from 'src/app/core/models/FollowParams';
 import { PaginatedResult, Pagination } from 'src/app/core/models/Pagination';
@@ -27,7 +27,8 @@ export class FollowComponent {
   followersPagination: Pagination | undefined;
 
   followingsPagination: Pagination | undefined;
-
+isUserInMyFollowers : boolean = false;
+isUserInMyFollowings : boolean = false;
 
 
   constructor(private userService: UserService) {
@@ -105,6 +106,8 @@ export class FollowComponent {
         console.log(response)
         this.followers = response.result ;
         this.followersPagination = response.pagination;
+        this.isUserInMyFollowers = this.followers.some
+        ((x : any) => x.userId === this.targetUser.id);
       }
     })
   }
@@ -121,6 +124,8 @@ export class FollowComponent {
       next: response => {
         this.followings = response.result;
         this.followingsPagination = response.pagination;
+        this.isUserInMyFollowings =
+        this.followings.some((x : any) => x.userId === this.targetUser.id);
       }
     })
   }
@@ -132,4 +137,6 @@ export class FollowComponent {
       this.loadFollowings();
     }
   }
+
+
 }

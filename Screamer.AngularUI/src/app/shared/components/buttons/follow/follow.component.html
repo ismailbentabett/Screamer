@@ -1,5 +1,6 @@
 <button
-(click)="follow()"
+  *ngIf="!isUserInMyFollowings"
+  (click)="follow()"
   type="button"
   class="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-base font-medium rounded-md text-white bg-dodger-blue-600 hover:bg-dodger-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-dodger-blue-500"
 >
@@ -16,9 +17,11 @@
   </svg>
 </button>
 <button
-(click)="unfollow()"
+  *ngIf="isUserInMyFollowings"
+  (click)="unfollow()"
   type="button"
-  class="inline-flex items-center px-4 py-2 border border-dodger-blue-300 shadow-sm text-sm font-medium rounded-md text-dodger-blue-700 bg-white hover:bg-dodger-blue-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+  class="inline-flex items-center px-4 py-2 border border-dodger-blue-300 shadow-sm text-sm font-medium rounded-md text-dodger-blue-700 bg-white hover:bg-dodger-blue-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+>
   UnFollow
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -31,14 +34,3 @@
     />
   </svg>
 </button>
-
-
-
-<h1>
-  {{followers | json}}
-</h1>
-<h1>
-  {{
-    followings | json
-  }}
-</h1>
