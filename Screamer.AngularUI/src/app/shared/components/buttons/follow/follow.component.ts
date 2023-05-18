@@ -42,7 +42,8 @@ isUserInMyFollowings : boolean = false;
       .addFollow(this.sourceUser!.id as any, this.targetUser!.id as any)
       .subscribe({
         next: () => {
-
+          this.loadFollowers();
+          this.loadFollowings();
         },
       });
   }
@@ -85,7 +86,10 @@ isUserInMyFollowings : boolean = false;
     this.userService
       .removeFollow(this.sourceUser!.id as any, this.targetUser!.id as any)
       .subscribe({
-        next: () => {},
+        next: () => {
+          this.loadFollowers();
+          this.loadFollowings();
+        },
       });
   }
 
