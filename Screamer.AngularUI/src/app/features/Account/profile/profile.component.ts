@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { take } from 'rxjs';
 import { BusyService } from 'src/app/core/services/busy.service';
+import { ModalService } from 'src/app/core/services/modal.service';
 import { UserService } from 'src/app/core/services/user.service';
 
 @Component({
@@ -11,19 +12,25 @@ import { UserService } from 'src/app/core/services/user.service';
 })
 export class ProfileComponent {
   user: any;
-  currentUser : any;
+  currentUser: any;
+  isOpen: boolean = false;
   /**
    *
    */
-  constructor(private userService: UserService ,  private busyService : BusyService , private route: ActivatedRoute) {
-    this.busyService.busy()
+  constructor(
+    private userService: UserService,
+    private busyService: BusyService,
+    private route: ActivatedRoute,
+    public modalService: ModalService
+  ) {
+    this.busyService.busy();
     this.userService
       .getCurrentUserData()
       .pipe(take(1))
       .subscribe({
         next: (user: any) => {
           this.currentUser = user;
-          this.busyService.idle()
+          this.busyService.idle();
         },
       });
   }
@@ -34,8 +41,10 @@ export class ProfileComponent {
           this.user = user;
         },
       });
-    }
+    });
+  }
 
-    );
+  openPopup() {
+    this.modalService.openPopup();
   }
 }

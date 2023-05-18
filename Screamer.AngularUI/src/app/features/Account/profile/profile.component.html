@@ -1,201 +1,222 @@
-
 <div class="min-h-full">
-
-
   <div class="py-10">
-    <div class="max-w-3xl mx-auto sm:px-6 lg:max-w-7xl lg:px-8 lg:grid lg:grid-cols-12 lg:gap-8">
-<div class="hidden lg:block lg:col-span-3 xl:col-span-2">
-  <app-sidebar></app-sidebar>
+    <div
+      class="max-w-3xl mx-auto sm:px-6 lg:max-w-7xl lg:px-8 lg:grid lg:grid-cols-12 lg:gap-8"
+    >
+      <div class="hidden lg:block lg:col-span-3 xl:col-span-2">
+        <app-sidebar></app-sidebar>
+      </div>
+      <!-- Off-canvas menu for mobile, show/hide based on off-canvas menu state. -->
 
-</div>
-  <!-- Off-canvas menu for mobile, show/hide based on off-canvas menu state. -->
-
-    <main class="lg:col-span-9 xl:col-span-6"  *ngIf="user">
-
-      <!-- Breadcrumb -->
-      <nav
-        class="flex items-start px-4 py-3 sm:px-6 lg:px-8 xl:hidden"
-        aria-label="Breadcrumb"
-      >
-        <a
-          href="#"
-          class="inline-flex items-center space-x-3 text-sm font-medium text-gray-900"
+      <main class="lg:col-span-9 xl:col-span-6" *ngIf="user">
+        <!-- Breadcrumb -->
+        <nav
+          class="flex items-start px-4 py-3 sm:px-6 lg:px-8 xl:hidden"
+          aria-label="Breadcrumb"
         >
-          <!-- Heroicon name: solid/chevron-left -->
-          <svg
-            class="-ml-2 h-5 w-5 text-gray-400"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 20 20"
-            fill="currentColor"
-            aria-hidden="true"
+          <a
+            href="#"
+            class="inline-flex items-center space-x-3 text-sm font-medium text-gray-900"
           >
-            <path
-              fill-rule="evenodd"
-              d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
-              clip-rule="evenodd"
-            />
-          </svg>
-          <span>Directory</span>
-        </a>
-      </nav>
+            <!-- Heroicon name: solid/chevron-left -->
+            <svg
+              class="-ml-2 h-5 w-5 text-gray-400"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+              aria-hidden="true"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+                clip-rule="evenodd"
+              />
+            </svg>
+            <span>Directory</span>
+          </a>
+        </nav>
 
-      <article>
-        <!-- Profile header -->
-        <div>
+        <article>
+          <!-- Profile header -->
           <div>
-            <img
-              class="h-32 w-full object-cover lg:h-48"
-              src="https://images.unsplash.com/photo-1444628838545-ac4016a5418a?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80"
-              alt=""
-            />
-          </div>
-          <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="-mt-12 sm:-mt-16 sm:flex sm:items-end sm:space-x-5">
-              <app-avatar
-                [user]="user"
-                avatarStyle="h-24 w-24 rounded-full ring-4 ring-white sm:h-32 sm:w-32"
-              ></app-avatar>
+            <div>
+              <img
+                class="h-32 w-full object-cover lg:h-48"
+                src="https://images.unsplash.com/photo-1444628838545-ac4016a5418a?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80"
+                alt=""
+              />
+            </div>
+            <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+              <div class="-mt-12 sm:-mt-16 sm:flex sm:items-end sm:space-x-5">
+                <app-avatar
+                  [user]="user"
+                  avatarStyle="h-24 w-24 rounded-full ring-4 ring-white sm:h-32 sm:w-32"
+                ></app-avatar>
 
-              <div
-                class="mt-6 sm:flex-1 sm:min-w-0 sm:flex sm:items-center sm:justify-end sm:space-x-6 sm:pb-1"
-              >
-                <div class="sm:hidden 2xl:block mt-6 min-w-0 flex-1">
-                  <h1 class="text-2xl font-bold text-gray-900 truncate">
-                    {{ user.userName }}
-                    <span>(</span>
-                    {{ user.firstName }}
-                    {{ user.lastName }}
-                    <span>)</span>
-                  </h1>
-                </div>
                 <div
-                  class="mt-6 flex flex-col justify-stretch space-y-3 sm:flex-row sm:space-y-0 sm:space-x-4"
+                  class="mt-6 sm:flex-1 sm:min-w-0 sm:flex sm:items-center sm:justify-end sm:space-x-6 sm:pb-1"
                 >
-                  <app-chat *ngIf="user.id != currentUser.id"></app-chat>
-                  <app-follow *ngIf="user.id != currentUser.id"
-                  [targetUser]="user "
-
-                  ></app-follow>
+                  <div class="sm:hidden 2xl:block mt-6 min-w-0 flex-1">
+                    <h1 class="text-2xl font-bold text-gray-900 truncate">
+                      {{ user.userName }}
+                      <span>(</span>
+                      {{ user.firstName }}
+                      {{ user.lastName }}
+                      <span>)</span>
+                    </h1>
+                  </div>
+                  <div
+                    class="mt-6 flex flex-col justify-stretch space-y-3 sm:flex-row sm:space-y-0 sm:space-x-4"
+                  >
+                    <app-chat *ngIf="user.id != currentUser.id"></app-chat>
+                    <app-follow
+                      *ngIf="user.id != currentUser.id"
+                      [targetUser]="user"
+                    ></app-follow>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div class="hidden sm:block 2xl:hidden mt-6 min-w-0 flex-1">
-              <h1 class="text-2xl font-bold text-gray-900 truncate">
-                {{ user.userName }}
-                <span>(</span>
-                {{ user.firstName }}
-                {{ user.lastName }}
-                <span>)</span>
-              </h1>
-            </div>
-          </div>
-        </div>
-
-        <!-- Tabs -->
-        <div class="mt-6 sm:mt-2 2xl:mt-5">
-          <div class="border-b border-gray-200">
-            <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-              <nav class="-mb-px flex space-x-8" aria-label="Tabs">
-                <!-- Current: "border-dodger-blue-500 text-gray-900", Default: "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300" -->
-                <a
-                  href="#"
-                  class="border-dodger-blue-500 text-gray-900 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm"
-                  aria-current="page"
-                >
-                  Profile
-                </a>
-
-                <a
-                  href="#"
-                  class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm"
-                >
-                  Calendar
-                </a>
-
-                <a
-                  href="#"
-                  class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm"
-                >
-                  Recognition
-                </a>
-              </nav>
+              <div class="hidden sm:block 2xl:hidden mt-6 min-w-0 flex-1">
+                <h1 class="text-2xl font-bold text-gray-900 truncate">
+                  {{ user.userName }}
+                  <span>(</span>
+                  {{ user.firstName }}
+                  {{ user.lastName }}
+                  <span>)</span>
+                </h1>
+              </div>
             </div>
           </div>
-        </div>
+          <!--  follow Tabs -->
+          <div class="mt-6 sm:mt-2 2xl:mt-5">
+            <div class="">
+              <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+                <nav class="-mb-px flex space-x-8" aria-label="Tabs">
+                  <!-- Current: "border-dodger-blue-500 text-gray-900", Default: "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300" -->
+                  <a
+                    (click)="openPopup()"
+                    class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm cursor-pointer"
+                    aria-current="page"
+                  >
+                    Followers
+                  </a>
 
-        <!-- Description list -->
-        <div class="mt-6 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <dl class="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
-            <div class="sm:col-span-1">
-              <dt class="text-sm font-medium text-gray-500">Phone</dt>
-              <dd class="mt-1 text-sm text-gray-900">
-                {{ user.phone ?? "N/A" }}
-              </dd>
+                  <a
+                    (click)="openPopup()"
+                    class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm cursor-pointer"
+                  >
+                    Following
+                  </a>
+                </nav>
+                <app-follow-modal
+                ></app-follow-modal>
+              </div>
             </div>
+          </div>
+          <!-- Tabs -->
+          <div class="mt-6 sm:mt-2 2xl:mt-5">
+            <div class="border-b border-gray-200">
+              <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+                <nav class="-mb-px flex space-x-8" aria-label="Tabs">
+                  <!-- Current: "border-dodger-blue-500 text-gray-900", Default: "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300" -->
+                  <a
+                    href="#"
+                    class="border-dodger-blue-500 text-gray-900 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm"
+                    aria-current="page"
+                  >
+                    Profile
+                  </a>
 
-            <div class="sm:col-span-1">
-              <dt class="text-sm font-medium text-gray-500">Email</dt>
-              <dd class="mt-1 text-sm text-gray-900">
-                {{ user.email }}
-              </dd>
-            </div>
+                  <a
+                    href="#"
+                    class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm"
+                  >
+                    Calendar
+                  </a>
 
-            <div class="sm:col-span-1">
-              <dt class="text-sm font-medium text-gray-500">Sits</dt>
-              <dd class="mt-1 text-sm text-gray-900">Oasis, 4th floor</dd>
+                  <a
+                    href="#"
+                    class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm"
+                  >
+                    Recognition
+                  </a>
+                </nav>
+              </div>
             </div>
+          </div>
 
-            <div class="sm:col-span-1">
-              <dt class="text-sm font-medium text-gray-500">Website</dt>
-              <dd class="mt-1 text-sm text-gray-900">
-                {{ user.website ?? "N/A" }}
-              </dd>
-            </div>
+          <!-- Description list -->
+          <div class="mt-6 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <dl class="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
+              <div class="sm:col-span-1">
+                <dt class="text-sm font-medium text-gray-500">Phone</dt>
+                <dd class="mt-1 text-sm text-gray-900">
+                  {{ user.phone ?? "N/A" }}
+                </dd>
+              </div>
 
-            <div class="sm:col-span-1">
-              <dt class="text-sm font-medium text-gray-500">Birthday</dt>
-              <dd class="mt-1 text-sm text-gray-900">
-                {{ user.birthday ?? "N/A" }}
-              </dd>
-            </div>
-            <div class="sm:col-span-1">
-              <dt class="text-sm font-medium text-gray-500">gender</dt>
-              <dd class="mt-1 text-sm text-gray-900">
-                {{ user.gender ?? "N/A" }}
-              </dd>
-            </div>
+              <div class="sm:col-span-1">
+                <dt class="text-sm font-medium text-gray-500">Email</dt>
+                <dd class="mt-1 text-sm text-gray-900">
+                  {{ user.email }}
+                </dd>
+              </div>
 
-            <div class="sm:col-span-2">
-              <dt class="text-sm font-medium text-gray-500">bio</dt>
-              <dd class="mt-1 max-w-pdodger-blue text-sm text-gray-900 space-y-5">
-                {{ user.bio ?? "No bio yet" }}
-              </dd>
-            </div>
-          </dl>
-        </div>
+              <div class="sm:col-span-1">
+                <dt class="text-sm font-medium text-gray-500">Sits</dt>
+                <dd class="mt-1 text-sm text-gray-900">Oasis, 4th floor</dd>
+              </div>
 
-        <!-- Team member list -->
-        <div class="mt-8 max-w-5xl mx-auto px-4 pb-12 sm:px-6 lg:px-8">
-          <h2 class="text-sm font-medium text-gray-500">Posts</h2>
+              <div class="sm:col-span-1">
+                <dt class="text-sm font-medium text-gray-500">Website</dt>
+                <dd class="mt-1 text-sm text-gray-900">
+                  {{ user.website ?? "N/A" }}
+                </dd>
+              </div>
+
+              <div class="sm:col-span-1">
+                <dt class="text-sm font-medium text-gray-500">Birthday</dt>
+                <dd class="mt-1 text-sm text-gray-900">
+                  {{ user.birthday ?? "N/A" }}
+                </dd>
+              </div>
+              <div class="sm:col-span-1">
+                <dt class="text-sm font-medium text-gray-500">gender</dt>
+                <dd class="mt-1 text-sm text-gray-900">
+                  {{ user.gender ?? "N/A" }}
+                </dd>
+              </div>
+
+              <div class="sm:col-span-2">
+                <dt class="text-sm font-medium text-gray-500">bio</dt>
+                <dd
+                  class="mt-1 max-w-pdodger-blue text-sm text-gray-900 space-y-5"
+                >
+                  {{ user.bio ?? "No bio yet" }}
+                </dd>
+              </div>
+            </dl>
+          </div>
+
+          <!-- Team member list -->
+          <div class="mt-8 max-w-5xl mx-auto px-4 pb-12 sm:px-6 lg:px-8">
+            <h2 class="text-sm font-medium text-gray-500">Posts</h2>
             <app-user-post-list></app-user-post-list>
-
           </div>
-      </article>
-
-    </main>
-     <aside class="hidden xl:block xl:col-span-4">
+        </article>
+      </main>
+      <aside class="hidden xl:block xl:col-span-4">
         <app-side-content></app-side-content>
       </aside>
+    </div>
+
+    <ngx-spinner
+      bdColor="rgba(51,51,51,0.8)"
+      size="medium"
+      color="#fff"
+      type="ball-scale-multiple"
+    >
+      <p style="font-size: 20px; color: white">Loading...</p>
+    </ngx-spinner>
+  </div>
 </div>
-
-
-<ngx-spinner
-  bdColor="rgba(51,51,51,0.8)"
-  size="medium"
-  color="#fff"
-  type="ball-scale-multiple"
->
-  <p style="font-size: 20px; color: white">Loading...</p>
-</ngx-spinner>
-
-

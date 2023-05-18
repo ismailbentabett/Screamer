@@ -63,19 +63,6 @@ isUserInMyFollowings : boolean = false;
 
 
 
-    console.log(
-      'this.followersPagination',
-      this.followersPagination,
-      'this.followingsPagination',
-      this.followingsPagination
-
-    )
-    console.log(
-      'this.followers',
-      this.followers,
-      'this.followings',
-      this.followings
-    )
 
 
 

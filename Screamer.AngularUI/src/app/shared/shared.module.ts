@@ -27,6 +27,8 @@ import { ChatComponent } from './components/buttons/chat/chat.component';
 import { UserPostListComponent } from './components/list/user-post-list/user-post-list.component';
 import { SideContentComponent } from './components/aside/side-content/side-content.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { FollowCardComponent } from './components/card/follow-card/follow-card.component';
+import { FollowModalComponent } from './components/modal/follow-modal/follow-modal.component';
 
 @NgModule({
   declarations: [
@@ -48,6 +50,8 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
     ChatComponent,
     UserPostListComponent,
     SideContentComponent,
+    FollowCardComponent,
+    FollowModalComponent,
   ],
   imports: [
     CommonModule,
@@ -78,6 +82,7 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
     ChatComponent,
     UserPostListComponent,
     SideContentComponent,
+    FollowModalComponent
   ],
   providers: [],
 })
