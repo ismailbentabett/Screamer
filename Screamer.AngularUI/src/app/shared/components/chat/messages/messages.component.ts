@@ -10,7 +10,10 @@ import { MessageService } from 'src/app/core/services/message.service';
   styleUrls: ['./messages.component.css']
 })
 export class MessagesComponent implements OnInit {
-  messages?: Message[];
+  ngOnInit(): void {
+    throw new Error('Method not implemented.');
+  }
+/*   messages?: Message[];
   pagination?: Pagination;
   container = 'Unread';
   pageNumber = 1;
@@ -46,5 +49,5 @@ export class MessagesComponent implements OnInit {
       this.loadMessages();
     }
   }
-
+ */
 }

@@ -14,7 +14,7 @@ import { FooterComponent } from './components/bottom/footer/footer.component';
 import { RouterModule } from '@angular/router';
 import { LoginAndSignupNavComponent } from './components/buttons/login-and-signup-nav/login-and-signup-nav.component';
 import { AvatarUploadComponent } from './components/user/avatar-upload/avatar-upload.component';
-import { FileUploadModule } from "ng2-file-upload";   //Should import HERE
+import { FileUploadModule } from 'ng2-file-upload'; //Should import HERE
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { PostComponent } from './components/post/post/post.component';
 import { AddPostFormComponent } from './components/post/add-post-form/add-post-form.component';
@@ -24,9 +24,9 @@ import { SafeHtmlPipe } from './pipes/safe-html-pipe.pipe';
 import { UserCardComponent } from './components/card/user-card/user-card.component';
 import { FollowComponent } from './components/buttons/follow/follow.component';
 import { ChatComponent } from './components/buttons/chat/chat.component';
-import { MessagesComponent } from './components/chat/messages/messages.component';
 import { UserPostListComponent } from './components/list/user-post-list/user-post-list.component';
 import { SideContentComponent } from './components/aside/side-content/side-content.component';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 @NgModule({
   declarations: [
@@ -46,12 +46,19 @@ import { SideContentComponent } from './components/aside/side-content/side-conte
     UserCardComponent,
     FollowComponent,
     ChatComponent,
-    MessagesComponent,
     UserPostListComponent,
-    SideContentComponent
+    SideContentComponent,
   ],
-  imports: [CommonModule, HttpClientModule , RouterModule , FileUploadModule , NgxSpinnerModule , ReactiveFormsModule],
-  exports : [
+  imports: [
+    CommonModule,
+    HttpClientModule,
+    RouterModule,
+    FileUploadModule,
+    NgxSpinnerModule,
+    ReactiveFormsModule,
+    InfiniteScrollModule,
+  ],
+  exports: [
     MyDirectiveDirective,
     MyPipePipe,
     NotFoundComponent,
@@ -64,18 +71,14 @@ import { SideContentComponent } from './components/aside/side-content/side-conte
     PostComponent,
     AddPostFormComponent,
     AddPostComponent,
-AvatarComponent,
-SafeHtmlPipe,
-UserCardComponent,
-FollowComponent,
-ChatComponent,
-UserPostListComponent,
-SideContentComponent
-
-
+    AvatarComponent,
+    SafeHtmlPipe,
+    UserCardComponent,
+    FollowComponent,
+    ChatComponent,
+    UserPostListComponent,
+    SideContentComponent,
   ],
-  providers : [
-
-  ]
+  providers: [],
 })
 export class SharedModule {}

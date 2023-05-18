@@ -6,7 +6,6 @@ import { ProfileComponent } from './profile/profile.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { NgxSpinnerModule } from 'ngx-spinner';
 
-
 @NgModule({
   declarations: [
     ProfileComponent

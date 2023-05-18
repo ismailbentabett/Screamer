@@ -46,7 +46,9 @@ ngOnInit(): void {
 
   this.route.params.subscribe((params: any) => {
     this.userId = params['id'];
-    this.postParams = this.postService.getPostParams(this.userId as string);
+    this.postParams = this.postService.getPostParams(this.userId as string ,
+        this.pageSize , this.pageNumber
+      );
     this.loadPosts();
   });}
 loadPosts() {
@@ -74,6 +76,19 @@ pageChanged(event: any) {
     this.postParams.pageNumber = event.page;
     this.postService.setPostParams(this.postParams);
     this.loadPosts();
+  }
+}
+loadMorePosts() {
+  if (this.pagination) {
+    this.postParams!.pageNumber++;
+    this.postService.getPostsByUserId(this.postParams!).subscribe({
+      next: response => {
+        if (response.result && response.pagination) {
+          this.posts = this.posts!.concat(response.result);
+          this.pagination = response.pagination;
+        }
+      }
+    });
   }
 }
 }

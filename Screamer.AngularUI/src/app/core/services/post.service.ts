@@ -23,11 +23,16 @@ export class PostService {
 
   }
 
-  getPostParams(userId : string) {
+  getPostParams(userId : string , pageSize : number ,
+    pageNumber : number
+    ) {
     this.PostParams = new PostParams();
     this.PostParams.orderBy = 'CreatedAt';
-    this.PostParams.pageNumber = 1;
-    this.PostParams.pageSize = 1;
+    this.PostParams.pageNumber =
+        pageNumber  ;
+    this.PostParams.pageSize =
+        pageSize
+    ;
     this.PostParams.userId = userId;
 
     return this.PostParams;
