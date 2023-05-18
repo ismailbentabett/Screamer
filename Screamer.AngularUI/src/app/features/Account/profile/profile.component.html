@@ -94,7 +94,7 @@
                 <nav class="-mb-px flex space-x-8" aria-label="Tabs">
                   <!-- Current: "border-dodger-blue-500 text-gray-900", Default: "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300" -->
                   <a
-                    (click)="openPopup()"
+                    (click)="openPopup('followers')"
                     class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm cursor-pointer"
                     aria-current="page"
                   >
@@ -102,13 +102,16 @@
                   </a>
 
                   <a
-                    (click)="openPopup()"
+                    (click)="openPopup('following')"
                     class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm cursor-pointer"
                   >
                     Following
                   </a>
                 </nav>
                 <app-follow-modal
+                *ngIf="this.modalService.isOpen"
+                  [user]="user"
+                 [Predicate]="Predicate"
                 ></app-follow-modal>
               </div>
             </div>

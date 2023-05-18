@@ -14,6 +14,7 @@ export class ProfileComponent {
   user: any;
   currentUser: any;
   isOpen: boolean = false;
+  public Predicate!: string;
   /**
    *
    */
@@ -22,6 +23,7 @@ export class ProfileComponent {
     private busyService: BusyService,
     private route: ActivatedRoute,
     public modalService: ModalService
+
   ) {
     this.busyService.busy();
     this.userService
@@ -44,7 +46,8 @@ export class ProfileComponent {
     });
   }
 
-  openPopup() {
+  openPopup(predicate : string) {
     this.modalService.openPopup();
+    this.Predicate = predicate;
   }
 }
