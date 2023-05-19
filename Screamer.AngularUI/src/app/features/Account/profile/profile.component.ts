@@ -23,7 +23,6 @@ export class ProfileComponent {
     private busyService: BusyService,
     private route: ActivatedRoute,
     public modalService: ModalService
-
   ) {
     this.busyService.busy();
     this.userService
@@ -36,6 +35,12 @@ export class ProfileComponent {
         },
       });
   }
+
+  openTab = 1;
+  toggleTabs($tabNumber: number) {
+    this.openTab = $tabNumber;
+  }
+
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
       this.userService.getUserById(params['id']).subscribe({
@@ -46,7 +51,7 @@ export class ProfileComponent {
     });
   }
 
-  openPopup(predicate : string) {
+  openPopup(predicate: string) {
     this.modalService.openPopup();
     this.Predicate = predicate;
   }
