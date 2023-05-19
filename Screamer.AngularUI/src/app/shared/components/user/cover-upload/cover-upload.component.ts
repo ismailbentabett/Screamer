@@ -53,7 +53,7 @@ export class CoverUploadComponent {
     this.uploader?.uploadAll();
 
       this.router.navigateByUrl(
-        `/v/user/${this.userData?.userName}`
+        `/v/user/${this.userData?.id}`
       )
   }
   async Cancel() {
