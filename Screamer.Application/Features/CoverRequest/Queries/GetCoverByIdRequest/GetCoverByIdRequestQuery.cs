@@ -7,7 +7,7 @@ using Screamer.Application.Dtos;
 
 namespace Screamer.Application.Features.AvatarRequest.Queries.GetAvatarByIdRequest;
 
-    public record GetAvatarByIdRequestQuery : IRequest<AvatarDto>
+    public record GetCoverByIdRequestQuery : IRequest<CoverDto>
     {
         public int Id { get; set; }
     }

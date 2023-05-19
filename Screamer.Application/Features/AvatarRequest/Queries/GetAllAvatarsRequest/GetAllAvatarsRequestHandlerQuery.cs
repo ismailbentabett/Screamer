@@ -15,7 +15,7 @@ namespace Screamer.Application.Features.AvatarRequest.Queries.GetAllAvatarsReque
         IEnumerable<AvatarDto>
     >
     {
-        private readonly IAvatarRepository _postRepository;
+        private readonly IAvatarRepository _avatarRepository;
         private readonly IMapper _mapper;
 
         private readonly IAppLogger<GetAllAvatarsRequestHandlerQuery> _logger; 
@@ -24,14 +24,14 @@ namespace Screamer.Application.Features.AvatarRequest.Queries.GetAllAvatarsReque
             IAppLogger<GetAllAvatarsRequestHandlerQuery> logger
         )
         {
-            _postRepository = postRepository;
+            _avatarRepository = postRepository;
             _mapper = mapper;
             _logger = logger;
         }
 
         public async Task<IEnumerable<AvatarDto>> Handle(GetAllAvatarsRequestQuery request, CancellationToken cancellationToken)
         {
-            var posts = await _postRepository.GetAllAsync();
+            var posts = await _avatarRepository.GetAllAsync();
             _logger.LogInformation("GetAllAvatarsRequestHandlerQuery called");
             return _mapper.Map<IEnumerable<AvatarDto>>(posts);
         }
