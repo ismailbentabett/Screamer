@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Screamer.Domain.Entities;
 using Screamer.Application.Features.AvatarRequest.Commands.AddAvatarRequest;
 
-namespace Screamer.Application.Features.CoverRequest.Commands.AddCoverRequest
+namespace Screamer.Application.Features.CoverRequest.Commands
 {
     public class AddCoverRequestHandlerCommand : IRequestHandler
     <

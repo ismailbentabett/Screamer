@@ -8,7 +8,7 @@ using Screamer.Application.Contracts.Logging;
 using Screamer.Application.Contracts.Presistance;
 using Screamer.Application.Dtos;
 
-namespace Screamer.Application.Features.AvatarRequest.Queries.GetAllAvatarsRequest
+namespace Screamer.Application.Features.CoverRequest.Queries
 {
     public class GetAllCoversRequestHandlerQuery : IRequestHandler<
         GetAllCoversRequestQuery,
@@ -18,10 +18,10 @@ namespace Screamer.Application.Features.AvatarRequest.Queries.GetAllAvatarsReque
         private readonly ICoverRepository _coverRepository;
         private readonly IMapper _mapper;
 
-        private readonly IAppLogger<GetAllAvatarsRequestHandlerQuery> _logger;
+        private readonly IAppLogger<GetAllCoversRequestHandlerQuery> _logger;
 
         public GetAllCoversRequestHandlerQuery(ICoverRepository coverRepository, IMapper mapper,
-            IAppLogger<GetAllAvatarsRequestHandlerQuery> logger
+            IAppLogger<GetAllCoversRequestHandlerQuery> logger
         )
         {
             _coverRepository = coverRepository;

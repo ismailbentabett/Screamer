@@ -4,14 +4,13 @@ using Microsoft.AspNetCore.Http;
 
 namespace Screamer.Application.Features.CoverRequest.Commands
 {
-    public record AddCoverRequestCommand :
+    public record SetMainCoverRequestCommand :
     IRequest<
         int
     >
     {
-    public  IFormFile file;
-    public string userId;
-
+    public  int coverId;
+    public  string userId;
 
     }
 }

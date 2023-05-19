@@ -5,5 +5,5 @@ using System.Threading.Tasks;
 using MediatR;
 using Screamer.Application.Dtos;
 
-namespace Screamer.Application.Features.AvatarRequest.Queries.GetAllAvatarsRequest;
+namespace Screamer.Application.Features.CoverRequest.Queries;
     public record GetAllCoversRequestQuery : IRequest<List<CoverDto>>;

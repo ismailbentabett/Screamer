@@ -11,7 +11,7 @@ using Screamer.Domain.Common;
 using Screamer.Domain.Entities;
 using Screamer.Identity.Models;
 
-namespace Screamer.Application.Features.CoverRequest.Commands.DeleteCoverRequest
+namespace Screamer.Application.Features.CoverRequest.Commands
 {
     public class DeleteCoverRequestHandlerCommand :
     IRequestHandler
