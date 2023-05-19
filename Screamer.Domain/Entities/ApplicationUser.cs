@@ -25,22 +25,24 @@ namespace Screamer.Identity.Models
         public string LastName { get; set; }
         public List<Avatar> Avatars { get; set; } = new();
         public string AvatarUrl { get; set; }
-public ICollection<Post> Posts { get; set; }
+        public List<Cover> Cover { get; set; } = new();
+        public string CoverUrl { get; set; }
+        public ICollection<Post> Posts { get; set; }
 
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
-            public List<Message> MessagesSent { get; set; }
+        public List<Message> MessagesSent { get; set; }
         public List<Message> MessagesReceived { get; set; }
 
-         public List<Follow> Followers { get; set; } = new();
+        public List<Follow> Followers { get; set; } = new();
         public List<Follow> Following { get; set; } = new();
-        
 
 
 
 
 
-        
+
+
         /* 
 public string? VerificationToken { get; set; }
 public DateTime? VerifiedAt { get; set; }
