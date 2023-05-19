@@ -21,7 +21,7 @@ namespace Screamer.Domain.Common
         public List<Reaction> Reactions { get; set; }
         public List<Comment> Comments { get; set; }
         public int Views { get; set; }
-        public List<PostImage> PostImage { get; set; } = new();
+        public List<PostImage> PostImages { get; set; } = new();
         public string PostImageUrl { get; set; }
         public List<Avatar> Avatars { get; set; } = new();
         public string AvatarUrl { get; set; }

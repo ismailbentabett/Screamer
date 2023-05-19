@@ -25,7 +25,7 @@ namespace Screamer.Identity.Models
         public string LastName { get; set; }
         public List<Avatar> Avatars { get; set; } = new();
         public string AvatarUrl { get; set; }
-        public List<Cover> Cover { get; set; } = new();
+        public List<Cover> Covers { get; set; } = new();
         public string CoverUrl { get; set; }
         public ICollection<Post> Posts { get; set; }
 

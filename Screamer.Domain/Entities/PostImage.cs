@@ -7,7 +7,7 @@ using Screamer.Domain.Common;
 
 namespace Screamer.Domain.Entities
 {
-    public class PostImage
+    public class PostImage: BaseEntity
     {
         public string Url { get; set; }
         public bool IsMain { get; set; }
