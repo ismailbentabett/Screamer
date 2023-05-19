@@ -9,6 +9,7 @@ using Screamer.Application.Contracts.Presistance;
 using Screamer.Application.Features.AvatarRequest.Commands.AddAvatarRequest;
 using Screamer.Application.Features.AvatarRequest.Commands.CreateAvatarRequest;
 using Screamer.Application.Features.AvatarRequest.Commands.DeleteAvatarRequest;
+using Screamer.Application.Features.CoverRequest.Commands;
 using Screamer.Application.Features.PostRequest.Commands.UpdateUserRequest;
 using Screamer.Application.Features.PostRequest.Queries;
 using Screamer.Application.Features.PostRequest.Queries.GetPostByIdRequest;
@@ -17,6 +18,7 @@ using Screamer.Application.Features.UserRequest.Queries.GetUserByUsernameRequest
 using Screamer.Application.Features.UserRequest.Queries.GetUsersRequest;
 using Screamer.Application.Helpers;
 using Screamer.Domain.Common;
+using Screamer.Domain.Entities;
 
 namespace Screamer.WebApi.Controllers
 {
@@ -149,6 +151,58 @@ namespace Screamer.WebApi.Controllers
             return NoContent();
         }
 
+
+
+        [HttpPost("add-cover/{userId}")]
+        public async Task<ActionResult<Cover>> AddCover(
+             IFormFile file,
+[FromRoute] string userId)
+        {
+
+            var command = new AddCoverRequestCommand
+            {
+
+                file = file,
+                userId = userId
+            };
+            var result = await _mediator.Send(command);
+            return Ok(result);
+
+        }
+
+
+        [HttpPut("set-main-cover/{coverId}")]
+        public async Task<ActionResult> SetMainCover(int coverId,
+           string userId
+           )
+        {
+            var command = new SetMainCoverRequestCommand
+            {
+                coverId = coverId,
+                userId = userId
+            };
+            await _mediator.Send(command);
+            return NoContent();
+        }
+
+
+        [HttpDelete("delete-cover/{coverId}")]
+        public async Task<ActionResult> DeleteCover(int coverId,
+              string userId
+               )
+        {
+            var command = new DeleteCoverRequestCommand
+            {
+                coverId = coverId,
+                userId = userId
+            };
+            await _mediator.Send(command);
+            return NoContent();
+        }
+
     }
+
+
+
 
 }
