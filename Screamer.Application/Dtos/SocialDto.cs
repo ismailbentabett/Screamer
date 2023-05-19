@@ -7,7 +7,6 @@ namespace Screamer.Application.Dtos
 {
     public class SocialDto
     {
-                public int Id { get; set; }
         public string Facebook { get; set; }
         public string Twitter { get; set; }
         public string Instagram { get; set; }
@@ -19,8 +18,17 @@ namespace Screamer.Application.Dtos
         public string Reddit { get; set; }
         public string Linkedin { get; set; }
         public string Github { get; set; }
-        public string Website { get; set; }
-        
-        public int UserId { get; set; }
+        public string Discord { get; set; }
+        public string Whatsapp { get; set; }
+        public string Telegram { get; set; }
+        public string Skype { get; set; }
+        public string Viber { get; set; }
+        public string Signal { get; set; }
+        public string Slack { get; set; }
+        public string Wechat { get; set; }
+        public string Onlyfans { get; set; }
+        public string Patreon { get; set; }
+        public string Medium { get; set; }
+        public string Tumblr { get; set; }
     }
 }

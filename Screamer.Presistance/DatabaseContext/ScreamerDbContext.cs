@@ -75,6 +75,10 @@ namespace Screamer.Presistance.DatabaseContext
                 .HasForeignKey(r => r.CommentId)
                 .OnDelete(DeleteBehavior.Restrict);
 
+            modelBuilder.Entity<Adress>().HasNoKey();
+            modelBuilder.Entity<Social>().HasNoKey();
+
+
         }
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)

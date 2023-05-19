@@ -4,6 +4,7 @@ using Screamer.Domain.Common;
 using Screamer.Domain.Entities;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace Screamer.Identity.Models
@@ -49,9 +50,10 @@ public string? PasswordResetToken { get; set; }
 public DateTime? ResetTokenExpires { get; set; }
 public byte[] PasswordSalt { get; set; } = new byte[32]; */
 
-
+        [NotMapped]
         public Social Socials { get; set; }
-                public Adress Adress { get; set; }
+        [NotMapped]
+        public Adress Adress { get; set; }
 
 
 

@@ -13,7 +13,16 @@ export interface Social extends BaseModel {
   Reddit: string;
   Linkedin: string;
   Github: string;
-  Website: string;
-  UserId: number;
-  User: User;
+  Discord: string;
+  Whatsapp: string;
+  Telegram: string;
+  Skype: string;
+  Viber: string;
+  Signal: string;
+  Slack: string;
+  Wechat: string;
+  Onlyfans: string;
+  Patreon: string;
+  Medium: string;
+  Tumblr: string;
 }

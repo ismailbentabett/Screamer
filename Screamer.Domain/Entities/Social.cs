@@ -8,7 +8,7 @@ using Screamer.Identity.Models;
 
 namespace Screamer.Domain.Entities
 {
-    public class Social : BaseEntity
+    public class Social
     {
         public string Facebook { get; set; }
         public string Twitter { get; set; }
@@ -21,11 +21,19 @@ namespace Screamer.Domain.Entities
         public string Reddit { get; set; }
         public string Linkedin { get; set; }
         public string Github { get; set; }
-        public string Website { get; set; }
 
-        public string UserId { get; set; }
-        [ForeignKey("UserId")]
-        public ApplicationUser User { get; set; }
+        public string Discord { get; set; }
+        public string Whatsapp { get; set; }
+        public string Telegram { get; set; }
+        public string Skype { get; set; }
+        public string Viber { get; set; }
+        public string Signal { get; set; }
+        public string Slack { get; set; }
+        public string Wechat { get; set; }
+        public string Onlyfans { get; set; }
+        public string Patreon { get; set; }
+        public string Medium { get; set; }
+        public string Tumblr { get; set; }
 
     }
 }

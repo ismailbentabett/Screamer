@@ -8,7 +8,7 @@ using Screamer.Identity.Models;
 
 namespace Screamer.Domain.Entities
 {
-    public class Adress : BaseEntity
+    public class Adress
     {
         public string Street { get; set; }
         public string City { get; set; }
@@ -16,9 +16,7 @@ namespace Screamer.Domain.Entities
         public string Country { get; set; }
         public string PostalCode { get; set; }
 
-        public string UserId { get; set; }
-        [ForeignKey("UserId")]
-        public ApplicationUser User { get; set; }
+
 
 
 
