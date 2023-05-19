@@ -8,7 +8,7 @@ using Screamer.Identity.Models;
 
 namespace Screamer.Application.Contracts.Presistance
 {
-    public interface IReactionRepository
+    public interface IReactionRepository :  IGenericRepository<Reaction>
     {
          Reaction GetReactionById(int reactionId);
     void AddReaction(Reaction reaction);

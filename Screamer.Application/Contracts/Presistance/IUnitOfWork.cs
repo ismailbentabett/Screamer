@@ -14,7 +14,11 @@ namespace Screamer.Application.Contracts.Presistance
         IFollowRepository FollowRepository { get; }
 
         IReactionRepository ReactionRepository { get; }
-        
+
+        ICoverRepository CoverRepository { get; }
+
+        IPostImageRepository PostImageRepository  {get;}
+
         Task<bool> Complete();
         bool HasChanges();
     }

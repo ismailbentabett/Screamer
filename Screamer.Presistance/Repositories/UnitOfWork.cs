@@ -24,6 +24,8 @@ namespace Screamer.Presistance.Repositories
             new PostRepository(_context);
 
         public IAvatarRepository AvatarRepository => throw new NotImplementedException();
+        public ICoverRepository CoverRepository => throw new NotImplementedException();
+        public IPostImageRepository PostImageRepository => throw new NotImplementedException();
 
         public IMessageRepository MessageRepository => new MessageRepository(_context, _mapper);
 
