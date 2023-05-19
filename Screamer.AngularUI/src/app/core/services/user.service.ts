@@ -102,6 +102,13 @@ export class UserService {
   deleteAvatar(avatarId: any) {
     return this.http.delete(this.baseUrl + 'User/delete-avatar/' + avatarId);
   }
+  setMainCover(coverId: any) {
+    return this.http.put(this.baseUrl + 'User/set-main-cover/' + coverId, {});
+  }
+
+  deleteCover(coverId: any) {
+    return this.http.delete(this.baseUrl + 'User/delete-cover/' + coverId);
+  }
 
   addFollow(sourceUserId: any, targetUserId: any) {
     return this.http.post(
@@ -120,7 +127,6 @@ export class UserService {
   }
 
   getFollows(followParams: FollowParams) {
-
     let params = getThePaginationHeaders(
       followParams.pageNumber,
       followParams.pageSize
@@ -135,7 +141,4 @@ export class UserService {
       this.http
     );
   }
-
-
-
 }

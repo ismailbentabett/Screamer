@@ -15,6 +15,7 @@ namespace Screamer.Application.Helpers
 
         public string userName { get; set; }
         public string AvatarUrl { get; set; }
+        public string CoverUrl { get; set; }
         //OrderBy
         public string OrderBy { get; set; } = "CreatedAt";
 

@@ -18,13 +18,12 @@ namespace Screamer.Domain.Common
             nameof(UserId)
         )]
         public ApplicationUser User { get; set; }
-        public List<Reaction> Reactions { get; set; }
-        public List<Comment> Comments { get; set; }
+        public List<Reaction> Reactions { get; set; } = new();
+        public List<Comment> Comments { get; set; } = new();
         public int Views { get; set; }
         public List<PostImage> PostImages { get; set; } = new();
         public string PostImageUrl { get; set; }
-        public List<Avatar> Avatars { get; set; } = new();
-        public string AvatarUrl { get; set; }
+       
 
     }
 }

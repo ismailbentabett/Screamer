@@ -38,6 +38,7 @@ namespace Screamer.Application.Features.UserRequest.Queries.GetUsersRequest
             var currentUser = await _uow.UserRepository.GetUserByIdAsync(request.userId);
             request.userParams.userName = currentUser.UserName;
             request.userParams.AvatarUrl = currentUser.AvatarUrl;
+            request.userParams.CoverUrl = currentUser.CoverUrl;
             request.userParams.Bio = currentUser.Bio;
             request.userParams.Website = currentUser.Website;
             request.userParams.Birthday = currentUser.Birthday;

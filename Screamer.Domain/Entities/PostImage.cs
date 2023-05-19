@@ -13,7 +13,7 @@ namespace Screamer.Domain.Entities
         public bool IsMain { get; set; }
         public string PublicId { get; set; }
 
-        public string PostId { get; set; }
+        public int PostId { get; set; }
         [ForeignKey("PostId")]
         public Post Post { get; set; }
     }

@@ -31,6 +31,7 @@ public class UserRepository : IUserRepository
     {
         return await _context.Users
             .Include(p => p.Avatars)
+            .Include(p => p.Covers)
            .SingleOrDefaultAsync(x => x.UserName == username);
     }
 
@@ -73,6 +74,7 @@ async Task<ApplicationUser> IUserRepository.GetUserByIdAsync(string id)
 {
     return await _context.Users
                 .Include(p => p.Avatars)
+                .Include(p => p.Covers)
                 .SingleOrDefaultAsync(x => x.Id == id);
 }
 

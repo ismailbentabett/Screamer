@@ -29,6 +29,7 @@ import { SideContentComponent } from './components/aside/side-content/side-conte
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { FollowCardComponent } from './components/card/follow-card/follow-card.component';
 import { FollowModalComponent } from './components/modal/follow-modal/follow-modal.component';
+import { CoverUploadComponent } from './components/user/cover-upload/cover-upload.component';
 
 @NgModule({
   declarations: [
@@ -52,6 +53,7 @@ import { FollowModalComponent } from './components/modal/follow-modal/follow-mod
     SideContentComponent,
     FollowCardComponent,
     FollowModalComponent,
+    CoverUploadComponent,
   ],
   imports: [
     CommonModule,
@@ -82,7 +84,8 @@ import { FollowModalComponent } from './components/modal/follow-modal/follow-mod
     ChatComponent,
     UserPostListComponent,
     SideContentComponent,
-    FollowModalComponent
+    FollowModalComponent,
+    CoverUploadComponent,
   ],
   providers: [],
 })

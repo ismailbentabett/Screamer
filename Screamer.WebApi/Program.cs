@@ -15,7 +15,9 @@ builder.Services.AddPresistanceServices(builder.Configuration);
 builder.Services.AddIdentityServices(builder.Configuration);
 
 
-builder.Services.AddControllers();
+builder.Services.AddControllers()   .AddNewtonsoftJson(options =>
+    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+);
 
 builder.Services.AddCors(options =>
 {

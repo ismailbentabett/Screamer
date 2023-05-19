@@ -63,7 +63,17 @@ namespace Screamer.Presistance.DatabaseContext
                 .HasForeignKey(f => f.TargetUserId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-                    
+            modelBuilder.Entity<Reaction>()
+ .HasOne(r => r.Post)
+ .WithMany(p => p.Reactions)
+ .HasForeignKey(r => r.PostId)
+ .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Reaction>()
+                .HasOne(r => r.Comment)
+                .WithMany(c => c.Reactions)
+                .HasForeignKey(r => r.CommentId)
+                .OnDelete(DeleteBehavior.Restrict);
 
         }
 
