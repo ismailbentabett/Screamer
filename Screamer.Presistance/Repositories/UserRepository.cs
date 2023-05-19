@@ -32,6 +32,8 @@ public class UserRepository : IUserRepository
         return await _context.Users
             .Include(p => p.Avatars)
             .Include(p => p.Covers)
+            .Include(p => p.Adress)
+            .Include(p => p.Socials)
            .SingleOrDefaultAsync(x => x.UserName == username);
     }
 
@@ -41,7 +43,7 @@ public class UserRepository : IUserRepository
     {
         var query = _context.Users.AsQueryable();
 
-       
+
 
 
 
@@ -61,22 +63,24 @@ public class UserRepository : IUserRepository
 
 
 
-public async Task<ApplicationUser> Update(ApplicationUser user)
-{
-    return await Task.FromResult(_context.Users.Update(user).Entity);
-}
-public async Task<ApplicationUser> Delete(ApplicationUser user)
-{
-    return await Task.FromResult(_context.Users.Remove(user).Entity);
-}
+    public async Task<ApplicationUser> Update(ApplicationUser user)
+    {
+        return await Task.FromResult(_context.Users.Update(user).Entity);
+    }
+    public async Task<ApplicationUser> Delete(ApplicationUser user)
+    {
+        return await Task.FromResult(_context.Users.Remove(user).Entity);
+    }
 
-async Task<ApplicationUser> IUserRepository.GetUserByIdAsync(string id)
-{
-    return await _context.Users
-                .Include(p => p.Avatars)
-                .Include(p => p.Covers)
-                .SingleOrDefaultAsync(x => x.Id == id);
-}
+    async Task<ApplicationUser> IUserRepository.GetUserByIdAsync(string id)
+    {
+        return await _context.Users
+                    .Include(p => p.Avatars)
+                    .Include(p => p.Covers)
+                     .Include(p => p.Adress)
+                     .Include(p => p.Socials)
+                    .SingleOrDefaultAsync(x => x.Id == id);
+    }
 
-   
+
 }

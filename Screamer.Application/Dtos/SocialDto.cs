@@ -22,6 +22,5 @@ namespace Screamer.Application.Dtos
         public string Website { get; set; }
         
         public int UserId { get; set; }
-        public UserDto User { get; set; }
     }
 }

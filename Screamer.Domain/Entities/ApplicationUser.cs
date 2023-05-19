@@ -16,8 +16,7 @@ namespace Screamer.Identity.Models
          */
         public string Bio { get; set; }
         public string Website { get; set; }
-        /*         public Adress Adress { get; set; }
-         */
+
         public string Birthday { get; set; }
         public string Gender { get; set; }
         public string Phone { get; set; }
@@ -25,7 +24,7 @@ namespace Screamer.Identity.Models
         public string LastName { get; set; }
         public List<Avatar> Avatars { get; set; } = new();
         public string AvatarUrl { get; set; }
-       
+
         public ICollection<Post> Posts { get; set; }
 
         public DateTime CreatedAt { get; set; }
@@ -37,7 +36,7 @@ namespace Screamer.Identity.Models
         public List<Follow> Following { get; set; } = new();
 
 
- public List<Cover> Covers { get; set; } = new();
+        public List<Cover> Covers { get; set; } = new();
         public string CoverUrl { get; set; }
 
 
@@ -50,14 +49,12 @@ public string? PasswordResetToken { get; set; }
 public DateTime? ResetTokenExpires { get; set; }
 public byte[] PasswordSalt { get; set; } = new byte[32]; */
 
-        /*         public string Avatar { get; set; }
-         */
-        /*         public ICollection<Avatar> Avatars { get; set; }
-         */        /*   public Social Social { get; set; } */
 
-        /*         public ICollection<Avatar> Avatars { get; set; }
-         *//*         public ICollection<Post> Posts { get; set; }
-         */        /* public ICollection<Follow> Followings { get; set; }
-                public ICollection<Follow> Followers { get; set; } */
+        public Social Socials { get; set; }
+                public Adress Adress { get; set; }
+
+
+
+
     }
 }

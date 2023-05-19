@@ -23,20 +23,17 @@ namespace Screamer.Application.Features.PostRequest.Commands.UpdatePostRequest
         private readonly IUserRepository _userRepository;
         private readonly IMapper _mapper;
 
-        private readonly UserManager<ApplicationUser> _UserManager;
 
         private readonly IUnitOfWork _uow;
 
 
         public UpdateUserRequestHandlerCommand(IUserRepository postRepository, IMapper mapper,
-            UserManager<ApplicationUser> usermanager,
 
             IUnitOfWork uow
         )
         {
             _userRepository = postRepository;
             _mapper = mapper;
-            _UserManager = usermanager;
             _uow = uow;
         }
 
@@ -53,7 +50,7 @@ namespace Screamer.Application.Features.PostRequest.Commands.UpdatePostRequest
                 }
 
 
-                _mapper.Map(request, user, typeof(UpdateUserRequestCommand), typeof(ApplicationUser));
+                _mapper.Map(request, user, typeof(UpdateUserRequestCommand), typeof(UpdateUserDto));
 
                 if (await _uow.Complete()) return
                     Unit.Value;

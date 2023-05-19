@@ -23,7 +23,7 @@ namespace Screamer.Application.MappingProfiles
                 .ForMember(dest => dest.CoverUrl, opt => opt.MapFrom(src => src.Covers.LastOrDefault().Url))
                 .ForMember(dest => dest.Covers, opt => opt.MapFrom(src => src.Covers));
                 
-            CreateMap<UpdateUserRequestCommand, ApplicationUser>().ReverseMap();
+            CreateMap<UpdateUserRequestCommand, UpdateUserDto>().ReverseMap();
             CreateMap<DeleteUserRequestCommand, ApplicationUser>().ReverseMap();
 
 

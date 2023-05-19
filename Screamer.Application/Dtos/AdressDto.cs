@@ -13,7 +13,6 @@ namespace Screamer.Application.Dtos
         public string City { get; set; }
         public string Country { get; set; }
         public int UserId { get; set; }
-        public UserDto User { get; set; }
         
     }
 }

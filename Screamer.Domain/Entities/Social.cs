@@ -4,12 +4,12 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 using Screamer.Domain.Common;
+using Screamer.Identity.Models;
 
 namespace Screamer.Domain.Entities
 {
     public class Social : BaseEntity
     {
-        //social media links
         public string Facebook { get; set; }
         public string Twitter { get; set; }
         public string Instagram { get; set; }
@@ -22,6 +22,10 @@ namespace Screamer.Domain.Entities
         public string Linkedin { get; set; }
         public string Github { get; set; }
         public string Website { get; set; }
+
+        public string UserId { get; set; }
+        [ForeignKey("UserId")]
+        public ApplicationUser User { get; set; }
 
     }
 }

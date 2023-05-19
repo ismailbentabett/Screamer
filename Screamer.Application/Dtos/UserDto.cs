@@ -43,6 +43,7 @@ namespace Screamer.Application.Dtos
         /*         public string Avatar { get; set; }
          */
 
-
+ public Social Socials { get; set; }
+        public Adress Adress { get; set; }
     }
 }
