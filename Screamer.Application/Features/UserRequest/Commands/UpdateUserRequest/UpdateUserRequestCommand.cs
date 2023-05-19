@@ -12,7 +12,6 @@ namespace Screamer.Application.Features.PostRequest.Commands.UpdateUserRequest
 : IRequest<Unit>
     {
         public string Id { get; set; }
-        public string Email { get; set; }
 
         public string Bio { get; set; }
         public string Website { get; set; }

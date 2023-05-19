@@ -32,7 +32,8 @@ public class UserRepository : IUserRepository
         return await _context.Users
             .Include(p => p.Avatars)
             .Include(p => p.Covers)
-         
+            .Include(p => p.Adress)
+            .Include(p => p.Socials)
            .SingleOrDefaultAsync(x => x.UserName == username);
     }
 
@@ -76,7 +77,8 @@ public class UserRepository : IUserRepository
         return await _context.Users
                     .Include(p => p.Avatars)
                     .Include(p => p.Covers)
-                    
+                     .Include(p => p.Adress)
+                     .Include(p => p.Socials)
                     .SingleOrDefaultAsync(x => x.Id == id);
     }
 

@@ -14,6 +14,30 @@ import { UserService } from 'src/app/core/services/user.service';
 export class ProfileComponent {
   form?: FormGroup;
   user?: User;
+  socials = [
+    'facebook',
+    'twitter',
+    'instagram',
+    'youtube',
+    'twitch',
+    'tiktok',
+    'snapchat',
+    'pinterest',
+    'reddit',
+    'linkedin',
+    'github',
+    'whatsapp',
+    'telegram',
+    'skype',
+    'viber',
+    'signal',
+    'slack',
+    'wechat',
+    'onlyfans',
+    'patreon',
+    'medium',
+    'tumblr',
+  ];
   constructor(
     private fb: FormBuilder,
     private userService: UserService,
@@ -28,34 +52,41 @@ export class ProfileComponent {
       birthday: [' ', Validators.required],
       gender: [' ', Validators.required],
       userName: [' ', Validators.required],
-      Facebook: [' ', Validators.required],
-      Twitter: [' ', Validators.required],
-      Instagram: [' ', Validators.required],
-      Youtube: [' ', Validators.required],
-      Twitch: [' ', Validators.required],
-      Tiktok: [' ', Validators.required],
-      Snapchat: [' ', Validators.required],
-      Pinterest: [' ', Validators.required],
-      Reddit: [' ', Validators.required],
-      Linkedin: [' ', Validators.required],
-      Github: [' ', Validators.required],
-      Discord: [' ', Validators.required],
-      Whatsapp: [' ', Validators.required],
-      Telegram: [' ', Validators.required],
-      Skype: [' ', Validators.required],
-      Viber: [' ', Validators.required],
-      Signal: [' ', Validators.required],
-      Slack: [' ', Validators.required],
-      Wechat: [' ', Validators.required],
-      Onlyfans: [' ', Validators.required],
-      Patreon: [' ', Validators.required],
-      Medium: [' ', Validators.required],
-      Tumblr: [' ', Validators.required],
-      street: [' ', Validators.required],
-      city: [' ', Validators.required],
-      state: [' ', Validators.required],
-      country: [' ', Validators.required],
-      postalCode: [' ', Validators.required],
+
+      adress: this.fb.group({
+        street: [' ', Validators.required],
+        city: [' ', Validators.required],
+        state: [' ', Validators.required],
+        country: [' ', Validators.required],
+        postalCode: [' ', Validators.required],
+      }),
+      socials: this.fb.group({
+        facebook: [' ', Validators.required],
+        twitter: [' ', Validators.required],
+        instagram: [' ', Validators.required],
+        youtube: [' ', Validators.required],
+        twitch: [' ', Validators.required],
+        tiktok: [' ', Validators.required],
+        snapchat: [' ', Validators.required],
+        pinterest: [' ', Validators.required],
+        reddit: [' ', Validators.required],
+        linkedin: [' ', Validators.required],
+        github: [' ', Validators.required],
+        discord: [' ', Validators.required],
+
+        whatsapp: [' ', Validators.required],
+        telegram: [' ', Validators.required],
+        skype: [' ', Validators.required],
+        viber: [' ', Validators.required],
+        signal: [' ', Validators.required],
+        slack: [' ', Validators.required],
+
+        wechat: [' ', Validators.required],
+        onlyfans: [' ', Validators.required],
+        patreon: [' ', Validators.required],
+        medium: [' ', Validators.required],
+        tumblr: [' ', Validators.required],
+      }),
     });
 
     this.userService
@@ -69,23 +100,21 @@ export class ProfileComponent {
       });
   }
   ngOnInit(): void {}
+  ngOnChanges(): void {
+    console.log(this.form?.value);
+  }
   onSubmit() {
     this.busyService.busy();
-    const { values }: { values: UserUpdateInput } = this.form?.value;
-    values.id = this.user!.id;
-    values.createdAt = this.user?.createdAt as Date;
-    values.updatedAt = this.user?.updatedAt as Date;
-    this.userService
-      .updateUser({
-        ...values,
-      })
-      .subscribe({
-        next: () => {
-          this.busyService.idle();
-        },
-        error: () => {
-          this.busyService.idle();
-        },
-      });
+    const values: UserUpdateInput = this.form?.value;
+    console.log(values);
+    this.userService.updateUser(values, this.user?.id as number).subscribe({
+      next: () => {
+        this.busyService.idle();
+      },
+      error: (err) => {
+        console.log(err);
+        this.busyService.idle();
+      },
+    });
   }
 }

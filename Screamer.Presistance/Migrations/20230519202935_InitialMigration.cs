@@ -41,9 +41,9 @@ namespace Screamer.Presistance.Migrations
                     FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     AvatarUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CoverUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CoverUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -94,6 +94,31 @@ namespace Screamer.Presistance.Migrations
                         principalTable: "AspNetRoles",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Adress",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Street = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    City = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    State = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Country = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PostalCode = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Adress", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Adress_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -317,6 +342,49 @@ namespace Screamer.Presistance.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Social",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Facebook = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Twitter = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Instagram = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Youtube = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Twitch = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Tiktok = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Snapchat = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Pinterest = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Reddit = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Linkedin = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Github = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Discord = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Whatsapp = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Telegram = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Skype = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Viber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Signal = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Slack = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Wechat = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Onlyfans = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Patreon = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Medium = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Tumblr = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Social", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Social_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Connections",
                 columns: table => new
                 {
@@ -442,9 +510,9 @@ namespace Screamer.Presistance.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "AvatarUrl", "Bio", "Birthday", "ConcurrencyStamp", "CoverUrl", "CreatedAt", "Email", "EmailConfirmed", "FirstName", "Gender", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "Password", "PasswordHash", "Phone", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UpdatedAt", "UserName", "Website" },
                 values: new object[,]
                 {
-                    { "8e445865-a24d-4543-a6c6-9443d048cdb9", 0, null, null, null, "93b67ad6-7dbe-4f3b-a1d0-5ef3e73782d5", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "admin@localhost.com", true, "System", null, "Admin", false, null, "ADMIN@LOCALHOST.COM", "ADMIN@LOCALHOST.COM", null, "AQAAAAIAAYagAAAAECJwBkA1xgDCZwXCGEF/RyTMZ+uh9+VFpTDmeY0yL463egp0nQpXx7IEXHgwW6AsmA==", null, null, false, "e32e0dbb-f7ca-439f-97ab-dc3ca4f22c55", false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "admin@localhost.com", null },
-                    { "9e224968-33e4-4652-b7b7-8574d048cdb9", 0, null, null, null, "d6981f73-f3fb-4a64-83d9-f285e4189a1f", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "user@localhost.com", true, "System", null, "User", false, null, "USER@LOCALHOST.COM", "USER@LOCALHOST.COM", null, "AQAAAAIAAYagAAAAEA2sIjhe0YeQkkIZG8I44v5qsKTED2UC/PdVJ+XB8B+f1C4bm4dgl+1LJ8hBM8RPjQ==", null, null, false, "85d95819-d9d3-480c-b39b-19653ee1499f", false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "user@localhost.com", null },
-                    { "9e224968-33e4-4652-b7b7-agfddsr", 0, null, null, null, "d56fbcb5-8af6-4294-a1d7-2a35687d6f67", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "mod@localhost.com", true, "System", null, "Mod", false, null, "MOD@LOCALHOST.COM", "MOD@LOCALHOST.COM", null, "AQAAAAIAAYagAAAAEBaBGjJ4tnwa45vHAYTAdUWZZoFZLcBty1bNYvjX3M9ZgMcQrbM1CRjpfThwCE9VPA==", null, null, false, "249bfce8-5742-48fd-9623-de329c0007cf", false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "mod@localhost.com", null }
+                    { "8e445865-a24d-4543-a6c6-9443d048cdb9", 0, null, null, null, "53105fab-5e8e-4f67-8549-a60da0ba41b3", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "admin@localhost.com", true, "System", null, "Admin", false, null, "ADMIN@LOCALHOST.COM", "ADMIN@LOCALHOST.COM", null, "AQAAAAIAAYagAAAAEBoricp5hBxq5Q/rPJsrTem3qs//TkYaZDUci5jSBVgs2RKtvvyWYnUXX7t69E1Idw==", null, null, false, "d3f35ddd-42be-40e4-997d-b68e6a3f5bd5", false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "admin@localhost.com", null },
+                    { "9e224968-33e4-4652-b7b7-8574d048cdb9", 0, null, null, null, "ddbf8a2a-7f3c-4e96-ab02-d668ed65964f", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "user@localhost.com", true, "System", null, "User", false, null, "USER@LOCALHOST.COM", "USER@LOCALHOST.COM", null, "AQAAAAIAAYagAAAAEK9ZFz/pTcZabqVVWzHAwAdNqLbXAZriyJvz1A8ZJuXNt1bKk9xZj87Jn37WkXIzTg==", null, null, false, "8780ad5c-e365-47c9-93f1-7ca9d6a17689", false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "user@localhost.com", null },
+                    { "9e224968-33e4-4652-b7b7-agfddsr", 0, null, null, null, "3171d35c-5206-4414-ad6e-1a25f7e61492", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "mod@localhost.com", true, "System", null, "Mod", false, null, "MOD@LOCALHOST.COM", "MOD@LOCALHOST.COM", null, "AQAAAAIAAYagAAAAEFZK531L2qq0u//GLZ/rWufp/5+IHrvBGeg1jWMNup9wsoSxZ9zmh669qG15cfA5AQ==", null, null, false, "83f9a8f1-955a-4d66-a9d6-5668ad4071b0", false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "mod@localhost.com", null }
                 });
 
             migrationBuilder.InsertData(
@@ -456,6 +524,13 @@ namespace Screamer.Presistance.Migrations
                     { "cac43a6e-f7bb-4448-baaf-1add431ccbbf", "9e224968-33e4-4652-b7b7-8574d048cdb9" },
                     { "dbc43a8e-f7bb-4445-baaf-1999999999", "9e224968-33e4-4652-b7b7-agfddsr" }
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Adress_UserId",
+                table: "Adress",
+                column: "UserId",
+                unique: true,
+                filter: "[UserId] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -565,11 +640,21 @@ namespace Screamer.Presistance.Migrations
                 name: "IX_Reactions_UserId",
                 table: "Reactions",
                 column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Social_UserId",
+                table: "Social",
+                column: "UserId",
+                unique: true,
+                filter: "[UserId] IS NOT NULL");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Adress");
+
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
 
@@ -605,6 +690,9 @@ namespace Screamer.Presistance.Migrations
 
             migrationBuilder.DropTable(
                 name: "Reactions");
+
+            migrationBuilder.DropTable(
+                name: "Social");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

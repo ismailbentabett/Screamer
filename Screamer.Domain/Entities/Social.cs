@@ -8,7 +8,7 @@ using Screamer.Identity.Models;
 
 namespace Screamer.Domain.Entities
 {
-    public class Social
+    public class Social : BaseEntity
     {
         public string Facebook { get; set; }
         public string Twitter { get; set; }
@@ -34,6 +34,11 @@ namespace Screamer.Domain.Entities
         public string Patreon { get; set; }
         public string Medium { get; set; }
         public string Tumblr { get; set; }
+
+         public string UserId { get; set; }
+        [ForeignKey("UserId")]
+        public ApplicationUser User { get; set; }
+
 
     }
 }

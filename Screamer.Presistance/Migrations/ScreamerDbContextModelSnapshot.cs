@@ -266,11 +266,20 @@ namespace Screamer.Presistance.Migrations
 
             modelBuilder.Entity("Screamer.Domain.Entities.Adress", b =>
                 {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
                     b.Property<string>("City")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Country")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("PostalCode")
                         .HasColumnType("nvarchar(max)");
@@ -280,6 +289,18 @@ namespace Screamer.Presistance.Migrations
 
                     b.Property<string>("Street")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId")
+                        .IsUnique()
+                        .HasFilter("[UserId] IS NOT NULL");
 
                     b.ToTable("Adress");
                 });
@@ -510,6 +531,18 @@ namespace Screamer.Presistance.Migrations
 
             modelBuilder.Entity("Screamer.Domain.Entities.Social", b =>
                 {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Discord")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Facebook")
                         .HasColumnType("nvarchar(max)");
 
@@ -522,16 +555,40 @@ namespace Screamer.Presistance.Migrations
                     b.Property<string>("Linkedin")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Medium")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Onlyfans")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Patreon")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Pinterest")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Reddit")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Signal")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Skype")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Slack")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Snapchat")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Telegram")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Tiktok")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Tumblr")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Twitch")
@@ -540,11 +597,29 @@ namespace Screamer.Presistance.Migrations
                     b.Property<string>("Twitter")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Website")
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Viber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Wechat")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Whatsapp")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Youtube")
                         .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId")
+                        .IsUnique()
+                        .HasFilter("[UserId] IS NOT NULL");
 
                     b.ToTable("Social");
                 });
@@ -678,7 +753,7 @@ namespace Screamer.Presistance.Migrations
                         {
                             Id = "8e445865-a24d-4543-a6c6-9443d048cdb9",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "d92f1be9-bba4-4c02-bc6e-f15fd284a2aa",
+                            ConcurrencyStamp = "53105fab-5e8e-4f67-8549-a60da0ba41b3",
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "admin@localhost.com",
                             EmailConfirmed = true,
@@ -687,9 +762,9 @@ namespace Screamer.Presistance.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@LOCALHOST.COM",
                             NormalizedUserName = "ADMIN@LOCALHOST.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEEIrvkrkLusZXEDXeD6u65xfXEbRXBqhoWSqksETpesJiFYJ/0oxbEDL59ss+4EcpA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEBoricp5hBxq5Q/rPJsrTem3qs//TkYaZDUci5jSBVgs2RKtvvyWYnUXX7t69E1Idw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "d4139a58-ffdb-46c9-a91f-84ae02ceecda",
+                            SecurityStamp = "d3f35ddd-42be-40e4-997d-b68e6a3f5bd5",
                             TwoFactorEnabled = false,
                             UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UserName = "admin@localhost.com"
@@ -698,7 +773,7 @@ namespace Screamer.Presistance.Migrations
                         {
                             Id = "9e224968-33e4-4652-b7b7-8574d048cdb9",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "d3479f81-a6f7-4989-8195-652eb3879c56",
+                            ConcurrencyStamp = "ddbf8a2a-7f3c-4e96-ab02-d668ed65964f",
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "user@localhost.com",
                             EmailConfirmed = true,
@@ -707,9 +782,9 @@ namespace Screamer.Presistance.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "USER@LOCALHOST.COM",
                             NormalizedUserName = "USER@LOCALHOST.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEKpIgLg6LP0/S9GZNz9yiSnpczEu902BogT/8FuUtEdKB4/+2QHxW7b5fr2pT6cmQA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEK9ZFz/pTcZabqVVWzHAwAdNqLbXAZriyJvz1A8ZJuXNt1bKk9xZj87Jn37WkXIzTg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "f28d825b-1b24-44ee-a2d5-8640c448a97a",
+                            SecurityStamp = "8780ad5c-e365-47c9-93f1-7ca9d6a17689",
                             TwoFactorEnabled = false,
                             UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UserName = "user@localhost.com"
@@ -718,7 +793,7 @@ namespace Screamer.Presistance.Migrations
                         {
                             Id = "9e224968-33e4-4652-b7b7-agfddsr",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "6ec93f2f-9b80-42d6-813c-165f1777ae69",
+                            ConcurrencyStamp = "3171d35c-5206-4414-ad6e-1a25f7e61492",
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "mod@localhost.com",
                             EmailConfirmed = true,
@@ -727,9 +802,9 @@ namespace Screamer.Presistance.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "MOD@LOCALHOST.COM",
                             NormalizedUserName = "MOD@LOCALHOST.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAENtAa7JL2jKtYAMzppQ79Z3ivpUhPLFP/jQYLtd5O7+5ge/vNPVEsIGZZH6OqEI9zw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEFZK531L2qq0u//GLZ/rWufp/5+IHrvBGeg1jWMNup9wsoSxZ9zmh669qG15cfA5AQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "32e64642-d182-42ce-b7fd-f11af680f02e",
+                            SecurityStamp = "83f9a8f1-955a-4d66-a9d6-5668ad4071b0",
                             TwoFactorEnabled = false,
                             UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UserName = "mod@localhost.com"
@@ -801,6 +876,15 @@ namespace Screamer.Presistance.Migrations
                     b.HasOne("Screamer.Identity.Models.ApplicationUser", "User")
                         .WithMany("Posts")
                         .HasForeignKey("UserId");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Screamer.Domain.Entities.Adress", b =>
+                {
+                    b.HasOne("Screamer.Identity.Models.ApplicationUser", "User")
+                        .WithOne("Adress")
+                        .HasForeignKey("Screamer.Domain.Entities.Adress", "UserId");
 
                     b.Navigation("User");
                 });
@@ -897,6 +981,15 @@ namespace Screamer.Presistance.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("Screamer.Domain.Entities.Social", b =>
+                {
+                    b.HasOne("Screamer.Identity.Models.ApplicationUser", "User")
+                        .WithOne("Socials")
+                        .HasForeignKey("Screamer.Domain.Entities.Social", "UserId");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("Screamer.Domain.Follow", b =>
                 {
                     b.HasOne("Screamer.Identity.Models.ApplicationUser", "SourceUser")
@@ -939,6 +1032,8 @@ namespace Screamer.Presistance.Migrations
 
             modelBuilder.Entity("Screamer.Identity.Models.ApplicationUser", b =>
                 {
+                    b.Navigation("Adress");
+
                     b.Navigation("Avatars");
 
                     b.Navigation("Covers");
@@ -952,6 +1047,8 @@ namespace Screamer.Presistance.Migrations
                     b.Navigation("MessagesSent");
 
                     b.Navigation("Posts");
+
+                    b.Navigation("Socials");
                 });
 #pragma warning restore 612, 618
         }

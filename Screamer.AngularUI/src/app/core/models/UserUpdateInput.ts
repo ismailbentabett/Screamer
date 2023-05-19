@@ -2,7 +2,7 @@ import { Adress } from "./Adress";
 import { BaseModel } from "./BaseModel";
 import { Social } from "./Social";
 
-export interface UserUpdateInput extends BaseModel {
+export interface UserUpdateInput  {
 
   userName: string;
   firstName: string;
@@ -14,5 +14,6 @@ export interface UserUpdateInput extends BaseModel {
   gender: string;
   phone: string;
   social: Social;
-
+  createdAt: Date;
+  updatedAt: Date;
 }

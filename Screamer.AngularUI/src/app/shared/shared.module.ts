@@ -30,6 +30,7 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { FollowCardComponent } from './components/card/follow-card/follow-card.component';
 import { FollowModalComponent } from './components/modal/follow-modal/follow-modal.component';
 import { CoverUploadComponent } from './components/user/cover-upload/cover-upload.component';
+import { SocialInputComponent } from './components/input/social-input/social-input.component';
 
 @NgModule({
   declarations: [
@@ -54,6 +55,7 @@ import { CoverUploadComponent } from './components/user/cover-upload/cover-uploa
     FollowCardComponent,
     FollowModalComponent,
     CoverUploadComponent,
+    SocialInputComponent,
   ],
   imports: [
     CommonModule,
@@ -86,6 +88,7 @@ import { CoverUploadComponent } from './components/user/cover-upload/cover-uploa
     SideContentComponent,
     FollowModalComponent,
     CoverUploadComponent,
+    SocialInputComponent
   ],
   providers: [],
 })

@@ -77,8 +77,17 @@ export class UserService {
     );
   }
 
-  updateUser(user: UserUpdateInput) {
-    return this.http.put(this.baseUrl + 'User', user);
+  updateUser(user: UserUpdateInput , id : number) {
+    console.log(
+      {
+        user,
+        id,
+      }
+    )
+    return this.http.put(this.baseUrl + 'User', {
+      ...user,
+      id,
+    });
   }
 
   getUserById(id: string) {

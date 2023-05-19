@@ -50,9 +50,7 @@ public string? PasswordResetToken { get; set; }
 public DateTime? ResetTokenExpires { get; set; }
 public byte[] PasswordSalt { get; set; } = new byte[32]; */
 
-        [NotMapped]
         public Social Socials { get; set; }
-        [NotMapped]
         public Adress Adress { get; set; }
 
 

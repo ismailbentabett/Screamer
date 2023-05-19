@@ -17,14 +17,20 @@ namespace Screamer.Application.MappingProfiles
         public UserProfile()
         {
             CreateMap<ApplicationUser, UserDto>()
-             //get the first avatar 
+                 //get the first avatar 
                  .ForMember(dest => dest.AvatarUrl, opt => opt.MapFrom(src => src.Avatars.LastOrDefault().Url))
                 .ForMember(dest => dest.Avatars, opt => opt.MapFrom(src => src.Avatars))
                 .ForMember(dest => dest.CoverUrl, opt => opt.MapFrom(src => src.Covers.LastOrDefault().Url))
                 .ForMember(dest => dest.Covers, opt => opt.MapFrom(src => src.Covers));
-                
+
             CreateMap<UpdateUserRequestCommand, UpdateUserDto>().ReverseMap();
+            CreateMap<UpdateUserRequestCommand, ApplicationUser>().ReverseMap();
+            CreateMap<ApplicationUser, UpdateUserDto>().ReverseMap();
+            CreateMap<UpdateUserDto, UserDto>().ReverseMap();
+
             CreateMap<DeleteUserRequestCommand, ApplicationUser>().ReverseMap();
+            CreateMap<SocialDto, Social>().ReverseMap();
+            CreateMap<AdressDto, Adress>().ReverseMap();
 
 
 

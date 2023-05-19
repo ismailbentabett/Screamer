@@ -24,8 +24,8 @@ namespace Screamer.WebApi.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    [Authorize]
-    public class UserController : ControllerBase
+/*     [Authorize]
+ */    public class UserController : ControllerBase
     {
         private readonly IMediator _mediator;
 
