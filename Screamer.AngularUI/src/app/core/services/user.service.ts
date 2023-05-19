@@ -11,6 +11,7 @@ import {
   getThePaginationHeaders,
 } from '../Helpers/paginationHelper';
 import { FollowParams } from '../models/FollowParams';
+import { UserUpdateInput } from '../models/UserUpdateInput';
 
 @Injectable({
   providedIn: 'root',
@@ -76,7 +77,7 @@ export class UserService {
     );
   }
 
-  updateUser(user: User) {
+  updateUser(user: UserUpdateInput) {
     return this.http.put(this.baseUrl + 'User', user);
   }
 

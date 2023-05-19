@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { take } from 'rxjs';
 import { User } from 'src/app/core/models/User';
+import { UserUpdateInput } from 'src/app/core/models/UserUpdateInput';
 import { BusyService } from 'src/app/core/services/busy.service';
 import { UserService } from 'src/app/core/services/user.service';
 
@@ -63,56 +64,20 @@ export class ProfileComponent {
       .subscribe({
         next: (user: any) => {
           this.user = user;
-          this.form?.patchValue({
-            firstName: user.firstName,
-            lastName: user.lastName,
-            bio: user.bio,
-            website: user.website,
-            phone: user.phone,
-            birthday: user.birthday,
-            gender: user.gender,
-            userName: user.userName,
-            Facebook: user.social.facebook,
-            Twitter: user.social.twitter,
-            Instagram: user.social.instagram,
-            Youtube: user.social.youtube,
-            Twitch: user.social.twitch,
-            Tiktok: user.social.tiktok,
-            Snapchat: user.social.snapchat,
-            Pinterest: user.social.pinterest,
-            Reddit: user.social.reddit,
-            Linkedin: user.social.linkedin,
-            Github: user.social.github,
-            Discord: user.social.discord,
-            Whatsapp: user.social.whatsapp,
-            Telegram: user.social.telegram,
-            Skype: user.social.skype,
-            Viber: user.social.viber,
-            Signal: user.social.signal,
-            Slack: user.social.slack,
-            Wechat: user.social.wechat,
-            Onlyfans: user.social.onlyfans,
-            Patreon: user.social.patreon,
-            Medium: user.social.medium,
-            Tumblr: user.social.tumblr,
-            street: user.adress.street,
-            city: user.adress.city,
-            state: user.adress.state,
-            country: user.adress.country,
-            postalCode: user.adress.postalCode,
-
-          });
+          this.form?.patchValue({ ...user });
         },
       });
   }
   ngOnInit(): void {}
   onSubmit() {
     this.busyService.busy();
-
+    const { values }: { values: UserUpdateInput } = this.form?.value;
+    values.id = this.user!.id;
+    values.createdAt = this.user?.createdAt as Date;
+    values.updatedAt = this.user?.updatedAt as Date;
     this.userService
       .updateUser({
-        id: this.user?.id,
-        ...this.form?.value,
+        ...values,
       })
       .subscribe({
         next: () => {

@@ -1,9 +1,10 @@
 import { Adress } from "./Adress";
+import { BaseModel } from "./BaseModel";
 import { Social } from "./Social";
 
-export interface UserUpdateInput {
+export interface UserUpdateInput extends BaseModel {
 
-  username: string;
+  userName: string;
   firstName: string;
   lastName: string;
   bio: string;
