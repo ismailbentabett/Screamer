@@ -13,7 +13,8 @@ namespace Screamer.Application.Contracts.Presistance
         IMessageRepository MessageRepository { get; }
         IFollowRepository FollowRepository { get; }
 
-
+        IReactionRepository ReactionRepository { get; }
+        
         Task<bool> Complete();
         bool HasChanges();
     }

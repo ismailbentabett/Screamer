@@ -24,6 +24,7 @@ namespace Screamer.Presistance.DatabaseContext
         public DbSet<Connection> Connections { get; set; }
 
         public DbSet<Follow> Follows { get; set; }
+        public DbSet<Reaction> Reactions { get; set; }
 
 
 

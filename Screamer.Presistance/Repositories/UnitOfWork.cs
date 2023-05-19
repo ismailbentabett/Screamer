@@ -29,6 +29,7 @@ namespace Screamer.Presistance.Repositories
 
         public IFollowRepository FollowRepository => new FollowRepository(_context, _mapper);
 
+        public IReactionRepository ReactionRepository => new ReactionRepository(_context);
         public async Task<bool> Complete()
         {
             return await _context.SaveChangesAsync() > 0;
