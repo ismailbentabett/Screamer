@@ -17,7 +17,9 @@ namespace Screamer.Application.Contracts.Presistance
 
         ICoverRepository CoverRepository { get; }
 
-        IPostImageRepository PostImageRepository  {get;}
+        IPostImageRepository PostImageRepository { get; }
+
+        ICommentRepository CommentRepository { get; }
 
         Task<bool> Complete();
         bool HasChanges();

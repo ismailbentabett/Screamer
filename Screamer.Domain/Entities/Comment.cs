@@ -29,6 +29,11 @@ namespace Screamer.Domain.Entities
         public List<Comment> Replies { get; set; }
         public List<Reaction> Reactions { get; set; }
 
-
+        //ParentComment
+        public int? ParentCommentId { get; set; }
+        [ForeignKey(
+            nameof(ParentCommentId)
+        )]
+        public Comment ParentComment { get; set; }
     }
 }

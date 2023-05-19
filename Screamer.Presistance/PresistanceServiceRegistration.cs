@@ -36,6 +36,7 @@ namespace Screamer.Presistance
             services.AddScoped<IReactionRepository, ReactionRepository>();
             services.AddScoped<ICoverRepository, CoverRepository>();
             services.AddScoped<IPostImageRepository, PostImageRepository>();
+            services.AddScoped<ICommentRepository, CommentRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             
