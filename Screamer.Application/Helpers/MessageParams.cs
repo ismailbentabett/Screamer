@@ -4,7 +4,7 @@ namespace   Screamer.Presistance
 {
     public class MessageParams : PaginationParams
     {
-        public string Username { get; set; }
+        public string userId { get; set; }
         public string Container { get; set; } = "Unread";
     }
 }

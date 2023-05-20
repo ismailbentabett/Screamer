@@ -14,7 +14,7 @@ namespace Screamer.Application.Features.MessageRequest
         int
     >
     {
-      public string userName{
+      public string userId{
         get;
         set;
       }

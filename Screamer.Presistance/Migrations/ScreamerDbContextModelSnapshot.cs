@@ -426,10 +426,7 @@ namespace Screamer.Presistance.Migrations
                     b.Property<bool>("RecipientDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<int>("RecipientId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("RecipientId1")
+                    b.Property<string>("RecipientId")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("RecipientUsername")
@@ -438,10 +435,7 @@ namespace Screamer.Presistance.Migrations
                     b.Property<bool>("SenderDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<int>("SenderId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("SenderId1")
+                    b.Property<string>("SenderId")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("SenderUsername")
@@ -452,9 +446,9 @@ namespace Screamer.Presistance.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("RecipientId1");
+                    b.HasIndex("RecipientId");
 
-                    b.HasIndex("SenderId1");
+                    b.HasIndex("SenderId");
 
                     b.ToTable("Messages");
                 });
@@ -753,7 +747,7 @@ namespace Screamer.Presistance.Migrations
                         {
                             Id = "8e445865-a24d-4543-a6c6-9443d048cdb9",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "53105fab-5e8e-4f67-8549-a60da0ba41b3",
+                            ConcurrencyStamp = "ec4fffa2-29e1-4c57-a765-bbaa0c16746b",
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "admin@localhost.com",
                             EmailConfirmed = true,
@@ -762,9 +756,9 @@ namespace Screamer.Presistance.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@LOCALHOST.COM",
                             NormalizedUserName = "ADMIN@LOCALHOST.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEBoricp5hBxq5Q/rPJsrTem3qs//TkYaZDUci5jSBVgs2RKtvvyWYnUXX7t69E1Idw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAENUTZQVq8OW4WJ8qCUsmOiChHlwx4AnAA8u6goS52auzSxOmqBRU0AiWIYxMcXuVZQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "d3f35ddd-42be-40e4-997d-b68e6a3f5bd5",
+                            SecurityStamp = "744c44a6-1764-407c-a8f6-e3d00e5d634d",
                             TwoFactorEnabled = false,
                             UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UserName = "admin@localhost.com"
@@ -773,7 +767,7 @@ namespace Screamer.Presistance.Migrations
                         {
                             Id = "9e224968-33e4-4652-b7b7-8574d048cdb9",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "ddbf8a2a-7f3c-4e96-ab02-d668ed65964f",
+                            ConcurrencyStamp = "660d641d-42e5-4a80-871c-ed942aa95828",
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "user@localhost.com",
                             EmailConfirmed = true,
@@ -782,9 +776,9 @@ namespace Screamer.Presistance.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "USER@LOCALHOST.COM",
                             NormalizedUserName = "USER@LOCALHOST.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEK9ZFz/pTcZabqVVWzHAwAdNqLbXAZriyJvz1A8ZJuXNt1bKk9xZj87Jn37WkXIzTg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEA83Ikwd0bfFcsdH2KbCp96ExGDJzC8iUhgfH2m18Wpg7mG98Lm+CR9haFeK6cNrAA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "8780ad5c-e365-47c9-93f1-7ca9d6a17689",
+                            SecurityStamp = "ffe09516-8ab2-4f6a-ae5c-56899ee6fd17",
                             TwoFactorEnabled = false,
                             UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UserName = "user@localhost.com"
@@ -793,7 +787,7 @@ namespace Screamer.Presistance.Migrations
                         {
                             Id = "9e224968-33e4-4652-b7b7-agfddsr",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "3171d35c-5206-4414-ad6e-1a25f7e61492",
+                            ConcurrencyStamp = "0cd717f3-88e5-41a6-b7c1-148ff5917085",
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "mod@localhost.com",
                             EmailConfirmed = true,
@@ -802,9 +796,9 @@ namespace Screamer.Presistance.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "MOD@LOCALHOST.COM",
                             NormalizedUserName = "MOD@LOCALHOST.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEFZK531L2qq0u//GLZ/rWufp/5+IHrvBGeg1jWMNup9wsoSxZ9zmh669qG15cfA5AQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEOdHDCspmdj1nPkBSRQtKcwQkfojPATKTXordxkTVtaDAOrTgH4HAgnD5KNHFl+nUw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "83f9a8f1-955a-4d66-a9d6-5668ad4071b0",
+                            SecurityStamp = "dea4339d-095f-4e57-a2c9-8c560fe93f4e",
                             TwoFactorEnabled = false,
                             UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UserName = "mod@localhost.com"
@@ -932,12 +926,12 @@ namespace Screamer.Presistance.Migrations
                 {
                     b.HasOne("Screamer.Identity.Models.ApplicationUser", "Recipient")
                         .WithMany("MessagesReceived")
-                        .HasForeignKey("RecipientId1")
+                        .HasForeignKey("RecipientId")
                         .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("Screamer.Identity.Models.ApplicationUser", "Sender")
                         .WithMany("MessagesSent")
-                        .HasForeignKey("SenderId1")
+                        .HasForeignKey("SenderId")
                         .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("Recipient");

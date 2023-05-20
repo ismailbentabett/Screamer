@@ -69,11 +69,11 @@ namespace Screamer.Presistance.Repositories
 
             query = messageParams.Container switch
             {
-                "Inbox" => query.Where(u => u.RecipientUsername == messageParams.Username 
+                "Inbox" => query.Where(u => u.RecipientId == messageParams.userId 
                     && u.RecipientDeleted == false),
-                "Outbox" => query.Where(u => u.SenderUsername == messageParams.Username 
+                "Outbox" => query.Where(u => u.SenderId == messageParams.userId 
                     && u.SenderDeleted == false),
-                _ => query.Where(u => u.RecipientUsername == messageParams.Username 
+                _ => query.Where(u => u.RecipientId == messageParams.userId 
                     && u.RecipientDeleted == false && u.DateRead == null)
             };
 
@@ -83,21 +83,21 @@ namespace Screamer.Presistance.Repositories
                 .CreateAsync(messages, messageParams.PageNumber, messageParams.PageSize);
         }
 
-        public async Task<IEnumerable<MessageDto>> GetMessageThread(string currentUserName, string recipientUserName)
+        public async Task<IEnumerable<MessageDto>> GetMessageThread(string currentUserId, string recipientUserId)
         {
             var query = _context.Messages
                 .Where(
-                    m => m.RecipientUsername == currentUserName && m.RecipientDeleted == false &&
-                    m.SenderUsername == recipientUserName ||
-                    m.RecipientUsername == recipientUserName && m.SenderDeleted == false &&
-                    m.SenderUsername == currentUserName
+                    m => m.RecipientId == recipientUserId && m.RecipientDeleted == false &&
+                    m.SenderId == recipientUserId ||
+                    m.RecipientId == recipientUserId && m.SenderDeleted == false &&
+                    m.SenderId == currentUserId
                 )
                 .OrderBy(m => m.MessageSent)
                 .AsQueryable();
 
 
             var unreadMessages = query.Where(m => m.DateRead == null 
-                && m.RecipientUsername == currentUserName).ToList();
+                && m.RecipientId == currentUserId).ToList();
 
             if (unreadMessages.Any())
             {

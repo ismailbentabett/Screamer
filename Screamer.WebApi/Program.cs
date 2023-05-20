@@ -2,6 +2,8 @@ using Screamer.Application;
 using Screamer.Identity;
 using Screamer.Infrastructure;
 using Screamer.Presistance;
+using Screamer.WebApi;
+using Screamer.WebApi.SignalR;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,6 +20,8 @@ builder.Services.AddIdentityServices(builder.Configuration);
 builder.Services.AddControllers()   .AddNewtonsoftJson(options =>
     options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
 );
+
+builder.Services.AddSignalR();
 
 builder.Services.AddCors(options =>
 {
@@ -44,12 +48,27 @@ if (app.Environment.IsDevelopment())
 
 
 app.UseHttpsRedirection();
+app.UseRouting();
 
-app.UseCors("all");
+app.UseCors(builder => builder
+    .AllowAnyHeader()
+    .AllowAnyMethod()
+    .AllowCredentials()
+    .WithOrigins("https://localhost:4200"));
 
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapControllers();
+app.UseEndpoints
+(
+    endpoints =>
+    {
+        app.MapControllers();
 
+        endpoints.MapControllers();
+        endpoints.MapHub<PresenceHub>("hubs/presence");
+        endpoints.MapHub<MessageHub>("hubs/message");
+        endpoints.MapFallbackToController("Index", "Fallback");
+    }
+);
 app.Run();

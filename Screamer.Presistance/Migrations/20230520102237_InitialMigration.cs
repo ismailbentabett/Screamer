@@ -285,12 +285,10 @@ namespace Screamer.Presistance.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    SenderId = table.Column<int>(type: "int", nullable: false),
+                    SenderId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     SenderUsername = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    SenderId1 = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    RecipientId = table.Column<int>(type: "int", nullable: false),
+                    RecipientId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     RecipientUsername = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    RecipientId1 = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     Content = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DateRead = table.Column<DateTime>(type: "datetime2", nullable: true),
                     MessageSent = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -303,14 +301,14 @@ namespace Screamer.Presistance.Migrations
                 {
                     table.PrimaryKey("PK_Messages", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Messages_AspNetUsers_RecipientId1",
-                        column: x => x.RecipientId1,
+                        name: "FK_Messages_AspNetUsers_RecipientId",
+                        column: x => x.RecipientId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Messages_AspNetUsers_SenderId1",
-                        column: x => x.SenderId1,
+                        name: "FK_Messages_AspNetUsers_SenderId",
+                        column: x => x.SenderId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -510,9 +508,9 @@ namespace Screamer.Presistance.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "AvatarUrl", "Bio", "Birthday", "ConcurrencyStamp", "CoverUrl", "CreatedAt", "Email", "EmailConfirmed", "FirstName", "Gender", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "Password", "PasswordHash", "Phone", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UpdatedAt", "UserName", "Website" },
                 values: new object[,]
                 {
-                    { "8e445865-a24d-4543-a6c6-9443d048cdb9", 0, null, null, null, "53105fab-5e8e-4f67-8549-a60da0ba41b3", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "admin@localhost.com", true, "System", null, "Admin", false, null, "ADMIN@LOCALHOST.COM", "ADMIN@LOCALHOST.COM", null, "AQAAAAIAAYagAAAAEBoricp5hBxq5Q/rPJsrTem3qs//TkYaZDUci5jSBVgs2RKtvvyWYnUXX7t69E1Idw==", null, null, false, "d3f35ddd-42be-40e4-997d-b68e6a3f5bd5", false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "admin@localhost.com", null },
-                    { "9e224968-33e4-4652-b7b7-8574d048cdb9", 0, null, null, null, "ddbf8a2a-7f3c-4e96-ab02-d668ed65964f", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "user@localhost.com", true, "System", null, "User", false, null, "USER@LOCALHOST.COM", "USER@LOCALHOST.COM", null, "AQAAAAIAAYagAAAAEK9ZFz/pTcZabqVVWzHAwAdNqLbXAZriyJvz1A8ZJuXNt1bKk9xZj87Jn37WkXIzTg==", null, null, false, "8780ad5c-e365-47c9-93f1-7ca9d6a17689", false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "user@localhost.com", null },
-                    { "9e224968-33e4-4652-b7b7-agfddsr", 0, null, null, null, "3171d35c-5206-4414-ad6e-1a25f7e61492", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "mod@localhost.com", true, "System", null, "Mod", false, null, "MOD@LOCALHOST.COM", "MOD@LOCALHOST.COM", null, "AQAAAAIAAYagAAAAEFZK531L2qq0u//GLZ/rWufp/5+IHrvBGeg1jWMNup9wsoSxZ9zmh669qG15cfA5AQ==", null, null, false, "83f9a8f1-955a-4d66-a9d6-5668ad4071b0", false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "mod@localhost.com", null }
+                    { "8e445865-a24d-4543-a6c6-9443d048cdb9", 0, null, null, null, "ec4fffa2-29e1-4c57-a765-bbaa0c16746b", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "admin@localhost.com", true, "System", null, "Admin", false, null, "ADMIN@LOCALHOST.COM", "ADMIN@LOCALHOST.COM", null, "AQAAAAIAAYagAAAAENUTZQVq8OW4WJ8qCUsmOiChHlwx4AnAA8u6goS52auzSxOmqBRU0AiWIYxMcXuVZQ==", null, null, false, "744c44a6-1764-407c-a8f6-e3d00e5d634d", false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "admin@localhost.com", null },
+                    { "9e224968-33e4-4652-b7b7-8574d048cdb9", 0, null, null, null, "660d641d-42e5-4a80-871c-ed942aa95828", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "user@localhost.com", true, "System", null, "User", false, null, "USER@LOCALHOST.COM", "USER@LOCALHOST.COM", null, "AQAAAAIAAYagAAAAEA83Ikwd0bfFcsdH2KbCp96ExGDJzC8iUhgfH2m18Wpg7mG98Lm+CR9haFeK6cNrAA==", null, null, false, "ffe09516-8ab2-4f6a-ae5c-56899ee6fd17", false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "user@localhost.com", null },
+                    { "9e224968-33e4-4652-b7b7-agfddsr", 0, null, null, null, "0cd717f3-88e5-41a6-b7c1-148ff5917085", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "mod@localhost.com", true, "System", null, "Mod", false, null, "MOD@LOCALHOST.COM", "MOD@LOCALHOST.COM", null, "AQAAAAIAAYagAAAAEOdHDCspmdj1nPkBSRQtKcwQkfojPATKTXordxkTVtaDAOrTgH4HAgnD5KNHFl+nUw==", null, null, false, "dea4339d-095f-4e57-a2c9-8c560fe93f4e", false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "mod@localhost.com", null }
                 });
 
             migrationBuilder.InsertData(
@@ -607,14 +605,14 @@ namespace Screamer.Presistance.Migrations
                 column: "TargetUserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Messages_RecipientId1",
+                name: "IX_Messages_RecipientId",
                 table: "Messages",
-                column: "RecipientId1");
+                column: "RecipientId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Messages_SenderId1",
+                name: "IX_Messages_SenderId",
                 table: "Messages",
-                column: "SenderId1");
+                column: "SenderId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_PostImage_PostId",

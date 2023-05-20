@@ -8,7 +8,7 @@ using Screamer.Presistance;
 
 namespace Screamer.Application.Features.MessageRequest;
     public record GetMessagesForUserRequestQuery : IRequest<List<MessageDto>>{
-        public string userName{
+        public string userId{
             get;
             set;
         }

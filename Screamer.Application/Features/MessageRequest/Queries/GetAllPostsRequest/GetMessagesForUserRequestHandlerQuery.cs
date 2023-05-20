@@ -44,7 +44,7 @@ namespace Screamer.Application.Features.MessageRequest
 
         async Task<IEnumerable<MessageDto>> IRequestHandler<GetMessagesForUserRequestQuery, IEnumerable<MessageDto>>.Handle(GetMessagesForUserRequestQuery request, CancellationToken cancellationToken)
         {
-            request.messageParams.Username = request.userName;
+            request.messageParams.userId = request.userId;
 
             var messages = await _uow.MessageRepository.GetMessagesForUser(request.messageParams);
             HttpContext httpContext = _httpContextAccessor.HttpContext;

@@ -27,13 +27,13 @@ namespace HR.LeaveManagement.Api.Controllers
 
 
         [HttpPost]
-        public async Task<ActionResult<MessageDto>> CreateMessage(CreateMessageDto createMessageDto, string userName)
+        public async Task<ActionResult<MessageDto>> CreateMessage(CreateMessageDto createMessageDto, string userId)
         {
             var command = new
                 CreateMessageRequestCommand
             {
                 createMessageDto = createMessageDto,
-                userName = userName
+                userId = userId
             };
 
 
@@ -46,13 +46,13 @@ namespace HR.LeaveManagement.Api.Controllers
         [HttpGet]
         public async Task<ActionResult<PagedList<MessageDto>>> GetMessagesForUser([FromQuery]
             MessageParams messageParams,
-            string userName
+            string userId
             )
         {
             var query = new GetMessagesForUserRequestQuery
             {
                 messageParams = messageParams,
-                userName = userName
+                userId = userId
 
             };
 
@@ -61,12 +61,12 @@ namespace HR.LeaveManagement.Api.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult> DeleteMessage(int messageId , string userName)
+        public async Task<ActionResult> DeleteMessage(int messageId , string userId)
         {
 
             var command = new DeleteMessageRequestCommand{
                 messageId = messageId,
-                userName = userName
+                userId = userId
             };
             await _mediator.Send(command);
             return NoContent();

@@ -38,18 +38,18 @@ namespace Screamer.Application.Features.MessageRequest
 
         public async Task<int> Handle(DeleteMessageRequestCommand request, CancellationToken cancellationToken)
         {
- var username = request.userName;
+ var userId = request.userId;
 
             var message = await _uow.MessageRepository.GetMessage(request.messageId);
 
-            if (message.SenderUsername != username && message.RecipientUsername != username) 
+            if (message.SenderId != userId && message.RecipientId != userId) 
                 throw new NotFoundException(
                     nameof(Message),
                     request.messageId
                 );
 
-            if (message.SenderUsername == username) message.SenderDeleted = true;
-            if (message.RecipientUsername == username) message.RecipientDeleted = true;
+            if (message.SenderId == userId) message.SenderDeleted = true;
+            if (message.RecipientId == userId) message.RecipientDeleted = true;
 
             if (message.SenderDeleted && message.RecipientDeleted) 
             {

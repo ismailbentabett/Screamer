@@ -37,25 +37,25 @@ namespace Screamer.Application.Features.MessageRequest
 
         public async Task<MessageDto> Handle(CreateMessageRequestCommand request, CancellationToken cancellationToken)
         {
- var username = request.userName;
+ var userId = request.userId;
 
-            if (username == request.createMessageDto.RecipientUsername.ToLower())
+            if (userId == request.createMessageDto.RecipientId)
                 throw new BadRequestException("You cannot send messages to yourself");
 
-            var sender = await _uow.UserRepository.GetUserByUsernameAsync(username);
-            var recipient = await _uow.UserRepository.GetUserByUsernameAsync(request.createMessageDto.RecipientUsername);
+            var sender = await _uow.UserRepository.GetUserByIdAsync(userId);
+            var recipient = await _uow.UserRepository.GetUserByIdAsync(request.createMessageDto.RecipientId);
 
             if (recipient == null)  throw new NotFoundException(
                 nameof(ApplicationUser),
-                request.createMessageDto.RecipientUsername
+                request.createMessageDto.RecipientId
             );
 
             var message = new Message
             {
                 Sender = sender,
                 Recipient = recipient,
-                SenderUsername = sender.UserName,
-                RecipientUsername = recipient.UserName,
+                SenderId = sender.Id,
+                RecipientId = recipient.Id,
                 Content = request.createMessageDto.Content
             };
 

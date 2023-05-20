@@ -20,7 +20,7 @@ namespace Screamer.Application.Features.MessageRequest
             get;
             set;
         }
-        public string userName 
+        public string userId 
         {
             get;
             set;
