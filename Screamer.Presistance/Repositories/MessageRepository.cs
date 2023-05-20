@@ -87,13 +87,16 @@ namespace Screamer.Presistance.Repositories
         {
             var query = _context.Messages
                 .Where(
-                    m => m.RecipientId == recipientUserId && m.RecipientDeleted == false &&
-                    m.SenderId == recipientUserId ||
-                    m.RecipientId == recipientUserId && m.SenderDeleted == false &&
-                    m.SenderId == currentUserId
+                    m => m.RecipientId == currentUserId && m.RecipientDeleted == false
+                         && m.SenderId == recipientUserId
+                         || m.RecipientId == recipientUserId && m.SenderId == currentUserId
+                         && m.SenderDeleted == false
                 )
-                .OrderBy(m => m.MessageSent)
+                .OrderBy(m => m.MessageSent
+                    
+                )
                 .AsQueryable();
+
 
 
             var unreadMessages = query.Where(m => m.DateRead == null 

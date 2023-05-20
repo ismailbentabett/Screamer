@@ -59,6 +59,19 @@ namespace HR.LeaveManagement.Api.Controllers
             var messages = await _mediator.Send(query);
             return Ok(messages);
         }
+      [HttpGet("thread")]
+        public async Task<ActionResult<IEnumerable<MessageDto>>> GetMessageThread(
+            string userId , 
+            string currentUserId
+        )
+        {
+            var query = new GetMessageThreadRequestQuery{
+                userId = userId,
+                currentUserId = currentUserId
+            };
+            var messages = await _mediator.Send(query);
+            return Ok(messages);
+        }
 
         [HttpDelete("{id}")]
         public async Task<ActionResult> DeleteMessage(int messageId , string userId)
