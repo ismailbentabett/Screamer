@@ -6,6 +6,7 @@ import { ChatRoomComponent } from './chat-room/chat-room.component';
 import { ChatListComponent } from './chat-list/chat-list.component';
 
 import { PickerComponent } from '@ctrl/ngx-emoji-mart';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { PickerComponent } from '@ctrl/ngx-emoji-mart';
   imports: [
     CommonModule,
     ChatRoutingModule,
-    PickerComponent
+    PickerComponent,
+    ReactiveFormsModule
 
   ]
 })
