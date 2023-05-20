@@ -7,6 +7,11 @@
     alt=""
   />
   <span
-    class="absolute bottom-0 right-0 block h-2 w-2 rounded-full ring-2 ring-white bg-green-400"
+  *ngIf="(this.presenceService.onlineUsers$ |async).includes(user!.id)"
+    class="z-999 absolute bottom-0 right-0 block h-2 w-2 rounded-full ring-2 ring-white bg-green-400"
+  ></span>
+  <span
+  *ngIf="!(this.presenceService.onlineUsers$ |async).includes(user!.id)"
+    class="z-999 absolute bottom-0 right-0 block h-2 w-2 rounded-full ring-2 ring-white bg-red-400"
   ></span>
 </span>

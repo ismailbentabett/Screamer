@@ -3,6 +3,7 @@ import { avatarEnum } from 'src/app/core/enums/avatar.enum';
 import { User } from 'src/app/core/models/User';
 import { createAvatar } from '@dicebear/core';
 import { bigEarsNeutral } from '@dicebear/collection';
+import { PresenceService } from 'src/app/core/services/presence.service';
 
 @Component({
   selector: 'app-avatar',
@@ -17,7 +18,7 @@ export class AvatarComponent {
 
   avatar: any;
 
-  constructor() {
+  constructor(public presenceService : PresenceService) {
 
 
 
