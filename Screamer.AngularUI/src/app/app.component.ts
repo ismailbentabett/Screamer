@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { User } from './core/models/User';
 import { AuthenticationService } from './core/services/authentication.service';
 import { Router, NavigationEnd } from '@angular/router';
+import { PresenceService } from './core/services/presence.service';
 
 @Component({
   selector: 'app-root',
@@ -15,6 +16,7 @@ export class AppComponent {
   constructor(
     private authService: AuthenticationService,
     private router: Router,
+    private presenceService : PresenceService
   ) {}
 
   ngOnInit(): void {
@@ -33,5 +35,6 @@ export class AppComponent {
     if (!userString) return;
     const user: User = JSON.parse(userString);
     this.authService.setCurrentUser(user);
+    this.presenceService.createHubConnection(user)
   }
 }

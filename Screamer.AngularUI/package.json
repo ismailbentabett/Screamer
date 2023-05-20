@@ -21,6 +21,7 @@
     "@auth0/angular-jwt": "^5.1.2",
     "@dicebear/collection": "^6.0.3",
     "@dicebear/core": "^6.0.3",
+    "@microsoft/signalr": "^7.0.5",
     "ng2-file-upload": "^3.0.0",
     "ngx-bootstrap": "^10.2.0",
     "ngx-infinite-scroll": "^16.0.0",

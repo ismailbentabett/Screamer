@@ -82,7 +82,7 @@ namespace Screamer.Identity.Services
                 {
                     str.AppendFormat("•{0}\n", err.Description);
                 }
-                
+
                 throw new BadRequestException($"{str}");
             }
         }
@@ -96,10 +96,11 @@ namespace Screamer.Identity.Services
 
             var claims = new[]
             {
-                new Claim(JwtRegisteredClaimNames.Sub, user.UserName),
+                new Claim(JwtRegisteredClaimNames.Sub, user.Id),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                 new Claim(JwtRegisteredClaimNames.Email, user.Email),
-                new Claim("uid", user.Id)
+                
+                new Claim("uid", user.Id),
             }
             .Union(userClaims)
             .Union(roleClaims);

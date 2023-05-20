@@ -27,6 +27,7 @@ namespace Screamer.WebApi
         {
             var httpContext = Context.GetHttpContext();
             var otherUser = httpContext.Request.Query["user"];
+            
             var groupName = GetGroupName(Context.User.FindFirst(ClaimTypes.NameIdentifier)?.Value, otherUser);
             await Groups.AddToGroupAsync(Context.ConnectionId, groupName);
             var group = await AddToGroup(groupName);

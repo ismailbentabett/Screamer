@@ -12,6 +12,8 @@ import { JwtInterceptor } from './core/interceptors/jwt.interceptor';
 import { LoadingInterceptor } from './core/interceptors/loading.interceptor';
 import { JwtModule } from "@auth0/angular-jwt";
 import { HttpClientModule } from "@angular/common/http";
+import { ToastrModule } from 'ngx-toastr';
+
 export function tokenGetter() {
   return localStorage.getItem('token');
 }

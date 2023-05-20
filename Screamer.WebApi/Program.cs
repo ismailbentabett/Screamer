@@ -15,20 +15,20 @@ builder.Services.AddApplicationServices();
 builder.Services.AddInfrastructureServices(builder.Configuration);
 builder.Services.AddPresistanceServices(builder.Configuration);
 builder.Services.AddIdentityServices(builder.Configuration);
-
+  builder.Services.AddSignalR();
+            builder.Services.AddSingleton<PresenceTracker>();
 
 builder.Services.AddControllers()   .AddNewtonsoftJson(options =>
     options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
 );
 
-builder.Services.AddSignalR();
-
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("all", builder => builder.AllowAnyOrigin()
-    .AllowAnyHeader()
-    .AllowAnyMethod());
-});
+builder.Services.AddCors(o => o.AddPolicy("CorsPolicy", builder => {
+        builder
+        .AllowAnyMethod()
+        .AllowAnyHeader()
+        .AllowCredentials()
+        .WithOrigins("http://localhost:4200");
+    }));
 
 builder.Services.AddHttpContextAccessor();
 
@@ -48,27 +48,16 @@ if (app.Environment.IsDevelopment())
 
 
 app.UseHttpsRedirection();
-app.UseRouting();
 
-app.UseCors(builder => builder
-    .AllowAnyHeader()
-    .AllowAnyMethod()
-    .AllowCredentials()
-    .WithOrigins("https://localhost:4200"));
+    app.UseCors("CorsPolicy");
 
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.UseEndpoints
-(
-    endpoints =>
-    {
-        app.MapControllers();
+app.MapControllers();
 
-        endpoints.MapControllers();
-        endpoints.MapHub<PresenceHub>("hubs/presence");
-        endpoints.MapHub<MessageHub>("hubs/message");
-        endpoints.MapFallbackToController("Index", "Fallback");
-    }
-);
+
+app.MapHub<PresenceHub>("hubs/presence");
+app.MapHub<MessageHub>("hubs/message");
+
 app.Run();
