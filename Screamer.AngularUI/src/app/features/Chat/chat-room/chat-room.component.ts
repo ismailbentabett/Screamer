@@ -6,5 +6,12 @@ import { Component } from '@angular/core';
   styleUrls: ['./chat-room.component.scss']
 })
 export class ChatRoomComponent {
+  emojiMartVisible: boolean = false;
 
+  toggleEmojiMart(): void {
+    this.emojiMartVisible = !this.emojiMartVisible;
+    console.log(
+      this.emojiMartVisible
+    )
+  }
 }
