@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Emoji } from '@ctrl/ngx-emoji-mart/ngx-emoji';
+import { MessageService } from 'src/app/core/services/message.service';
 
 @Component({
   selector: 'app-chat-room',
@@ -11,7 +12,7 @@ export class ChatRoomComponent {
   emojiMartVisible: boolean = false;
   form: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder , private messagesService : MessageService) {
     this.form = this.fb.group({
       message: ['', Validators.required],
     });
@@ -29,4 +30,7 @@ console.log(data)
   {
     console.log(this.form.value);
   }
+  getUserChatRooms(
+
+  )
 }
