@@ -212,6 +212,9 @@ namespace Screamer.Presistance.Repositories
             throw new NotImplementedException();
         }
 
-     
+        async Task<ChatRoom> IMessageRepository.GetChatRoomById(int id)
+        {
+            return await _context.ChatRooms.FindAsync(id);
+        }
     }
 }
