@@ -100,7 +100,7 @@ namespace HR.LeaveManagement.Api.Controllers
             return NoContent();
         }
 
-        [HttpDelete("{id}")]
+        [HttpGet("thread/{id}")]
         public async Task<ActionResult> GetChatRoomById(int id)
         {
             var command = new GetChatRoomByIdRequestQuery { ChatRoomId = id };

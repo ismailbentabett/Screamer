@@ -214,7 +214,9 @@ namespace Screamer.Presistance.Repositories
 
         async Task<ChatRoom> IMessageRepository.GetChatRoomById(int id)
         {
-            return await _context.ChatRooms.FindAsync(id);
+            return await _context.ChatRooms
+            .Include(p => p.ChatRoomUsers).ThenInclude(p=>p.User)
+           .FirstOrDefaultAsync(x=>x.Id == id);
         }
     }
 }

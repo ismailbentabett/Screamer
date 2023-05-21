@@ -151,4 +151,12 @@ export class MessageService {
       })
     );
   }
+  getChatRoomById (
+    chatRoomId: number,
+  )
+  {
+    return this.http.get<Message[]>(
+      this.baseUrl + 'Message/thread/' + chatRoomId
+    );
+  }
 }

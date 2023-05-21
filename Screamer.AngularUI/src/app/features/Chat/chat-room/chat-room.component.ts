@@ -57,6 +57,8 @@ export class ChatRoomComponent {
     });
 
   }
+
+
   loadRooms() {
     if (this.chatRoomParams) {
       console.log(
