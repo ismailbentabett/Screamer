@@ -9,11 +9,13 @@ import { PickerComponent } from '@ctrl/ngx-emoji-mart';
 import { ReactiveFormsModule } from '@angular/forms';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { ChatComponent } from './chat/chat.component';
 
 @NgModule({
   declarations: [
     ChatRoomComponent,
     ChatListComponent,
+    ChatComponent,
   ],
   imports: [
     CommonModule,

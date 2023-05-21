@@ -1,5 +1,6 @@
 <button
-  *ngIf="user"
+[routerLink]="['/v/chat/room',chatRoom.id ]"
+*ngIf="user"
   class="flex items-start hover:bg-gray-100 w-full space-x-2 divide-double divide-gray-200 mb-3"
 >
   <div>

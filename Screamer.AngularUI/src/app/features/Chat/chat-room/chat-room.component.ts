@@ -36,18 +36,8 @@ export class ChatRoomComponent {
 
 
   }
-  toggleEmojiMart(): void {
-    this.emojiMartVisible = !this.emojiMartVisible;
-    console.log(this.emojiMartVisible);
-  }
-  addEmoji($event: { emoji: { native: any } }) {
-    let data = this.form.get('message');
-    console.log(data);
-    data!.patchValue(data!.value + $event.emoji.native);
-  }
-  onSubmit() {
-    console.log(this.form.value);
-  }
+
+
   ngOnInit(): void {
 
 

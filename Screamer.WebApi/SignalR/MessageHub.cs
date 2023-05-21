@@ -53,7 +53,7 @@ namespace Screamer.WebApi
 
         public async Task SendMessage(CreateMessageDto createMessageDto)
         {
-            var userId = Context.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var userId = createMessageDto.userId;
 
             if (userId == createMessageDto.RecipientId.ToLower())
                 throw new HubException("You cannot send messages to yourself");
