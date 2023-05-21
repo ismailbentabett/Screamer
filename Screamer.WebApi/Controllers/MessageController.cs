@@ -4,6 +4,7 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Screamer.Application.Dtos;
 using Screamer.Application.Features.MessageRequest;
+using Screamer.Application.Features.MessageRequest.Queries.GetUserChatRoomsRequest;
 using Screamer.Application.Helpers;
 using Screamer.Domain.Entities;
 using Screamer.Presistance;
@@ -68,6 +69,19 @@ namespace HR.LeaveManagement.Api.Controllers
             var query = new GetMessageThreadRequestQuery{
                 userId = userId,
                 currentUserId = currentUserId
+            };
+            var messages = await _mediator.Send(query);
+            return Ok(messages);
+        }
+
+        //get user threads 
+        [HttpGet("threads")]
+        public async Task<ActionResult<IEnumerable<MessageDto>>> GetUserThreads(
+            string userId
+        )
+        {
+            var query = new GetUserChatRoomsRequestQuery{
+                userId = userId
             };
             var messages = await _mediator.Send(query);
             return Ok(messages);

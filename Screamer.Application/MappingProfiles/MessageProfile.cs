@@ -16,6 +16,18 @@ namespace Screamer.Application.MappingProfiles
                     .FirstOrDefault(x => x.IsMain).Url))
                 .ForMember(d => d.RecipientPhotoUrl, o => o.MapFrom(s => s.Recipient.Avatars
                     .FirstOrDefault(x => x.IsMain).Url));
+
+
+                CreateMap<
+                ChatRoom,    
+                ChatRoomDto>();
+                CreateMap<
+                ChatRoomUser,
+                ChatRoomUserDto>();
+                
+
+        
+
     }
     }
 }

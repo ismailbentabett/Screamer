@@ -28,6 +28,7 @@ namespace Screamer.Presistance.DatabaseContext
 
         public DbSet<Comment> Comments { get; set; }
 
+        public DbSet<ChatRoom> ChatRooms { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -75,7 +76,18 @@ namespace Screamer.Presistance.DatabaseContext
                 .HasForeignKey(r => r.CommentId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-       
+           modelBuilder.Entity<ChatRoomUser>()
+            .HasKey(cu => new { cu.ChatroomId, cu.UserId });
+
+        modelBuilder.Entity<ChatRoomUser>()
+            .HasOne(cu => cu.ChatRoom)
+            .WithMany(c => c.ChatRoomUsers)
+            .HasForeignKey(cu => cu.ChatroomId);
+
+        modelBuilder.Entity<ChatRoomUser>()
+            .HasOne(cu => cu.User)
+            .WithMany(u => u.ChatRoomUsers)
+            .HasForeignKey(cu => cu.UserId);
 
         }
 

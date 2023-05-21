@@ -1,4 +1,4 @@
-
+using System.Collections.Generic;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;
@@ -10,7 +10,7 @@ using Screamer.Presistance.DatabaseContext;
 
 namespace Screamer.Presistance.Repositories
 {
-    public class MessageRepository  :  IMessageRepository , IGenericRepository<Message>
+    public class MessageRepository : IMessageRepository, IGenericRepository<Message>
     {
         private readonly ScreamerDbContext _context;
         private readonly IMapper _mapper;
@@ -63,44 +63,57 @@ namespace Screamer.Presistance.Repositories
 
         public async Task<PagedList<MessageDto>> GetMessagesForUser(MessageParams messageParams)
         {
-            var query = _context.Messages
-                .OrderByDescending(x => x.MessageSent)
-                .AsQueryable();
+            var query = _context.Messages.OrderByDescending(x => x.MessageSent).AsQueryable();
 
             query = messageParams.Container switch
             {
-                "Inbox" => query.Where(u => u.RecipientId == messageParams.userId 
-                    && u.RecipientDeleted == false),
-                "Outbox" => query.Where(u => u.SenderId == messageParams.userId 
-                    && u.SenderDeleted == false),
-                _ => query.Where(u => u.RecipientId == messageParams.userId 
-                    && u.RecipientDeleted == false && u.DateRead == null)
+                "Inbox"
+                    => query.Where(
+                        u => u.RecipientId == messageParams.userId && u.RecipientDeleted == false
+                    ),
+                "Outbox"
+                    => query.Where(
+                        u => u.SenderId == messageParams.userId && u.SenderDeleted == false
+                    ),
+                _
+                    => query.Where(
+                        u =>
+                            u.RecipientId == messageParams.userId
+                            && u.RecipientDeleted == false
+                            && u.DateRead == null
+                    )
             };
 
             var messages = query.ProjectTo<MessageDto>(_mapper.ConfigurationProvider);
 
-            return await PagedList<MessageDto>
-                .CreateAsync(messages, messageParams.PageNumber, messageParams.PageSize);
+            return await PagedList<MessageDto>.CreateAsync(
+                messages,
+                messageParams.PageNumber,
+                messageParams.PageSize
+            );
         }
 
-        public async Task<IEnumerable<MessageDto>> GetMessageThread(string currentUserId, string recipientUserId)
+        public async Task<IEnumerable<MessageDto>> GetMessageThread(
+            string currentUserId,
+            string recipientUserId
+        )
         {
             var query = _context.Messages
                 .Where(
-                    m => m.RecipientId == currentUserId && m.RecipientDeleted == false
-                         && m.SenderId == recipientUserId
-                         || m.RecipientId == recipientUserId && m.SenderId == currentUserId
-                         && m.SenderDeleted == false
+                    m =>
+                        m.RecipientId == currentUserId
+                            && m.RecipientDeleted == false
+                            && m.SenderId == recipientUserId
+                        || m.RecipientId == recipientUserId
+                            && m.SenderId == currentUserId
+                            && m.SenderDeleted == false
                 )
-                .OrderBy(m => m.MessageSent
-                    
-                )
+                .OrderBy(m => m.MessageSent)
                 .AsQueryable();
 
-
-
-            var unreadMessages = query.Where(m => m.DateRead == null 
-                && m.RecipientId == currentUserId).ToList();
+            var unreadMessages = query
+                .Where(m => m.DateRead == null && m.RecipientId == currentUserId)
+                .ToList();
 
             if (unreadMessages.Any())
             {
@@ -136,6 +149,41 @@ namespace Screamer.Presistance.Repositories
         Task<Message> IGenericRepository<Message>.GetByIdAsync(int id)
         {
             throw new NotImplementedException();
+        }
+
+        /*  Task<List<Domain.Entities.ChatRoom>> GetUserChatRooms(string userId);
+
+
+                Task<Domain.Entities.ChatRoom> GetChatRoomForUsers(string userId, string recipientId);
+                void AddChatRoom(Domain.Entities.ChatRoom chatRoom); */
+
+        public async Task<IEnumerable<Domain.Entities.ChatRoom>> GetUserChatRooms(string userId)
+        {
+            // Use the mapper to map the list of ChatRoom instances to a list of MessageDto instances
+            List<ChatRoom> chatRooms = await _context.ChatRooms
+                .Include(x => x.ChatRoomUsers)
+                .Where(x => x.ChatRoomUsers.Any(u => u.UserId == userId))
+                .ToListAsync(); 
+
+            return _mapper.Map<List<Domain.Entities.ChatRoom>>(chatRooms);
+        }
+
+        public async Task<Domain.Entities.ChatRoom> GetChatRoomForUsers(
+            string userId,
+            string recipientId
+        )
+        {
+            return await _context.ChatRooms
+                .Include(x => x.ChatRoomUsers)
+                .Where(
+                    x => x.ChatRoomUsers.Any(u => u.UserId == userId) && x.ChatRoomUsers.Any(u => u.UserId == recipientId)
+                )
+                .FirstOrDefaultAsync();
+        }
+
+        public void AddChatRoom(Domain.Entities.ChatRoom chatRoom)
+        {
+            _context.ChatRooms.Add(chatRoom);
         }
 
         Task<Message> IGenericRepository<Message>.UpdateAsync(Message entity)

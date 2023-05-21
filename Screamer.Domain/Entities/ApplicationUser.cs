@@ -36,14 +36,13 @@ namespace Screamer.Identity.Models
         public List<Follow> Followers { get; set; } = new();
         public List<Follow> Following { get; set; } = new();
 
-
         public List<Cover> Covers { get; set; } = new();
         public string CoverUrl { get; set; }
 
+        //chat rooms
+        public ICollection<ChatRoomUser> ChatRoomUsers { get; set; } = new List<ChatRoomUser>();
 
-
-
-        /* 
+        /*
 public string? VerificationToken { get; set; }
 public DateTime? VerifiedAt { get; set; }
 public string? PasswordResetToken { get; set; }
@@ -52,9 +51,5 @@ public byte[] PasswordSalt { get; set; } = new byte[32]; */
 
         public Social Socials { get; set; }
         public Adress Adress { get; set; }
-
-
-
-
     }
 }

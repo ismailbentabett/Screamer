@@ -14,11 +14,8 @@ using Screamer.Presistance.Repositories;
 
 namespace Screamer.Application.Features.MessageRequest
 {
-    public class CreateMessageRequestHandlerCommand : IRequestHandler
-    <
-        CreateMessageRequestCommand,
-        MessageDto
-        >
+    public class CreateMessageRequestHandlerCommand
+        : IRequestHandler<CreateMessageRequestCommand, MessageDto>
     {
         private readonly IMessageRepository _messageRepository;
         private readonly IMapper _mapper;
@@ -26,8 +23,8 @@ namespace Screamer.Application.Features.MessageRequest
         private readonly IUnitOfWork _uow;
 
         public CreateMessageRequestHandlerCommand(
-            IMessageRepository messageRepository
-            , IMapper mapper,
+            IMessageRepository messageRepository,
+            IMapper mapper,
             IUnitOfWork uow
         )
         {
@@ -35,20 +32,26 @@ namespace Screamer.Application.Features.MessageRequest
             _uow = uow;
         }
 
-        public async Task<MessageDto> Handle(CreateMessageRequestCommand request, CancellationToken cancellationToken)
+        public async Task<MessageDto> Handle(
+            CreateMessageRequestCommand request,
+            CancellationToken cancellationToken
+        )
         {
- var userId = request.userId;
+            var userId = request.userId;
 
             if (userId == request.createMessageDto.RecipientId)
                 throw new BadRequestException("You cannot send messages to yourself");
 
             var sender = await _uow.UserRepository.GetUserByIdAsync(userId);
-            var recipient = await _uow.UserRepository.GetUserByIdAsync(request.createMessageDto.RecipientId);
-
-            if (recipient == null)  throw new NotFoundException(
-                nameof(ApplicationUser),
+            var recipient = await _uow.UserRepository.GetUserByIdAsync(
                 request.createMessageDto.RecipientId
             );
+
+            if (recipient == null)
+                throw new NotFoundException(
+                    nameof(ApplicationUser),
+                    request.createMessageDto.RecipientId
+                );
 
             var message = new Message
             {
@@ -59,10 +62,49 @@ namespace Screamer.Application.Features.MessageRequest
                 Content = request.createMessageDto.Content
             };
 
+            //create a chat room if it doesnt exist
+
+            var chatRoom = await _uow.MessageRepository.GetChatRoomForUsers(
+                sender.Id,
+                recipient.Id
+            );
+
+            if (chatRoom == null)
+            {
+                chatRoom = new ChatRoom
+                {
+                    LatestMessage = new Message
+                    {
+                        Sender = sender,
+                        Recipient = recipient,
+                        SenderId = sender.Id,
+                        RecipientId = recipient.Id,
+                        Content = request.createMessageDto.Content
+                    },
+                    ChatRoomUsers = new List<ChatRoomUser>
+                    {
+                        new ChatRoomUser
+                        {
+                            ChatRoom = chatRoom,
+                            User = sender,
+                            UserId = sender.Id
+                        },
+                        new ChatRoomUser
+                        {
+                            ChatRoom = chatRoom,
+                            User = recipient,
+                            UserId = recipient.Id
+                        }
+                    }
+                };
+
+                _uow.MessageRepository.AddChatRoom(chatRoom);
+            }
+
             _uow.MessageRepository.AddMessage(message);
 
-            if (await _uow.Complete()) return 
-                _mapper.Map<MessageDto>(message);
+            if (await _uow.Complete())
+                return _mapper.Map<MessageDto>(message);
 
             throw new BadRequestException("Failed to send message");
         }
