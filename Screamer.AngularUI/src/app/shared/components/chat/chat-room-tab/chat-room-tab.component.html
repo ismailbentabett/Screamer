@@ -1,0 +1,18 @@
+<button
+  *ngIf="user"
+  class="flex items-start hover:bg-gray-100 w-full space-x-2 divide-double divide-gray-200 mb-3"
+>
+  <div>
+    <app-avatar
+      *ngIf="user"
+      [user]="user"
+      avatarStyle="h-8 w-8 rounded-full ring-4 ring-white sm:h-10 sm:w-10"
+    ></app-avatar>
+  </div>
+  <div class="text-start text-sm font-semibold">
+    <p class="text-sm font-medium text-gray-900">
+      {{ user.firstName + " " + user.lastName }}
+    </p>
+    <p class="text-sm text-gray-500">{{ latestMessage.content  }}</p>
+  </div>
+</button>

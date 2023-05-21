@@ -49,7 +49,6 @@ export class ChatRoomComponent {
     console.log(this.form.value);
   }
   ngOnInit(): void {
-    // this.members$ = this.memberService.getMembers();
 
 
     this.userService
@@ -57,6 +56,8 @@ export class ChatRoomComponent {
     .pipe(take(1))
     .subscribe({
       next: (user: any) => {
+        this.userId =
+        user.id;
         this.chatRoomParams = this.messagesService.getChatRoomParams(
           user.id,
           this.pageSize,

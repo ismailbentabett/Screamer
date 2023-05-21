@@ -31,6 +31,7 @@ import { FollowCardComponent } from './components/card/follow-card/follow-card.c
 import { FollowModalComponent } from './components/modal/follow-modal/follow-modal.component';
 import { CoverUploadComponent } from './components/user/cover-upload/cover-upload.component';
 import { SocialInputComponent } from './components/input/social-input/social-input.component';
+import { ChatRoomTabComponent } from './components/chat/chat-room-tab/chat-room-tab.component';
 
 @NgModule({
   declarations: [
@@ -56,6 +57,7 @@ import { SocialInputComponent } from './components/input/social-input/social-inp
     FollowModalComponent,
     CoverUploadComponent,
     SocialInputComponent,
+    ChatRoomTabComponent,
   ],
   imports: [
     CommonModule,
@@ -88,7 +90,8 @@ import { SocialInputComponent } from './components/input/social-input/social-inp
     SideContentComponent,
     FollowModalComponent,
     CoverUploadComponent,
-    SocialInputComponent
+    SocialInputComponent,
+    ChatRoomTabComponent
   ],
   providers: [],
 })

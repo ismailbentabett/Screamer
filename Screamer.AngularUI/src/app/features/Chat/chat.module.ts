@@ -8,6 +8,7 @@ import { ChatListComponent } from './chat-list/chat-list.component';
 import { PickerComponent } from '@ctrl/ngx-emoji-mart';
 import { ReactiveFormsModule } from '@angular/forms';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
     PickerComponent,
     ReactiveFormsModule,
     InfiniteScrollModule,
+    SharedModule
 
   ]
 })
