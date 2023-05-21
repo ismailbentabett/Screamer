@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Primitives;
 using Screamer.Application.Contracts.Presistance;
 using Screamer.Application.Dtos;
 using Screamer.Application.Helpers;
@@ -93,9 +94,10 @@ namespace Screamer.Presistance.Repositories
             );
         }
 
-        public async Task<IEnumerable<MessageDto>> GetMessageThread(
+        public async Task<PagedList<MessageDto>> GetMessageThread(
             string currentUserId,
-            string recipientUserId
+            string recipientUserId,
+            MessageParams messageParams
         )
         {
             var query = _context.Messages
@@ -122,8 +124,14 @@ namespace Screamer.Presistance.Repositories
                     message.DateRead = DateTime.UtcNow;
                 }
             }
+  var messages = query.ProjectTo<MessageDto>(_mapper.ConfigurationProvider);
 
-            return await query.ProjectTo<MessageDto>(_mapper.ConfigurationProvider).ToListAsync();
+            return await PagedList<MessageDto>.CreateAsync(
+                messages,
+                messageParams.PageNumber,
+                messageParams.PageSize
+            );
+            
         }
 
         public void RemoveConnection(Connection connection)
@@ -217,6 +225,11 @@ namespace Screamer.Presistance.Repositories
             return await _context.ChatRooms
             .Include(p => p.ChatRoomUsers).ThenInclude(p=>p.User)
            .FirstOrDefaultAsync(x=>x.Id == id);
+        }
+
+        Task<CancellationToken> IMessageRepository.GetMessageThreadRealTime(string value, StringValues otherUser)
+        {
+            throw new NotImplementedException();
         }
     }
 }

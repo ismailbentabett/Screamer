@@ -60,13 +60,15 @@ namespace HR.LeaveManagement.Api.Controllers
         [HttpGet("thread")]
         public async Task<ActionResult<IEnumerable<MessageDto>>> GetMessageThread(
             string userId,
-            string currentUserId
+            string currentUserId,
+            [FromQuery] MessageParams messageParams
         )
         {
             var query = new GetMessageThreadRequestQuery
             {
                 userId = userId,
-                currentUserId = currentUserId
+                currentUserId = currentUserId,
+                messageParams = messageParams
             };
             var messages = await _mediator.Send(query);
             return Ok(messages);

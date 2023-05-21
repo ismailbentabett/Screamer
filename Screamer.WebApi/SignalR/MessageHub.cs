@@ -1,4 +1,3 @@
-
 using System.Security.Claims;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
@@ -16,6 +15,7 @@ namespace Screamer.WebApi
         private readonly IMapper _mapper;
         private readonly IHubContext<PresenceHub> _presenceHub;
         private readonly IUnitOfWork _uow;
+
         public MessageHub(IUnitOfWork uow, IMapper mapper, IHubContext<PresenceHub> presenceHub)
         {
             _uow = uow;
@@ -27,19 +27,25 @@ namespace Screamer.WebApi
         {
             var httpContext = Context.GetHttpContext();
             var otherUser = httpContext.Request.Query["user"];
-            
-            var groupName = GetGroupName(Context.User.FindFirst(ClaimTypes.NameIdentifier)?.Value, otherUser);
+
+            var groupName = GetGroupName(
+                Context.User.FindFirst(ClaimTypes.NameIdentifier)?.Value,
+                otherUser
+            );
             await Groups.AddToGroupAsync(Context.ConnectionId, groupName);
             var group = await AddToGroup(groupName);
 
             await Clients.Group(groupName).SendAsync("UpdatedGroup", group);
 
-            var messages = await _uow.MessageRepository
-                .GetMessageThread(Context.User.FindFirst(ClaimTypes.NameIdentifier)?.Value, otherUser);
+            var messages = await _uow.MessageRepository.GetMessageThreadRealTime(
+                Context.User.FindFirst(ClaimTypes.NameIdentifier)?.Value,
+                otherUser
+            );
 
             var changes = _uow.HasChanges();
 
-            if (_uow.HasChanges()) await _uow.Complete();
+            if (_uow.HasChanges())
+                await _uow.Complete();
 
             await Clients.Caller.SendAsync("ReceiveMessageThread", messages);
         }
@@ -59,9 +65,12 @@ namespace Screamer.WebApi
                 throw new HubException("You cannot send messages to yourself");
 
             var sender = await _uow.UserRepository.GetUserByIdAsync(userId);
-            var recipient = await _uow.UserRepository.GetUserByIdAsync(createMessageDto.RecipientId);
+            var recipient = await _uow.UserRepository.GetUserByIdAsync(
+                createMessageDto.RecipientId
+            );
 
-            if (recipient == null) throw new HubException("Not found user");
+            if (recipient == null)
+                throw new HubException("Not found user");
 
             var message = new Message
             {
@@ -85,8 +94,12 @@ namespace Screamer.WebApi
                 var connections = await PresenceTracker.GetConnectionsForUser(recipient.Id);
                 if (connections != null)
                 {
-                    await _presenceHub.Clients.Clients(connections).SendAsync("NewMessageReceived",
-                        new { userId = sender.Id, Id = sender.Id });
+                    await _presenceHub.Clients
+                        .Clients(connections)
+                        .SendAsync(
+                            "NewMessageReceived",
+                            new { userId = sender.Id, Id = sender.Id }
+                        );
                 }
             }
 
@@ -94,7 +107,9 @@ namespace Screamer.WebApi
 
             if (await _uow.Complete())
             {
-                await Clients.Group(groupName).SendAsync("NewMessage", _mapper.Map<MessageDto>(message));
+                await Clients
+                    .Group(groupName)
+                    .SendAsync("NewMessage", _mapper.Map<MessageDto>(message));
             }
         }
 
@@ -107,7 +122,10 @@ namespace Screamer.WebApi
         private async Task<Group> AddToGroup(string groupName)
         {
             var group = await _uow.MessageRepository.GetMessageGroup(groupName);
-            var connection = new Connection(Context.ConnectionId, Context.User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+            var connection = new Connection(
+                Context.ConnectionId,
+                Context.User.FindFirst(ClaimTypes.NameIdentifier)?.Value
+            );
 
             if (group == null)
             {
@@ -117,7 +135,8 @@ namespace Screamer.WebApi
 
             group.Connections.Add(connection);
 
-            if (await _uow.Complete()) return group;
+            if (await _uow.Complete())
+                return group;
 
             throw new HubException("Failed to add to group");
         }
@@ -125,10 +144,13 @@ namespace Screamer.WebApi
         private async Task<Group> RemoveFromMessageGroup()
         {
             var group = await _uow.MessageRepository.GetGroupForConnection(Context.ConnectionId);
-            var connection = group.Connections.FirstOrDefault(x => x.ConnectionId == Context.ConnectionId);
+            var connection = group.Connections.FirstOrDefault(
+                x => x.ConnectionId == Context.ConnectionId
+            );
             _uow.MessageRepository.RemoveConnection(connection);
 
-            if (await _uow.Complete()) return group;
+            if (await _uow.Complete())
+                return group;
 
             throw new HubException("Failed to remove from group");
         }

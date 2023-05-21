@@ -11,7 +11,7 @@ import { MessageService } from 'src/app/core/services/message.service';
 export class ChatComponent {
   form: FormGroup;
   emojiMartVisible: any;
-
+room : any
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
@@ -39,7 +39,7 @@ this.getChatRoomById()
       const prodId = params['roomId'];
       this.messagesService.getChatRoomById(prodId).subscribe({
         next: (data) => {
-          console.log(data);
+          this.room = data;
         },
       });
     });

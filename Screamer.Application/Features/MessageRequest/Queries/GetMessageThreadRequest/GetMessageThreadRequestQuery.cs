@@ -17,4 +17,10 @@ namespace Screamer.Application.Features.MessageRequest;
             get;
             set;
         }
+
+                 public   MessageParams messageParams {
+            get;
+            set;
+                 }
+
     }
