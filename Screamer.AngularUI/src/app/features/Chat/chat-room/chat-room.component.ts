@@ -61,10 +61,7 @@ export class ChatRoomComponent {
 
   loadRooms() {
     if (this.chatRoomParams) {
-      console.log(
-        'this.chatRoomParams',
-        this.chatRoomParams,
-      )
+
       this.messagesService.setChatRoomParams(this.chatRoomParams);
       this.messagesService.getUserChatRooms(this.chatRoomParams).subscribe({
         next: (response) => {

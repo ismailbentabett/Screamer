@@ -41,6 +41,28 @@ export function getPaginationHeaders(
 
   return params;
 }
+export function getPaginationHeadersMessages(
+  orderBy: string,
+  userId: string,
+  pageNumber: number,
+  pageSize: number,
+  currentUserId: string
+) {
+  let params = new HttpParams();
+  if(userId){
+    params = params.append('userId', userId);
+
+  }
+  if(currentUserId){
+    params = params.append('currentUserId', currentUserId);
+    }
+  params = params.append('orderBy', orderBy);
+
+  params = params.append('pageNumber', pageNumber);
+  params = params.append('pageSize', pageSize);
+
+  return params;
+}
 export function getThePaginationHeaders(
   pageNumber: number,
   pageSize: number

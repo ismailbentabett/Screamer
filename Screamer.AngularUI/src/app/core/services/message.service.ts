@@ -7,6 +7,7 @@ import { Message } from '../models/Message';
 import {
   getPaginatedResult,
   getPaginationHeaders,
+  getPaginationHeadersMessages,
   getThePaginationHeaders,
 } from '../Helpers/paginationHelper';
 import {
@@ -17,6 +18,7 @@ import {
 import { User } from '../models/User';
 import { Group } from '../models/Group';
 import { ChatRoomParams } from '../models/ChatRoomParams';
+import { MessageParams } from '../models/MessageParams';
 
 @Injectable({
   providedIn: 'root',
@@ -28,6 +30,7 @@ export class MessageService {
   private messageThreadSource = new BehaviorSubject<Message[]>([]);
   messageThread$ = this.messageThreadSource.asObservable();
   ChatRoomParams: ChatRoomParams | undefined;
+  messageParams: MessageParams | undefined;
   constructor(private http: HttpClient, private busyService: BusyService) {}
 
   createHubConnection(user: User, otherUsername: string) {
@@ -90,12 +93,6 @@ export class MessageService {
     );
   }
 
-  getMessageThread(username: string) {
-    return this.http.get<Message[]>(
-      this.baseUrl + 'Message/thread/' + username
-    );
-  }
-
   async sendMessage(userId: string, recipientId: string, content: string) {
     return this.hubConnection
       ?.invoke('SendMessage', {
@@ -134,6 +131,52 @@ export class MessageService {
     }
     return;
   }
+  getMessageParams(
+    userId: string,
+    pageSize: number,
+    pageNumber: number,
+    currentUserId: string
+  ) {
+    this.messageParams = new MessageParams();
+    this.messageParams.orderBy = 'CreatedAt';
+    this.messageParams.pageNumber = pageNumber;
+    this.messageParams.pageSize = pageSize;
+    this.messageParams.userId = userId;
+    this.messageParams.currentUserId = currentUserId;
+    return this.messageParams;
+  }
+
+  setMessageParams(params: MessageParams) {
+    this.messageParams = params;
+  }
+  resetMessageParams(user: User) {
+    if (user) {
+      return (this.messageParams = new MessageParams());
+    }
+    return;
+  }
+
+  getMessageThread(messageParams: MessageParams) {
+    let params = getPaginationHeadersMessages(
+
+      messageParams.orderBy.toString(),
+      messageParams.userId,
+      messageParams.pageNumber,
+      messageParams.pageSize,
+      messageParams.currentUserId
+
+    );
+    return getPaginatedResult<Message[]>(
+      this.baseUrl + 'Message/thread',
+      params,
+      this.http
+    ).pipe(
+      map((response: any) => {
+        return response;
+      })
+    );
+  }
+
   getUserChatRooms(chatRoomParams: ChatRoomParams) {
     let params = getPaginationHeaders(
       chatRoomParams.orderBy.toString(),
@@ -151,10 +194,7 @@ export class MessageService {
       })
     );
   }
-  getChatRoomById (
-    chatRoomId: number,
-  )
-  {
+  getChatRoomById(chatRoomId: number) {
     return this.http.get<Message[]>(
       this.baseUrl + 'Message/thread/' + chatRoomId
     );
