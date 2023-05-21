@@ -1,11 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, take } from 'rxjs';
+import { BehaviorSubject, map, take } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { BusyService } from './busy.service';
 import { Message } from '../models/Message';
 import {
   getPaginatedResult,
+  getPaginationHeaders,
   getThePaginationHeaders,
 } from '../Helpers/paginationHelper';
 import {
@@ -15,6 +16,7 @@ import {
 } from '@microsoft/signalr';
 import { User } from '../models/User';
 import { Group } from '../models/Group';
+import { ChatRoomParams } from '../models/ChatRoomParams';
 
 @Injectable({
   providedIn: 'root',
@@ -25,7 +27,7 @@ export class MessageService {
   private hubConnection?: HubConnection;
   private messageThreadSource = new BehaviorSubject<Message[]>([]);
   messageThread$ = this.messageThreadSource.asObservable();
-
+  ChatRoomParams: ChatRoomParams | undefined;
   constructor(private http: HttpClient, private busyService: BusyService) {}
 
   createHubConnection(user: User, otherUsername: string) {
@@ -107,9 +109,42 @@ export class MessageService {
   /* GetUserChatRooms *
   https://localhost:5001/api/Message/threads?userId=9e224968-33e4-4652-b7b7-8574d048cdb9
   */
-  getUserChatRooms(userId: string) {
-    return this.http.get<Message[]>(
-      this.baseUrl + 'Message/threads?userId=' + userId
+
+  getChatRoomParams(userId: string, pageSize: number, pageNumber: number) {
+    this.ChatRoomParams = new ChatRoomParams();
+    this.ChatRoomParams.orderBy = 'UpdatedBy';
+    this.ChatRoomParams.pageNumber = pageNumber;
+    this.ChatRoomParams.pageSize = pageSize;
+    this.ChatRoomParams.userId = userId;
+
+    return this.ChatRoomParams;
+  }
+
+  setChatRoomParams(params: ChatRoomParams) {
+    this.ChatRoomParams = params;
+  }
+
+  resetChatRoomParams(user: User) {
+    if (user) {
+      return (this.ChatRoomParams = new ChatRoomParams());
+    }
+    return;
+  }
+  getUserChatRooms(chatRoomParams: ChatRoomParams) {
+    let params = getPaginationHeaders(
+      chatRoomParams.orderBy.toString(),
+      chatRoomParams.userId,
+      chatRoomParams.pageNumber,
+      chatRoomParams.pageSize
+    );
+    return getPaginatedResult<Message[]>(
+      this.baseUrl + 'Message/threads',
+      params,
+      this.http
+    ).pipe(
+      map((response: any) => {
+        return response;
+      })
     );
   }
 }

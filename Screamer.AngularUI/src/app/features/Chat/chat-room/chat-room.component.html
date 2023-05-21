@@ -23,6 +23,18 @@
             </div>
             <div class="ml-2 text-sm font-semibold">Henry Boyd</div>
           </button>
+          <ul role="list"    infiniteScroll
+[infiniteScrollDistance]="2"
+[infiniteScrollThrottle]="50"
+(scrolled)="loadMoreRooms()"
+>
+  <div *ngFor="let room of chatRooms">
+    {{
+      room | json
+    }}
+
+  </div>
+</ul>
         </div>
       </div>
       <div></div>
