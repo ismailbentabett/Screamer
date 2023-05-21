@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using MediatR;
 using Screamer.Application.Dtos;
+using Screamer.Presistance;
 
 namespace Screamer.Application.Features.MessageRequest.Queries.GetUserChatRoomsRequest
 {
@@ -15,5 +16,7 @@ namespace Screamer.Application.Features.MessageRequest.Queries.GetUserChatRoomsR
             get;
             set;
         }
+
+       public MessageParams messageParams;
     }
 }

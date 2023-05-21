@@ -157,15 +157,34 @@ namespace Screamer.Presistance.Repositories
                 Task<Domain.Entities.ChatRoom> GetChatRoomForUsers(string userId, string recipientId);
                 void AddChatRoom(Domain.Entities.ChatRoom chatRoom); */
 
-        public async Task<IEnumerable<Domain.Entities.ChatRoom>> GetUserChatRooms(string userId)
+        public async Task<PagedList<ChatRoom>> GetUserChatRooms(
+            string userId,
+            MessageParams messageParams
+        )
         {
             // Use the mapper to map the list of ChatRoom instances to a list of MessageDto instances
-            List<ChatRoom> chatRooms = await _context.ChatRooms
+            /*     List<ChatRoom> chatRooms = await _context.ChatRooms
+                    .Include(x => x.ChatRoomUsers)
+                    .Where(x => x.ChatRoomUsers.Any(u => u.UserId == userId))
+                    .OrderBy(m => m.UpdatedAt)
+                    .AsQueryable()
+                    .ToListAsync(); */
+
+            var query = _context.ChatRooms
                 .Include(x => x.ChatRoomUsers)
                 .Where(x => x.ChatRoomUsers.Any(u => u.UserId == userId))
-                .ToListAsync(); 
+                .OrderBy(m => m.UpdatedAt)
+                .AsQueryable();
 
-            return _mapper.Map<List<Domain.Entities.ChatRoom>>(chatRooms);
+            var chatRooms = query.ProjectTo<Domain.Entities.ChatRoom>(
+                _mapper.ConfigurationProvider
+            );
+            var chatRoomsPagedList = await PagedList<Domain.Entities.ChatRoom>.CreateAsync(
+                chatRooms,
+                messageParams.PageNumber,
+                messageParams.PageSize
+            );
+            return chatRoomsPagedList;
         }
 
         public async Task<Domain.Entities.ChatRoom> GetChatRoomForUsers(
@@ -176,7 +195,9 @@ namespace Screamer.Presistance.Repositories
             return await _context.ChatRooms
                 .Include(x => x.ChatRoomUsers)
                 .Where(
-                    x => x.ChatRoomUsers.Any(u => u.UserId == userId) && x.ChatRoomUsers.Any(u => u.UserId == recipientId)
+                    x =>
+                        x.ChatRoomUsers.Any(u => u.UserId == userId)
+                        && x.ChatRoomUsers.Any(u => u.UserId == recipientId)
                 )
                 .FirstOrDefaultAsync();
         }
@@ -190,5 +211,7 @@ namespace Screamer.Presistance.Repositories
         {
             throw new NotImplementedException();
         }
+
+     
     }
 }

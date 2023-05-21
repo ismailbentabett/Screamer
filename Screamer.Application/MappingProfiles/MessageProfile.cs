@@ -22,6 +22,9 @@ namespace Screamer.Application.MappingProfiles
                 ChatRoom,    
                 ChatRoomDto>();
                 CreateMap<
+                ChatRoom,    
+                ChatRoom>();
+                CreateMap<
                 ChatRoomUser,
                 ChatRoomUserDto>();
                 

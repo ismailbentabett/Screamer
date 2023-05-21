@@ -77,11 +77,14 @@ namespace HR.LeaveManagement.Api.Controllers
         //get user threads 
         [HttpGet("threads")]
         public async Task<ActionResult<IEnumerable<MessageDto>>> GetUserThreads(
-            string userId
+            string userId,
+            [FromQuery]
+            MessageParams messageParams
         )
         {
             var query = new GetUserChatRoomsRequestQuery{
-                userId = userId
+                userId = userId,
+                messageParams = messageParams
             };
             var messages = await _mediator.Send(query);
             return Ok(messages);

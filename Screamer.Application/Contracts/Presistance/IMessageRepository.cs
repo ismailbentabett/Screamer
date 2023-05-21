@@ -16,7 +16,7 @@ namespace Screamer.Presistance.Repositories
         Task<Message> GetMessage(int id);
         Task<PagedList<MessageDto>> GetMessagesForUser(MessageParams messageParams);
         Task<IEnumerable<MessageDto>> GetMessageThread(string currentUserId, string recipientUserId); 
-        Task<IEnumerable<Domain.Entities.ChatRoom>> GetUserChatRooms(string userId);
+        Task<PagedList<Domain.Entities.ChatRoom>> GetUserChatRooms(string userId , MessageParams messageParams);
      
 
         Task<Domain.Entities.ChatRoom> GetChatRoomForUsers(string userId, string recipientId);
