@@ -11,6 +11,7 @@ import { take } from 'rxjs';
 import { MessageParams } from 'src/app/core/models/MessageParams';
 import { Pagination } from 'src/app/core/models/Pagination';
 import { User } from 'src/app/core/models/User';
+import { BusyService } from 'src/app/core/services/busy.service';
 import { MessageService } from 'src/app/core/services/message.service';
 import { UserService } from 'src/app/core/services/user.service';
 
@@ -41,7 +42,9 @@ export class ChatComponent {
     private route: ActivatedRoute,
     private messagesService: MessageService,
     private userService: UserService,
-    private router: Router
+    private router: Router,
+    private busyService: BusyService
+
   ) {
     this.form = this.fb.group({
       message: ['', Validators.required],
@@ -65,7 +68,7 @@ export class ChatComponent {
   }
 
   getChatRoomById(roomId : any) {
-
+    this.busyService.busy();
       this.messagesService.getChatRoomById(roomId as any).subscribe({
         next: (data) => {
           this.room = data;
@@ -93,6 +96,7 @@ export class ChatComponent {
                   next: (user: any) => {
                     this.user = user;
                     this.loadMessages();
+                    this.busyService.idle();
                   },
                 });
               },
@@ -103,6 +107,7 @@ export class ChatComponent {
   }
 
   loadMessages() {
+    this.busyService.busy()
     if (this.messageParams) {
       this.messagesService.setMessageParams(this.messageParams);
       this.messagesService.getMessageThread(this.messageParams).subscribe({
@@ -110,7 +115,7 @@ export class ChatComponent {
           if (response.result && response.pagination) {
             this.messages = response.result;
             this.pagination = response.pagination;
-
+                this.busyService.idle()
             console.log(this.messages);
           }
         },
@@ -140,5 +145,16 @@ export class ChatComponent {
           this.userId as string
         )
         */
+  }
+
+   getClassNames(message : any, currentUser : any) {
+    if (message.senderId !== currentUser.id) {
+      return 'flex flex-row items-center';
+    } else {
+      return 'flex items-center justify-start flex-row-reverse';
+    }
+
+
+
   }
 }

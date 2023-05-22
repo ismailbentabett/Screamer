@@ -10,6 +10,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { ChatComponent } from './chat/chat.component';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { ChatComponent } from './chat/chat.component';
     PickerComponent,
     ReactiveFormsModule,
     InfiniteScrollModule,
-    SharedModule
+    SharedModule,
+    NgxSpinnerModule
 
   ]
 })
