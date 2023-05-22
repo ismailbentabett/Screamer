@@ -46,11 +46,12 @@ export class ChatComponent {
     this.form = this.fb.group({
       message: ['', Validators.required],
     });
-
-
   }
   ngOnInit(): void {
-    this.getChatRoomById();
+    this.route.paramMap.subscribe(params => {
+     let roomId= params.get('roomId');
+    this.getChatRoomById(roomId);
+    })
   }
 
   toggleEmojiMart(): void {
@@ -63,10 +64,9 @@ export class ChatComponent {
     data!.patchValue(data!.value + $event.emoji.native);
   }
 
-  getChatRoomById() {
-    this.route.params.subscribe((params: Params) => {
-      const prodId = params['roomId'];
-      this.messagesService.getChatRoomById(prodId).subscribe({
+  getChatRoomById(roomId : any) {
+
+      this.messagesService.getChatRoomById(roomId as any).subscribe({
         next: (data) => {
           this.room = data;
 
@@ -99,7 +99,7 @@ export class ChatComponent {
             });
         },
       });
-    });
+
   }
 
   loadMessages() {
