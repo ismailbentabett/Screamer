@@ -1,12 +1,27 @@
-<div class="flex flex-col flex-shrink-0  h-full p-6 " >
+<div class="flex flex-col flex-shrink-0 h-full p-6">
   <div
-    class="flex flex-col  flex-shrink-0 rounded-2xl bg-gray-100 h-full w-full p-4 flex-1"
+    class="flex flex-col flex-shrink-0 rounded-2xl bg-gray-100 h-full w-full p-4 flex-1"
+
   >
-    <div class="flex flex-col h-full overflow-x-auto mb-4">
-      <div class="flex flex-col h-full">
-        <div class="grid grid-cols-12 gap-y-2" *ngIf="messages">
+    <div class="chatclass flex flex-col h-full overflow-y-scroll mb-4"
+    #chatRef
+scroll-to-bottom
+#scroll
+    id="chatClass"
+    role="list"
+    infiniteScroll
+    [infiniteScrollContainer]="chatRef"
+    [infiniteScrollDistance]="2"
+    [infiniteScrollThrottle]="50"
+    (scrolledUp)="loadMoreMessages()"
+    [fromRoot]="true"
+
+    >
+      <div class="flex flex-col h-full" >
+        <div class="grid grid-cols-12 gap-y-2" *ngIf="messages" >
           <div
-            *ngFor="let message of messages"
+          #messageContainer
+            *ngFor="let message of messages.reverse()"
             [ngClass]="{
               'col-start-1 col-end-8 p-3 rounded-lg':
                 message.senderId !== currentUser.id,
@@ -14,18 +29,9 @@
                 message.senderId === currentUser.id
             }"
           >
-            <p>
-              message.senderId !== currentUser.id
-              {{ message.senderId !== currentUser.id }}
-            </p>
-
-            <p>
-              message.senderId === currentUser.id
-              {{ message.senderId === currentUser.id }}
-            </p>
-
             <div [ngClass]="getClassNames(message, currentUser)">
               <div
+
                 [ngClass]="{
                   'flex items-center justify-center h-10 w-10 rounded-full bg-dodger-blue-500 flex-shrink-0 mr-3':
                     message.senderId !== currentUser.id,
@@ -75,85 +81,83 @@
         </div>
         <!--  -->
       </div>
-
-
     </div>
     <form
-        [formGroup]="form"
-        (ngSubmit)="onSubmit()"
-        class="flex flex-row items-center h-16 rounded-xl bg-white w-full px-4"
-      >
-        <div>
-          <div class="container">
-            <button
-              class="flex items-center justify-center text-gray-400 hover:text-gray-600"
-            >
-              <svg
-                (click)="toggleEmojiMart()"
-                class="w-6 h-6"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                ></path>
-              </svg>
-            </button>
-
-            <emoji-mart
-              *ngIf="emojiMartVisible"
-              title="Pick your emoji…"
-              emoji="point_up"
-              [darkMode]="false"
-              (emojiSelect)="addEmoji($event)"
-              set="twitter"
-            ></emoji-mart>
-          </div>
-        </div>
-        <div class="flex-grow ml-4">
-          <div class="relative w-full">
-            <input
-              type="text"
-              id="message"
-              formControlName="message"
-              name="message"
-              formControlName="message"
-              autocomplete="message"
-              required
-              class="flex w-full border rounded-xl focus:outline-none focus:border-dodger-blue-300 pl-4 h-10"
-            />
-          </div>
-        </div>
-        <div class="ml-4">
+      [formGroup]="form"
+      (ngSubmit)="onSubmit()"
+      class="flex flex-row items-center h-16 rounded-xl bg-white w-full px-4"
+    >
+      <div>
+        <div class="container">
           <button
-            type="submi"
-            class="flex items-center justify-center bg-dodger-blue-500 hover:bg-dodger-blue-600 rounded-xl text-white px-4 py-1 flex-shrink-0"
+            class="flex items-center justify-center text-gray-400 hover:text-gray-600"
           >
-            <span>Send</span>
-            <span class="ml-2">
-              <svg
-                class="w-4 h-4 transform rotate-45 -mt-px"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"
-                ></path>
-              </svg>
-            </span>
+            <svg
+              (click)="toggleEmojiMart()"
+              class="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+              ></path>
+            </svg>
           </button>
+
+          <emoji-mart
+            *ngIf="emojiMartVisible"
+            title="Pick your emoji…"
+            emoji="point_up"
+            [darkMode]="false"
+            (emojiSelect)="addEmoji($event)"
+            set="twitter"
+          ></emoji-mart>
         </div>
-      </form>
+      </div>
+      <div class="flex-grow ml-4">
+        <div class="relative w-full">
+          <input
+            type="text"
+            id="message"
+            formControlName="message"
+            name="message"
+            formControlName="message"
+            autocomplete="message"
+            required
+            class="flex w-full border rounded-xl focus:outline-none focus:border-dodger-blue-300 pl-4 h-10"
+          />
+        </div>
+      </div>
+      <div class="ml-4">
+        <button
+          type="submi"
+          class="flex items-center justify-center bg-dodger-blue-500 hover:bg-dodger-blue-600 rounded-xl text-white px-4 py-1 flex-shrink-0"
+        >
+          <span>Send</span>
+          <span class="ml-2">
+            <svg
+              class="w-4 h-4 transform rotate-45 -mt-px"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"
+              ></path>
+            </svg>
+          </span>
+        </button>
+      </div>
+    </form>
   </div>
 </div>
 <ngx-spinner

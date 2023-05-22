@@ -110,7 +110,7 @@ namespace Screamer.Presistance.Repositories
                             && m.SenderId == currentUserId
                             && m.SenderDeleted == false
                 )
-                .OrderBy(m => m.MessageSent)
+                .OrderByDescending(m => m.MessageSent)
                 .AsQueryable();
 
             var unreadMessages = query
@@ -124,14 +124,13 @@ namespace Screamer.Presistance.Repositories
                     message.DateRead = DateTime.UtcNow;
                 }
             }
-  var messages = query.ProjectTo<MessageDto>(_mapper.ConfigurationProvider);
+            var messages = query.ProjectTo<MessageDto>(_mapper.ConfigurationProvider);
 
             return await PagedList<MessageDto>.CreateAsync(
                 messages,
                 messageParams.PageNumber,
                 messageParams.PageSize
             );
-            
         }
 
         public void RemoveConnection(Connection connection)
@@ -223,11 +222,15 @@ namespace Screamer.Presistance.Repositories
         async Task<ChatRoom> IMessageRepository.GetChatRoomById(int id)
         {
             return await _context.ChatRooms
-            .Include(p => p.ChatRoomUsers).ThenInclude(p=>p.User)
-           .FirstOrDefaultAsync(x=>x.Id == id);
+                .Include(p => p.ChatRoomUsers)
+                .ThenInclude(p => p.User)
+                .FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        Task<CancellationToken> IMessageRepository.GetMessageThreadRealTime(string value, StringValues otherUser)
+        Task<CancellationToken> IMessageRepository.GetMessageThreadRealTime(
+            string value,
+            StringValues otherUser
+        )
         {
             throw new NotImplementedException();
         }

@@ -11,12 +11,14 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { ChatComponent } from './chat/chat.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { ScrollToBottomDirective } from 'src/app/shared/directives/scrol-to-bottom.directive';
 
 @NgModule({
   declarations: [
     ChatRoomComponent,
     ChatListComponent,
     ChatComponent,
+    ScrollToBottomDirective
   ],
   imports: [
     CommonModule,
@@ -25,7 +27,8 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     ReactiveFormsModule,
     InfiniteScrollModule,
     SharedModule,
-    NgxSpinnerModule
+    NgxSpinnerModule,
+
 
   ]
 })
