@@ -15,20 +15,36 @@ builder.Services.AddApplicationServices();
 builder.Services.AddInfrastructureServices(builder.Configuration);
 builder.Services.AddPresistanceServices(builder.Configuration);
 builder.Services.AddIdentityServices(builder.Configuration);
-  builder.Services.AddSignalR();
-            builder.Services.AddSingleton<PresenceTracker>();
+builder.Services.AddSignalR(options =>
+{
+    options.EnableDetailedErrors = true;
+});
+builder.Services.AddSingleton<PresenceTracker>();
 
-builder.Services.AddControllers()   .AddNewtonsoftJson(options =>
-    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+builder.Services
+    .AddControllers()
+    .AddNewtonsoftJson(
+        options =>
+            options.SerializerSettings.ReferenceLoopHandling = Newtonsoft
+                .Json
+                .ReferenceLoopHandling
+                .Ignore
+    );
+
+builder.Services.AddCors(
+    o =>
+        o.AddPolicy(
+            "CorsPolicy",
+            builder =>
+            {
+                builder
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .AllowCredentials()
+                    .WithOrigins("http://localhost:4200");
+            }
+        )
 );
-
-builder.Services.AddCors(o => o.AddPolicy("CorsPolicy", builder => {
-        builder
-        .AllowAnyMethod()
-        .AllowAnyHeader()
-        .AllowCredentials()
-        .WithOrigins("http://localhost:4200");
-    }));
 
 builder.Services.AddHttpContextAccessor();
 
@@ -38,7 +54,6 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -46,16 +61,14 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-
 app.UseHttpsRedirection();
 
-    app.UseCors("CorsPolicy");
+app.UseCors("CorsPolicy");
 
 app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
-
 
 app.MapHub<PresenceHub>("hubs/presence");
 app.MapHub<MessageHub>("hubs/message");

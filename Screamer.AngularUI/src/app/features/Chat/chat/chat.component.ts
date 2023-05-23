@@ -1,6 +1,7 @@
 import {
   Component,
   ElementRef,
+  Input,
   QueryList,
   ViewChild,
   ViewChildren,
@@ -13,10 +14,11 @@ import {
   Router,
   RouterLinkActive,
 } from '@angular/router';
-import { take } from 'rxjs';
+import { Subscription, take } from 'rxjs';
 import { MessageParams } from 'src/app/core/models/MessageParams';
 import { Pagination } from 'src/app/core/models/Pagination';
 import { User } from 'src/app/core/models/User';
+import { AuthenticationService } from 'src/app/core/services/authentication.service';
 import { BusyService } from 'src/app/core/services/busy.service';
 import { MessageService } from 'src/app/core/services/message.service';
 import { UserService } from 'src/app/core/services/user.service';
@@ -45,7 +47,15 @@ export class ChatComponent {
   someSubscription: any;
 
   selector: string = '#chatClass';
-
+  newMessage!: string;
+  private messageSubscription!: Subscription;
+  realTimeMessages!: {
+    /* int roomId, string userId, string otherUserId, string message */
+    roomId: number;
+    userId: string;
+    otherUserId: string;
+    message: string;
+  };
   @ViewChild('chatRef', { static: false }) chatRef!: ElementRef;
   @ViewChild(ScrollToBottomDirective)
   scroll!: ScrollToBottomDirective;
@@ -55,20 +65,52 @@ export class ChatComponent {
     private messagesService: MessageService,
     private userService: UserService,
     private router: Router,
-    private busyService: BusyService
+    private busyService: BusyService,
+    private authService: AuthenticationService
   ) {
     this.form = this.fb.group({
       message: ['', Validators.required],
     });
+
+    router.events.subscribe((val) => {
+      // see also
+      this.route.paramMap.subscribe(async (params) => {
+        let roomId = params.get('roomId');
+      this.messagesService.leaveRoom(roomId as string)
+      })
+  });
   }
   ngOnInit(): void {
+    this.authService.currentUser$.pipe(take(1)).subscribe({
+      next: (user) => {
+        if (user) {
+          this.route.paramMap.subscribe(async (params) => {
+            let roomId = params.get('roomId');
+          await   this.messagesService.startConnection(user, roomId);
+            this.messageSubscription =
+              this.messagesService.messageThread$.subscribe({
+                next: (messages) => {
+                  console.log(messages)
+                  this.messages = messages;
+                },
+              });
+
+            //join the room
+            this.messagesService.joinRoom(roomId as any);
+          });
+        }
+      },
+    });
+
     this.route.paramMap.subscribe((params) => {
       let roomId = params.get('roomId');
       this.getChatRoomById(roomId);
     });
     this.scrollToBottom();
   }
-
+  ngOnDestroy(): void {
+    this.messageSubscription.unsubscribe();
+  }
   @ViewChildren('messageContainer') messageContainers!: QueryList<ElementRef>;
 
   ngAfterViewInit() {
@@ -166,12 +208,18 @@ export class ChatComponent {
   }
 
   onSubmit() {
-    /*    this.messagesService.sendMessage(
-          recipientId,
-          this.form.get('message')?.value,
-          this.userId as string
-        )
-        */
+    this.newMessage = this.form.get('message')?.value;
+    if (this.newMessage) {
+      this.messagesService.sendMessage(
+        this.room.id.toString(),
+        this.currentUserId as string,
+        this.userId as string,
+        this.newMessage
+      ); // Pass the roomId and userName
+      this.newMessage = '';
+
+      this.form.reset();
+    }
   }
 
   getClassNames(message: any, currentUser: any) {

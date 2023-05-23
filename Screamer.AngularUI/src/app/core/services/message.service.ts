@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, map, take } from 'rxjs';
+import { BehaviorSubject, Observable, Subject, map, take } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { BusyService } from './busy.service';
 import { Message } from '../models/Message';
@@ -19,6 +19,7 @@ import { User } from '../models/User';
 import { Group } from '../models/Group';
 import { ChatRoomParams } from '../models/ChatRoomParams';
 import { MessageParams } from '../models/MessageParams';
+import { UserService } from './user.service';
 
 @Injectable({
   providedIn: 'root',
@@ -31,57 +32,11 @@ export class MessageService {
   messageThread$ = this.messageThreadSource.asObservable();
   ChatRoomParams: ChatRoomParams | undefined;
   messageParams: MessageParams | undefined;
-  constructor(private http: HttpClient, private busyService: BusyService) {}
-
-  createHubConnection(user: User, otherUsername: string) {
-    this.busyService.busy();
-    this.hubConnection = new HubConnectionBuilder()
-      .withUrl(this.hubUrl + 'message?user=' + otherUsername, {
-        accessTokenFactory: () => user.token,
-        transport: HttpTransportType.WebSockets,
-      })
-      .withAutomaticReconnect()
-      .build();
-
-    this.hubConnection
-      .start()
-      .catch((error) => console.log(error))
-      .finally(() => this.busyService.idle());
-
-    this.hubConnection.on('ReceiveMessageThread', (messages) => {
-      this.messageThreadSource.next(messages);
-    });
-
-    this.hubConnection.on('UpdatedGroup', (group: Group) => {
-      if (group.connections.some((x) => x.username === otherUsername)) {
-        this.messageThread$.pipe(take(1)).subscribe({
-          next: (messages) => {
-            messages.forEach((message) => {
-              if (!message.dateRead) {
-                message.dateRead = new Date(Date.now());
-              }
-            });
-            this.messageThreadSource.next([...messages]);
-          },
-        });
-      }
-    });
-
-    this.hubConnection.on('NewMessage', (message) => {
-      this.messageThread$.pipe(take(1)).subscribe({
-        next: (messages) => {
-          this.messageThreadSource.next([...messages, message]);
-        },
-      });
-    });
-  }
-
-  stopHubConnection() {
-    if (this.hubConnection) {
-      this.messageThreadSource.next([]);
-      this.hubConnection.stop();
-    }
-  }
+  constructor(
+    private http: HttpClient,
+    private busyService: BusyService,
+    private userService: UserService
+  ) {}
 
   getMessages(pageNumber: number, pageSize: number, container: string) {
     let params = getThePaginationHeaders(pageNumber, pageSize);
@@ -93,7 +48,7 @@ export class MessageService {
     );
   }
 
-  async sendMessage(userId: string, recipientId: string, content: string) {
+  /*   async sendMessage(userId: string, recipientId: string, content: string) {
     return this.hubConnection
       ?.invoke('SendMessage', {
         recipientId,
@@ -101,7 +56,7 @@ export class MessageService {
         userId,
       })
       .catch((error) => console.log(error));
-  }
+  } */
 
   deleteMessage(id: number) {
     return this.http.delete(this.baseUrl + 'Message/' + id);
@@ -158,13 +113,11 @@ export class MessageService {
 
   getMessageThread(messageParams: MessageParams) {
     let params = getPaginationHeadersMessages(
-
       messageParams.orderBy.toString(),
       messageParams.userId,
       messageParams.pageNumber,
       messageParams.pageSize,
       messageParams.currentUserId
-
     );
     return getPaginatedResult<Message[]>(
       this.baseUrl + 'Message/thread',
@@ -198,5 +151,104 @@ export class MessageService {
     return this.http.get<Message[]>(
       this.baseUrl + 'Message/thread/' + chatRoomId
     );
+  }
+
+  private messageReceivedSubject = new Subject<any>();
+  private userConnectedSubject = new Subject<any>();
+  private userDisconnectedSubject = new Subject<any>();
+
+  messageReceived$: Observable<any> =
+    this.messageReceivedSubject.asObservable();
+  userConnected$: Observable<any> = this.userConnectedSubject.asObservable();
+  userDisconnected$: Observable<any> =
+    this.userDisconnectedSubject.asObservable();
+
+  async startConnection(user: User, roomId: any): Promise<void> {
+    this.hubConnection = new HubConnectionBuilder()
+      .withUrl(
+        this.hubUrl + 'message?=room' + roomId,
+
+        {
+          accessTokenFactory: () => user.token,
+          transport: HttpTransportType.WebSockets,
+        }
+      )
+      .withAutomaticReconnect()
+      .build();
+
+    await this.hubConnection.start().catch((err) => console.error(err));
+
+    await this.hubConnection.on(
+      'ReceiveMessage',
+      (
+        roomId: number,
+        userId: string,
+        otherUserId: string,
+        message: string
+      ) => {
+
+        console.log(
+          'ReceiveMessage ' +
+            roomId +
+            userId +
+            otherUserId +
+            message
+
+        )
+        this.messageReceivedSubject.next({
+          roomId,
+          userId,
+          otherUserId,
+          message,
+        });
+      }
+    );
+
+    this.hubConnection.on('UserConnected', (roomId: number, userId: string) => {
+      this.userConnectedSubject.next({
+        roomId,
+        userId,
+      });
+    });
+
+    this.hubConnection.on(
+      'UserDisconnected',
+      (roomId: number, userId: string) => {
+        this.userDisconnectedSubject.next({
+          roomId,
+          userId,
+        });
+      }
+    );
+  }
+
+  sendMessage(
+    roomId: string,
+    userId: string,
+    otherUserId: string,
+    message: string
+  ): void {
+
+    this.hubConnection!.invoke(
+      'SendMessage',
+      roomId,
+      userId,
+      otherUserId,
+      message
+    ).then((data) => {
+      console.log('sendMessage ' + data);
+    });
+  }
+
+  joinRoom(roomId: string): void {
+    this.hubConnection!.invoke('JoinRoom', roomId)
+  }
+
+  leaveRoom(roomId: string): void {
+    this.hubConnection!.invoke('LeaveRoom', roomId);
+  }
+
+  typing(roomId: number, userId: string): void {
+    this.hubConnection!.invoke('Typing', roomId, userId);
   }
 }
