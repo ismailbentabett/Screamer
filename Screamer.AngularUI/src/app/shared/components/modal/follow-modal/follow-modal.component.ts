@@ -57,14 +57,10 @@ export class FollowModalComponent {
       userId: this.user.id as any,
     };
 
-    console.log(parameters);
     this.userService.getFollows(parameters).subscribe({
       next: (response) => {
-        console.log(response);
         this.followers = response.result;
-        console.log(
-          response
-        )
+
         this.followersPagination = response.pagination;
       },
     });
@@ -86,9 +82,7 @@ export class FollowModalComponent {
       next: (response) => {
 
         this.followings = response.result as Array<Follow>;
-        console.log(
-          this.followings
-        )
+
         this.followingsPagination = response.pagination;
       },
     });

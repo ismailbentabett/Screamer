@@ -100,19 +100,15 @@ export class ProfileComponent {
       });
   }
   ngOnInit(): void {}
-  ngOnChanges(): void {
-    console.log(this.form?.value);
-  }
+
   onSubmit() {
     this.busyService.busy();
     const values: UserUpdateInput = this.form?.value;
-    console.log(values);
     this.userService.updateUser(values, this.user?.id as number).subscribe({
       next: () => {
         this.busyService.idle();
       },
       error: (err) => {
-        console.log(err);
         this.busyService.idle();
       },
     });

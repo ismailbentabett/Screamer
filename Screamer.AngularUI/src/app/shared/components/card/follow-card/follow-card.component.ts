@@ -15,7 +15,6 @@ export class FollowCardComponent {
    */
   constructor(private userService: UserService) {}
   ngOnInit(): void {
-console.log(this.follow)
     this.userService.getUserById(this.follow!.userId).subscribe({
       next: (data) => {
         this.user = data;

@@ -48,23 +48,13 @@ export class MessageService {
     );
   }
 
-  /*   async sendMessage(userId: string, recipientId: string, content: string) {
-    return this.hubConnection
-      ?.invoke('SendMessage', {
-        recipientId,
-        content,
-        userId,
-      })
-      .catch((error) => console.log(error));
-  } */
+
 
   deleteMessage(id: number) {
     return this.http.delete(this.baseUrl + 'Message/' + id);
   }
 
-  /* GetUserChatRooms *
-  https://localhost:5001/api/Message/threads?userId=9e224968-33e4-4652-b7b7-8574d048cdb9
-  */
+
 
   getChatRoomParams(userId: string, pageSize: number, pageNumber: number) {
     this.ChatRoomParams = new ChatRoomParams();
@@ -235,9 +225,7 @@ export class MessageService {
       userId,
       otherUserId,
       message
-    ).then((data) => {
-      console.log('sendMessage ' + data);
-    });
+    )
   }
 
   joinRoom(roomId: string): void {

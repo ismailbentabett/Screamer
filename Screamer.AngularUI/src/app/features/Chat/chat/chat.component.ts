@@ -90,7 +90,6 @@ export class ChatComponent {
             this.messageSubscription =
               this.messagesService.messageThread$.subscribe({
                 next: (messages) => {
-                  console.log(messages)
                   this.messages = messages;
                 },
               });
@@ -129,11 +128,9 @@ export class ChatComponent {
 
   toggleEmojiMart(): void {
     this.emojiMartVisible = !this.emojiMartVisible;
-    console.log(this.emojiMartVisible);
   }
   addEmoji($event: { emoji: { native: any } }) {
     let data = this.form.get('message');
-    console.log(data);
     data!.patchValue(data!.value + $event.emoji.native);
   }
 
@@ -161,7 +158,6 @@ export class ChatComponent {
                 this.currentUserId as string
               );
 
-              console.log('this.messageParams', this.messageParams);
               this.userService.getUserById(this.userId as string).subscribe({
                 next: (user: any) => {
                   this.user = user;
@@ -192,7 +188,6 @@ export class ChatComponent {
   }
 
   loadMoreMessages() {
-    console.log('haha');
     if (this.messageParams && this.pagination) {
       this.messageParams.pageNumber = this.pagination.currentPage + 1;
       this.messagesService.setMessageParams(this.messageParams);

@@ -89,12 +89,9 @@ isUserInMyFollowings : boolean = false;
         userId :     this.sourceUser.id as any
     }
 
-    console.log(
-      parameters
-    )
+
     this.userService.getFollows(parameters).subscribe({
       next: response => {
-        console.log(response)
         this.followers = response.result ;
         this.followersPagination = response.pagination;
         this.isUserInMyFollowers = this.followers.some

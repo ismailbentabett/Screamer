@@ -78,12 +78,7 @@ export class UserService {
   }
 
   updateUser(user: UserUpdateInput , id : number) {
-    console.log(
-      {
-        user,
-        id,
-      }
-    )
+
     return this.http.put(this.baseUrl + 'User', {
       ...user,
       id,

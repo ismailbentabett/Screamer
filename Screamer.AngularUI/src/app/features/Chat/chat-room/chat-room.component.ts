@@ -65,7 +65,6 @@ export class ChatRoomComponent {
       this.messagesService.setChatRoomParams(this.chatRoomParams);
       this.messagesService.getUserChatRooms(this.chatRoomParams).subscribe({
         next: (response) => {
-          console.log(response)
           if (response.result && response.pagination) {
             this.chatRooms = response.result;
             this.pagination = response.pagination;
