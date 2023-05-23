@@ -15,6 +15,7 @@ import {
   RouterLinkActive,
 } from '@angular/router';
 import { Subscription, take } from 'rxjs';
+import { CreateMessage } from 'src/app/core/models/CreateMessage';
 import { MessageParams } from 'src/app/core/models/MessageParams';
 import { Pagination } from 'src/app/core/models/Pagination';
 import { User } from 'src/app/core/models/User';
@@ -76,9 +77,9 @@ export class ChatComponent {
       // see also
       this.route.paramMap.subscribe(async (params) => {
         let roomId = params.get('roomId');
-      this.messagesService.leaveRoom(roomId as string)
-      })
-  });
+        this.messagesService.leaveRoom(roomId as string);
+      });
+    });
   }
   ngOnInit(): void {
     this.authService.currentUser$.pipe(take(1)).subscribe({
@@ -86,7 +87,7 @@ export class ChatComponent {
         if (user) {
           this.route.paramMap.subscribe(async (params) => {
             let roomId = params.get('roomId');
-          await   this.messagesService.startConnection(user, roomId);
+            await this.messagesService.startConnection(user, roomId);
             this.messageSubscription =
               this.messagesService.messageThread$.subscribe({
                 next: (messages) => {
@@ -204,13 +205,19 @@ export class ChatComponent {
 
   onSubmit() {
     this.newMessage = this.form.get('message')?.value;
+    /* createMessageDto: CreateMessage, roomId: string */
+
     if (this.newMessage) {
+      let createMessageDto: CreateMessage = {
+        content: this.newMessage,
+        userId: this.currentUserId as string,
+        recipientId: this.userId as string,
+      };
       this.messagesService.sendMessage(
-        this.room.id.toString(),
-        this.currentUserId as string,
-        this.userId as string,
-        this.newMessage
-      ); // Pass the roomId and userName
+        this.room.id as string,
+
+        createMessageDto
+      );
       this.newMessage = '';
 
       this.form.reset();

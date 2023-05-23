@@ -1,9 +1,11 @@
 using System.Security.Claims;
 using AutoMapper;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;
 using Screamer.Application.Contracts.Presistance;
 using Screamer.Application.Dtos;
+using Screamer.Application.Features.MessageRequest;
 using Screamer.Domain.Entities;
 using Screamer.WebApi.SignalR;
 
@@ -18,18 +20,21 @@ namespace Screamer.WebApi
 
         //logger
         private readonly ILogger<MessageHub> _logger;
+        private readonly IMediator _mediator;
 
         public MessageHub(
             IUnitOfWork uow,
             IMapper mapper,
             IHubContext<PresenceHub> presenceHub,
-            ILogger<MessageHub> logger
+            ILogger<MessageHub> logger,
+            IMediator mediator
         )
         {
             _uow = uow;
             _presenceHub = presenceHub;
             _mapper = mapper;
             _logger = logger;
+            _mediator = mediator;
         }
 
         public override async Task OnConnectedAsync()
@@ -45,31 +50,40 @@ namespace Screamer.WebApi
             await base.OnDisconnectedAsync(exception);
         }
 
-        public async Task SendMessage(string roomId, string userId, string otherUserId, string message)
+        public async Task SendMessage(string roomId, CreateMessageDto createMessageDto)
         {
             // Save the message to the database
-
+           
             await Clients
                 .Group(roomId.ToString())
-                .SendAsync("ReceiveMessage", roomId, userId, otherUserId, message);
-            _logger.LogInformation($"Message sent from {userId} to {otherUserId} in room {roomId}");
+                .SendAsync(
+                    "ReceiveMessage",
+                    roomId,
+                    createMessageDto.userId,
+                    createMessageDto.RecipientId,
+                    createMessageDto.Content
+                );
+
+                 var command = new CreateMessageRequestCommand
+            {
+                createMessageDto = createMessageDto,
+                userId = createMessageDto.userId
+            };
+
+             await _mediator.Send(command);
         }
 
         public async Task JoinRoom(string roomId)
         {
-    
-        await Groups.AddToGroupAsync(Context.ConnectionId, roomId);
-        await Clients.Group(roomId).SendAsync("JoinRoom", roomId);
- 
-        await Clients.Client(Context.ConnectionId).SendAsync("JoinRoom", roomId);
-            
+            await Groups.AddToGroupAsync(Context.ConnectionId, roomId);
+            await Clients.Group(roomId).SendAsync("JoinRoom", roomId);
+
+            await Clients.Client(Context.ConnectionId).SendAsync("JoinRoom", roomId);
         }
 
         public async Task LeaveRoom(string roomId)
         {
             await Groups.RemoveFromGroupAsync(Context.ConnectionId, roomId.ToString());
-
-            // Remove the user from the database
 
             await Clients.Group(roomId.ToString()).SendAsync("UserDisconnected", roomId);
         }

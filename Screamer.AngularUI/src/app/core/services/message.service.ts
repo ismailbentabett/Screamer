@@ -20,6 +20,7 @@ import { Group } from '../models/Group';
 import { ChatRoomParams } from '../models/ChatRoomParams';
 import { MessageParams } from '../models/MessageParams';
 import { UserService } from './user.service';
+import { CreateMessage } from '../models/CreateMessage';
 
 @Injectable({
   providedIn: 'root',
@@ -48,13 +49,9 @@ export class MessageService {
     );
   }
 
-
-
   deleteMessage(id: number) {
     return this.http.delete(this.baseUrl + 'Message/' + id);
   }
-
-
 
   getChatRoomParams(userId: string, pageSize: number, pageNumber: number) {
     this.ChatRoomParams = new ChatRoomParams();
@@ -176,15 +173,9 @@ export class MessageService {
         otherUserId: string,
         message: string
       ) => {
-
         console.log(
-          'ReceiveMessage ' +
-            roomId +
-            userId +
-            otherUserId +
-            message
-
-        )
+          'ReceiveMessage ' + roomId + userId + otherUserId + message
+        );
         this.messageReceivedSubject.next({
           roomId,
           userId,
@@ -212,24 +203,12 @@ export class MessageService {
     );
   }
 
-  sendMessage(
-    roomId: string,
-    userId: string,
-    otherUserId: string,
-    message: string
-  ): void {
-
-    this.hubConnection!.invoke(
-      'SendMessage',
-      roomId,
-      userId,
-      otherUserId,
-      message
-    )
+  sendMessage(roomId: string, createMessageDto: CreateMessage): void {
+    this.hubConnection!.invoke('SendMessage', roomId, createMessageDto);
   }
 
   joinRoom(roomId: string): void {
-    this.hubConnection!.invoke('JoinRoom', roomId)
+    this.hubConnection!.invoke('JoinRoom', roomId);
   }
 
   leaveRoom(roomId: string): void {
