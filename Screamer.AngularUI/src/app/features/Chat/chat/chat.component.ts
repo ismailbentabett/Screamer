@@ -16,6 +16,7 @@ import {
 } from '@angular/router';
 import { Subscription, take } from 'rxjs';
 import { CreateMessage } from 'src/app/core/models/CreateMessage';
+import { Message } from 'src/app/core/models/Message';
 import { MessageParams } from 'src/app/core/models/MessageParams';
 import { Pagination } from 'src/app/core/models/Pagination';
 import { User } from 'src/app/core/models/User';
@@ -50,13 +51,7 @@ export class ChatComponent {
   selector: string = '#chatClass';
   newMessage!: string;
   private messageSubscription!: Subscription;
-  realTimeMessages!: {
-    /* int roomId, string userId, string otherUserId, string message */
-    roomId: number;
-    userId: string;
-    otherUserId: string;
-    message: string;
-  };
+  realTimeMessages: Message[] = [];
   @ViewChild('chatRef', { static: false }) chatRef!: ElementRef;
   @ViewChild(ScrollToBottomDirective)
   scroll!: ScrollToBottomDirective;
@@ -97,6 +92,16 @@ export class ChatComponent {
 
             //join the room
             this.messagesService.joinRoom(roomId as any);
+
+            this.messagesService.messageReceived$.subscribe({
+              next: (message: Message) => {
+                console.log(message);
+                this.messages?.unshift(
+                  message
+                )
+
+              },
+            });
           });
         }
       },
@@ -180,6 +185,7 @@ export class ChatComponent {
         next: (response) => {
           if (response.result && response.pagination) {
             this.messages = response.result;
+            console.log(this.messages);
             this.pagination = response.pagination;
             this.busyService.idle();
           }

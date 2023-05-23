@@ -41,7 +41,6 @@ export class PresenceService {
     })
 
     this.hubConnection.on('GetOnlineUsers', (userIds: any) => {
-      console.log("GetOnlineUsers" , userIds)
 
       this.onlineUsersSource.next(userIds);
     })
@@ -52,8 +51,8 @@ export class PresenceService {
         .subscribe({
           next: () => this.router.navigateByUrl('/members/' + userId + '?tab=Messages')
         }) */
-        console.log(knownAs + ' has sent you a new message! Click me to see it')
-    })
+/*         console.log(knownAs + ' has sent you a new message! Click me to see it')
+ */    })
   }
 
   stopHubConnection() {

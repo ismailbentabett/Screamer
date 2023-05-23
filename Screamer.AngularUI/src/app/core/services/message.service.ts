@@ -168,22 +168,33 @@ export class MessageService {
     await this.hubConnection.on(
       'ReceiveMessage',
       (
-        roomId: number,
+        roomId: string,
         userId: string,
-        otherUserId: string,
-        message: string
+        RecipientId: string,
+        Content: string
       ) => {
-        console.log(
-          'ReceiveMessage ' + roomId + userId + otherUserId + message
-        );
+        console.log( 'roomId ' + roomId);
+
+        console.log( 'userId ' + userId);
+        console.log( 'RecipientId ' + RecipientId);
+        console.log( 'Content ' + Content);
+
         this.messageReceivedSubject.next({
           roomId,
-          userId,
-          otherUserId,
-          message,
-        });
+          senderId: userId,
+          senderUsername: null,
+          senderPhotoUrl: null,
+          recipientId: RecipientId,
+          recipientUsername: null,
+          recipientPhotoUrl: null,
+          content: Content,
+          dateRead: null,
+          messageSent: Date.now(),
+        })
+
       }
-    );
+    )
+
 
     this.hubConnection.on('UserConnected', (roomId: number, userId: string) => {
       this.userConnectedSubject.next({
