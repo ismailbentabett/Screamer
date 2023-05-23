@@ -68,7 +68,7 @@
       </div>
     </div>
 
-    <div class="mt-6 flex gap-6">
+    <div class="mt-6 gap-6 flex flex-wrap">
       <div class="col-span-12 sm:col-span-6">
         <label for="first-name" class="block text-sm font-medium text-gray-700"
           >First name</label
@@ -97,6 +97,84 @@
           required
           class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-dodger-blue-500 focus:border-dodger-blue-500 sm:text-sm"
         />
+      </div>
+      <div class="col-span-12 sm:col-span-6">
+        <label for="website" class="block text-sm font-medium text-gray-700"
+          >website</label
+        >
+        <input
+          type="text"
+          id="website"
+          name="website"
+          formControlName="website"
+          autocomplete="website"
+          required
+          class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-dodger-blue-500 focus:border-dodger-blue-500 sm:text-sm"
+        />
+      </div>
+
+      <div class="col-span-12 sm:col-span-6">
+        <label for="website" class="block text-sm font-medium text-gray-700"
+          >website</label
+        >
+        <input
+          type="date"
+          id="birthday"
+          name="birthday"
+          formControlName="birthday"
+          autocomplete="birthday"
+          required
+          class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-dodger-blue-500 focus:border-dodger-blue-500 sm:text-sm"
+          required
+        />
+      </div>
+      <div>
+        <label for="phone" class="block text-sm font-medium text-gray-700"
+          >Phone Number</label
+        >
+        <div class="mt-1 relative rounded-md shadow-sm">
+          <div class="absolute inset-y-0 left-0 flex items-center">
+            <label for="country-code" class="sr-only">Country</label>
+            <select
+              id="country-code"
+              name="country-code"
+              autocomplete="country-code"
+              class="focus:ring-indigo-500 focus:border-indigo-500 h-full py-0 pl-3 pr-7 border-transparent bg-transparent text-gray-500 sm:text-sm rounded-md"
+            >
+              <option>US</option>
+              <option>CA</option>
+              <option>EU</option>
+            </select>
+          </div>
+          <input
+            type="text"
+            id="phone"
+            name="phone"
+            formControlName="phone"
+            autocomplete="phone"
+            required
+            class="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-16 sm:text-sm border-gray-300 rounded-md"
+            placeholder="+1 (555) 987-6543"
+          />
+        </div>
+      </div>
+      <div class="sm:col-span-3">
+        <label for="gender" class="block text-sm font-medium text-gray-700">
+          gender
+        </label>
+        <div class="mt-1">
+          <select
+            id="gender"
+            name="gender"
+            formControlName="gender"
+            autocomplete="gender"
+            required
+            class="shadow-sm focus:ring-dodger-blue-500 focus:border-dodger-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
+          >
+            <option>Male</option>
+            <option>Female</option>
+          </select>
+        </div>
       </div>
     </div>
   </div>
