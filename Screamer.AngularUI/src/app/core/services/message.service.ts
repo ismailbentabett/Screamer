@@ -173,11 +173,7 @@ export class MessageService {
         RecipientId: string,
         Content: string
       ) => {
-        console.log( 'roomId ' + roomId);
 
-        console.log( 'userId ' + userId);
-        console.log( 'RecipientId ' + RecipientId);
-        console.log( 'Content ' + Content);
 
         this.messageReceivedSubject.next({
           roomId,

@@ -95,7 +95,6 @@ export class ChatComponent {
 
             this.messagesService.messageReceived$.subscribe({
               next: (message: Message) => {
-                console.log(message);
                 this.messages?.unshift(
                   message
                 )
@@ -185,7 +184,6 @@ export class ChatComponent {
         next: (response) => {
           if (response.result && response.pagination) {
             this.messages = response.result;
-            console.log(this.messages);
             this.pagination = response.pagination;
             this.busyService.idle();
           }
