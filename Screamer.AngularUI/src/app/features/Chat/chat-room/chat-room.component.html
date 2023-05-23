@@ -1,45 +1,49 @@
-<!-- component -->
-<div class="my-5 flex h-screen antialiased text-gray-800">
+<!-- This example requires Tailwind CSS v2.0+ -->
+
+<!-- <div class="my-5 flex h-screen antialiased text-gray-800">
   <div class="flex flex-row h-screen w-full overflow-hidden">
     <div class="flex flex-col py-8 pl-6 pr-2 w-64 bg-white flex-shrink-0">
-      <div class="flex flex-col mt-8">
-        <div class="flex flex-row items-center justify-between text-xs">
-          <span class="font-bold">Active Conversations</span>
-          <span
-            class="flex items-center justify-center bg-gray-300 h-4 w-4 rounded-full"
-            *ngIf="chatRooms"
-            >
-            {{
-              chatRooms!.length
-            }}
-            </span
-          >
-        </div>
-        <div
-          class="flex flex-col space-y-1 mt-4 -mx-2 h-screen overflow-y-auto"
+      <div class="flex flex-col mt-8"> -->
+
+<div
+  class="grid grid-cols-1 grid-rows-12 md:grid-cols-12 md:grid-rows-1 overflow-hidden  p-10"
+>
+  <div
+    class="col-span-1 md:col-span-2 flex flex-col bg-white rounded-lg  divide-y row-span-2 md:row-span-1 p-5"
+  >
+    <div>
+      <div class="flex flex-row items-center justify-between text-xs">
+        <span class="font-bold">Active Conversations</span>
+        <span
+          class="flex items-center justify-center bg-gray-300 h-4 w-4 rounded-full"
+          *ngIf="chatRooms"
         >
-          <div
+          {{ chatRooms!.length }}
+        </span>
+      </div>
+      <div class="flex flex-col space-y-1 mt-4 -mx-2 overflow-y-auto">
+        <div
           class="roomsclass"
-            *ngFor="let room of chatRooms"
-            role="list"
-            infiniteScroll
-            [infiniteScrollDistance]="2"
-            [infiniteScrollThrottle]="50"
-            (scrolled)="loadMoreRooms()"
-            [infiniteScrollContainer]="'.roomsclass'"
-          >
-            <app-chat-room-tab
-              [chatRoom]="room"
-              [userId]="userId"
-            ></app-chat-room-tab>
-          </div>
+          *ngFor="let room of chatRooms"
+          role="list"
+          infiniteScroll
+          [infiniteScrollDistance]="2"
+          [infiniteScrollThrottle]="50"
+          (scrolled)="loadMoreRooms()"
+          [infiniteScrollContainer]="'.roomsclass'"
+        >
+          <app-chat-room-tab
+            [chatRoom]="room"
+            [userId]="userId"
+          ></app-chat-room-tab>
         </div>
       </div>
     </div>
-    <!--  -->
-
-    <div class="flex-1">
-      <router-outlet></router-outlet>
-    </div>
+  </div>
+  <div
+    class="col-span-1 md:col-span-10 flex flex-col rounded-lg   row-span-10 md:row-span-1 "
+  >
+    <router-outlet></router-outlet>
   </div>
 </div>
+

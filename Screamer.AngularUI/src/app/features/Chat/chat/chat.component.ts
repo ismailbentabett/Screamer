@@ -47,6 +47,7 @@ export class ChatComponent {
   currentUserId?: string;
   currentUser!: User;
   someSubscription: any;
+  public isTyping: boolean = false;
 
   selector: string = '#chatClass';
   newMessage!: string;
@@ -58,7 +59,7 @@ export class ChatComponent {
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
-    private messagesService: MessageService,
+    public messagesService: MessageService,
     private userService: UserService,
     private router: Router,
     private busyService: BusyService,
@@ -95,10 +96,7 @@ export class ChatComponent {
 
             this.messagesService.messageReceived$.subscribe({
               next: (message: Message) => {
-                this.messages?.unshift(
-                  message
-                )
-
+                this.messages?.unshift(message);
               },
             });
           });
@@ -111,6 +109,11 @@ export class ChatComponent {
       this.getChatRoomById(roomId);
     });
     this.scrollToBottom();
+
+    this.form.get('message')!.valueChanges.subscribe((val) => {
+      this.isTyping = val.length > 0;
+      this.messagesService.typing(this.room.id, this.isTyping);
+    });
   }
   ngOnDestroy(): void {
     this.messageSubscription.unsubscribe();

@@ -1,4 +1,5 @@
-<div class="flex flex-col flex-shrink-0 h-full p-6">
+
+<div class="flex flex-col flex-shrink-0 h-full p-6 overflow-y-scroll">
   <div
     class="flex flex-col flex-shrink-0 rounded-2xl bg-gray-100 h-full w-full p-4 flex-1"
 
@@ -82,6 +83,15 @@ scroll-to-bottom
         <!--  -->
       </div>
     </div>
+    {{( this.messagesService.istyping$| async)}}
+    <div
+    *ngIf="( this.messagesService.istyping$| async)"
+    class="typing animate-bounce self-start ml-5 mt-5"
+  >
+    <div class="typing__dot"></div>
+    <div class="typing__dot"></div>
+    <div class="typing__dot"></div>
+  </div>
     <form
       [formGroup]="form"
       (ngSubmit)="onSubmit()"

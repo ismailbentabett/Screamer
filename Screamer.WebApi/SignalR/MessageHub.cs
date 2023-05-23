@@ -53,7 +53,7 @@ namespace Screamer.WebApi
         public async Task SendMessage(string roomId, CreateMessageDto createMessageDto)
         {
             // Save the message to the database
-           
+
             await Clients
                 .Group(roomId.ToString())
                 .SendAsync(
@@ -64,13 +64,13 @@ namespace Screamer.WebApi
                     createMessageDto.Content
                 );
 
-                 var command = new CreateMessageRequestCommand
+            var command = new CreateMessageRequestCommand
             {
                 createMessageDto = createMessageDto,
                 userId = createMessageDto.userId
             };
 
-             await _mediator.Send(command);
+            await _mediator.Send(command);
         }
 
         public async Task JoinRoom(string roomId)
@@ -88,9 +88,14 @@ namespace Screamer.WebApi
             await Clients.Group(roomId.ToString()).SendAsync("UserDisconnected", roomId);
         }
 
-        public async Task Typing(int roomId, string userId)
+        public async Task Typing(string roomId, bool IsTyping)
         {
-            await Clients.Group(roomId.ToString()).SendAsync("UserTyping", userId);
+            _logger
+                .LogInformation(
+                    $"User {Context.UserIdentifier} is typing in room {roomId} with value {IsTyping}"
+                );
+            await Clients.Group(roomId.ToString()).SendAsync("Typing", IsTyping);
+
         }
     }
 }

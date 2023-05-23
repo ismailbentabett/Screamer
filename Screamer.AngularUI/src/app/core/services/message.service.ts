@@ -143,6 +143,11 @@ export class MessageService {
   private messageReceivedSubject = new Subject<any>();
   private userConnectedSubject = new Subject<any>();
   private userDisconnectedSubject = new Subject<any>();
+  public istypingSubject = new Subject<boolean>();
+
+  public istyping$: Observable<boolean> = this.istypingSubject.asObservable();
+
+
 
   messageReceived$: Observable<any> =
     this.messageReceivedSubject.asObservable();
@@ -173,8 +178,6 @@ export class MessageService {
         RecipientId: string,
         Content: string
       ) => {
-
-
         this.messageReceivedSubject.next({
           roomId,
           senderId: userId,
@@ -186,11 +189,9 @@ export class MessageService {
           content: Content,
           dateRead: null,
           messageSent: Date.now(),
-        })
-
+        });
       }
-    )
-
+    );
 
     this.hubConnection.on('UserConnected', (roomId: number, userId: string) => {
       this.userConnectedSubject.next({
@@ -208,6 +209,13 @@ export class MessageService {
         });
       }
     );
+    this.hubConnection.on('typing', (data: boolean) => {
+      console.log(
+        'isTyping ',
+        data
+      )
+      this.istypingSubject.next(data);
+    });
   }
 
   sendMessage(roomId: string, createMessageDto: CreateMessage): void {
@@ -222,7 +230,8 @@ export class MessageService {
     this.hubConnection!.invoke('LeaveRoom', roomId);
   }
 
-  typing(roomId: number, userId: string): void {
-    this.hubConnection!.invoke('Typing', roomId, userId);
+  typing(roomId: string, isTyping: boolean): void {
+
+    this.hubConnection!.invoke('Typing', roomId, isTyping);
   }
 }
