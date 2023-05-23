@@ -32,6 +32,7 @@ import { FollowModalComponent } from './components/modal/follow-modal/follow-mod
 import { CoverUploadComponent } from './components/user/cover-upload/cover-upload.component';
 import { SocialInputComponent } from './components/input/social-input/social-input.component';
 import { ChatRoomTabComponent } from './components/chat/chat-room-tab/chat-room-tab.component';
+import { SocialsListComponent } from './components/list/socials-list/socials-list.component';
 
 @NgModule({
   declarations: [
@@ -58,6 +59,7 @@ import { ChatRoomTabComponent } from './components/chat/chat-room-tab/chat-room-
     CoverUploadComponent,
     SocialInputComponent,
     ChatRoomTabComponent,
+    SocialsListComponent,
   ],
   imports: [
     CommonModule,
@@ -91,7 +93,8 @@ import { ChatRoomTabComponent } from './components/chat/chat-room-tab/chat-room-
     FollowModalComponent,
     CoverUploadComponent,
     SocialInputComponent,
-    ChatRoomTabComponent
+    ChatRoomTabComponent,
+    SocialsListComponent,
   ],
   providers: [],
 })

@@ -29,7 +29,8 @@
               "src/styles.scss",
               "node_modules/ngx-spinner/animations/line-scale-party.css",
               "node_modules/ngx-spinner/animations/ball-scale-multiple.css",
-              "node_modules/@ctrl/ngx-emoji-mart/picker.css"
+              "node_modules/@ctrl/ngx-emoji-mart/picker.css",
+
 
             ],
             "scripts": []

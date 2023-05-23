@@ -24,6 +24,8 @@ export interface User extends BaseModel {
   gender: string;
   phone: string;
   social: Social;
+  socials: Social;
+
   avatars: Avatar[];
   covers: Cover[];
   posts: Post[];

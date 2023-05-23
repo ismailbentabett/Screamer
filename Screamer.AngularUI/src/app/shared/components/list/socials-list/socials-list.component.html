@@ -1,0 +1,14 @@
+
+<div *ngIf="socialsArray">
+  <ul role="list" class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+    <a
+    *ngFor="let social of socialsArray"
+[href]="social.value | json"
+  >
+
+    <i [class]="social.key "></i>
+
+  </a>
+  </ul>
+
+</div>

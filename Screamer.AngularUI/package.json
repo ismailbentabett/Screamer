@@ -23,6 +23,7 @@
     "@dicebear/collection": "^6.0.3",
     "@dicebear/core": "^6.0.3",
     "@microsoft/signalr": "^7.0.5",
+    "font-awesome": "^4.7.0",
     "lodash": "^4.17.21",
     "ng2-file-upload": "^3.0.0",
     "ngx-bootstrap": "^10.2.0",

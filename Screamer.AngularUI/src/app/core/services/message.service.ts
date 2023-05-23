@@ -212,10 +212,7 @@ export class MessageService {
       }
     );
     this.hubConnection.on('typing', (userId: string, isTyping: boolean) => {
-      console.log('isTyping ', {
-        userId,
-        isTyping,
-      });
+
       this.istypingSubject.next(isTyping);
       this.usertypingSubject.next(userId);
     });
