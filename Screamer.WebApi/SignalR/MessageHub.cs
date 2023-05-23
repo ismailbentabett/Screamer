@@ -88,13 +88,13 @@ namespace Screamer.WebApi
             await Clients.Group(roomId.ToString()).SendAsync("UserDisconnected", roomId);
         }
 
-        public async Task Typing(string roomId, bool IsTyping)
+        public async Task Typing(string roomId,string userId ,  bool IsTyping)
         {
             _logger
                 .LogInformation(
                     $"User {Context.UserIdentifier} is typing in room {roomId} with value {IsTyping}"
                 );
-            await Clients.Group(roomId.ToString()).SendAsync("Typing", IsTyping);
+            await Clients.Group(roomId.ToString()).SendAsync("Typing", userId , IsTyping);
 
         }
     }

@@ -1,27 +1,25 @@
-
 <div class="flex flex-col flex-shrink-0 h-full p-6 overflow-y-scroll">
   <div
     class="flex flex-col flex-shrink-0 rounded-2xl bg-gray-100 h-full w-full p-4 flex-1"
-
   >
-    <div class="chatclass flex flex-col h-full overflow-y-scroll mb-4"
-    #chatRef
-scroll-to-bottom
-#scroll
-    id="chatClass"
-    role="list"
-    infiniteScroll
-    [infiniteScrollContainer]="chatRef"
-    [infiniteScrollDistance]="2"
-    [infiniteScrollThrottle]="50"
-    (scrolledUp)="loadMoreMessages()"
-    [fromRoot]="true"
-
+    <div
+      class="chatclass flex flex-col h-full overflow-y-scroll mb-4"
+      #chatRef
+      scroll-to-bottom
+      #scroll
+      id="chatClass"
+      role="list"
+      infiniteScroll
+      [infiniteScrollContainer]="chatRef"
+      [infiniteScrollDistance]="2"
+      [infiniteScrollThrottle]="50"
+      (scrolledUp)="loadMoreMessages()"
+      [fromRoot]="true"
     >
-      <div class="flex flex-col h-full" >
-        <div class="grid grid-cols-12 gap-y-2" *ngIf="messages" >
+      <div class="flex flex-col h-full">
+        <div class="grid grid-cols-12 gap-y-2" *ngIf="messages">
           <div
-          #messageContainer
+            #messageContainer
             *ngFor="let message of messages.reverse()"
             [ngClass]="{
               'col-start-1 col-end-8 p-3 rounded-lg':
@@ -32,7 +30,6 @@ scroll-to-bottom
           >
             <div [ngClass]="getClassNames(message, currentUser)">
               <div
-
                 [ngClass]="{
                   'flex items-center justify-center h-10 w-10 rounded-full bg-dodger-blue-500 flex-shrink-0 mr-3':
                     message.senderId !== currentUser.id,
@@ -83,15 +80,14 @@ scroll-to-bottom
         <!--  -->
       </div>
     </div>
-    {{( this.messagesService.istyping$| async)}}
     <div
-    *ngIf="( this.messagesService.istyping$| async)"
-    class="typing animate-bounce self-start ml-5 mt-5"
-  >
-    <div class="typing__dot"></div>
-    <div class="typing__dot"></div>
-    <div class="typing__dot"></div>
-  </div>
+      *ngIf="(this.messagesService.istyping$ | async) && isCurrentUserTyping()"
+      class="typing animate-bounce self-start ml-5 mt-5"
+    >
+      <div class="typing__dot"></div>
+      <div class="typing__dot"></div>
+      <div class="typing__dot"></div>
+    </div>
     <form
       [formGroup]="form"
       (ngSubmit)="onSubmit()"

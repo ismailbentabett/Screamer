@@ -112,7 +112,11 @@ export class ChatComponent {
 
     this.form.get('message')!.valueChanges.subscribe((val) => {
       this.isTyping = val.length > 0;
-      this.messagesService.typing(this.room.id, this.isTyping);
+      this.messagesService.typing(
+        this.room.id as string,
+        this.userId as string,
+        this.isTyping as boolean
+      );
     });
   }
   ngOnDestroy(): void {
@@ -238,4 +242,16 @@ export class ChatComponent {
       return 'flex items-center justify-start flex-row-reverse';
     }
   }
+
+   currentuserTyping : any;
+
+  isCurrentUserTyping() {
+    this.messagesService.usertyping$.subscribe({
+      next: (data) => {
+        this.currentuserTyping = data;
+      }
+    })
+
+    return this.currentuserTyping != this.userId;
+}
 }

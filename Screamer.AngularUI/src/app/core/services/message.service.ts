@@ -146,8 +146,10 @@ export class MessageService {
   public istypingSubject = new Subject<boolean>();
 
   public istyping$: Observable<boolean> = this.istypingSubject.asObservable();
+  public usertypingSubject = new Subject<string>();
 
-
+  public usertyping$: Observable<string> =
+    this.usertypingSubject.asObservable();
 
   messageReceived$: Observable<any> =
     this.messageReceivedSubject.asObservable();
@@ -209,12 +211,13 @@ export class MessageService {
         });
       }
     );
-    this.hubConnection.on('typing', (data: boolean) => {
-      console.log(
-        'isTyping ',
-        data
-      )
-      this.istypingSubject.next(data);
+    this.hubConnection.on('typing', (userId: string, isTyping: boolean) => {
+      console.log('isTyping ', {
+        userId,
+        isTyping,
+      });
+      this.istypingSubject.next(isTyping);
+      this.usertypingSubject.next(userId);
     });
   }
 
@@ -230,8 +233,7 @@ export class MessageService {
     this.hubConnection!.invoke('LeaveRoom', roomId);
   }
 
-  typing(roomId: string, isTyping: boolean): void {
-
-    this.hubConnection!.invoke('Typing', roomId, isTyping);
+  typing(roomId: string, userId: string, isTyping: boolean): void {
+    this.hubConnection!.invoke('Typing', roomId, userId, isTyping);
   }
 }
