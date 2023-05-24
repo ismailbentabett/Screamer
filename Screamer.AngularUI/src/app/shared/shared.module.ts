@@ -34,6 +34,7 @@ import { SocialInputComponent } from './components/input/social-input/social-inp
 import { ChatRoomTabComponent } from './components/chat/chat-room-tab/chat-room-tab.component';
 import { SocialsListComponent } from './components/list/socials-list/socials-list.component';
 import { CarouselComponent } from './components/carousel/carousel/carousel.component';
+import { PostImagesUploadComponent } from './components/post/post-images-upload/post-images-upload.component';
 
 @NgModule({
   declarations: [
@@ -62,6 +63,7 @@ import { CarouselComponent } from './components/carousel/carousel/carousel.compo
     ChatRoomTabComponent,
     SocialsListComponent,
     CarouselComponent,
+    PostImagesUploadComponent,
   ],
   imports: [
     CommonModule,
@@ -98,6 +100,7 @@ import { CarouselComponent } from './components/carousel/carousel/carousel.compo
     ChatRoomTabComponent,
     SocialsListComponent,
     CarouselComponent,
+    PostImagesUploadComponent,
   ],
   providers: [],
 })
