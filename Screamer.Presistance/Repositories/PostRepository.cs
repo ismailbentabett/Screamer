@@ -23,9 +23,11 @@ namespace Screamer.Presistance.Repositories
         public async Task<PagedList<Post>> GetPostsByUserId(string userId, PostParams postParams
 )
         {
-            var query = _context.Posts.AsQueryable();
+            var query = _context.Posts
+            .AsQueryable();
 
-            query = query.Where(u => u.UserId == userId);
+            query = query.Where(u => u.UserId == userId)
+            .Include(u => u.PostImages);
 
             query = postParams.OrderBy switch
             {
