@@ -4,11 +4,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using MediatR;
 
-namespace Screamer.Application.Features.AvatarRequest.Commands.DeleteAvatarRequest
+namespace Screamer.Application.Features.postImageRequest.Commands
 {
-    public class DeleteAvatarRequestCommand : IRequest<Unit>
+    public class DeletePostImageRequestCommand : IRequest<Unit>
     {
-        public int avatarId { get; set; }
-        public string userId { get; set; }
+        public int postImageId { get; set; }
+        public int postId;
     }
 }

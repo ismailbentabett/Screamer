@@ -1,60 +1,53 @@
-
 using AutoMapper;
 using MediatR;
 using Screamer.Application.Contracts.Exceptions;
 using Screamer.Application.Contracts.Presistance;
 using Screamer.Domain.Common;
+using Screamer.Domain.Entities;
 using Screamer.Identity.Models;
 
-namespace Screamer.Application.Features.AvatarRequest.Commands.CreateAvatarRequest
+namespace Screamer.Application.Features.postImageRequest.Commands
 {
-    public class SetMainAvatarRequestHandlerCommand : IRequestHandler
-    <
-        SetMainAvatarRequestCommand,
-        int
-        >
+    public class SetMainPostImageRequestHandlerCommand
+        : IRequestHandler<SetMainPostImageRequestCommand, int>
     {
-        private readonly IAvatarRepository _avatarRepository;
-        private readonly IUserRepository _userRepository;
         private readonly IMapper _mapper;
         private readonly IUnitOfWork _uow;
 
-        public SetMainAvatarRequestHandlerCommand(IAvatarRepository avatarRepository, IMapper mapper,
-            IUserRepository userRepository, IUnitOfWork uow
+        public SetMainPostImageRequestHandlerCommand(
+            IMapper mapper,
+            IUnitOfWork uow
         )
         {
-            _avatarRepository = avatarRepository;
             _mapper = mapper;
-            _userRepository = userRepository;
             _uow = uow;
         }
 
-        public async Task<int> Handle(SetMainAvatarRequestCommand request, CancellationToken cancellationToken)
+        public async Task<int> Handle(
+            SetMainPostImageRequestCommand request,
+            CancellationToken cancellationToken
+        )
         {
-            var user = await _uow.UserRepository.GetUserByIdAsync(request.userId);
+            var post = await _uow.PostRepository.GetByIdAsync(request.postId);
 
-            if (user == null) throw new NotFoundException(
-                nameof(ApplicationUser), request.userId
+            if (post == null)
+                throw new NotFoundException(nameof(Post), request.postId);
 
-            );
+            var postImage = post.PostImages.FirstOrDefault(x => x.Id == request.postImageId);
 
-            var avatar = user.Avatars.FirstOrDefault(x => x.Id == request.avatarId);
+            if (postImage == null)
+                throw new NotFoundException(nameof(PostImage), request.postId);
 
-            if (avatar == null) throw new NotFoundException(
-                nameof(Avatar), request.userId
+            if (postImage.IsMain)
+                throw new BadRequestException("this is already your main photo");
 
-            );
-
-            if (avatar.IsMain) throw new BadRequestException("this is already your main photo");
-
-            var currentMain = user.Avatars.FirstOrDefault(x => x.IsMain);
-            if (currentMain != null) currentMain.IsMain = false;
-            avatar.IsMain = true;
-            if (
-                  await _uow.Complete()
-              )
+            var currentMain = post.PostImages.FirstOrDefault(x => x.IsMain);
+            if (currentMain != null)
+                currentMain.IsMain = false;
+            postImage.IsMain = true;
+            if (await _uow.Complete())
             {
-                return avatar.Id;
+                return postImage.Id;
             }
             else
             {
@@ -62,5 +55,4 @@ namespace Screamer.Application.Features.AvatarRequest.Commands.CreateAvatarReque
             }
         }
     }
-
 }

@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Screamer.Domain.Entities;
 using Screamer.Application.Features.AvatarRequest.Commands.AddAvatarRequest;
 
-namespace Screamer.Application.Features.postImageRequest.Commands.AddpostImageRequest
+namespace Screamer.Application.Features.postImageRequest.Commands
 {
     public class AddPostImageRequestHandlerCommand
         : IRequestHandler<AddPostImageRequestCommand, int>

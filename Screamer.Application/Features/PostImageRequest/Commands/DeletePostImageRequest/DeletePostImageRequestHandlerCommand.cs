@@ -7,61 +7,59 @@ using MediatR;
 using Screamer.Application.Contracts.Exceptions;
 using Screamer.Application.Contracts.Presistance;
 using Screamer.Domain.Common;
+using Screamer.Domain.Entities;
 using Screamer.Identity.Models;
 
-namespace Screamer.Application.Features.AvatarRequest.Commands.DeleteAvatarRequest
+namespace Screamer.Application.Features.postImageRequest.Commands
 {
-    public class DeleteAvatarRequestHandlerCommand :
-    IRequestHandler
-    <
-        DeleteAvatarRequestCommand,
-        Unit
-        >
+    public class DeletePostImageRequestHandlerCommand
+        : IRequestHandler<DeletePostImageRequestCommand, Unit>
     {
-        private readonly IAvatarRepository _avatarRepository;
+        private readonly IPostImageRepository _PostImageRepository;
         private readonly IUnitOfWork _uow;
 
-
-
-        public DeleteAvatarRequestHandlerCommand(IAvatarRepository avatarRepository , 
+        public DeletePostImageRequestHandlerCommand(
+            IPostImageRepository PostImageRepository,
             IUnitOfWork uow
         )
         {
-            _avatarRepository = avatarRepository;
+            _PostImageRepository = PostImageRepository;
             _uow = uow;
         }
 
-    public async Task<Unit> Handle(DeleteAvatarRequestCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(
+            DeletePostImageRequestCommand request,
+            CancellationToken cancellationToken
+        )
         {
-      var user = await _uow.UserRepository.GetUserByIdAsync(
-                request.userId
-            );
+            var post = await _uow.PostRepository.GetByIdAsync(request.postId);
 
-            if (user == null) throw new NotFoundException(
-                nameof(ApplicationUser), request.userId
-      );
+            if (post == null)
+                throw new NotFoundException(nameof(Post), request.postId);
 
-            var avatar = user.Avatars.FirstOrDefault(x => x.Id == request.avatarId);
+            var postImage = post.PostImages.FirstOrDefault(x => x.Id == request.postImageId);
 
-            if (avatar == null)  throw new NotFoundException(
-                nameof(Avatar), request.userId
-            );
+            if (postImage == null)
+                throw new NotFoundException(nameof(PostImage), request.postId);
 
-            if (avatar.IsMain) throw new 
-                BadRequestException("You cannot delete your main photo");
+            if (postImage.IsMain)
+                throw new BadRequestException("You cannot delete your main photo");
 
-            if (avatar.PublicId != null)
+            if (postImage.PublicId != null)
             {
-                var result = await _avatarRepository.DeletePhotoAsync(avatar.PublicId);
-                if (result.Error != null) 
+                var result = await _PostImageRepository.DeletePhotoAsync(postImage.PublicId);
+                if (result.Error != null)
                     throw new Exception(result.Error.Message);
             }
 
-            user.Avatars.Remove(avatar);
+            post.PostImages.Remove(postImage);
 
-            if (await _uow.Complete()) {
+            if (await _uow.Complete())
+            {
                 return Unit.Value;
-            } else {
+            }
+            else
+            {
                 throw new Exception("Problem deleting photo");
             }
         }
