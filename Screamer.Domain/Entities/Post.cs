@@ -23,6 +23,8 @@ namespace Screamer.Domain.Common
         public int Views { get; set; }
         public List<PostImage> PostImages { get; set; } = new();
         public string PostImageUrl { get; set; }
+            public ICollection<PostCategory> PostCategories { get; set; }
+
        
 
     }
