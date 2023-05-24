@@ -3,7 +3,10 @@ import { Injectable } from '@angular/core';
 import { AuthenticationService } from './authentication.service';
 import { map, take } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { getPaginatedResult, getPaginationHeaders } from '../Helpers/paginationHelper';
+import {
+  getPaginatedResult,
+  getPaginationHeaders,
+} from '../Helpers/paginationHelper';
 import { PostParams } from '../models/PostParams';
 import { Post } from '../models/Post';
 import { User } from '../models/User';
@@ -18,21 +21,13 @@ export class PostService {
   constructor(
     private http: HttpClient,
     private authService: AuthenticationService
-  ) {
+  ) {}
 
-
-  }
-
-  getPostParams(userId : string , pageSize : number ,
-    pageNumber : number
-    ) {
+  getPostParams(userId: string, pageSize: number, pageNumber: number) {
     this.PostParams = new PostParams();
     this.PostParams.orderBy = 'CreatedAt';
-    this.PostParams.pageNumber =
-        pageNumber  ;
-    this.PostParams.pageSize =
-        pageSize
-    ;
+    this.PostParams.pageNumber = pageNumber;
+    this.PostParams.pageSize = pageSize;
     this.PostParams.userId = userId;
 
     return this.PostParams;
@@ -42,14 +37,14 @@ export class PostService {
     this.PostParams = params;
   }
 
-  resetPostParams(user : User) {
+  resetPostParams(user: User) {
     if (user) {
       return this.PostParams;
     }
     return;
   }
 
-  getPosts( postParams : PostParams) {
+  getPosts(postParams: PostParams) {
     let params = getPaginationHeaders(
       postParams.orderBy.toString(),
       postParams.userId.toString(),
@@ -66,7 +61,8 @@ export class PostService {
       map((response: any) => {
         return response;
       })
-    );  }
+    );
+  }
 
   getPost(id: number) {
     return this.http.get(this.baseUrl + 'Post/' + id);
@@ -84,7 +80,7 @@ export class PostService {
     return this.http.delete(this.baseUrl + 'Post/' + id);
   }
 
-  getPostsByUserId( postParams : PostParams) {
+  getPostsByUserId(postParams: PostParams) {
     let params = getPaginationHeaders(
       postParams.orderBy.toString(),
       postParams.userId.toString(),
@@ -101,5 +97,22 @@ export class PostService {
       map((response: any) => {
         return response;
       })
-    );  }
+    );
+  }
+
+  setMainPostImage(postImageId: number, postId: number) {
+    return this.http.put(
+      this.baseUrl + 'User/set-main-post-image/' + postImageId,
+      {
+        postImageId,
+        postId,
+      }
+    );
+  }
+
+  deletePostImage(postImageId: number, postId: number) {
+    return this.http.delete(
+      this.baseUrl + 'User/delete-post-image/' + postImageId
+    );
+  }
 }

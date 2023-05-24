@@ -1,4 +1,4 @@
-<li class="bg-white px-4 py-6 shadow sm:p-6 sm:rounded-lg" *ngIf="post">
+<li class="bg-white px-4 py-6 shadow sm:p-6 sm:rounded-lg mb-5" *ngIf="post">
   <article aria-labelledby="question-title-81614">
     <div>
       <div class="flex space-x-3">
@@ -140,11 +140,9 @@
         </div>
       </div>
       <div class="flex-shrink-0 my-3">
-        <img
-          class="h-60 w-full object-cover rounded-lg"
-          src="https://images.unsplash.com/photo-1496128858413-b36217c2ce36?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1679&q=80"
-          alt=""
-        />
+        <div class="container h-60 w-full object-cover rounded-lg ">
+          <app-carousel [slides]="slides"></app-carousel>
+        </div>
       </div>
       <h2
         id="question-title-81614"

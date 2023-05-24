@@ -33,6 +33,7 @@ import { CoverUploadComponent } from './components/user/cover-upload/cover-uploa
 import { SocialInputComponent } from './components/input/social-input/social-input.component';
 import { ChatRoomTabComponent } from './components/chat/chat-room-tab/chat-room-tab.component';
 import { SocialsListComponent } from './components/list/socials-list/socials-list.component';
+import { CarouselComponent } from './components/carousel/carousel/carousel.component';
 
 @NgModule({
   declarations: [
@@ -60,6 +61,7 @@ import { SocialsListComponent } from './components/list/socials-list/socials-lis
     SocialInputComponent,
     ChatRoomTabComponent,
     SocialsListComponent,
+    CarouselComponent,
   ],
   imports: [
     CommonModule,
@@ -95,6 +97,7 @@ import { SocialsListComponent } from './components/list/socials-list/socials-lis
     SocialInputComponent,
     ChatRoomTabComponent,
     SocialsListComponent,
+    CarouselComponent,
   ],
   providers: [],
 })
