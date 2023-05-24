@@ -9,29 +9,34 @@ using Screamer.Application.Contracts.Presistance;
 using Screamer.Application.Dtos;
 using Screamer.Application.Features.AvatarRequest.Queries.GetAvatarByIdRequest;
 
-namespace Screamer.Application.Features.AvatarRequest.Queries.GetAvatarRequest
+namespace Screamer.Application.Features.postImageRequest.Queries
 {
-    public class GetAvatarByIdRequestHandlerQuery : IRequestHandler<
-        GetAvatarByIdRequestQuery, AvatarDto
-     >
+    public class GetPostImageByIdRequestHandlerQuery
+        : IRequestHandler<GetPostImageByIdRequestQuery, PostImageDto>
     {
-        private readonly IAvatarRepository _postRepository;
+        private readonly IPostImageRepository _postImageRepository;
         private readonly IMapper _mapper;
-        private readonly IAppLogger<GetAvatarByIdRequestHandlerQuery> _logger; 
+        private readonly IAppLogger<GetPostImageByIdRequestHandlerQuery> _logger;
 
-        public GetAvatarByIdRequestHandlerQuery(IAvatarRepository postRepository, IMapper mapper , 
-            IAppLogger<GetAvatarByIdRequestHandlerQuery> logger
+        public GetPostImageByIdRequestHandlerQuery(
+            IPostImageRepository postImageRepository,
+            IMapper mapper,
+            IAppLogger<GetPostImageByIdRequestHandlerQuery> logger
         )
         {
-            _postRepository = postRepository;
+            _postImageRepository = postImageRepository;
             _mapper = mapper;
             _logger = logger;
         }
-        public async Task<AvatarDto> Handle(GetAvatarByIdRequestQuery request, CancellationToken cancellationToken)
+
+        public async Task<PostImageDto> Handle(
+            GetPostImageByIdRequestQuery request,
+            CancellationToken cancellationToken
+        )
         {
-            var post = await _postRepository.GetByIdAsync(request.Id);
-            _logger.LogInformation("GetAvatarByIdRequestHandlerQuery called");
-            return _mapper.Map<AvatarDto>(post);
+            var postImage = await _postImageRepository.GetByIdAsync(request.Id);
+            _logger.LogInformation("GetPostImageByIdRequestHandlerQuery called");
+            return _mapper.Map<PostImageDto>(postImage);
         }
     }
 }

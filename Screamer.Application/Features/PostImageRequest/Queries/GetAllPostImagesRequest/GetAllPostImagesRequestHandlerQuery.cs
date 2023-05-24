@@ -8,32 +8,35 @@ using Screamer.Application.Contracts.Logging;
 using Screamer.Application.Contracts.Presistance;
 using Screamer.Application.Dtos;
 
-namespace Screamer.Application.Features.AvatarRequest.Queries.GetAllAvatarsRequest
+namespace Screamer.Application.Features.postImageRequest.Queries
 {
-    public class GetAllAvatarsRequestHandlerQuery : IRequestHandler<
-        GetAllAvatarsRequestQuery, 
-        IEnumerable<AvatarDto>
-    >
+    public class GetAllPostImagesRequestHandlerQuery
+        : IRequestHandler<GetAllPostImagesRequestQuery, IEnumerable<PostImageDto>>
     {
-        private readonly IAvatarRepository _avatarRepository;
+        private readonly IPostImageRepository _postImageRepository;
         private readonly IMapper _mapper;
 
-        private readonly IAppLogger<GetAllAvatarsRequestHandlerQuery> _logger; 
+        private readonly IAppLogger<GetAllPostImagesRequestQuery> _logger;
 
-        public GetAllAvatarsRequestHandlerQuery(IAvatarRepository postRepository, IMapper mapper , 
-            IAppLogger<GetAllAvatarsRequestHandlerQuery> logger
+        public GetAllPostImagesRequestHandlerQuery(
+            IPostImageRepository postImageRepository,
+            IMapper mapper,
+            IAppLogger<GetAllPostImagesRequestQuery> logger
         )
         {
-            _avatarRepository = postRepository;
+            _postImageRepository = postImageRepository;
             _mapper = mapper;
             _logger = logger;
         }
 
-        public async Task<IEnumerable<AvatarDto>> Handle(GetAllAvatarsRequestQuery request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<PostImageDto>> Handle(
+            GetAllPostImagesRequestQuery request,
+            CancellationToken cancellationToken
+        )
         {
-            var posts = await _avatarRepository.GetAllAsync();
-            _logger.LogInformation("GetAllAvatarsRequestHandlerQuery called");
-            return _mapper.Map<IEnumerable<AvatarDto>>(posts);
+            var postImages = await _postImageRepository.GetAllAsync();
+            _logger.LogInformation("GetAllPostImagesRequestQuery called");
+            return _mapper.Map<IEnumerable<PostImageDto>>(postImages);
         }
     }
 }

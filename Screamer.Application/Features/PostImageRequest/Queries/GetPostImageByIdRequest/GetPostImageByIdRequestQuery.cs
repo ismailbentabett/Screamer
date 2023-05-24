@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 using MediatR;
 using Screamer.Application.Dtos;
 
-namespace Screamer.Application.Features.AvatarRequest.Queries.GetAvatarByIdRequest;
+namespace Screamer.Application.Features.postImageRequest.Queries;
 
-    public record GetAvatarByIdRequestQuery : IRequest<AvatarDto>
-    {
-        public int Id { get; set; }
-    }
+public record GetPostImageByIdRequestQuery : IRequest<PostImageDto>
+{
+    public int Id { get; set; }
+}
