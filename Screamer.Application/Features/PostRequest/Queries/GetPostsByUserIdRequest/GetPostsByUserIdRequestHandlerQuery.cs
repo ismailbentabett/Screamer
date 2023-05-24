@@ -10,12 +10,12 @@ using Screamer.Application.Contracts.Presistance;
 using Screamer.Application.Dtos;
 using Screamer.Application.Features.PostRequest.Queries.GetPostByUserIdRequest;
 using Screamer.Application.Helpers;
+using Screamer.Domain.Common;
 
 namespace Screamer.Application.Features.PostRequest.Queries.GetPostRequest
 {
-    public class GetPostByUserIdRequestHandlerQuery : IRequestHandler<
-        GetPostByUserIdRequestQuery,List<PostDto>
-     >
+    public class GetPostByUserIdRequestHandlerQuery
+        : IRequestHandler<GetPostByUserIdRequestQuery, List<PostDto>>
     {
         private readonly IPostRepository _postRepository;
         private readonly IMapper _mapper;
@@ -26,7 +26,9 @@ namespace Screamer.Application.Features.PostRequest.Queries.GetPostRequest
 
         private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public GetPostByUserIdRequestHandlerQuery(IPostRepository postRepository, IMapper mapper,
+        public GetPostByUserIdRequestHandlerQuery(
+            IPostRepository postRepository,
+            IMapper mapper,
             IAppLogger<GetPostByUserIdRequestHandlerQuery> logger,
             IUnitOfWork uow,
             IHttpContextAccessor httpContextAccessor
@@ -39,22 +41,29 @@ namespace Screamer.Application.Features.PostRequest.Queries.GetPostRequest
             _httpContextAccessor = httpContextAccessor;
         }
 
-
-        public async Task<List<PostDto>> Handle(GetPostByUserIdRequestQuery request, CancellationToken cancellationToken)
+        public async Task<List<PostDto>> Handle(
+            GetPostByUserIdRequestQuery request,
+            CancellationToken cancellationToken
+        )
         {
-            var posts = await _uow.PostRepository.GetPostsByUserId(request.UserId , 
+            var posts = await _uow.PostRepository.GetPostsByUserId(
+                request.UserId,
                 request.postParams
-            )   
-            ;
+            );
 
             HttpContext httpContext = _httpContextAccessor.HttpContext;
             HttpResponse Response = httpContext.Response;
-            Response.AddPaginationHeader(new PaginationHeader(posts.CurrentPage, posts.PageSize,
-              posts.TotalCount, posts.TotalPages));
+            Response.AddPaginationHeader(
+                new PaginationHeader(
+                    posts.CurrentPage,
+                    posts.PageSize,
+                    posts.TotalCount,
+                    posts.TotalPages
+                )
+            );
 
-            var data = _mapper.Map<List<PostDto>>(posts);
-            return data;
-            
+            var data = _mapper.Map<List<Post>>(posts);
+            return _mapper.Map<List<PostDto>>(data);
         }
     }
 }

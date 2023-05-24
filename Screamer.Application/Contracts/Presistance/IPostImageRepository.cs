@@ -11,6 +11,7 @@ namespace Screamer.Application.Contracts.Presistance
     public interface IPostImageRepository : IGenericRepository<PostImage>
     {
          Task<ImageUploadResult> AddPhotoAsync(IFormFile file);
-        Task<DeletionResult> DeletePhotoAsync(string publicId); 
+        Task<DeletionResult> DeletePhotoAsync(string publicId);
+
     }
 }

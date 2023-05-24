@@ -4,8 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Screamer.Application.Contracts.Presistance;
+using Screamer.Application.Dtos;
 using Screamer.Application.Helpers;
 using Screamer.Domain.Common;
+using Screamer.Domain.Entities;
 using Screamer.Presistance.DatabaseContext;
 
 namespace Screamer.Presistance.Repositories
@@ -22,8 +24,10 @@ namespace Screamer.Presistance.Repositories
             var query = _context.Posts
                 .Where(u => u.UserId == userId)
                 .Include(u => u.PostImages)
+                .Include(u => u.Comments)
+                .Include(u => u.Reactions)
                 .Include(u => u.PostCategories)
-                .ThenInclude(u => u.Category)
+                .Include(u => u.User)
                 .AsQueryable();
 
             query = postParams.OrderBy switch
@@ -62,6 +66,18 @@ namespace Screamer.Presistance.Repositories
                 postParams.PageNumber,
                 postParams.PageSize
             );
+        }
+
+        async Task<List<PostImage>> IPostRepository.GetPostImageByPostIdAsync(int postId)
+        {
+            // Get post by ID and include its post images
+            var query = _context.Posts.Where(p => p.Id == postId).Include(p => p.PostImages);
+
+            // Retrieve the post and its associated post images
+            var post = await query.FirstOrDefaultAsync();
+
+            // Return only the post images
+            return post?.PostImages.ToList();
         }
     }
 }

@@ -6,6 +6,7 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Screamer.Application.Features.postImageRequest.Commands;
+using Screamer.Application.Features.postImageRequest.Queries;
 using Screamer.Application.Features.PostRequest.Commands.CreatePostRequest;
 using Screamer.Application.Features.PostRequest.Commands.DeletePostRequest;
 using Screamer.Application.Features.PostRequest.Commands.UpdatePostRequest;
@@ -128,6 +129,15 @@ namespace Screamer.WebApi.Controllers
             };
             await _mediator.Send(command);
             return NoContent();
+        }
+
+        //GetPostImageByPostIdRequestQuery
+        [HttpGet("get-post-image/{postId}")]
+        public async Task<ActionResult<List<PostImage>>> GetPostImageByPostId(int postId)
+        {
+            var query = new GetPostImageByPostIdRequestQuery { postId = postId };
+            var result = await _mediator.Send(query);
+            return Ok(result);
         }
     }
 }
