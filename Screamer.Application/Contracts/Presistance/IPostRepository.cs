@@ -11,6 +11,7 @@ namespace Screamer.Application.Contracts.Presistance
     {
         Task<PagedList<Post>> GetPostsByUserId(string userId , PostParams  postParams);
         Task<PagedList<Post>> GetAllAsync(PostParams  postParams);
+          Task<Post> GetPostById(int id);
 
     }
 }

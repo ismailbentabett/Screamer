@@ -99,7 +99,7 @@ namespace Screamer.WebApi.Controllers
         }
 
         [HttpPost("add-post-image/{postId}")]
-        public async Task<ActionResult<PostImage>> AddAvatar(IFormFile file, [FromRoute] int postId)
+        public async Task<ActionResult<PostImage>> AddPostImage(IFormFile file, int postId)
         {
             var command = new AddPostImageRequestCommand { file = file, postId = postId };
             var result = await _mediator.Send(command);
@@ -107,7 +107,7 @@ namespace Screamer.WebApi.Controllers
         }
 
         [HttpPut("set-main-post-image/{postImageId}")]
-        public async Task<ActionResult> SetMainAvatar(int postImageId, int postId)
+        public async Task<ActionResult> SetMainPostImage(int postImageId, int postId)
         {
             var command = new SetMainPostImageRequestCommand
             {
@@ -119,7 +119,7 @@ namespace Screamer.WebApi.Controllers
         }
 
         [HttpDelete("delete-post-image/{postImageId}")]
-        public async Task<ActionResult> DeleteAvatar(int postImageId, int postId)
+        public async Task<ActionResult> DeletePostImage(int postImageId, int postId)
         {
             var command = new DeletePostImageRequestCommand
             {

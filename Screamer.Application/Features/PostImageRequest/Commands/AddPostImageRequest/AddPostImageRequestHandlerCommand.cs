@@ -33,7 +33,7 @@ namespace Screamer.Application.Features.postImageRequest.Commands
             CancellationToken cancellationToken
         )
         {
-            var post = await _uow.PostRepository.GetByIdAsync(request.postId);
+            var post = await _uow.PostRepository.GetPostById(request.postId);
 
             if (post == null)
                 throw new NotFoundException(nameof(Post), request.postId);

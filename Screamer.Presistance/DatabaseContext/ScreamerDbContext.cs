@@ -102,7 +102,9 @@ namespace Screamer.Presistance.DatabaseContext
                 .Entity<PostCategory>()
                 .HasOne(bc => bc.Category)
                 .WithMany(c => c.PostCategories)
-                .HasForeignKey(bc => bc.CategoryId);
+                .HasForeignKey(bc => bc.CategoryId);    
+
+                
         }
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)

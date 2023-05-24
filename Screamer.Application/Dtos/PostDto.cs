@@ -21,6 +21,11 @@ namespace Screamer.Application.Dtos
             public ICollection<Reaction> Reactions { get; set; }  */
         public int Views { get; set; }
 
+        public string PostImageUrl { get; set; }
+        public ICollection<PostCategory> PostCategories { get; set; } = new List<PostCategory>();
+
+        public ICollection<PostImageDto> PostImages { get; set; } = new List<PostImageDto>();
+
     }
 
 

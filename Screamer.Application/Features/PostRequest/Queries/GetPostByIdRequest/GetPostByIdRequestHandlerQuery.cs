@@ -29,7 +29,7 @@ namespace Screamer.Application.Features.PostRequest.Queries.GetPostRequest
         }
         public async Task<PostDto> Handle(GetPostByIdRequestQuery request, CancellationToken cancellationToken)
         {
-            var post = await _postRepository.GetByIdAsync(request.Id);
+            var post = await _postRepository.GetPostById(request.Id);
             _logger.LogInformation("GetPostByIdRequestHandlerQuery called");
             return _mapper.Map<PostDto>(post);
         }

@@ -14,18 +14,14 @@ namespace Screamer.Domain.Common
         public string Content { get; set; }
         public string ImageUrl { get; set; }
         public string UserId { get; set; }
-        [ForeignKey(
-            nameof(UserId)
-        )]
+
+        [ForeignKey(nameof(UserId))]
         public ApplicationUser User { get; set; }
         public List<Reaction> Reactions { get; set; } = new();
         public List<Comment> Comments { get; set; } = new();
         public int Views { get; set; }
         public List<PostImage> PostImages { get; set; } = new();
         public string PostImageUrl { get; set; }
-            public ICollection<PostCategory> PostCategories { get; set; }
-
-       
-
+        public ICollection<PostCategory> PostCategories { get; set; } = new List<PostCategory>();
     }
 }

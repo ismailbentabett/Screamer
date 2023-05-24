@@ -100,6 +100,7 @@
                   </a>
 
                   <a
+                  *ngIf="user.adress"
                     (click)="toggleTabs(2)"
                     class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm"
                   >
@@ -107,6 +108,7 @@
                   </a>
 
                   <a
+                  *ngIf="user.socials"
                     (click)="toggleTabs(3)"
                     class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm"
                   >
@@ -179,12 +181,13 @@
               'mt-6 max-w-5xl mx-auto px-4 ': openTab === 2
             }"
             class="Location sm:px-6 lg:px-8"
+            *ngIf="user.adress"
           >
             <dl class="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
               <div class="sm:col-span-1">
                 <dt class="text-sm font-medium text-gray-500">Country</dt>
                 <dd class="mt-1 text-sm text-gray-900">
-                  {{ user.adress.country }}
+                  {{ user.adress.country ?? "N/A" }}
                 </dd>
               </div>
               <div class="sm:col-span-1">
@@ -196,19 +199,19 @@
               <div class="sm:col-span-1">
                 <dt class="text-sm font-medium text-gray-500">State</dt>
                 <dd class="mt-1 text-sm text-gray-900">
-                  {{ user.adress.state }}
+                  {{ user.adress.state ?? "N/A"}}
                 </dd>
               </div>
               <div class="sm:col-span-1">
                 <dt class="text-sm font-medium text-gray-500">City</dt>
                 <dd class="mt-1 text-sm text-gray-900">
-                  {{ user.adress.city }}
+                  {{ user.adress.city ?? "N/A"}}
                 </dd>
               </div>
               <div class="sm:col-span-1">
                 <dt class="text-sm font-medium text-gray-500">PostalCode</dt>
                 <dd class="mt-1 text-sm text-gray-900">
-                  {{ user.adress.postalCode }}
+                  {{ user.adress.postalCode ?? "N/A"}}
                 </dd>
               </div>
             </dl>

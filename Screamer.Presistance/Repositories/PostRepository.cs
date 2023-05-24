@@ -14,20 +14,17 @@ namespace Screamer.Presistance.Repositories
     {
         /*         Task<IEnumerable<Post>> GetPostsByUserId(int userId);
  */
-        public PostRepository(ScreamerDbContext context) : base(context)
-        {
-        }
+        public PostRepository(ScreamerDbContext context)
+            : base(context) { }
 
-
-
-        public async Task<PagedList<Post>> GetPostsByUserId(string userId, PostParams postParams
-)
+        public async Task<PagedList<Post>> GetPostsByUserId(string userId, PostParams postParams)
         {
             var query = _context.Posts
-            .AsQueryable();
-
-            query = query.Where(u => u.UserId == userId)
-            .Include(u => u.PostImages);
+                .Where(u => u.UserId == userId)
+                .Include(u => u.PostImages)
+                .Include(u => u.PostCategories)
+                .ThenInclude(u => u.Category)
+                .AsQueryable();
 
             query = postParams.OrderBy switch
             {
@@ -35,14 +32,22 @@ namespace Screamer.Presistance.Repositories
                 _ => query.OrderByDescending(u => u.CreatedAt)
             };
 
-            return await PagedList<Post>.CreateAsync(query, postParams.PageNumber, postParams.PageSize);
+            return await PagedList<Post>.CreateAsync(
+                query,
+                postParams.PageNumber,
+                postParams.PageSize
+            );
         }
 
+        //get post by id
+        public async Task<Post> GetPostById(int id)
+        {
+            var query = _context.Posts.Where(u => u.Id == id).Include(u => u.PostImages);
 
+            return await query.FirstOrDefaultAsync();
+        }
 
-        public async Task<PagedList<Post>> GetAllAsync(
-            PostParams postParams
-        )
+        public async Task<PagedList<Post>> GetAllAsync(PostParams postParams)
         {
             var query = _context.Posts.AsQueryable();
 
@@ -52,12 +57,11 @@ namespace Screamer.Presistance.Repositories
                 _ => query.OrderByDescending(u => u.CreatedAt)
             };
 
-            return await PagedList<Post>.CreateAsync(query, postParams.PageNumber, postParams.PageSize);
-
-
-
+            return await PagedList<Post>.CreateAsync(
+                query,
+                postParams.PageNumber,
+                postParams.PageSize
+            );
         }
-
-
     }
 }

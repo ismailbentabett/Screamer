@@ -9,6 +9,6 @@ namespace Screamer.Domain.Entities
     public class Category : BaseEntity
     {
         public string CategoryName { get; set; }
-        public ICollection<PostCategory> PostCategories { get; set; }
+        public ICollection<PostCategory> PostCategories { get; set; }= new List<PostCategory>();
     }
 }
