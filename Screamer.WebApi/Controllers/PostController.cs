@@ -11,8 +11,11 @@ using Screamer.Application.Features.PostRequest.Commands.CreatePostRequest;
 using Screamer.Application.Features.PostRequest.Commands.DeletePostRequest;
 using Screamer.Application.Features.PostRequest.Commands.UpdatePostRequest;
 using Screamer.Application.Features.PostRequest.Queries.GetAllPostsRequest;
+using Screamer.Application.Features.PostRequest.Queries.GetMostRecentPostsRequest;
 using Screamer.Application.Features.PostRequest.Queries.GetPostByIdRequest;
 using Screamer.Application.Features.PostRequest.Queries.GetPostByUserIdRequest;
+using Screamer.Application.Features.PostRequest.Queries.GetPostsByFollowingRequest;
+using Screamer.Application.Features.PostRequest.Queries.GetRecommendedPostsRequest;
 using Screamer.Application.Helpers;
 using Screamer.Domain.Entities;
 
@@ -136,6 +139,37 @@ namespace Screamer.WebApi.Controllers
         public async Task<ActionResult<List<PostImage>>> GetPostImageByPostId(int postId)
         {
             var query = new GetPostImageByPostIdRequestQuery { postId = postId };
+            var result = await _mediator.Send(query);
+            return Ok(result);
+        }
+
+        [HttpGet("get-posts-by-following")]
+        public async Task<IActionResult> GetPostsByFollowing(
+            [FromQuery] RecommendationParams recommendationParams,
+            [FromQuery] string userId
+        )
+        {
+            var query = new GetPostsByFollowingRequestQuery
+            {
+                recommendationParams = recommendationParams,
+                userId = userId
+            };
+            var result = await _mediator.Send(query);
+            return Ok(result);
+        }
+
+        [HttpGet("get-most-recent-posts")]
+        public async Task<IActionResult> GetMostRecentPosts([FromQuery] PostParams postParams)
+        {
+            var query = new GetMostRecentPostsRequestQuery { postParams = postParams };
+            var result = await _mediator.Send(query);
+            return Ok(result);
+        }
+
+        [HttpGet("get-recommended-posts")]
+        public async Task<IActionResult> GetRecommendedPosts([FromQuery] PostParams postParams)
+        {
+            var query = new GetRecommendedPostsRequestQuery { postParams = postParams };
             var result = await _mediator.Send(query);
             return Ok(result);
         }
