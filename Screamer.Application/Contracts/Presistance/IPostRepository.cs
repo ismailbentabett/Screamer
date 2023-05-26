@@ -11,11 +11,16 @@ namespace Screamer.Application.Contracts.Presistance
 {
     public interface IPostRepository : IGenericRepository<Post>
     {
-        Task<PagedList<Post>> GetPostsByUserId(string userId , PostParams  postParams);
-        Task<PagedList<Post>> GetAllAsync(PostParams  postParams);
-          Task<Post> GetPostById(int id);
-                  Task<List<PostImage>> GetPostImageByPostIdAsync(int postId); 
+        Task<PagedList<Post>> GetPostsByUserId(string userId, PostParams postParams);
+        Task<PagedList<Post>> GetAllAsync(PostParams postParams);
+        Task<Post> GetPostById(int id);
+        Task<List<PostImage>> GetPostImageByPostIdAsync(int postId);
 
-
+        Task<PagedList<Post>> GetPostsByFollowing(
+            string userId,
+            RecommendationParams recommendationParams
+        );
+        Task<PagedList<Post>> GetMostRecentPosts(PostParams postParams);
+        Task<PagedList<Post>> GetRecommendedPosts(PostParams postParams);
     }
 }
