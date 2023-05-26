@@ -124,7 +124,10 @@ namespace Screamer.Presistance.Repositories
 
         public Task<PagedList<Post>> GetRecommendedPosts(PostParams postParams)
         {
-            var randomPosts = _context.Posts.OrderBy(r => Guid.NewGuid()).Take(10).ToList();
+            var randomPosts = _context.Posts
+                .OrderBy(u => Guid.NewGuid())
+                .Include(u => u.PostImages)
+                .Include(u => u.User);
 
             return PagedList<Post>.CreateAsync(
                 randomPosts.AsQueryable(),
