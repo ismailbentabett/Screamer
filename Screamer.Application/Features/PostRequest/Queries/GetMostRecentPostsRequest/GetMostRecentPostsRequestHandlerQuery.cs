@@ -23,22 +23,18 @@ namespace Screamer.Application.Features.PostRequest.Queries.GetMostRecentPostsRe
 
         private readonly IHttpContextAccessor _httpContextAccessor;
 
-        GetMostRecentPostsRequestHandlerQuery(
+        public GetMostRecentPostsRequestHandlerQuery(
             IPostRepository postRepository,
             IMapper mapper,
-            IAppLogger<GetAllPostsRequestHandlerQuery> logger,
             IUnitOfWork uow,
             IHttpContextAccessor httpContextAccessor
         )
         {
             _postRepository = postRepository;
             _mapper = mapper;
-            _logger = logger;
             _uow = uow;
             _httpContextAccessor = httpContextAccessor;
         }
-
-        private readonly IAppLogger<GetAllPostsRequestHandlerQuery> _logger;
 
         public async Task<List<PostDto>> Handle(
             GetMostRecentPostsRequestQuery request,

@@ -22,22 +22,19 @@ namespace Screamer.Application.Features.PostRequest.Queries.GetRecommendedPostsR
 
         private readonly IHttpContextAccessor _httpContextAccessor;
 
-        GetRecommendedPostsRequestHandlerQuery(
+       public  GetRecommendedPostsRequestHandlerQuery(
             IPostRepository postRepository,
             IMapper mapper,
-            IAppLogger<GetRecommendedPostsRequestQuery> logger,
             IUnitOfWork uow,
             IHttpContextAccessor httpContextAccessor
         )
         {
             _postRepository = postRepository;
             _mapper = mapper;
-            _logger = logger;
             _uow = uow;
             _httpContextAccessor = httpContextAccessor;
         }
 
-        private readonly IAppLogger<GetRecommendedPostsRequestQuery> _logger;
 
         public async Task<List<PostDto>> Handle(
             GetRecommendedPostsRequestQuery request,

@@ -25,7 +25,7 @@ namespace Screamer.Application.Features.PostRequest.Queries.GetPostsByFollowingR
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IAppLogger<GetPostsByFollowingRequestQuery> _logger;
 
-        GetPostsByFollowingRequestHandlerQuery(
+        public GetPostsByFollowingRequestHandlerQuery(
             IPostRepository postRepository,
             IMapper mapper,
             IAppLogger<GetPostsByFollowingRequestQuery> logger,
