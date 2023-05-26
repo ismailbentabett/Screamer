@@ -28,6 +28,8 @@
     "ng2-file-upload": "^3.0.0",
     "ngx-bootstrap": "^10.2.0",
     "ngx-infinite-scroll": "^16.0.0",
+    "ngx-owl-carousel": "^2.0.7",
+    "ngx-owl-carousel-o": "^16.0.0",
     "ngx-spinner": "^15.0.1",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",

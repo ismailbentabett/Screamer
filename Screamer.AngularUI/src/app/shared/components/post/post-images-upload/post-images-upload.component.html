@@ -1,57 +1,108 @@
+<!-- <owl-carousel-o [options]="customOptions" class="overflow-auto">
+  <ng-container *ngFor="let item of uploader.queue; let first = first">
+    <ng-template carouselSlide>
+      <img
+        src=""
+        thumbnail
+        [image]="item?._file"
+        alt=""
+        class="h-16 w-16 object-cover pointer-events-none group-hover:opacity-75"
+      />
+    </ng-template>
+  </ng-container>
+</owl-carousel-o> -->
+<div class="flow-root">
+  <button
+    type="button"
+    class="rounded-full inline-flex items-center justify-center text-gray-400 hover:text-gray-500 cursor pointer"
+  >
+    <!-- Heroicon name: outline/paper-clip -->
 
-
-
- <div class="flex">
-        <button
-          type="button"
-          class="-ml-2 -my-2 rounded-full px-3 py-2 inline-flex items-center text-left text-gray-400 group"
-        >
-          <!-- Heroicon name: solid/paper-clip -->
-          <svg
-            class="-ml-1 h-5 w-5 mr-2 group-hover:text-gray-500"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 20 20"
-            fill="currentColor"
-            aria-hidden="true"
-          >
-            <path
-              fill-rule="evenodd"
-              d="M8 4a3 3 0 00-3 3v4a5 5 0 0010 0V7a1 1 0 112 0v4a7 7 0 11-14 0V7a5 5 0 0110 0v4a3 3 0 11-6 0V7a1 1 0 012 0v4a1 1 0 102 0V7a3 3 0 00-3-3z"
-              clip-rule="evenodd"
-            />
-          </svg>
-          <span class="text-sm text-gray-500 group-hover:text-gray-600 italic"
-            >Attach a file</span
-          >
-          <input
-          id="mobile-user-photo"
-          name="user-photo"
-          type="file"
-          class="absolute w-full h-full opacity-0 cursor-pointer border-gray-300 rounded-md"
-          ng2FileSelect
-          [uploader]="uploader"
+    <label
+      class="-ml-2 -my-2 rounded-full px-3 py-2 inline-flex items-center text-left text-gray-400 group"
+    >
+      <!-- Heroicon name: solid/paper-clip -->
+      <svg
+        class="-ml-1 h-5 w-5 mr-2 group-hover:text-gray-500"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 20 20"
+        fill="currentColor"
+        aria-hidden="true"
+      >
+        <path
+          fill-rule="evenodd"
+          d="M8 4a3 3 0 00-3 3v4a5 5 0 0010 0V7a1 1 0 112 0v4a7 7 0 11-14 0V7a5 5 0 0110 0v4a3 3 0 11-6 0V7a1 1 0 012 0v4a1 1 0 102 0V7a3 3 0 00-3-3z"
+          clip-rule="evenodd"
         />
-        </button>
+      </svg>
+      <span class="text-sm text-gray-500 group-hover:text-gray-600 italic"
+        >Attach a file</span
+      >
+      <input
+        ng2FileSelect
+        [uploader]="uploader"
+        multiple
+        type="file"
+        class="hidden"
+      />
+    </label>
+  </button>
+</div>
 
-      </div>
+<!-- <div class="flex mt-10">
+  <button
+    type="button"
+    class="-ml-2 -my-2 rounded-full px-3 py-2 inline-flex items-center text-left text-gray-400 group"
+  >
+    <svg
+      class="-ml-1 h-5 w-5 mr-2 group-hover:text-gray-500"
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 20 20"
+      fill="currentColor"
+      aria-hidden="true"
+    >
+      <path
+        fill-rule="evenodd"
+        d="M8 4a3 3 0 00-3 3v4a5 5 0 0010 0V7a1 1 0 112 0v4a7 7 0 11-14 0V7a5 5 0 0110 0v4a3 3 0 11-6 0V7a1 1 0 012 0v4a1 1 0 102 0V7a3 3 0 00-3-3z"
+        clip-rule="evenodd"
+      />
+    </svg>
+    <span class="text-sm text-gray-500 group-hover:text-gray-600 italic"
+      >Attach a file</span
+    >
+    <input
+      id="mobile-user-photo"
+      name="user-photo"
+      type="file"
+      class=" w-full h-full opacity-0 cursor-pointer border-gray-300 rounded-md"
+      ng2FileSelect
+      [uploader]="uploader"
+      multiple
+    />
+  </button>
+</div>
 
-<!--   <div class="col-2 mb-1" *ngFor="let photo of user?.Avatars">
-      <img src="{{photo.url}}" alt="photo of user" class="img-thumbnail mb-1">
-      <div class="text-center">
-          <button
-              class="btn btn-sm"
-              [disabled]="photo.isMain"
-              (click)="setMainPhoto(photo)"
-              [ngClass]="photo.isMain ? 'btn-success active' : 'btn-outline-success' "
-          >Main</button>
-          <button
-              class="btn btn-sm btn-danger"
-              [disabled]="photo.isMain"
-              (click)="deletePhoto(photo.id)"
-          ><i class="fa fa-trash"></i></button>
-      </div>
+<div class="col-2 mb-1" *ngFor="let photo of user?.Avatars">
+  <img src="{{ photo.url }}" alt="photo of post" class="img-thumbnail mb-1" />
+  <div class="text-center">
+    <button
+      class="btn btn-sm"
+      [disabled]="photo.isMain"
+      (click)="setMainPhoto(photo)"
+      [ngClass]="photo.isMain ? 'btn-success active' : 'btn-outline-success'"
+    >
+      Main
+    </button>
+    <button
+      class="btn btn-sm btn-danger"
+      [disabled]="photo.isMain"
+      (click)="deletePhoto(photo.id)"
+    >
+      <i class="fa fa-trash"></i>
+    </button>
   </div>
- -->
+</div>
+
 <div class="row mt-4">
   <div
     class="col-9"
@@ -86,6 +137,39 @@
     </div>
   </div>
 </div>
+
+-->
+
+<!-- <ul
+  role="list"
+  class="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 sm:gap-x-6 lg:grid-cols-4 xl:gap-x-8"
+>
+  <li class="relative" *ngFor="let item of uploader.queue; let first = first">
+    <div
+      class="group block w-full aspect-w-10 aspect-h-7 rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 focus-within:ring-indigo-500 overflow-hidden"
+    >
+      <img
+        src=""
+        thumbnail
+        [image]="item?._file"
+        alt=""
+        class="object-cover pointer-events-none group-hover:opacity-75"
+      />
+      <button type="button" class="absolute inset-0 focus:outline-none">
+        <span class="sr-only"></span>
+      </button>
+    </div>
+    <p
+      class="mt-2 block text-sm font-medium text-gray-900 truncate pointer-events-none"
+    >
+      {{ item?.file?.name }}
+    </p>
+    <p class="block text-sm font-medium text-gray-500 pointer-events-none">
+      {{ item?.file?.size }}
+    </p>
+  </li>
+</ul> -->
+
 <ngx-spinner
   bdColor="rgba(51,51,51,0.8)"
   size="medium"

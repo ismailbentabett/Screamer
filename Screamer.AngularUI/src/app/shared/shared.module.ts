@@ -35,6 +35,9 @@ import { ChatRoomTabComponent } from './components/chat/chat-room-tab/chat-room-
 import { SocialsListComponent } from './components/list/socials-list/socials-list.component';
 import { CarouselComponent } from './components/carousel/carousel/carousel.component';
 import { PostImagesUploadComponent } from './components/post/post-images-upload/post-images-upload.component';
+import { ThumbnailDirective } from './directives/thumbnail.directive';
+
+import { CarouselModule } from 'ngx-owl-carousel-o';
 
 @NgModule({
   declarations: [
@@ -64,6 +67,7 @@ import { PostImagesUploadComponent } from './components/post/post-images-upload/
     SocialsListComponent,
     CarouselComponent,
     PostImagesUploadComponent,
+    ThumbnailDirective,
   ],
   imports: [
     CommonModule,
@@ -73,6 +77,7 @@ import { PostImagesUploadComponent } from './components/post/post-images-upload/
     NgxSpinnerModule,
     ReactiveFormsModule,
     InfiniteScrollModule,
+    CarouselModule
   ],
   exports: [
     MyDirectiveDirective,

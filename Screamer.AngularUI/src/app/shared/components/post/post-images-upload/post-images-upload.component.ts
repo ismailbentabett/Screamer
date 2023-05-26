@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { FileUploader } from 'ng2-file-upload';
+import { OwlOptions } from 'ngx-owl-carousel-o';
 import { take } from 'rxjs';
 import { PostImage } from 'src/app/core/models/PostImage';
 import { AuthenticationService } from 'src/app/core/services/authentication.service';
@@ -23,6 +24,31 @@ export class PostImagesUploadComponent {
   public ImgUrl: any;
   domSanitizer: any;
   user!: any;
+  customOptions: OwlOptions = {
+    loop: false,
+    mouseDrag: true,
+    touchDrag: true,
+    pullDrag: true,
+    dots: false,
+    navSpeed: 700,
+    navText: ['', ''],
+    responsive: {
+      0: {
+        items: 1
+      },
+      400: {
+        items: 2
+      },
+      740: {
+        items: 3
+      },
+      940: {
+        items: 4
+      }
+    },
+    nav: true
+  }
+
 
   constructor(
     private postService: PostService,
