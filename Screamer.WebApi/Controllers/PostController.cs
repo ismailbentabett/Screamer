@@ -9,6 +9,8 @@ using Screamer.Application.Contracts.Exceptions;
 using Screamer.Application.Contracts.Presistance;
 using Screamer.Application.Features.CommentRequest.Commands.AddCommentRequest;
 using Screamer.Application.Features.CommentRequest.Commands.AddReplyRequest;
+using Screamer.Application.Features.CommentRequest.Commands.DeleteCommentRequest;
+using Screamer.Application.Features.CommentRequest.Commands.UpdateCommentRequest;
 using Screamer.Application.Features.postImageRequest.Commands;
 using Screamer.Application.Features.postImageRequest.Queries;
 using Screamer.Application.Features.PostRequest.Commands.CreatePostRequest;
@@ -209,6 +211,38 @@ namespace Screamer.WebApi.Controllers
                 UserId = userId,
                 Content = Content,
                 ParentCommentId = ParentCommentId
+            };
+            await _mediator.Send(command);
+            return Ok();
+        }
+
+        [HttpDelete("delete-comment")]
+        public async Task<IActionResult> DeleteComment(int postId, int commentId, string userId)
+        {
+            var command = new DeleteCommentRequestCommand
+            {
+                PostId = postId,
+                CommentId = commentId,
+                UserId = userId,
+            };
+            await _mediator.Send(command);
+            return Ok();
+        }
+
+        [HttpPut("update-comment")]
+        public async Task<IActionResult> UpdateComment(
+            int postId,
+            int commentId,
+            string userId,
+            string Content
+        )
+        {
+            var command = new UpdateCommentRequestCommand
+            {
+                PostId = postId,
+                CommentId = commentId,
+                UserId = userId,
+                Content = Content
             };
             await _mediator.Send(command);
             return Ok();
