@@ -141,7 +141,6 @@ export class PostService {
       recommendationParams.pageNumber,
       recommendationParams.pageSize
     );
-    console.log(this.baseUrl + 'Post/get-posts-by-following', params);
     return getPaginatedResult<Post[]>(
       this.baseUrl + 'Post/get-posts-by-following',
       params,

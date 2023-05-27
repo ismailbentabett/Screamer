@@ -108,7 +108,6 @@ export class AddPostFormComponent {
 
   previewImages: any[] = [];
   getImages(data: any) {
-    console.log(data);
     if (data) {
       this.preview = {
         id: this.postId,
@@ -131,7 +130,6 @@ export class AddPostFormComponent {
         postImages: this.previewImages,
       };
 
-      console.log(this.preview);
     });
   }
 

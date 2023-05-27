@@ -91,7 +91,6 @@ export class PostImagesUploadComponent {
     this.uploader.onCompleteAll = () => {
       this.busyService.idle();
     };
-    console.log(this.uploader);
     this.busyService.busy();
 
     this.uploader?.uploadAll();
@@ -108,7 +107,6 @@ export class PostImagesUploadComponent {
   }
 
   initializeUploader() {
-    console.log('PostImagesUploadComponent.initializeUploader()');
     this.uploader = new FileUploader({
       url: this.baseUrl,
     });
@@ -122,7 +120,6 @@ export class PostImagesUploadComponent {
     this.uploader.onSuccessItem = (item, response, status, headers) => {
       if (response) {
         const postImage = JSON.parse(response);
-        console.log(postImage);
       }
     };
   }
