@@ -160,14 +160,13 @@
     <div class="mt-2 text-sm text-gray-700 space-y-4">
       {{ post.content }}
     </div>
-    <div class="mt-6 flex justify-between space-x-8">
+    <div class="mt-6 flex justify-between space-x-8 mb-3">
       <div class="flex space-x-6">
         <span class="inline-flex items-center text-sm">
           <!-- reactions -->
-<app-reaction-button></app-reaction-button>
+          <app-reaction-button></app-reaction-button>
 
           <!--  like-->
-
         </span>
         <span class="inline-flex items-center text-sm">
           <button
@@ -238,11 +237,12 @@
           </button>
         </span>
       </div>
+
+
     </div>
   </article>
+  <div class="max-w-7xl mx-auto sm:p-6 lg:p-8 mt-5 border-t border-gray-200">
+    <app-comment-input></app-comment-input>
+    <app-comment-section></app-comment-section>
+  </div>
 </li>
-
-
-
-
-
