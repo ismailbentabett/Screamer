@@ -38,6 +38,7 @@ import { PostImagesUploadComponent } from './components/post/post-images-upload/
 import { ThumbnailDirective } from './directives/thumbnail.directive';
 
 import { CarouselModule } from 'ngx-owl-carousel-o';
+import { ReactionButtonComponent } from './components/buttons/reaction-button/reaction-button.component';
 
 @NgModule({
   declarations: [
@@ -68,6 +69,7 @@ import { CarouselModule } from 'ngx-owl-carousel-o';
     CarouselComponent,
     PostImagesUploadComponent,
     ThumbnailDirective,
+    ReactionButtonComponent,
   ],
   imports: [
     CommonModule,
@@ -106,6 +108,7 @@ import { CarouselModule } from 'ngx-owl-carousel-o';
     SocialsListComponent,
     CarouselComponent,
     PostImagesUploadComponent,
+    ReactionButtonComponent
   ],
   providers: [],
 })
