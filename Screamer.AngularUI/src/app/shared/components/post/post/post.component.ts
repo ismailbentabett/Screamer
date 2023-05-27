@@ -41,6 +41,11 @@ export class PostComponent {
   toggleDropdown() {
     this.isOpen = !this.isOpen;
   }
+  isCommentsOpen = false;
+
+  toggleCommentSection() {
+    this.isCommentsOpen = !this.isCommentsOpen;
+  }
 
   public slides = [
     {

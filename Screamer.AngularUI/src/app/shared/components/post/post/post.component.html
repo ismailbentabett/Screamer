@@ -170,6 +170,7 @@
         </span>
         <span class="inline-flex items-center text-sm">
           <button
+            (click)="toggleCommentSection()"
             type="button"
             class="inline-flex space-x-2 text-gray-400 hover:text-gray-500"
           >
@@ -237,11 +238,12 @@
           </button>
         </span>
       </div>
-
-
     </div>
   </article>
-  <div class="max-w-7xl mx-auto sm:p-6 lg:p-8 mt-5 border-t border-gray-200">
+  <div
+    class="max-w-7xl mx-auto sm:p-6 lg:p-8 mt-5 border-t border-gray-200"
+    *ngIf="isCommentsOpen"
+  >
     <app-comment-input></app-comment-input>
     <app-comment-section></app-comment-section>
   </div>
