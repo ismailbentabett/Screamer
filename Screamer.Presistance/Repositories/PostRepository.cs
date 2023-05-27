@@ -89,6 +89,7 @@ namespace Screamer.Presistance.Repositories
 
             follows = follows.Where(follow => follow.SourceUserId == recommendationParams.UserId);
             users = follows.Select(follow => follow.TargetUser);
+          
 
             var posts = _context.Posts
                 .Where(p => users.Any(u => u.Id == p.UserId))
@@ -109,7 +110,6 @@ namespace Screamer.Presistance.Repositories
                 .Include(u => u.PostImages)
                 .Include(u => u.Comments)
                 .Include(u => u.Reactions)
-                .Include(u => u.PostCategories)
                 .Include(u => u.User)
                 .AsQueryable();
 
