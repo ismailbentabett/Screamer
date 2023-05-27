@@ -11,6 +11,9 @@ using Screamer.Application.Features.CommentRequest.Commands.AddCommentRequest;
 using Screamer.Application.Features.CommentRequest.Commands.AddReplyRequest;
 using Screamer.Application.Features.CommentRequest.Commands.DeleteCommentRequest;
 using Screamer.Application.Features.CommentRequest.Commands.UpdateCommentRequest;
+using Screamer.Application.Features.CommentRequest.Queries.GetCommentByIdRequest;
+using Screamer.Application.Features.CommentRequest.Queries.GetCommentsByPostIdRequest;
+using Screamer.Application.Features.CommentRequest.Queries.GetRepliesByCommentIdRequest;
 using Screamer.Application.Features.postImageRequest.Commands;
 using Screamer.Application.Features.postImageRequest.Queries;
 using Screamer.Application.Features.PostRequest.Commands.CreatePostRequest;
@@ -246,6 +249,30 @@ namespace Screamer.WebApi.Controllers
             };
             await _mediator.Send(command);
             return Ok();
+        }
+
+        [HttpGet("get-comment-by-id")]
+        public async Task<IActionResult> GetCommentById(int commentId)
+        {
+            var query = new GetCommentByIdRequestQuery { CommentId = commentId };
+            var result = await _mediator.Send(query);
+            return Ok(result);
+        }
+
+        [HttpGet("get-comments-by-post-id")]
+        public async Task<IActionResult> GetCommentsByPostId(CommentParams commentParams)
+        {
+            var query = new GetCommentsByPostIdRequestQuery { commentParams = commentParams, };
+            var result = await _mediator.Send(query);
+            return Ok(result);
+        }
+
+        [HttpGet("get-replies-by-comment-id")]
+        public async Task<IActionResult> GetRepliesByCommentId(CommentParams commentParams)
+        {
+            var query = new GetRepliesByCommentIdRequestQuery { commentParams = commentParams, };
+            var result = await _mediator.Send(query);
+            return Ok(result);
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Screamer.Application.Contracts.Presistance;
+using Screamer.Application.Helpers;
 using Screamer.Domain.Common;
 using Screamer.Domain.Entities;
 using Screamer.Identity.Models;
@@ -43,9 +44,44 @@ namespace Screamer.Presistance.Repositories
             return _context.Comments.Where(c => c.User.Id == user.Id).ToList();
         }
 
-        public List<Comment> GetRepliesByComment(Comment comment)
+        public Task<PagedList<Comment>> GetPostComments(CommentParams commentParams)
         {
-            return _context.Comments.Where(c => c.ParentComment == comment).ToList();
+            var query = _context.Comments
+                .Where(c => c.Post.Id == commentParams.postId && c.ParentComment == null)
+                .AsQueryable();
+
+            query = commentParams.OrderBy switch
+            {
+                "CreatedAt" => query.OrderByDescending(u => u.CreatedAt),
+                _ => query.OrderByDescending(u => u.CreatedAt)
+            };
+
+            return PagedList<Comment>.CreateAsync(
+                query,
+                commentParams.PageNumber,
+                commentParams.PageSize
+            );
+        }
+
+        public Task<PagedList<Comment>> GetRepliesByCommentId(CommentParams commentParams)
+        {
+            var query = _context.Comments
+                .Where(
+                    c => c.ParentComment.Id == commentParams.commentId && c.ParentComment != null
+                )
+                .AsQueryable();
+
+            query = commentParams.OrderBy switch
+            {
+                "CreatedAt" => query.OrderByDescending(u => u.CreatedAt),
+                _ => query.OrderByDescending(u => u.CreatedAt)
+            };
+
+            return PagedList<Comment>.CreateAsync(
+                query,
+                commentParams.PageNumber,
+                commentParams.PageSize
+            );
         }
 
         public void RemoveComment(Comment comment)
@@ -58,6 +94,11 @@ namespace Screamer.Presistance.Repositories
         {
             parentComment.Replies.Remove(reply);
             _context.SaveChanges();
+        }
+
+        List<Comment> ICommentRepository.GetRepliesByCommentId(int commentId)
+        {
+            throw new NotImplementedException();
         }
     }
 }
