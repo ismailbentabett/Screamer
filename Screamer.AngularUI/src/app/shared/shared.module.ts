@@ -39,6 +39,12 @@ import { ThumbnailDirective } from './directives/thumbnail.directive';
 
 import { CarouselModule } from 'ngx-owl-carousel-o';
 import { ReactionButtonComponent } from './components/buttons/reaction-button/reaction-button.component';
+import { LovedComponent } from './components/reactions/loved/loved.component';
+import { LikedComponent } from './components/reactions/liked/liked.component';
+import { ScreamingComponent } from './components/reactions/screaming/screaming.component';
+import { SadComponent } from './components/reactions/sad/sad.component';
+import { HappyComponent } from './components/reactions/happy/happy.component';
+import { ExcitedComponent } from './components/reactions/excited/excited.component';
 
 @NgModule({
   declarations: [
@@ -70,6 +76,12 @@ import { ReactionButtonComponent } from './components/buttons/reaction-button/re
     PostImagesUploadComponent,
     ThumbnailDirective,
     ReactionButtonComponent,
+    LovedComponent,
+    LikedComponent,
+    ScreamingComponent,
+    SadComponent,
+    HappyComponent,
+    ExcitedComponent,
   ],
   imports: [
     CommonModule,
@@ -108,7 +120,14 @@ import { ReactionButtonComponent } from './components/buttons/reaction-button/re
     SocialsListComponent,
     CarouselComponent,
     PostImagesUploadComponent,
-    ReactionButtonComponent
+    ReactionButtonComponent,
+    LovedComponent,
+    LikedComponent,
+    ScreamingComponent,
+    SadComponent,
+    HappyComponent,
+    ExcitedComponent,
+
   ],
   providers: [],
 })

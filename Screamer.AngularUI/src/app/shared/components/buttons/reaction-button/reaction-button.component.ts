@@ -21,6 +21,11 @@ import { Component } from '@angular/core';
   ],
 })
 export class ReactionButtonComponent {
+
+reactions = [
+
+]
+
   isOpen = false;
 
   toggleDropdown() {
