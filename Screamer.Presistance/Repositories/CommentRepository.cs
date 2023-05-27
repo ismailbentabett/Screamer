@@ -12,9 +12,8 @@ namespace Screamer.Presistance.Repositories
 {
     public class CommentRepository : GenericRepository<Comment>, ICommentRepository
     {
-        public CommentRepository(ScreamerDbContext context) : base(context)
-        {
-        }
+        public CommentRepository(ScreamerDbContext context)
+            : base(context) { }
 
         public void AddComment(Comment comment)
         {
@@ -28,9 +27,10 @@ namespace Screamer.Presistance.Repositories
             _context.SaveChanges();
         }
 
-        public Comment GetCommentById(int commentId)
+        public async Task<Comment> GetCommentById(int commentId)
         {
-            return _context.Comments.FirstOrDefault(c => c.Id == commentId);
+            var comment = await _context.Comments.FindAsync(commentId);
+            return comment;
         }
 
         public List<Comment> GetCommentsByPost(Post post)

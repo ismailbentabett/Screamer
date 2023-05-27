@@ -5,6 +5,10 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Screamer.Application.Contracts.Exceptions;
+using Screamer.Application.Contracts.Presistance;
+using Screamer.Application.Features.CommentRequest.Commands.AddCommentRequest;
+using Screamer.Application.Features.CommentRequest.Commands.AddReplyRequest;
 using Screamer.Application.Features.postImageRequest.Commands;
 using Screamer.Application.Features.postImageRequest.Queries;
 using Screamer.Application.Features.PostRequest.Commands.CreatePostRequest;
@@ -17,20 +21,24 @@ using Screamer.Application.Features.PostRequest.Queries.GetPostByUserIdRequest;
 using Screamer.Application.Features.PostRequest.Queries.GetPostsByFollowingRequest;
 using Screamer.Application.Features.PostRequest.Queries.GetRecommendedPostsRequest;
 using Screamer.Application.Helpers;
+using Screamer.Domain.Common;
 using Screamer.Domain.Entities;
+using Screamer.Identity.Models;
 
 namespace Screamer.WebApi.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    [Authorize]
-    public class PostController : ControllerBase
+    /*     [Authorize]
+     */public class PostController : ControllerBase
     {
         private readonly IMediator _mediator;
+        private readonly IUnitOfWork _uow;
 
-        public PostController(IMediator mediator)
+        public PostController(IMediator mediator, IUnitOfWork uow)
         {
             _mediator = mediator;
+            _uow = uow;
         }
 
         [HttpGet]
@@ -172,6 +180,38 @@ namespace Screamer.WebApi.Controllers
             var query = new GetRecommendedPostsRequestQuery { postParams = postParams };
             var result = await _mediator.Send(query);
             return Ok(result);
+        }
+
+        [HttpPost("add-comment")]
+        public async Task<IActionResult> AddComment(int postId, string userId, string Content)
+        {
+            var command = new AddCommentRequestCommand
+            {
+                PostId = postId,
+                UserId = userId,
+                Content = Content
+            };
+            await _mediator.Send(command);
+            return Ok();
+        }
+
+        [HttpPost("add-reply")]
+        public async Task<IActionResult> AddReply(
+            int postId,
+            string userId,
+            string Content,
+            int ParentCommentId
+        )
+        {
+            var command = new AddReplyRequestCommand
+            {
+                PostId = postId,
+                UserId = userId,
+                Content = Content,
+                ParentCommentId = ParentCommentId
+            };
+            await _mediator.Send(command);
+            return Ok();
         }
     }
 }

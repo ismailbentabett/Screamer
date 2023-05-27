@@ -10,7 +10,7 @@ namespace Screamer.Application.Contracts.Presistance
 {
     public interface ICommentRepository : IGenericRepository<Comment>
     {
-        Comment GetCommentById(int commentId);
+         Task<Comment> GetCommentById(int commentId);
         void AddComment(Comment comment);
         void RemoveComment(Comment comment);
         List<Comment> GetCommentsByPost(Post post);
