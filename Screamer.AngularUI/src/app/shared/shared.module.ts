@@ -45,6 +45,8 @@ import { ScreamingComponent } from './components/reactions/screaming/screaming.c
 import { SadComponent } from './components/reactions/sad/sad.component';
 import { HappyComponent } from './components/reactions/happy/happy.component';
 import { ExcitedComponent } from './components/reactions/excited/excited.component';
+import { CommentSectionComponent } from './components/post/comment-section/comment-section.component';
+import { CommentInputComponent } from './components/post/comment-input/comment-input.component';
 
 @NgModule({
   declarations: [
@@ -82,6 +84,8 @@ import { ExcitedComponent } from './components/reactions/excited/excited.compone
     SadComponent,
     HappyComponent,
     ExcitedComponent,
+    CommentSectionComponent,
+    CommentInputComponent,
   ],
   imports: [
     CommonModule,
@@ -127,6 +131,8 @@ import { ExcitedComponent } from './components/reactions/excited/excited.compone
     SadComponent,
     HappyComponent,
     ExcitedComponent,
+    CommentSectionComponent,
+    CommentInputComponent,
 
   ],
   providers: [],
