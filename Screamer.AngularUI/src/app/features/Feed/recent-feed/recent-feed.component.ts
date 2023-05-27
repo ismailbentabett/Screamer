@@ -59,7 +59,7 @@ export class RecentFeedComponent {
   loadPosts() {
     if (this.postParams) {
       this.postService.setPostParams(this.postParams);
-      this.postService.getPostsByUserId(this.postParams).subscribe({
+      this.postService.getMostRecentPosts(this.postParams).subscribe({
         next: (response) => {
           if (response.result && response.pagination) {
             this.posts = response.result;
@@ -85,7 +85,7 @@ export class RecentFeedComponent {
   loadMorePosts() {
     if (this.pagination) {
       this.postParams!.pageNumber++;
-      this.postService.getPostsByUserId(this.postParams!).subscribe({
+      this.postService.getMostRecentPosts(this.postParams!).subscribe({
         next: (response) => {
           if (response.result && response.pagination) {
             this.posts = this.posts!.concat(response.result);

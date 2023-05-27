@@ -4,6 +4,7 @@ import { take } from 'rxjs';
 import { Pagination } from 'src/app/core/models/Pagination';
 import { Post } from 'src/app/core/models/Post';
 import { PostParams } from 'src/app/core/models/PostParams';
+import { RecommendationParams } from 'src/app/core/models/RecommendationParams';
 import { User } from 'src/app/core/models/User';
 import { BusyService } from 'src/app/core/services/busy.service';
 import { PostService } from 'src/app/core/services/post.service';
@@ -21,7 +22,7 @@ export class FollowingFeedComponent {
   pageNumber = 1;
   pageSize = 5;
   pagination: Pagination | undefined;
-  postParams: PostParams | undefined;
+  recommendationParams: RecommendationParams | undefined;
 next : string | undefined ;
 user! : User;
 userId? : string;
@@ -47,7 +48,7 @@ ngOnInit(): void {
     .subscribe({
       next: (user: any) => {
         this.user = user;
-        this.postParams = this.postService.getPostParams(
+        this.recommendationParams = this.postService.getRecommendationParams(
           user.id as string,
           this.pageSize,
           this.pageNumber
@@ -58,9 +59,9 @@ ngOnInit(): void {
     });
 }
 loadPosts() {
-  if (this.postParams) {
-    this.postService.setPostParams(this.postParams);
-    this.postService.getPostsByUserId(this.postParams).subscribe({
+  if (this.recommendationParams) {
+    this.postService.setRecommendationParams(this.recommendationParams);
+    this.postService.getPostsByFollowing(this.recommendationParams).subscribe({
       next: response => {
         if (response.result && response.pagination) {
           this.posts = response.result;
@@ -73,21 +74,21 @@ loadPosts() {
 
 resetFilters() {
 
-  this.postParams = this.postService.resetPostParams(this.user);
+  this.recommendationParams = this.postService.resetRecommendationParams(this.user);
   this.loadPosts();
 }
 
 pageChanged(event: any) {
-  if (this.postParams && this.postParams?.pageNumber !== event.page) {
-    this.postParams.pageNumber = event.page;
-    this.postService.setPostParams(this.postParams);
+  if (this.recommendationParams && this.recommendationParams?.pageNumber !== event.page) {
+    this.recommendationParams.pageNumber = event.page;
+    this.postService.setRecommendationParams(this.recommendationParams);
     this.loadPosts();
   }
 }
 loadMorePosts() {
   if (this.pagination) {
-    this.postParams!.pageNumber++;
-    this.postService.getPostsByUserId(this.postParams!).subscribe({
+    this.recommendationParams!.pageNumber++;
+    this.postService.getPostsByFollowing(this.recommendationParams!).subscribe({
       next: response => {
         if (response.result && response.pagination) {
           this.posts = this.posts!.concat(response.result);

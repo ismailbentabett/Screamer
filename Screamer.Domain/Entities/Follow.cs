@@ -15,12 +15,12 @@ namespace Screamer.Domain
         
         ]
        public ApplicationUser SourceUser { get; set; }
-        public string? SourceUserId { get; set; }
+        public string SourceUserId { get; set; }
         [
             ForeignKey("TargetUserId")
         ]
         public ApplicationUser TargetUser { get; set; }
-        public string? TargetUserId { get; set; }
+        public string TargetUserId { get; set; }
        
     }
 }

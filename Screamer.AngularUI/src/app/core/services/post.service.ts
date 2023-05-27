@@ -20,6 +20,7 @@ export class PostService {
   PostParams: PostParams | undefined;
 
   private postImageUrl: BehaviorSubject<any> = new BehaviorSubject<any>(null);
+  recommendationParams!: RecommendationParams;
 
   constructor(
     private http: HttpClient,
@@ -50,6 +51,27 @@ export class PostService {
   resetPostParams(user: User) {
     if (user) {
       return this.PostParams;
+    }
+    return;
+  }
+
+  getRecommendationParams(
+    userId: string,
+    pageSize: number,
+    pageNumber: number
+  ) {
+    this.recommendationParams = new RecommendationParams();
+    this.recommendationParams.pageNumber = pageNumber;
+    this.recommendationParams.pageSize = pageSize;
+    this.recommendationParams.userId = userId;
+    return this.recommendationParams;
+  }
+  setRecommendationParams(params: RecommendationParams) {
+    this.recommendationParams = params;
+  }
+  resetRecommendationParams(user: User) {
+    if (user) {
+      return this.recommendationParams;
     }
     return;
   }
@@ -119,7 +141,7 @@ export class PostService {
       recommendationParams.pageNumber,
       recommendationParams.pageSize
     );
-
+    console.log(this.baseUrl + 'Post/get-posts-by-following', params);
     return getPaginatedResult<Post[]>(
       this.baseUrl + 'Post/get-posts-by-following',
       params,

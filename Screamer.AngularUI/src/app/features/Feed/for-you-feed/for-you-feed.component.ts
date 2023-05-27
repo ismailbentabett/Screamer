@@ -58,7 +58,7 @@ ngOnInit(): void {
 loadPosts() {
   if (this.postParams) {
     this.postService.setPostParams(this.postParams);
-    this.postService.getPostsByUserId(this.postParams).subscribe({
+    this.postService.getRecomendedPosts(this.postParams).subscribe({
       next: response => {
         if (response.result && response.pagination) {
           this.posts = response.result;
@@ -85,7 +85,7 @@ pageChanged(event: any) {
 loadMorePosts() {
   if (this.pagination) {
     this.postParams!.pageNumber++;
-    this.postService.getPostsByUserId(this.postParams!).subscribe({
+    this.postService.getRecomendedPosts(this.postParams!).subscribe({
       next: response => {
         if (response.result && response.pagination) {
           this.posts = this.posts!.concat(response.result);
