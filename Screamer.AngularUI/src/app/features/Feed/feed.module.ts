@@ -7,7 +7,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { RecentFeedComponent } from './recent-feed/recent-feed.component';
 import { ForYouFeedComponent } from './for-you-feed/for-you-feed.component';
 import { FollowingFeedComponent } from './following-feed/following-feed.component';
-
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 @NgModule({
   declarations: [
@@ -19,7 +19,8 @@ import { FollowingFeedComponent } from './following-feed/following-feed.componen
   imports: [
     CommonModule,
     FeedRoutingModule,
-    SharedModule
-  ]
+    SharedModule,
+    InfiniteScrollModule,
+  ],
 })
-export class FeedModule { }
+export class FeedModule {}

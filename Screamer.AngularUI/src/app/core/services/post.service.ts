@@ -10,6 +10,7 @@ import {
 import { PostParams } from '../models/PostParams';
 import { Post } from '../models/Post';
 import { User } from '../models/User';
+import { RecommendationParams } from '../models/RecommendationParams';
 
 @Injectable({
   providedIn: 'root',
@@ -19,7 +20,6 @@ export class PostService {
   PostParams: PostParams | undefined;
 
   private postImageUrl: BehaviorSubject<any> = new BehaviorSubject<any>(null);
-
 
   constructor(
     private http: HttpClient,
@@ -65,6 +65,63 @@ export class PostService {
 
     return getPaginatedResult<Post[]>(
       this.baseUrl + 'Post',
+      params,
+      this.http
+    ).pipe(
+      map((response: any) => {
+        return response;
+      })
+    );
+  }
+  getRecomendedPosts(postParams: PostParams) {
+    let params = getPaginationHeaders(
+      postParams.orderBy.toString(),
+      postParams.userId.toString(),
+
+      postParams.pageNumber,
+      postParams.pageSize
+    );
+
+    return getPaginatedResult<Post[]>(
+      this.baseUrl + 'Post/get-recommended-posts',
+      params,
+      this.http
+    ).pipe(
+      map((response: any) => {
+        return response;
+      })
+    );
+  }
+  getMostRecentPosts(postParams: PostParams) {
+    let params = getPaginationHeaders(
+      postParams.orderBy.toString(),
+      postParams.userId.toString(),
+
+      postParams.pageNumber,
+      postParams.pageSize
+    );
+
+    return getPaginatedResult<Post[]>(
+      this.baseUrl + 'Post/get-most-recent-posts',
+      params,
+      this.http
+    ).pipe(
+      map((response: any) => {
+        return response;
+      })
+    );
+  }
+  getPostsByFollowing(recommendationParams: RecommendationParams) {
+    let params = getPaginationHeaders(
+      recommendationParams.orderBy.toString(),
+      recommendationParams.userId.toString(),
+
+      recommendationParams.pageNumber,
+      recommendationParams.pageSize
+    );
+
+    return getPaginatedResult<Post[]>(
+      this.baseUrl + 'Post/get-posts-by-following',
       params,
       this.http
     ).pipe(
