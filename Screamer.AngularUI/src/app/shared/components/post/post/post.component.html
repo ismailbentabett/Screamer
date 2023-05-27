@@ -1,4 +1,7 @@
-<li class="bg-white px-4 py-6 shadow sm:p-6 sm:rounded-lg mb-5" *ngIf="post">
+<li
+  class="list-none bg-white px-4 py-6 shadow sm:p-6 sm:rounded-lg mb-5"
+  *ngIf="post"
+>
   <article aria-labelledby="question-title-81614">
     <div>
       <div class="flex space-x-3">
@@ -23,7 +26,7 @@
           <div class="relative inline-block text-left">
             <div>
               <button
-              (click)="toggleDropdown()"
+                (click)="toggleDropdown()"
                 type="button"
                 class="-m-2 p-2 rounded-full flex items-center text-gray-400 hover:text-gray-600"
                 id="options-menu-0-button"
@@ -57,8 +60,8 @@
                 To: "transform opacity-0 scale-95"
             -->
             <div
-            [class.open]="isOpen"
-            [@dropdownAnimation]="isOpen ? 'open' : 'closed'"
+              [class.open]="isOpen"
+              [@dropdownAnimation]="isOpen ? 'open' : 'closed'"
               class="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
               role="menu"
               aria-orientation="vertical"
@@ -139,9 +142,9 @@
           </div>
         </div>
       </div>
-      <div class="flex-shrink-0 my-3">
-        <div class="container h-60 w-full object-cover rounded-lg ">
-          <app-carousel [slides]="slides"></app-carousel>
+      <div class="flex-shrink-0 my-3" *ngIf="post.postImages.length > 0">
+        <div class="container h-60 w-full object-cover rounded-lg">
+          <app-carousel [slides]="post.postImages"></app-carousel>
         </div>
       </div>
       <h2

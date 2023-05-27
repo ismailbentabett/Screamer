@@ -12,6 +12,7 @@ import {
   animate,
 } from '@angular/animations';
 import { environment } from 'src/environments/environment';
+import { Post } from 'src/app/core/models/Post';
 
 @Component({
   selector: 'app-add-post-form',
@@ -44,8 +45,9 @@ export class AddPostFormComponent {
   user!: User;
   form: any;
   postId: any = null;
-  baseUrl  = environment.baseWebApiUrl;
+  baseUrl = environment.baseWebApiUrl;
   postImageUrl: any = false;
+  preview!: any;
   /**
    *
    */
@@ -85,11 +87,7 @@ export class AddPostFormComponent {
         next: (postId) => {
           this.postId = postId;
 
-
-  this.postService.sendpostImageUrl(postId)
-
-
-
+          this.postService.sendpostImageUrl(postId);
         },
       });
   }
@@ -106,5 +104,39 @@ export class AddPostFormComponent {
   }
   toggleDueDateDropdown() {
     this.isDueDateOpen = !this.isDueDateOpen;
+  }
+
+  previewImages: any[] = [];
+  getImages(data: any) {
+    console.log(data);
+    if (data) {
+      this.preview = {
+        id: this.postId,
+        title: '',
+        content: '',
+        userId: this.user.id,
+        user: this.user,
+        postImages: data,
+      };
+    }
+  }
+  ngOnInit(): void {
+    this.form.valueChanges.subscribe((x: any) => {
+      this.preview = {
+        id: this.postId,
+        title: x.title as any,
+        content: x.content,
+        userId: this.user.id,
+        user: this.user,
+        postImages: this.previewImages,
+      };
+
+      console.log(this.preview);
+    });
+  }
+
+  openTab = 1;
+  toggleTabs($tabNumber: number) {
+    this.openTab = $tabNumber;
   }
 }

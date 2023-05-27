@@ -10,6 +10,7 @@ import { first } from 'lodash';
 import { FileUploader } from 'ng2-file-upload';
 import { OwlOptions } from 'ngx-owl-carousel-o';
 import { take } from 'rxjs';
+import { Post } from 'src/app/core/models/Post';
 import { PostImage } from 'src/app/core/models/PostImage';
 import { AuthenticationService } from 'src/app/core/services/authentication.service';
 import { BusyService } from 'src/app/core/services/busy.service';
@@ -28,6 +29,8 @@ export class PostImagesUploadComponent {
   @Input() postId: any;
   @Input() postImageUrl: any = false;
   @Output() AddPost = new EventEmitter<string>();
+  @Output() sendImages = new EventEmitter<any>();
+  preview!: Post;
 
   public ImgUrl: any;
   domSanitizer: any;
@@ -70,14 +73,7 @@ export class PostImagesUploadComponent {
     });
   }
 
-  /*   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['postImageUrl']) {
-      console.log(this.postImageUrl);
-      if (this.postImageUrl) {
-        this.initializeUploader();
-      }
-    }
-  } */
+
   ngOnInit(): void {
     this.initializeUploader();
   }
@@ -119,6 +115,8 @@ export class PostImagesUploadComponent {
 
     this.uploader.onAfterAddingFile = (file) => {
       file.withCredentials = false;
+      this.sendImages.emit(this.uploader.queue);
+
     };
 
     this.uploader.onSuccessItem = (item, response, status, headers) => {
@@ -132,9 +130,8 @@ export class PostImagesUploadComponent {
   async runFunction() {
     this.AddPost.emit();
     this.postService.getpostImageUrl().subscribe((data) => {
-      if(data){
+      if (data) {
         this.upload(data);
-
       }
     });
   }
