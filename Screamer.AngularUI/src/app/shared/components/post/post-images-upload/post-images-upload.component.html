@@ -49,40 +49,7 @@
   </button>
 </div>
 
-<!-- <div class="flex mt-10">
-  <button
-    type="button"
-    class="-ml-2 -my-2 rounded-full px-3 py-2 inline-flex items-center text-left text-gray-400 group"
-  >
-    <svg
-      class="-ml-1 h-5 w-5 mr-2 group-hover:text-gray-500"
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 20 20"
-      fill="currentColor"
-      aria-hidden="true"
-    >
-      <path
-        fill-rule="evenodd"
-        d="M8 4a3 3 0 00-3 3v4a5 5 0 0010 0V7a1 1 0 112 0v4a7 7 0 11-14 0V7a5 5 0 0110 0v4a3 3 0 11-6 0V7a1 1 0 012 0v4a1 1 0 102 0V7a3 3 0 00-3-3z"
-        clip-rule="evenodd"
-      />
-    </svg>
-    <span class="text-sm text-gray-500 group-hover:text-gray-600 italic"
-      >Attach a file</span
-    >
-    <input
-      id="mobile-user-photo"
-      name="user-photo"
-      type="file"
-      class=" w-full h-full opacity-0 cursor-pointer border-gray-300 rounded-md"
-      ng2FileSelect
-      [uploader]="uploader"
-      multiple
-    />
-  </button>
-</div>
-
-<div class="col-2 mb-1" *ngFor="let photo of user?.Avatars">
+<!-- <div class="col-2 mb-1" *ngFor="let photo of user?.Avatars">
   <img src="{{ photo.url }}" alt="photo of post" class="img-thumbnail mb-1" />
   <div class="text-center">
     <button
@@ -102,6 +69,12 @@
     </button>
   </div>
 </div>
+ -->
+
+ <h3>Upload queue</h3>
+ <p>Queue length: {{ uploader?.queue?.length }}</p>
+
+
 
 <div class="row mt-4">
   <div
@@ -137,8 +110,6 @@
     </div>
   </div>
 </div>
-
--->
 
 <!-- <ul
   role="list"

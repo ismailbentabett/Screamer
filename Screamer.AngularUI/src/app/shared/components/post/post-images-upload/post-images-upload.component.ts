@@ -1,5 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, SimpleChanges } from '@angular/core';
 import { Router } from '@angular/router';
+import { first } from 'lodash';
 import { FileUploader } from 'ng2-file-upload';
 import { OwlOptions } from 'ngx-owl-carousel-o';
 import { take } from 'rxjs';
@@ -12,15 +13,15 @@ import { environment } from 'src/environments/environment';
 @Component({
   selector: 'app-post-images-upload',
   templateUrl: './post-images-upload.component.html',
-  styleUrls: ['./post-images-upload.component.scss']
+  styleUrls: ['./post-images-upload.component.scss'],
 })
 export class PostImagesUploadComponent {
-
   uploader!: FileUploader;
   hasBaseDropZoneOver = false;
   baseUrl = environment.baseWebApiUrl;
-  @Input () postData: any;
-   postImageUrl?: string;
+  @Input() postId: any;
+  @Input() postImageUrl: any = false;
+
   public ImgUrl: any;
   domSanitizer: any;
   user!: any;
@@ -34,28 +35,26 @@ export class PostImagesUploadComponent {
     navText: ['', ''],
     responsive: {
       0: {
-        items: 1
+        items: 1,
       },
       400: {
-        items: 2
+        items: 2,
       },
       740: {
-        items: 3
+        items: 3,
       },
       940: {
-        items: 4
-      }
+        items: 4,
+      },
     },
-    nav: true
-  }
-
+    nav: true,
+  };
 
   constructor(
     private postService: PostService,
-    private busyService : BusyService,
-    private router : Router,
+    private busyService: BusyService,
+    private router: Router,
     private authService: AuthenticationService
-
   ) {
     this.authService.currentUser$.pipe(take(1)).subscribe({
       next: (user) => {
@@ -64,26 +63,41 @@ export class PostImagesUploadComponent {
     });
   }
 
+  /*   ngOnChanges(changes: SimpleChanges): void {
+    if (changes['postImageUrl']) {
+      console.log(this.postImageUrl);
+      if (this.postImageUrl) {
+        this.initializeUploader();
+      }
+    }
+  } */
   ngOnInit(): void {
     this.initializeUploader();
-    if (this.postImageUrl) {
-      this.ImgUrl = this.domSanitizer.bypassSecurityTrustStyle(
-        `url(${this.postImageUrl})`
-      );
-    }
   }
 
   upload() {
+    this.uploader.setOptions(
+      {
+        url: this.postImageUrl,
+        authToken: 'Bearer ' + this.user?.token,
+        isHTML5: true,
+        allowedFileType: ['image'],
+        removeAfterUpload: true,
+        autoUpload: false,
+        maxFileSize: 10 * 1024 * 1024,
+      }
+    )
+    this.uploader.onCompleteAll = () => {
+      this.busyService.idle();
+    }
+    console.log(this.uploader);
     this.busyService.busy();
 
     this.uploader?.uploadAll();
 
-
   }
   async Cancel() {
-
     await this.uploader?.cancelAll();
-
   }
   async Clear() {
     await this.uploader?.clearQueue();
@@ -93,43 +107,11 @@ export class PostImagesUploadComponent {
     this.hasBaseDropZoneOver = e;
   }
 
-/*   setMainpostImage(postImage: PostImage) {
-    this.userService.setMainpostImage(postImage.id).subscribe({
-      next: () => {
-        if (this.userData && this.user) {
-          this.userData.postImageUrl = postImage.url;
-          this.authService.setCurrentUser(this.userData);
-          this.user.postImageUrl = postImage.url;
-          this.user.postImages.forEach((p) => {
-            if (p.isMain) p.isMain = false;
-            if (p.id === postImage.id) p.isMain = true;
-          });
-        }
-      },
-    });
-  } */
-
-/*   deletepostImage(postImageId: number) {
-    this.userService.deletepostImage(postImageId).subscribe({
-      next: (_) => {
-        if (this.user) {
-          this.user.postImages = this.user.postImages.filter(
-            (x) => x.id !== postImageId
-          );
-        }
-      },
-    });
-  } */
-
   initializeUploader() {
+    console.log('PostImagesUploadComponent.initializeUploader()');
     this.uploader = new FileUploader({
-      url: this.baseUrl + `Post/add-post-image/${this.postData?.id}`,
-      authToken: 'Bearer ' + this.user?.token,
-      isHTML5: true,
-      allowedFileType: ['image'],
-      removeAfterUpload: true,
-      autoUpload: false,
-      maxFileSize: 10 * 1024 * 1024,
+      url: this.baseUrl,
+
     });
 
     this.uploader.onAfterAddingFile = (file) => {
@@ -139,14 +121,8 @@ export class PostImagesUploadComponent {
     this.uploader.onSuccessItem = (item, response, status, headers) => {
       if (response) {
         const postImage = JSON.parse(response);
-        this.user?.postImages.push(postImage);
-        if (postImage.isMain && this.user && this.user) {
-          this.postData.postImageUrl = postImage.url;
-          this.postData.postImageUrl = postImage.url;
-        }
+        console.log(postImage);
       }
-      this.busyService.idle();
     };
   }
 }
-
