@@ -33,7 +33,7 @@ const routes: Routes = [
           ),
       },
       {
-        path: '',
+        path: 'feed',
         loadChildren: () =>
           import('./features/Feed/feed.module').then((m) => m.FeedModule),
       },

@@ -15,7 +15,7 @@
   ```
 -->
 <form [formGroup]="form">
-  <div class="flex items-center" aria-orientation="horizontal" role="tablist">
+  <div class="ml-5 flex items-center" aria-orientation="horizontal" role="tablist">
     <!-- Selected: "text-gray-900 bg-gray-100 hover:bg-gray-200", Not Selected: "text-gray-500 hover:text-gray-900 bg-white hover:bg-gray-100" -->
     <button
       id="tabs-1-tab-1"
@@ -42,7 +42,7 @@
   <div
     [ngClass]="{
       'relative hidden': openTab !== 1,
-      'relative mt-6 max-w-5xl mx-auto px-4 ': openTab === 1
+      'relative  max-w-5xl mx-auto px-4 ': openTab === 1
     }"
   >
     <div class="relative">
@@ -405,7 +405,7 @@
     class="mt-2"
     [ngClass]="{
       hidden: openTab !== 2,
-      'mt-6 max-w-5xl mx-auto px-4 ': openTab === 2
+      ' max-w-5xl mx-auto px-4 ': openTab === 2
     }"
   >
     <div
