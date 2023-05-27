@@ -9,7 +9,7 @@ namespace Screamer.Application.Features.CommentRequest.Commands.UpdateCommentReq
     public class UpdateCommentRequestCommand : IRequest<Unit>
     {
         public int PostId { get; set; }
-        public int UserId { get; set; }
+        public string UserId { get; set; }
         public int CommentId { get; set; }
         public string Content { get; set; }
     }
