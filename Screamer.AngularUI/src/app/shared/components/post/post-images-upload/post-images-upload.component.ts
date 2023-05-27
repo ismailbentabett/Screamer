@@ -1,4 +1,10 @@
-import { Component, Input, SimpleChanges } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
 import { Router } from '@angular/router';
 import { first } from 'lodash';
 import { FileUploader } from 'ng2-file-upload';
@@ -21,6 +27,7 @@ export class PostImagesUploadComponent {
   baseUrl = environment.baseWebApiUrl;
   @Input() postId: any;
   @Input() postImageUrl: any = false;
+  @Output() AddPost = new EventEmitter<string>();
 
   public ImgUrl: any;
   domSanitizer: any;
@@ -75,26 +82,23 @@ export class PostImagesUploadComponent {
     this.initializeUploader();
   }
 
-  upload() {
-    this.uploader.setOptions(
-      {
-        url: this.postImageUrl,
-        authToken: 'Bearer ' + this.user?.token,
-        isHTML5: true,
-        allowedFileType: ['image'],
-        removeAfterUpload: true,
-        autoUpload: false,
-        maxFileSize: 10 * 1024 * 1024,
-      }
-    )
+  upload(postImageUrl: any) {
+    this.uploader.setOptions({
+      url: this.baseUrl + `Post/add-post-image/${postImageUrl}`,
+      authToken: 'Bearer ' + this.user?.token,
+      isHTML5: true,
+      allowedFileType: ['image'],
+      removeAfterUpload: true,
+      autoUpload: false,
+      maxFileSize: 10 * 1024 * 1024,
+    });
     this.uploader.onCompleteAll = () => {
       this.busyService.idle();
-    }
+    };
     console.log(this.uploader);
     this.busyService.busy();
 
     this.uploader?.uploadAll();
-
   }
   async Cancel() {
     await this.uploader?.cancelAll();
@@ -111,7 +115,6 @@ export class PostImagesUploadComponent {
     console.log('PostImagesUploadComponent.initializeUploader()');
     this.uploader = new FileUploader({
       url: this.baseUrl,
-
     });
 
     this.uploader.onAfterAddingFile = (file) => {
@@ -124,5 +127,15 @@ export class PostImagesUploadComponent {
         console.log(postImage);
       }
     };
+  }
+
+  async runFunction() {
+    this.AddPost.emit();
+    this.postService.getpostImageUrl().subscribe((data) => {
+      if(data){
+        this.upload(data);
+
+      }
+    });
   }
 }

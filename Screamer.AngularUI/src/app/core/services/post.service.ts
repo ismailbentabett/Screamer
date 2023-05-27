@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AuthenticationService } from './authentication.service';
-import { map, take } from 'rxjs';
+import { BehaviorSubject, map, take } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import {
   getPaginatedResult,
@@ -18,10 +18,20 @@ export class PostService {
   baseUrl = environment.baseWebApiUrl;
   PostParams: PostParams | undefined;
 
+  private postImageUrl: BehaviorSubject<any> = new BehaviorSubject<any>(null);
+
+
   constructor(
     private http: HttpClient,
     private authService: AuthenticationService
   ) {}
+  sendpostImageUrl(data: any) {
+    this.postImageUrl.next(data);
+  }
+
+  getpostImageUrl() {
+    return this.postImageUrl.asObservable();
+  }
 
   getPostParams(userId: string, pageSize: number, pageNumber: number) {
     this.PostParams = new PostParams();

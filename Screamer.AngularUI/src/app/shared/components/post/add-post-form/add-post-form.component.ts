@@ -84,7 +84,12 @@ export class AddPostFormComponent {
       .subscribe({
         next: (postId) => {
           this.postId = postId;
-          this.postImageUrl = this.baseUrl + `Post/add-post-image/${this.postId}`
+
+
+  this.postService.sendpostImageUrl(postId)
+
+
+
         },
       });
   }

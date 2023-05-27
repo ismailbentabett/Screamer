@@ -14,20 +14,19 @@
   }
   ```
 -->
-<form [formGroup]="form" (ngSubmit)="createPost()" class="relative">
-
+<form [formGroup]="form" class="relative">
   <div
     class="border border-gray-300 rounded-lg shadow-sm overflow-hidden focus-within:border-dodger-blue-500 focus-within:ring-1 focus-within:ring-dodger-blue-500"
   >
     <label for="title" class="sr-only">Title</label>
     <input
-    type="text"
-    id="title"
-    formControlName="title"
-    name="title"
-    formControlName="title"
-    autocomplete="title"
-    required
+      type="text"
+      id="title"
+      formControlName="title"
+      name="title"
+      formControlName="title"
+      autocomplete="title"
+      required
       class="block w-full border-0 pt-2.5 text-lg font-medium placeholder-gray-500 focus:ring-0"
       placeholder="Title"
     />
@@ -121,7 +120,6 @@
             aria-activedescendant="listbox-option-0"
             [class.open]="isAssignOpen"
             [@dropdownAnimation]="isAssignOpen ? 'open' : 'closed'"
-
           >
             <!--
               Select option, manage highlight styles based on mouseenter/mouseleave and keyboard navigation.
@@ -355,22 +353,12 @@
         </div>
       </div>
     </div>
-    <div
-      class="border-t border-gray-200 px-2 py-2 flex justify-between items-center space-x-3 sm:px-3"
-    >
-     <!-- ATTACH -->
-     <app-post-images-upload
-     [postImageUrl]="postImageUrl"
-     [postId]="postId"
-     ></app-post-images-upload>
-      <div class="flex-shrink-0">
-        <button
-          type="submit"
-          class="cursor-pointer inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-dodger-blue-600 hover:bg-dodger-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-dodger-blue-500"
-        >
-          Create
-        </button>
-      </div>
-    </div>
+
+    <!-- button -->
+    <app-post-images-upload
+      [postImageUrl]="postImageUrl"
+      [postId]="postId"
+      (AddPost)="createPost()"
+    ></app-post-images-upload>
   </div>
 </form>
