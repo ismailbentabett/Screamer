@@ -1,6 +1,12 @@
 import { Component, Input } from '@angular/core';
 import { Post } from 'src/app/core/models/Post';
-import { trigger, state, style, transition, animate } from '@angular/animations';
+import {
+  trigger,
+  state,
+  style,
+  transition,
+  animate,
+} from '@angular/animations';
 
 @Component({
   selector: 'app-post',
@@ -29,7 +35,7 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
 })
 export class PostComponent {
   @Input() post!: Post;
-
+  @Input() preview: boolean = false;
   isOpen = false;
 
   toggleDropdown() {

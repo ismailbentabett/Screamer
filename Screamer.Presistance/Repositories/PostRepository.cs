@@ -26,7 +26,6 @@ namespace Screamer.Presistance.Repositories
                 .Include(u => u.PostImages)
                 .Include(u => u.Comments)
                 .Include(u => u.Reactions)
-                .Include(u => u.PostCategories)
                 .Include(u => u.User)
                 .AsQueryable();
 

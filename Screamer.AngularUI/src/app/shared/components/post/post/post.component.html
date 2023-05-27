@@ -144,7 +144,10 @@
       </div>
       <div class="flex-shrink-0 my-3" *ngIf="post.postImages.length > 0">
         <div class="container h-60 w-full object-cover rounded-lg">
-          <app-carousel [slides]="post.postImages"></app-carousel>
+          <app-carousel
+            [preview]="preview"
+            [slides]="post.postImages"
+          ></app-carousel>
         </div>
       </div>
       <h2

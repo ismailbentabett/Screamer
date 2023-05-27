@@ -2,9 +2,15 @@
 <div class="carousel">
   <ng-container *ngFor="let slide of slides; let i = index">
     <img
-      *ngIf="i === currentSlide"
+      *ngIf="i === currentSlide && preview "
       thumbnail
-      [image]="slide?._file"
+      [image]="slide._file"
+      class="slide h-10 w-10 rounded-full"
+      @carouselAnimation
+    />
+    <img
+      *ngIf="i === currentSlide && preview == false"
+      [src]="slide.url"
       class="slide h-10 w-10 rounded-full"
       @carouselAnimation
     />

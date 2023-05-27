@@ -18,6 +18,8 @@ import { Component, Input } from '@angular/core';
 export class CarouselComponent {
   @Input() slides: any;
   currentSlide = 0;
+  @Input() preview: boolean = false;
+
 
   /**
    *
