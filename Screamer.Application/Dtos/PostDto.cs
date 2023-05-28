@@ -25,7 +25,8 @@ namespace Screamer.Application.Dtos
         public ICollection<PostCategory> PostCategories { get; set; } = new List<PostCategory>();
 
         public ICollection<PostImageDto> PostImages { get; set; } = new List<PostImageDto>();
-
+public DateTime CreatedAt { get; set; }
+        public DateTime UpdatedAt { get; set; }
     }
 
 

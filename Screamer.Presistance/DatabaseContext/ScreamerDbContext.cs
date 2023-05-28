@@ -102,9 +102,18 @@ namespace Screamer.Presistance.DatabaseContext
                 .Entity<PostCategory>()
                 .HasOne(bc => bc.Category)
                 .WithMany(c => c.PostCategories)
-                .HasForeignKey(bc => bc.CategoryId);    
+                .HasForeignKey(bc => bc.CategoryId);
 
-                
+            modelBuilder.Entity<Post>().Property(p => p.CreatedAt).HasDefaultValueSql("getdate()");
+            modelBuilder
+                .Entity<Message>()
+                .Property(p => p.CreatedAt)
+                .HasDefaultValueSql("getdate()");
+            modelBuilder.Entity<Post>().Property(p => p.UpdatedAt).HasDefaultValueSql("getdate()");
+            modelBuilder
+                .Entity<Message>()
+                .Property(p => p.UpdatedAt)
+                .HasDefaultValueSql("getdate()");
         }
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)

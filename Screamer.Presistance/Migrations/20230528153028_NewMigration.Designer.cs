@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Screamer.Presistance.DatabaseContext;
 
@@ -11,9 +12,11 @@ using Screamer.Presistance.DatabaseContext;
 namespace Screamer.Presistance.Migrations
 {
     [DbContext(typeof(ScreamerDbContext))]
-    partial class ScreamerDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230528153028_NewMigration")]
+    partial class NewMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -201,8 +204,7 @@ namespace Screamer.Presistance.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2")
-                        .HasAnnotation("Relational:JsonPropertyName", "createdAt");
+                        .HasColumnType("datetime2");
 
                     b.Property<bool>("IsMain")
                         .HasColumnType("bit");
@@ -211,8 +213,7 @@ namespace Screamer.Presistance.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("datetime2")
-                        .HasAnnotation("Relational:JsonPropertyName", "updatedAt");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Url")
                         .HasColumnType("nvarchar(max)");
@@ -241,8 +242,7 @@ namespace Screamer.Presistance.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValueSql("getdate()")
-                        .HasAnnotation("Relational:JsonPropertyName", "createdAt");
+                        .HasDefaultValueSql("getdate()");
 
                     b.Property<string>("ImageUrl")
                         .HasColumnType("nvarchar(max)");
@@ -256,8 +256,7 @@ namespace Screamer.Presistance.Migrations
                     b.Property<DateTime>("UpdatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValueSql("getdate()")
-                        .HasAnnotation("Relational:JsonPropertyName", "updatedAt");
+                        .HasDefaultValueSql("getdate()");
 
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
@@ -287,8 +286,7 @@ namespace Screamer.Presistance.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2")
-                        .HasAnnotation("Relational:JsonPropertyName", "createdAt");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("PostalCode")
                         .HasColumnType("nvarchar(max)");
@@ -300,8 +298,7 @@ namespace Screamer.Presistance.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("datetime2")
-                        .HasAnnotation("Relational:JsonPropertyName", "updatedAt");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
@@ -327,12 +324,10 @@ namespace Screamer.Presistance.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2")
-                        .HasAnnotation("Relational:JsonPropertyName", "createdAt");
+                        .HasColumnType("datetime2");
 
                     b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("datetime2")
-                        .HasAnnotation("Relational:JsonPropertyName", "updatedAt");
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -348,15 +343,13 @@ namespace Screamer.Presistance.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2")
-                        .HasAnnotation("Relational:JsonPropertyName", "createdAt");
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("LatestMessageId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("datetime2")
-                        .HasAnnotation("Relational:JsonPropertyName", "updatedAt");
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -374,15 +367,13 @@ namespace Screamer.Presistance.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2")
-                        .HasAnnotation("Relational:JsonPropertyName", "createdAt");
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("Id")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("datetime2")
-                        .HasAnnotation("Relational:JsonPropertyName", "updatedAt");
+                        .HasColumnType("datetime2");
 
                     b.HasKey("ChatroomId", "UserId");
 
@@ -403,8 +394,7 @@ namespace Screamer.Presistance.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2")
-                        .HasAnnotation("Relational:JsonPropertyName", "createdAt");
+                        .HasColumnType("datetime2");
 
                     b.Property<int?>("ParentCommentId")
                         .HasColumnType("int");
@@ -413,8 +403,7 @@ namespace Screamer.Presistance.Migrations
                         .HasColumnType("int");
 
                     b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("datetime2")
-                        .HasAnnotation("Relational:JsonPropertyName", "updatedAt");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
@@ -457,8 +446,7 @@ namespace Screamer.Presistance.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2")
-                        .HasAnnotation("Relational:JsonPropertyName", "createdAt");
+                        .HasColumnType("datetime2");
 
                     b.Property<bool>("IsMain")
                         .HasColumnType("bit");
@@ -467,8 +455,7 @@ namespace Screamer.Presistance.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("datetime2")
-                        .HasAnnotation("Relational:JsonPropertyName", "updatedAt");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Url")
                         .HasColumnType("nvarchar(max)");
@@ -507,8 +494,7 @@ namespace Screamer.Presistance.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValueSql("getdate()")
-                        .HasAnnotation("Relational:JsonPropertyName", "createdAt");
+                        .HasDefaultValueSql("getdate()");
 
                     b.Property<DateTime?>("DateRead")
                         .HasColumnType("datetime2");
@@ -537,8 +523,7 @@ namespace Screamer.Presistance.Migrations
                     b.Property<DateTime>("UpdatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValueSql("getdate()")
-                        .HasAnnotation("Relational:JsonPropertyName", "updatedAt");
+                        .HasDefaultValueSql("getdate()");
 
                     b.HasKey("Id");
 
@@ -558,15 +543,13 @@ namespace Screamer.Presistance.Migrations
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2")
-                        .HasAnnotation("Relational:JsonPropertyName", "createdAt");
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("Id")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("datetime2")
-                        .HasAnnotation("Relational:JsonPropertyName", "updatedAt");
+                        .HasColumnType("datetime2");
 
                     b.HasKey("PostId", "CategoryId");
 
@@ -584,8 +567,7 @@ namespace Screamer.Presistance.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2")
-                        .HasAnnotation("Relational:JsonPropertyName", "createdAt");
+                        .HasColumnType("datetime2");
 
                     b.Property<bool>("IsMain")
                         .HasColumnType("bit");
@@ -597,8 +579,7 @@ namespace Screamer.Presistance.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("datetime2")
-                        .HasAnnotation("Relational:JsonPropertyName", "updatedAt");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Url")
                         .HasColumnType("nvarchar(max)");
@@ -622,8 +603,7 @@ namespace Screamer.Presistance.Migrations
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2")
-                        .HasAnnotation("Relational:JsonPropertyName", "createdAt");
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("PostId")
                         .HasColumnType("int");
@@ -632,8 +612,7 @@ namespace Screamer.Presistance.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("datetime2")
-                        .HasAnnotation("Relational:JsonPropertyName", "updatedAt");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
@@ -658,8 +637,7 @@ namespace Screamer.Presistance.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2")
-                        .HasAnnotation("Relational:JsonPropertyName", "createdAt");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Discord")
                         .HasColumnType("nvarchar(max)");
@@ -719,8 +697,7 @@ namespace Screamer.Presistance.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("datetime2")
-                        .HasAnnotation("Relational:JsonPropertyName", "updatedAt");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
@@ -755,15 +732,13 @@ namespace Screamer.Presistance.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2")
-                        .HasAnnotation("Relational:JsonPropertyName", "createdAt");
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("Id")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("datetime2")
-                        .HasAnnotation("Relational:JsonPropertyName", "updatedAt");
+                        .HasColumnType("datetime2");
 
                     b.HasKey("SourceUserId", "TargetUserId");
 
@@ -877,7 +852,7 @@ namespace Screamer.Presistance.Migrations
                         {
                             Id = "8e445865-a24d-4543-a6c6-9443d048cdb9",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "59ffb246-2555-4f05-865a-a48013594102",
+                            ConcurrencyStamp = "c1bbe2d7-6629-45f2-b4f9-364cbccab822",
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "admin@localhost.com",
                             EmailConfirmed = true,
@@ -886,9 +861,9 @@ namespace Screamer.Presistance.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@LOCALHOST.COM",
                             NormalizedUserName = "ADMIN@LOCALHOST.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEFSzyp9lwhE1rqphvhoLEnv0wH6fLVmSxqHFjzqnM1kEP8hrgszQDjej7K2/U3coIA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEPgquxMUj4MAnT2hEuVpKi215JawLMoJKHL+kpifAZK0cpOsvSJ1Hn48VZjYrrA+jQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "f343d6dd-bc8c-4bd4-a1a3-e9a4c62c4ed8",
+                            SecurityStamp = "cd7de913-c210-404f-9e9d-6e42961afb48",
                             TwoFactorEnabled = false,
                             UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UserName = "admin@localhost.com"
@@ -897,7 +872,7 @@ namespace Screamer.Presistance.Migrations
                         {
                             Id = "9e224968-33e4-4652-b7b7-8574d048cdb9",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "9d8eeae5-c38e-41cd-b780-17666f7cd08b",
+                            ConcurrencyStamp = "39b35b98-b0e5-49e5-bdb3-a51d7bb2154c",
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "user@localhost.com",
                             EmailConfirmed = true,
@@ -906,9 +881,9 @@ namespace Screamer.Presistance.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "USER@LOCALHOST.COM",
                             NormalizedUserName = "USER@LOCALHOST.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEA6RI24TYND1Q4VvdmOV4q1Vj8OWdE5i9pn0oA4625Vngm8ZhSe6XgcqqmKpEVf+5g==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEA1CyfnYFUMn3g7KeYb+4R3f1E931ji9j+rGNqsojqMs6I6MqCfe9jYLkwcF118zMg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "47246063-a7c9-4918-b27a-f5d8394cd45b",
+                            SecurityStamp = "07623793-8501-4945-8f39-7ad4d4a198dc",
                             TwoFactorEnabled = false,
                             UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UserName = "user@localhost.com"
@@ -917,7 +892,7 @@ namespace Screamer.Presistance.Migrations
                         {
                             Id = "9e224968-33e4-4652-b7b7-agfddsr",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "46056b97-46c1-4730-963a-44dcc797a9b4",
+                            ConcurrencyStamp = "bd81d6f3-10d5-4908-ad44-062c9df93786",
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "mod@localhost.com",
                             EmailConfirmed = true,
@@ -926,9 +901,9 @@ namespace Screamer.Presistance.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "MOD@LOCALHOST.COM",
                             NormalizedUserName = "MOD@LOCALHOST.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEOYhtC5Cnlk1zUK2BjI1Meb0e6iP9w/3q1PnSMtS5SJilHnGY76hG3AtSiRZSwmkQg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEK8HbadZyWXnfrwD4TG21cSuSp72rTw5LSu3ucy/EMoTWWMRLk2xxuEEhpaaRgC1Ug==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "789fea86-3221-440e-bd7e-338a0e43d1c9",
+                            SecurityStamp = "b26502c2-b86b-4533-adb0-f396b857b4d2",
                             TwoFactorEnabled = false,
                             UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UserName = "mod@localhost.com"

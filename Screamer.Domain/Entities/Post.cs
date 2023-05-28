@@ -15,6 +15,8 @@ namespace Screamer.Domain.Common
         public string ImageUrl { get; set; }
         public string UserId { get; set; }
 
+
+
         [ForeignKey(nameof(UserId))]
         public ApplicationUser User { get; set; }
         public List<Reaction> Reactions { get; set; } = new();
@@ -23,5 +25,11 @@ namespace Screamer.Domain.Common
         public List<PostImage> PostImages { get; set; } = new();
         public string PostImageUrl { get; set; }
         public ICollection<PostCategory> PostCategories { get; set; } = new List<PostCategory>();
+
+        public Post()
+        {
+            CreatedAt = DateTime.Now;
+            UpdatedAt = DateTime.Now;
+        }
     }
 }

@@ -21,6 +21,7 @@ import { AddPostFormComponent } from './components/post/add-post-form/add-post-f
 import { AddPostComponent } from './components/post/add-post/add-post.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SafeHtmlPipe } from './pipes/safe-html-pipe.pipe';
+
 import { UserCardComponent } from './components/card/user-card/user-card.component';
 import { FollowComponent } from './components/buttons/follow/follow.component';
 import { ChatComponent } from './components/buttons/chat/chat.component';
@@ -47,6 +48,8 @@ import { HappyComponent } from './components/reactions/happy/happy.component';
 import { ExcitedComponent } from './components/reactions/excited/excited.component';
 import { CommentSectionComponent } from './components/post/comment-section/comment-section.component';
 import { CommentInputComponent } from './components/post/comment-input/comment-input.component';
+import {IntlModule} from 'angular-ecmascript-intl';
+import { DateStuffPipe } from './pipes/date-stuff.pipe';
 
 @NgModule({
   declarations: [
@@ -86,6 +89,7 @@ import { CommentInputComponent } from './components/post/comment-input/comment-i
     ExcitedComponent,
     CommentSectionComponent,
     CommentInputComponent,
+    DateStuffPipe,
   ],
   imports: [
     CommonModule,
@@ -95,7 +99,8 @@ import { CommentInputComponent } from './components/post/comment-input/comment-i
     NgxSpinnerModule,
     ReactiveFormsModule,
     InfiniteScrollModule,
-    CarouselModule
+    CarouselModule,
+    IntlModule
   ],
   exports: [
     MyDirectiveDirective,

@@ -14,11 +14,13 @@
         </div>
         <div class="min-w-0 flex-1">
           <p class="text-sm font-medium text-gray-900">
-            <a href="#" class="hover:underline"> {{user.firstName}} {{user.lastName}}</a>
+            <a href="#" class="hover:underline">
+              {{ user.firstName }} {{ user.lastName }}</a
+            >
           </p>
           <p class="text-sm text-gray-500">
             <a href="#" class="hover:underline">
-              <time datetime="2020-12-09T11:43:00">December 9 at 11:43 AM</time>
+              <time>{{ post.createdAt | dateStuff | intlRelativeTime }} </time>
             </a>
           </p>
         </div>

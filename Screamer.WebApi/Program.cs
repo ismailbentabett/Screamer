@@ -23,13 +23,21 @@ builder.Services.AddSingleton<PresenceTracker>();
 
 builder.Services
     .AddControllers()
-    .AddNewtonsoftJson(
-        options =>
-            options.SerializerSettings.ReferenceLoopHandling = Newtonsoft
-                .Json
-                .ReferenceLoopHandling
-                .Ignore
-    );
+    .AddNewtonsoftJson(options =>
+    {
+        options.SerializerSettings.ReferenceLoopHandling = Newtonsoft
+            .Json
+            .ReferenceLoopHandling
+            .Ignore;
+        options.SerializerSettings.DateTimeZoneHandling = Newtonsoft.Json.DateTimeZoneHandling.Utc; // Ensure dates are serialized in UTC
+        options.SerializerSettings.ContractResolver =
+            new Newtonsoft.Json.Serialization.CamelCasePropertyNamesContractResolver(); // Optional: Use camelCase naming convention for properties
+        options.SerializerSettings.NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore; // Optional: Ignore null values during serialization
+        options.SerializerSettings.PreserveReferencesHandling = Newtonsoft
+            .Json
+            .PreserveReferencesHandling
+            .None; // Optional: Prevent circular references from being serialized
+    });
 
 builder.Services.AddCors(
     o =>
