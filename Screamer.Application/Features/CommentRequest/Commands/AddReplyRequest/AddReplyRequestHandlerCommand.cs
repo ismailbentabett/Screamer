@@ -34,8 +34,7 @@ namespace Screamer.Application.Features.CommentRequest.Commands.AddReplyRequest
                 throw new NotFoundException(nameof(ApplicationUser), request.UserId);
             var post = await _uow.PostRepository.GetPostById(request.PostId);
             if (post == null)
-                if (user == null)
-                    throw new NotFoundException(nameof(Post), request.PostId);
+                throw new NotFoundException(nameof(Post), request.PostId);
 
             var parentComment = await _uow.CommentRepository.GetCommentById(
                 request.ParentCommentId

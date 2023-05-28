@@ -15,6 +15,6 @@ namespace Screamer.Application.Features.ReactionRequest.Commands.AddReactionRequ
 
         public string ReactionType { get; set; }
 
-        public bool isPost { get; set; }
+        public bool isPost { get; set; } = true;
     }
 }
