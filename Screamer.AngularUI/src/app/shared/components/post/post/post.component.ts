@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, SimpleChange } from '@angular/core';
 import { Post } from 'src/app/core/models/Post';
 import {
   trigger,
@@ -7,6 +7,10 @@ import {
   transition,
   animate,
 } from '@angular/animations';
+import { UserService } from 'src/app/core/services/user.service';
+import { BusyService } from 'src/app/core/services/busy.service';
+import { User } from 'src/app/core/models/User';
+import { take } from 'rxjs';
 
 @Component({
   selector: 'app-post',
@@ -36,6 +40,24 @@ import {
 export class PostComponent {
   @Input() post!: Post;
   @Input() preview: boolean = false;
+
+  user!: User;
+  constructor(
+    private userService: UserService,
+    private busyService: BusyService
+  ) {}
+
+  ngOnChanges(changes: any): void {
+    if (changes['post']) {
+      this.userService
+        .getUserById(this.post.userId.toString())
+        .subscribe({
+          next: (user: any) => {
+            this.user = user;
+          },
+        });
+    }
+  }
   isOpen = false;
 
   toggleDropdown() {

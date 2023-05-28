@@ -6,15 +6,15 @@
     <div>
       <div class="flex space-x-3">
         <div class="flex-shrink-0">
-          <img
-            class="h-10 w-10 rounded-full"
-            src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-            alt=""
-          />
+          <app-avatar
+            *ngIf="user"
+            [user]="user"
+            avatarStyle="h-8 w-8 rounded-full ring-4 ring-white sm:h-10 sm:w-10"
+          ></app-avatar>
         </div>
         <div class="min-w-0 flex-1">
           <p class="text-sm font-medium text-gray-900">
-            <a href="#" class="hover:underline">Dries Vincent</a>
+            <a href="#" class="hover:underline"> {{user.firstName}} {{user.lastName}}</a>
           </p>
           <p class="text-sm text-gray-500">
             <a href="#" class="hover:underline">
@@ -241,7 +241,7 @@
     </div>
   </article>
   <div
-    class="max-w-7xl mx-auto sm:p-6 lg:p-8 mt-5 border-t border-gray-200"
+    class="z-50 max-w-7xl mx-auto sm:p-6 lg:p-8 mt-5 border-t border-gray-200"
     *ngIf="isCommentsOpen"
   >
     <app-comment-input></app-comment-input>
