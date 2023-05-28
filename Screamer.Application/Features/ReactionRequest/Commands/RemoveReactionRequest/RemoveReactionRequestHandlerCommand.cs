@@ -4,7 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using MediatR;
+using Screamer.Application.Contracts.Exceptions;
 using Screamer.Application.Contracts.Presistance;
+using Screamer.Domain.Entities;
 
 namespace Screamer.Application.Features.ReactionRequest.Commands.RemoveReactionRequest
 {
@@ -25,7 +27,14 @@ namespace Screamer.Application.Features.ReactionRequest.Commands.RemoveReactionR
             CancellationToken cancellationToken
         )
         {
-            throw new NotImplementedException();
+            var reaction = _uow.ReactionRepository.GetReactionById(request.ReactionId);
+
+            if (reaction == null)
+                throw new NotFoundException(nameof(Reaction), request.ReactionId);
+
+            _uow.ReactionRepository.RemoveReaction(reaction);
+
+            return Task.FromResult(Unit.Value);
         }
     }
 }
