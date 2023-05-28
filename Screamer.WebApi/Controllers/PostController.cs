@@ -25,6 +25,7 @@ using Screamer.Application.Features.PostRequest.Queries.GetPostByIdRequest;
 using Screamer.Application.Features.PostRequest.Queries.GetPostByUserIdRequest;
 using Screamer.Application.Features.PostRequest.Queries.GetPostsByFollowingRequest;
 using Screamer.Application.Features.PostRequest.Queries.GetRecommendedPostsRequest;
+using Screamer.Application.Features.ReactionRequest.Commands.AddReactionRequest;
 using Screamer.Application.Helpers;
 using Screamer.Domain.Common;
 using Screamer.Domain.Entities;
@@ -274,5 +275,7 @@ namespace Screamer.WebApi.Controllers
             var result = await _mediator.Send(query);
             return Ok(result);
         }
+
+       
     }
 }
