@@ -10,6 +10,7 @@ export class BusyService {
   constructor(private spinnerService: NgxSpinnerService) { }
 
   busy() {
+    console.log("is it busy")
     this.busyRequestCount++;
     this.spinnerService.show(undefined, {
       type: 'ball-scale-multiple',

@@ -8,7 +8,6 @@ import {
   animate,
 } from '@angular/animations';
 import { UserService } from 'src/app/core/services/user.service';
-import { BusyService } from 'src/app/core/services/busy.service';
 import { User } from 'src/app/core/models/User';
 import { take } from 'rxjs';
 
@@ -44,7 +43,6 @@ export class PostComponent {
   user!: User;
   constructor(
     private userService: UserService,
-    private busyService: BusyService
   ) {}
 
   ngOnChanges(changes: any): void {

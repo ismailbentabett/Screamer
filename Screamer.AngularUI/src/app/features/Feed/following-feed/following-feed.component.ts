@@ -41,7 +41,6 @@ this.next = '<svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 
 ngOnInit(): void {
   // this.members$ = this.memberService.getMembers();
 
-  this.busyService.busy();
   this.userService
     .getCurrentUserData()
     .pipe(take(1))
@@ -54,7 +53,6 @@ ngOnInit(): void {
           this.pageNumber
         );
         this.loadPosts();
-        this.busyService.idle();
       },
     });
 }

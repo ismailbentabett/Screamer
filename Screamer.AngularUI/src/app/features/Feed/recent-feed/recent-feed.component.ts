@@ -39,7 +39,6 @@ export class RecentFeedComponent {
   ngOnInit(): void {
     // this.members$ = this.memberService.getMembers();
 
-    this.busyService.busy();
     this.userService
       .getCurrentUserData()
       .pipe(take(1))
@@ -52,7 +51,6 @@ export class RecentFeedComponent {
             this.pageNumber
           );
           this.loadPosts();
-          this.busyService.idle();
         },
       });
   }

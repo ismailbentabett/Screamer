@@ -12,14 +12,17 @@ namespace Screamer.Presistance.Repositories
 {
     public class ReactionRepository : GenericRepository<Reaction>, IReactionRepository
     {
-       public ReactionRepository(ScreamerDbContext context) : base(context)
-        {
-        }
+        public ReactionRepository(ScreamerDbContext context)
+            : base(context) { }
 
         public void AddReaction(Reaction reaction)
         {
             _context.Reactions.Add(reaction);
+        }
 
+        public void UpdateReaction(Reaction reaction)
+        {
+            _context.Reactions.Update(reaction);
         }
 
         public Reaction GetReactionById(int reactionId)
@@ -29,15 +32,13 @@ namespace Screamer.Presistance.Repositories
 
         public List<Reaction> GetReactionsByPost(Post post)
         {
-            return
-               _context.Reactions.Where(r => r.PostId == post.Id).ToList();
+            return _context.Reactions.Where(r => r.PostId == post.Id).ToList();
         }
 
         public List<Reaction> GetReactionsByUser(ApplicationUser user)
         {
-            return
-                _context.Reactions.Where(r => r.UserId == user.Id).ToList();  
-                        }
+            return _context.Reactions.Where(r => r.UserId == user.Id).ToList();
+        }
 
         public void RemoveReaction(Reaction reaction)
         {
