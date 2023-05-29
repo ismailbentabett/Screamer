@@ -116,6 +116,7 @@ export class AddPostFormComponent {
         userId: this.user.id,
         user: this.user,
         postImages: data,
+
       };
     }
   }
