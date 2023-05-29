@@ -245,8 +245,8 @@
               tabindex="-1"
               id="user-menu-item-0"
               [routerLink]="['/v/user', user.id]"
-              >Your Profile </a
-            >
+              >Your Profile
+            </a>
             <p></p>
 
             <a
@@ -298,13 +298,13 @@
       <!-- Current: "bg-gray-100 text-gray-900", Default: "text-gray-900 hover:bg-gray-50 hover:text-gray-900" -->
       <a
         routerLink="/v/feed"
-        class="bg-gray-100 text-gray-900 block rounded-md py-2 px-3 text-base font-medium"
+        [ngClass]="LinkStyle2('/v/feed')"
         aria-current="page"
         >Feed</a
       >
       <a
         routerLink="/v/list/users"
-        class="bg-gray-100 text-gray-900 block rounded-md py-2 px-3 text-base font-medium"
+        [ngClass]="LinkStyle2('/v/list/users')"
         aria-current="page"
         >Users</a
       >
@@ -395,7 +395,7 @@
         <a
           [routerLink]="['/v/user', user.id]"
           class="block rounded-md py-2 px-3 text-base font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-900"
-          [ngClass]="MobileLinkStyle('/v/user/'+user.id)"
+          [ngClass]="MobileLinkStyle('/v/user/' + user.id)"
           >Your Profile</a
         >
 
@@ -403,14 +403,12 @@
           routerLink="/v/settings"
           class="block rounded-md py-2 px-3 text-base font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-900"
           [ngClass]="MobileLinkStyle('/v/settings')"
-
           >Settings</a
         >
 
         <a
           (click)="logout()"
           class="block rounded-md py-2 px-3 text-base font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-900"
-
           >Sign out</a
         >
       </div>
