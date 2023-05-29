@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Screamer.Application.Features.ReactionRequest.Commands.AddReactionRequest;
 using Screamer.Application.Features.ReactionRequest.Commands.RemoveReactionRequest;
 using Screamer.Application.Features.ReactionRequest.Commands.UpdateReactionRequest;
+using Screamer.Application.Features.ReactionRequest.Queries.GetCommentReactionByCommentAndUserRequest;
+using Screamer.Application.Features.ReactionRequest.Queries.GetPostReactionByPostAndUserRequest;
 
 namespace Screamer.WebApi.Controllers
 {
@@ -101,6 +103,37 @@ namespace Screamer.WebApi.Controllers
             };
             await _mediator.Send(command);
             return Ok();
+        }
+
+        /*  Task< CommentReaction> GetCommentReactionByCommentAndUser(int commentId, string userId);
+        Task< PostReaction> GetPostReactionByPostAndUser(int postId, string userId); */
+
+        [HttpGet("get-comment-reaction-by-comment-and-user")]
+        public async Task<IActionResult> GetCommentReactionByCommentAndUser(
+            int commentId,
+            string userId
+        )
+        {
+            var command = new GetCommentReactionByCommentAndUserRequestQuery
+            {
+                CommentId = commentId,
+                UserId = userId
+            };
+
+            var reaction = await _mediator.Send(command);
+            return Ok(reaction);
+        }
+
+        [HttpGet("get-post-reaction-by-post-and-user")]
+        public async Task<IActionResult> GetPostReactionByPostAndUser(int postId, string userId)
+        {
+            var command = new GetPostReactionByPostAndUserRequestQuery
+            {
+                PostId = postId,
+                UserId = userId
+            };
+            var reaction = await _mediator.Send(command);
+            return Ok(reaction);
         }
     }
 }

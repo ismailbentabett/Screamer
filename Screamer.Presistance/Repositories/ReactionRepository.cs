@@ -70,5 +70,25 @@ namespace Screamer.Presistance.Repositories
         {
             _context.CommentReactions.Update(reaction);
         }
+
+        public Task<PostReaction> GetPostReactionByPostAndUser(int postId, string userId)
+        {
+            var postReaction = _context.PostReactions.FirstOrDefault(
+                r => r.PostId == postId && r.UserId == userId
+            );
+
+            return Task.FromResult(postReaction);
+        }
+
+        public Task<CommentReaction> GetCommentReactionByCommentAndUser(
+            int commentId,
+            string userId
+        )
+        {
+            var commentReaction = _context.CommentReactions.FirstOrDefault(
+                r => r.CommentId == commentId && r.UserId == userId
+            );
+            return Task.FromResult(commentReaction);
+        }
     }
 }

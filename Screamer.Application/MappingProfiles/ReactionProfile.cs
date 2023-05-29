@@ -15,8 +15,8 @@ namespace Screamer.Application.MappingProfiles
     {
         public ReactionProfile()
         {
-            CreateMap<PostReaction, ReactionDto>().ReverseMap();
-            CreateMap<CommentReaction, ReactionDto>().ReverseMap();
+            CreateMap<PostReaction, PostReactionDto>().ReverseMap();
+            CreateMap<CommentReaction, CommentReactionDto>().ReverseMap();
 
             CreateMap<PostReaction, AddReactionRequestCommand>().ReverseMap();
             CreateMap<CommentReaction, AddReactionRequestCommand>().ReverseMap();
