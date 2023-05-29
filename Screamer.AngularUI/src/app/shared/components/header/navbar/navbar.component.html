@@ -245,7 +245,7 @@
               tabindex="-1"
               id="user-menu-item-0"
               [routerLink]="['/v/user', user.id]"
-              >Your Profile</a
+              >Your Profile </a
             >
             <p></p>
 
@@ -395,18 +395,22 @@
         <a
           [routerLink]="['/v/user', user.id]"
           class="block rounded-md py-2 px-3 text-base font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-900"
+          [ngClass]="MobileLinkStyle('/v/user/'+user.id)"
           >Your Profile</a
         >
 
         <a
           routerLink="/v/settings"
           class="block rounded-md py-2 px-3 text-base font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-900"
+          [ngClass]="MobileLinkStyle('/v/settings')"
+
           >Settings</a
         >
 
         <a
           (click)="logout()"
           class="block rounded-md py-2 px-3 text-base font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-900"
+
           >Sign out</a
         >
       </div>
