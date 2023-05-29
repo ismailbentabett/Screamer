@@ -27,7 +27,7 @@ namespace Screamer.Domain.Entities
         public int PostId { get; set; }
         public string Content { get; set; }
         public List<Comment> Replies { get; set; }
-        public List<Reaction> Reactions { get; set; }
+        public List<CommentReaction> Reactions { get; set; }
 
         //ParentComment
         public int? ParentCommentId { get; set; }

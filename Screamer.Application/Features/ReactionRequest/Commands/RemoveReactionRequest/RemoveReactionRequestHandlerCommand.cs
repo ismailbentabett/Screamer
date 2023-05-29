@@ -22,19 +22,45 @@ namespace Screamer.Application.Features.ReactionRequest.Commands.RemoveReactionR
             _uow = uow;
         }
 
-        public Task<Unit> Handle(
+        public async Task<Unit> Handle(
             RemoveReactionRequestCommand request,
             CancellationToken cancellationToken
         )
         {
-            var reaction = _uow.ReactionRepository.GetReactionById(request.ReactionId);
+            if (request.isPost == true)
+            {
+                var reaction = _uow.ReactionRepository.GetPostReactionById(request.ReactionId);
+                if (reaction == null)
+                    throw new NotFoundException(nameof(PostReaction), request.ReactionId);
 
-            if (reaction == null)
-                throw new NotFoundException(nameof(Reaction), request.ReactionId);
+                _uow.ReactionRepository.RemovePostReaction(reaction);
 
-            _uow.ReactionRepository.RemoveReaction(reaction);
+                if (await _uow.Complete())
+                {
+                    return await Task.FromResult(Unit.Value);
+                }
+                else
+                {
+                    throw new Exception("Problem saving changes");
+                }
+            }
+            else if (request.isPost == false)
+            {
+                var reaction = _uow.ReactionRepository.GetCommentReactionById(request.ReactionId);
+                if (reaction == null)
+                    throw new NotFoundException(nameof(CommentReaction), request.ReactionId);
+                _uow.ReactionRepository.RemoveCommentReaction(reaction);
+                if (await _uow.Complete())
+                {
+                    return await Task.FromResult(Unit.Value);
+                }
+                else
+                {
+                    throw new Exception("Problem saving changes");
+                }
+            }
 
-            return Task.FromResult(Unit.Value);
+            throw new Exception("Problem saving changes");
         }
     }
 }

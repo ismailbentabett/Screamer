@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Screamer.Presistance.Migrations
 {
     /// <inheritdoc />
-    public partial class initialMigration : Migration
+    public partial class InitialMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -309,8 +309,8 @@ namespace Screamer.Presistance.Migrations
                     MessageSent = table.Column<DateTime>(type: "datetime2", nullable: false),
                     SenderDeleted = table.Column<bool>(type: "bit", nullable: false),
                     RecipientDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "getdate()"),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "getdate()")
                 },
                 constraints: table =>
                 {
@@ -341,8 +341,8 @@ namespace Screamer.Presistance.Migrations
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     Views = table.Column<int>(type: "int", nullable: false),
                     PostImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "getdate()"),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "getdate()")
                 },
                 constraints: table =>
                 {
@@ -522,6 +522,34 @@ namespace Screamer.Presistance.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "PostReactions",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    PostId = table.Column<int>(type: "int", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    ReactionType = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PostReactions", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_PostReactions_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_PostReactions_Posts_PostId",
+                        column: x => x.PostId,
+                        principalTable: "Posts",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "ChatRoomUser",
                 columns: table => new
                 {
@@ -549,36 +577,29 @@ namespace Screamer.Presistance.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Reactions",
+                name: "CommentReactions",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    PostId = table.Column<int>(type: "int", nullable: false),
                     CommentId = table.Column<int>(type: "int", nullable: false),
-                    ReactionType = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    ReactionType = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Reactions", x => x.Id);
+                    table.PrimaryKey("PK_CommentReactions", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Reactions_AspNetUsers_UserId",
+                        name: "FK_CommentReactions_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Reactions_Comments_CommentId",
+                        name: "FK_CommentReactions_Comments_CommentId",
                         column: x => x.CommentId,
                         principalTable: "Comments",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Reactions_Posts_PostId",
-                        column: x => x.PostId,
-                        principalTable: "Posts",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -598,9 +619,9 @@ namespace Screamer.Presistance.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "AvatarUrl", "Bio", "Birthday", "ConcurrencyStamp", "CoverUrl", "CreatedAt", "Email", "EmailConfirmed", "FirstName", "Gender", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "Password", "PasswordHash", "Phone", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UpdatedAt", "UserName", "Website" },
                 values: new object[,]
                 {
-                    { "8e445865-a24d-4543-a6c6-9443d048cdb9", 0, null, null, null, "43d62e4e-8b12-40ca-8161-64018f8d88c9", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "admin@localhost.com", true, "System", null, "Admin", false, null, "ADMIN@LOCALHOST.COM", "ADMIN@LOCALHOST.COM", null, "AQAAAAIAAYagAAAAEDojqOKSBgwyvYAeeMfU3OCDjQpJsBVAZH49jvKIDZeG/OBKCdcy8fM4dX+yq7Rs5g==", null, null, false, "4ef61562-3f70-47a2-9fe5-3589bd83d396", false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "admin@localhost.com", null },
-                    { "9e224968-33e4-4652-b7b7-8574d048cdb9", 0, null, null, null, "a50de815-7976-4310-83f0-4083050d0c57", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "user@localhost.com", true, "System", null, "User", false, null, "USER@LOCALHOST.COM", "USER@LOCALHOST.COM", null, "AQAAAAIAAYagAAAAEL3VDpRpwGQnSavE5dJCYvjuDA5SIDSGAV0Z/TzOTV1v+jvYT//sdscNmxjGiN3/UA==", null, null, false, "0337c66d-e34d-43b1-ba83-8c66884fe6c2", false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "user@localhost.com", null },
-                    { "9e224968-33e4-4652-b7b7-agfddsr", 0, null, null, null, "a072e827-8136-4ce3-b9e0-c6fc85a13e9c", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "mod@localhost.com", true, "System", null, "Mod", false, null, "MOD@LOCALHOST.COM", "MOD@LOCALHOST.COM", null, "AQAAAAIAAYagAAAAEGDn3MSfHPk6LUe2hr/GvsqwPagKFzyTBG9+Kh97UoXp4E37uhMXXR4wE7QuOA/kpQ==", null, null, false, "845db48d-2a42-426b-bccd-412bc1e86d3b", false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "mod@localhost.com", null }
+                    { "8e445865-a24d-4543-a6c6-9443d048cdb9", 0, null, null, null, "bfb8e4d8-1698-4853-a8b9-44fd5189acff", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "admin@localhost.com", true, "System", null, "Admin", false, null, "ADMIN@LOCALHOST.COM", "ADMIN@LOCALHOST.COM", null, "AQAAAAIAAYagAAAAEEEI5/v9AgOELKsf33uoLzsWjvx37ZXgs/YAWuRsP5FHthge3dl76JHbHqhvVI+x8w==", null, null, false, "af22a0f9-5fb9-41f6-b68d-be6ff3aa2e1b", false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "admin@localhost.com", null },
+                    { "9e224968-33e4-4652-b7b7-8574d048cdb9", 0, null, null, null, "d57d4000-f91b-4f03-8d84-9ec5fdcc7a57", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "user@localhost.com", true, "System", null, "User", false, null, "USER@LOCALHOST.COM", "USER@LOCALHOST.COM", null, "AQAAAAIAAYagAAAAELBIhURN8oHdD0Fx8sxfKC8MqmFi3PXk188nxvxWeK1U/ILPMarja3l0XxdgscHtCQ==", null, null, false, "82ced35f-e23d-49bb-abd8-ee84566551cc", false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "user@localhost.com", null },
+                    { "9e224968-33e4-4652-b7b7-agfddsr", 0, null, null, null, "15cea762-b629-46f9-813d-6ed8522baa3e", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "mod@localhost.com", true, "System", null, "Mod", false, null, "MOD@LOCALHOST.COM", "MOD@LOCALHOST.COM", null, "AQAAAAIAAYagAAAAEMqYoGIgkTgMvm1FFJ6JQj+rJ7e4t3s3fHfwAYGLaYi736j5RNufjIKgKNQfmhT4fg==", null, null, false, "dff1c81e-1b77-47a4-a08d-0d29fa75504f", false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "mod@localhost.com", null }
                 });
 
             migrationBuilder.InsertData(
@@ -675,6 +696,16 @@ namespace Screamer.Presistance.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_CommentReactions_CommentId",
+                table: "CommentReactions",
+                column: "CommentId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CommentReactions_UserId",
+                table: "CommentReactions",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Comments_ParentCommentId",
                 table: "Comments",
                 column: "ParentCommentId");
@@ -725,23 +756,18 @@ namespace Screamer.Presistance.Migrations
                 column: "PostId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Posts_UserId",
-                table: "Posts",
-                column: "UserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Reactions_CommentId",
-                table: "Reactions",
-                column: "CommentId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Reactions_PostId",
-                table: "Reactions",
+                name: "IX_PostReactions_PostId",
+                table: "PostReactions",
                 column: "PostId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Reactions_UserId",
-                table: "Reactions",
+                name: "IX_PostReactions_UserId",
+                table: "PostReactions",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Posts_UserId",
+                table: "Posts",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
@@ -780,6 +806,9 @@ namespace Screamer.Presistance.Migrations
                 name: "ChatRoomUser");
 
             migrationBuilder.DropTable(
+                name: "CommentReactions");
+
+            migrationBuilder.DropTable(
                 name: "Connections");
 
             migrationBuilder.DropTable(
@@ -795,7 +824,7 @@ namespace Screamer.Presistance.Migrations
                 name: "PostImage");
 
             migrationBuilder.DropTable(
-                name: "Reactions");
+                name: "PostReactions");
 
             migrationBuilder.DropTable(
                 name: "Social");
@@ -807,13 +836,13 @@ namespace Screamer.Presistance.Migrations
                 name: "ChatRooms");
 
             migrationBuilder.DropTable(
+                name: "Comments");
+
+            migrationBuilder.DropTable(
                 name: "Groups");
 
             migrationBuilder.DropTable(
                 name: "Categories");
-
-            migrationBuilder.DropTable(
-                name: "Comments");
 
             migrationBuilder.DropTable(
                 name: "Messages");

@@ -28,49 +28,54 @@ namespace Screamer.Application.Features.ReactionRequest.Commands.AddReactionRequ
             CancellationToken cancellationToken
         )
         {
-            var reaction = new Reaction();
-
             var user = await _uow.UserRepository.GetUserByIdAsync(request.UserId);
             if (user == null)
                 throw new NotFoundException(nameof(ApplicationUser), request.UserId);
             if (request.isPost == true)
             {
-                var post = await _uow.PostRepository.GetPostById(request.PostId);
+                var post = await _uow.PostRepository.GetPostById((int)request.PostId);
                 if (post == null)
-                    throw new NotFoundException(nameof(Post), request.PostId);
+                    throw new NotFoundException(nameof(Post), (int)request.PostId);
 
-                reaction = new Reaction
+                var reaction = new PostReaction
                 {
-                    PostId = request.PostId,
+                    PostId = (int)request.PostId,
                     UserId = request.UserId,
                     ReactionType = request.ReactionType,
                     CreatedAt = DateTime.Now,
                     User = user,
                     Post = post
                 };
-            }
-            else
-            {
-                var comment = await _uow.CommentRepository.GetCommentById(request.CommentId);
-                if (comment == null)
-                    throw new NotFoundException(nameof(Comment), request.CommentId);
 
-                reaction = new Reaction
+                _uow.ReactionRepository.AddPostReaction(reaction);
+
+                if (await _uow.Complete())
                 {
-                    CommentId = request.CommentId,
+                    return reaction.Id;
+                }
+            }
+            else if (request.isPost == false)
+            {
+                var comment = await _uow.CommentRepository.GetCommentById((int)request.CommentId);
+                if (comment == null)
+                    throw new NotFoundException(nameof(Comment), (int)request.CommentId);
+
+                var reaction = new CommentReaction
+                {
+                    CommentId = (int)request.CommentId,
                     UserId = request.UserId,
                     ReactionType = request.ReactionType,
                     CreatedAt = DateTime.Now,
                     User = user,
                     Comment = comment
                 };
-            }
 
-            _uow.ReactionRepository.AddReaction(reaction);
+                _uow.ReactionRepository.AddCommentReaction(reaction);
 
-            if (await _uow.Complete())
-            {
-                return reaction.Id;
+                if (await _uow.Complete())
+                {
+                    return reaction.Id;
+                }
             }
 
             throw new BadRequestException("Problem adding Reaction");

@@ -9,9 +9,9 @@ namespace Screamer.Application.Features.ReactionRequest.Commands.AddReactionRequ
     public class AddReactionRequestCommand : IRequest<int>
     {
         public string UserId { get; set; }
-        public int PostId { get; set; }
+        public int? PostId { get; set; }
 
-        public int CommentId { get; set; }
+        public int? CommentId { get; set; }
 
         public string ReactionType { get; set; }
 

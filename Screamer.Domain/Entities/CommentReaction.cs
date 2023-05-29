@@ -9,21 +9,19 @@ using Screamer.Identity.Models;
 
 namespace Screamer.Domain.Entities
 {
-    public class Reaction : BaseEntity
+    public class CommentReaction : BaseEntity
     {
         public string UserId { get; set; }
+
         [ForeignKey("UserId")]
         public ApplicationUser User { get; set; }
-        public int PostId { get; set; }
-        [Required]
-        [ForeignKey("PostId")]
-        public Post Post { get; set; }
+
+        public string ReactionType { get; set; }
+
         [Required]
         [ForeignKey("CommentId")]
         public Comment Comment { get; set; }
 
         public int CommentId { get; set; }
-
-        public string ReactionType { get; set; }
     }
 }

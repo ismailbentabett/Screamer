@@ -8,12 +8,17 @@ using Screamer.Identity.Models;
 
 namespace Screamer.Application.Contracts.Presistance
 {
-    public interface IReactionRepository :  IGenericRepository<Reaction>
+    public interface IReactionRepository
     {
-         Reaction GetReactionById(int reactionId);
-    void AddReaction(Reaction reaction);
-    void RemoveReaction(Reaction reaction);
-    List<Reaction> GetReactionsByPost(Post post);
-    List<Reaction> GetReactionsByUser(ApplicationUser user);
+        PostReaction GetPostReactionById(int reactionId);
+        CommentReaction GetCommentReactionById(int reactionId);
+        void AddPostReaction(PostReaction reaction);
+        void AddCommentReaction(CommentReaction reaction);
+        void RemovePostReaction(PostReaction reaction);
+        void RemoveCommentReaction(CommentReaction reaction);
+
+            //update
+            void UpdatePostReaction(PostReaction reaction);
+            void UpdateCommentReaction(CommentReaction reaction);
     }
 }

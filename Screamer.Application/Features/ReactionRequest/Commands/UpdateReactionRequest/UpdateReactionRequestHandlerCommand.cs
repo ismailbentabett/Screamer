@@ -29,17 +29,15 @@ namespace Screamer.Application.Features.ReactionRequest.Commands.UpdateReactionR
             CancellationToken cancellationToken
         )
         {
-            var reaction = _uow.ReactionRepository.GetReactionById(request.ReactionId);
-
-            if (reaction == null)
-                throw new NotFoundException(nameof(Reaction), request.ReactionId);
-
             var user = await _uow.UserRepository.GetUserByIdAsync(request.UserId);
             if (user == null)
                 throw new NotFoundException(nameof(ApplicationUser), request.UserId);
 
             if (request.isPost == true)
             {
+                var reaction = _uow.ReactionRepository.GetPostReactionById(request.ReactionId);
+                if (reaction == null)
+                    throw new NotFoundException(nameof(PostReaction), request.ReactionId);
                 var post = await _uow.PostRepository.GetPostById(request.PostId);
                 if (post == null)
                     throw new NotFoundException(nameof(Post), request.PostId);
@@ -50,9 +48,17 @@ namespace Screamer.Application.Features.ReactionRequest.Commands.UpdateReactionR
                 reaction.UpdatedAt = DateTime.Now;
                 reaction.User = user;
                 reaction.Post = post;
+                _uow.ReactionRepository.UpdatePostReaction(reaction);
+                if (await _uow.Complete())
+                {
+                    return Unit.Value;
+                }
             }
             else
             {
+                var reaction = _uow.ReactionRepository.GetCommentReactionById(request.ReactionId);
+                if (reaction == null)
+                    throw new NotFoundException(nameof(CommentReaction), request.ReactionId);
                 var comment = await _uow.CommentRepository.GetCommentById(request.CommentId);
                 if (comment == null)
                     throw new NotFoundException(nameof(Comment), request.CommentId);
@@ -63,12 +69,11 @@ namespace Screamer.Application.Features.ReactionRequest.Commands.UpdateReactionR
                 reaction.UpdatedAt = DateTime.Now;
                 reaction.User = user;
                 reaction.Comment = comment;
-            }
-
-            await _uow.ReactionRepository.UpdateAsync(reaction);
-            if (await _uow.Complete())
-            {
-                return Unit.Value;
+                _uow.ReactionRepository.UpdateCommentReaction(reaction);
+                if (await _uow.Complete())
+                {
+                    return Unit.Value;
+                }
             }
 
             throw new BadRequestException("Problem adding Reaction");

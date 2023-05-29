@@ -22,7 +22,8 @@ namespace Screamer.Presistance.DatabaseContext
         public DbSet<Connection> Connections { get; set; }
 
         public DbSet<Follow> Follows { get; set; }
-        public DbSet<Reaction> Reactions { get; set; }
+        public DbSet<PostReaction> PostReactions { get; set; }
+        public DbSet<CommentReaction> CommentReactions { get; set; }
 
         public DbSet<Comment> Comments { get; set; }
 
@@ -65,14 +66,14 @@ namespace Screamer.Presistance.DatabaseContext
                 .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder
-                .Entity<Reaction>()
+                .Entity<PostReaction>()
                 .HasOne(r => r.Post)
                 .WithMany(p => p.Reactions)
                 .HasForeignKey(r => r.PostId)
                 .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder
-                .Entity<Reaction>()
+                .Entity<CommentReaction>()
                 .HasOne(r => r.Comment)
                 .WithMany(c => c.Reactions)
                 .HasForeignKey(r => r.CommentId)

@@ -10,39 +10,65 @@ using Screamer.Presistance.DatabaseContext;
 
 namespace Screamer.Presistance.Repositories
 {
-    public class ReactionRepository : GenericRepository<Reaction>, IReactionRepository
+    public class ReactionRepository : IReactionRepository
     {
+        protected readonly ScreamerDbContext _context;
+
         public ReactionRepository(ScreamerDbContext context)
-            : base(context) { }
-
-        public void AddReaction(Reaction reaction)
         {
-            _context.Reactions.Add(reaction);
+            _context = context;
         }
 
-        public void UpdateReaction(Reaction reaction)
+        public void AddPostReaction(PostReaction reaction)
         {
-            _context.Reactions.Update(reaction);
+            _context.PostReactions.Add(reaction);
         }
 
-        public Reaction GetReactionById(int reactionId)
+        public void AddCommentReaction(CommentReaction reaction)
         {
-            return _context.Reactions.FirstOrDefault(r => r.Id == reactionId);
+            _context.CommentReactions.Add(reaction);
         }
 
-        public List<Reaction> GetReactionsByPost(Post post)
+        public PostReaction GetPostReactionById(int reactionId)
         {
-            return _context.Reactions.Where(r => r.PostId == post.Id).ToList();
+            return _context.PostReactions.FirstOrDefault(r => r.Id == reactionId);
         }
 
-        public List<Reaction> GetReactionsByUser(ApplicationUser user)
+        public CommentReaction GetCommentReactionById(int reactionId)
         {
-            return _context.Reactions.Where(r => r.UserId == user.Id).ToList();
+            return _context.CommentReactions.FirstOrDefault(r => r.Id == reactionId);
         }
 
-        public void RemoveReaction(Reaction reaction)
+        public void RemovePostReaction(PostReaction reaction)
         {
-            _context.Reactions.Remove(reaction);
+            _context.PostReactions.Remove(reaction);
+        }
+
+        public void RemoveCommentReaction(CommentReaction reaction)
+        {
+            _context.CommentReactions.Remove(reaction);
+        }
+
+        PostReaction IReactionRepository.GetPostReactionById(int reactionId)
+        {
+            var postReaction = _context.PostReactions.FirstOrDefault(r => r.Id == reactionId);
+            return postReaction;
+        }
+
+        CommentReaction IReactionRepository.GetCommentReactionById(int reactionId)
+        {
+            var commentReaction = _context.CommentReactions.FirstOrDefault(r => r.Id == reactionId);
+            return commentReaction;
+        }
+
+        public void UpdatePostReaction(PostReaction reaction)
+        {
+            _context.PostReactions.Update(reaction);
+        }
+
+        public void UpdateCommentReaction(CommentReaction reaction)
+        {
+            _context.CommentReactions.Update(reaction);
         }
     }
 }

@@ -19,7 +19,7 @@ namespace Screamer.Domain.Common
 
         [ForeignKey(nameof(UserId))]
         public ApplicationUser User { get; set; }
-        public List<Reaction> Reactions { get; set; } = new();
+        public List<PostReaction> Reactions { get; set; } = new();
         public List<Comment> Comments { get; set; } = new();
         public int Views { get; set; }
         public List<PostImage> PostImages { get; set; } = new();
