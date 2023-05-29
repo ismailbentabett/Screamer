@@ -69,7 +69,14 @@ export class NavbarComponent {
       ? 'bg-gray-100 text-gray-900 block rounded-md py-2 px-3 text-base font-medium'
       : 'bg-white text-gray-500 block rounded-md py-2 px-3 text-base font-medium';
   }
+  IconsStyle(route: string): string {
+    const isActive =
+      this.router.isActive(route, false) || this.router.isActive(route, true);
 
+    return isActive
+      ? 'ml-auto flex-shrink-0 bg-white rounded-full p-1 text-gray-400 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-dodger-blue-500'
+      : 'ml-auto flex-shrink-0 bg-white rounded-full p-1 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-dodger-blue-500';
+  }
   MobileLinkStyle(route: string) {
     const isActive =
       this.router.isActive(route, false) || this.router.isActive(route, true);

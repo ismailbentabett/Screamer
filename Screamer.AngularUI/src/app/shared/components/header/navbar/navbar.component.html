@@ -318,7 +318,10 @@
           class="cursor-pointer"
           avatarStyle="h-8 w-8 rounded-full ring-4 ring-white sm:h-10 sm:w-10"
         ></app-avatar>
-        <div class="ml-3 cursor-pointer" [routerLink]="['/v/user', userData.id]">
+        <div
+          class="ml-3 cursor-pointer"
+          [routerLink]="['/v/user', userData.id]"
+        >
           <div class="text-base font-medium text-gray-800">
             {{ userData.firstName }} {{ userData.lastName }}
           </div>
@@ -327,8 +330,9 @@
           </div>
         </div>
         <button
+          [ngClass]="IconsStyle('/v/feed')"
+          routerLink="/v/feed"
           type="button"
-          class="ml-auto flex-shrink-0 bg-white rounded-full p-1 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-dodger-blue-500"
         >
           <span class="sr-only">Explore</span>
           <!-- Heroicon name: outline/bell -->
@@ -351,7 +355,7 @@
         <button
           routerLink="/v/chat"
           type="button"
-          class="ml-auto flex-shrink-0 bg-white rounded-full p-1 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-dodger-blue-500"
+          [ngClass]="IconsStyle('/v/chat')"
         >
           <span class="sr-only">View Chat</span>
           <!-- Heroicon name: outline/bell -->
@@ -370,10 +374,7 @@
             />
           </svg>
         </button>
-        <button
-          type="button"
-          class="ml-auto flex-shrink-0 bg-white rounded-full p-1 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-dodger-blue-500"
-        >
+        <button type="button" [ngClass]="IconsStyle('/v/notification')">
           <span class="sr-only">View notifications</span>
           <!-- Heroicon name: outline/bell -->
           <svg
