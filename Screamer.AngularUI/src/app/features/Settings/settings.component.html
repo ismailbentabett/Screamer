@@ -13,7 +13,7 @@
       extend: {
         colors: {
           sky: colors.sky,
-          teal: colors.teal,
+          dodger-blue: colors.dodger-blue,
         },
       },
     },
@@ -34,8 +34,14 @@
       class="inset-y-0 absolute inset-x-0 left-1/2 transform -translate-x-1/2 w-full overflow-hidden lg:inset-y-0"
     >
       <div class="absolute inset-0 flex">
-        <div class="h-full w-1/2" style="background-color: #0a527b"></div>
-        <div class="h-full w-1/2" style="background-color: #065d8c"></div>
+        <div
+          class="h-full w-1/2 bg-dodger-blue-500"
+          style="background-color: #0a527b"
+        ></div>
+        <div
+          class="h-full w-1/2 bg-dodger-blue-500"
+          style="background-color: #065d8c"
+        ></div>
       </div>
       <div class="relative flex justify-center">
         <svg
@@ -68,24 +74,22 @@
   <main class="relative -mt-32">
     <div class="max-w-screen-xl mx-auto pb-6 px-4 sm:px-6 lg:pb-16 lg:px-8">
       <div class="bg-white rounded-lg shadow overflow-hidden">
-        <div
-          class="divide-y divide-gray-200 lg:flex lg:divide-y-0 lg:divide-x"
-        >
-          <aside class="py-6  lg:w-1/5">
+        <div class="divide-y divide-gray-200 lg:flex lg:divide-y-0 lg:divide-x">
+          <aside class="py-6 lg:w-1/5">
             <nav class="space-y-1">
-              <!-- Current: "bg-teal-50 border-teal-500 text-teal-700 hover:bg-teal-50 hover:text-teal-700", Default: "border-transparent text-gray-900 hover:bg-gray-50 hover:text-gray-900" -->
+              <!-- Current: "bg-dodger-blue-50 border-dodger-blue-500 text-dodger-blue-700 hover:bg-dodger-blue-50 hover:text-dodger-blue-700", Default: "border-transparent text-gray-900 hover:bg-gray-50 hover:text-gray-900" -->
               <a
                 routerLink="/v/settings/profile"
-                class="bg-teal-50 border-teal-500 text-teal-700 hover:bg-teal-50 hover:text-teal-700 group border-l-4 px-3 py-2 flex items-center text-sm font-medium"
+                [ngClass]="SettingTabsStyle('/v/settings/profile')"
                 aria-current="page"
               >
                 <!--
                   Heroicon name: outline/user-circle
 
-                  Current: "text-teal-500 group-hover:text-teal-500", Default: "text-gray-400 group-hover:text-gray-500"
+                  Current: "text-dodger-blue-500 group-hover:text-dodger-blue-500", Default: "text-gray-400 group-hover:text-gray-500"
                 -->
                 <svg
-                  class="text-teal-500 group-hover:text-teal-500 flex-shrink-0 -ml-1 mr-3 h-6 w-6"
+                  [ngClass]="iconStyle('/v/settings/profile')"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"
@@ -103,13 +107,12 @@
               </a>
 
               <a
-
-              class="border-transparent text-gray-900 hover:bg-gray-50 hover:text-gray-900 group border-l-4 px-3 py-2 flex items-center text-sm font-medium"
                 routerLink="/v/settings/account"
+                [ngClass]="SettingTabsStyle('/v/settings/account')"
               >
                 <!-- Heroicon name: outline/cog -->
                 <svg
-                  class="text-gray-400 group-hover:text-gray-500 flex-shrink-0 -ml-1 mr-3 h-6 w-6"
+                  [ngClass]="iconStyle('/v/settings/account')"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"
@@ -133,12 +136,12 @@
               </a>
 
               <a
-              routerLink="/v/settings/auth"
-                           class="border-transparent text-gray-900 hover:bg-gray-50 hover:text-gray-900 group border-l-4 px-3 py-2 flex items-center text-sm font-medium"
+                routerLink="/v/settings/auth"
+                [ngClass]="SettingTabsStyle('/v/settings/auth')"
               >
                 <!-- Heroicon name: outline/key -->
                 <svg
-                  class="text-gray-400 group-hover:text-gray-500 flex-shrink-0 -ml-1 mr-3 h-6 w-6"
+                  [ngClass]="iconStyle('/v/settings/auth')"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"
@@ -157,13 +160,10 @@
             </nav>
           </aside>
 
-         <!-- router -->
-         <router-outlet></router-outlet>
-
+          <!-- router -->
+          <router-outlet></router-outlet>
         </div>
-
       </div>
-
     </div>
   </main>
 </div>
