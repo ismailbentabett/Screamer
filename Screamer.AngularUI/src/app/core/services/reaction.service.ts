@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AuthenticationService } from './authentication.service';
-import { take } from 'rxjs';
+import { BehaviorSubject, map, take } from 'rxjs';
 import { User } from '../models/User';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
@@ -11,6 +11,13 @@ import { HttpClient } from '@angular/common/http';
 export class ReactionService {
   user!: User;
   baseUrl = environment.baseWebApiUrl;
+  private currentUserPostReactionSource = new BehaviorSubject<any | null>(null);
+  currentUserPostReaction$ = this.currentUserPostReactionSource.asObservable();
+  private currentUserCommentReactionSource = new BehaviorSubject<any | null>(
+    null
+  );
+  currentUserCommentReaction$ =
+    this.currentUserCommentReactionSource.asObservable();
 
   constructor(
     private http: HttpClient,
@@ -87,5 +94,37 @@ export class ReactionService {
         `,
       {}
     );
+  }
+
+  getCommentReactionByCommentAndUser(commentId: number) {
+    return this.http
+      .get(
+        this.baseUrl +
+          `Reaction/get-comment-reaction-by-post-and-user?commentId=${commentId}&userId=${this.user.id}`
+      )
+      .pipe(
+        map((response: any) => {
+          const reaction = response;
+          if (reaction) {
+            this.currentUserCommentReactionSource.next(reaction);
+          }
+        })
+      );
+  }
+
+  getPostReactionByPostAndUser(postId: number) {
+    return this.http
+      .get(
+        this.baseUrl +
+          `Reaction/get-post-reaction-by-post-and-user?postId=${postId}&userId=${this.user.id}`
+      )
+      .pipe(
+        map((response: any) => {
+          const reaction = response;
+          if (reaction) {
+            this.currentUserPostReactionSource.next(reaction);
+          }
+        })
+      );
   }
 }

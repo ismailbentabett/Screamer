@@ -6,6 +6,7 @@ import {
   trigger,
 } from '@angular/animations';
 import { Component, Input } from '@angular/core';
+import { take } from 'rxjs';
 import { ReactionService } from 'src/app/core/services/reaction.service';
 
 @Component({
@@ -34,10 +35,27 @@ import { ReactionService } from 'src/app/core/services/reaction.service';
   ],
 })
 export class ReactionButtonComponent {
-  reaction!: string;
+  reaction!: any;
   @Input()
-  postId!: number;
+  postId: number | null = null;
+  reactionType: string | null = null;
   constructor(private reactionService: ReactionService) {}
+
+  ngOnChanges(changes: any): void {
+    this.reactionService
+      .getPostReactionByPostAndUser(this.postId as number)
+      .subscribe(() => {
+        this.reactionService.currentUserPostReaction$.pipe(take(1)).subscribe({
+          next: (reaction) => {
+            if (reaction) {
+              this.reaction = reaction;
+              this.reactionType = reaction.reactionType;
+            }
+          },
+        });
+      });
+  }
+
   isOpen = false;
 
   toggleDropdown() {
@@ -46,10 +64,23 @@ export class ReactionButtonComponent {
 
   react(reactionType: string) {
     this.reactionService
-      .addPostReaction(this.postId, reactionType)
-      .subscribe(() => {
-        this.reaction = reactionType;
+      .addPostReaction(this.postId as number, reactionType)
+      .subscribe((data: any) => {
+        this.reactionType = data.reactionType;
+        this.reaction = data;
         this.toggleDropdown();
+      });
+  }
+
+  removeReaction() {
+    this.reactionService
+      .deletePostReaction(
+        this.postId as number,
+        this.reactionType as string,
+        this.reaction.id
+      )
+      .subscribe(() => {
+        this.reactionType = null;
       });
   }
 }

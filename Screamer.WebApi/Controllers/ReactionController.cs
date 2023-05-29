@@ -30,15 +30,15 @@ namespace Screamer.WebApi.Controllers
             string reactionType
         )
         {
-            var command = new AddReactionRequestCommand
+            var command = new AddPostReactionRequestCommand
             {
                 UserId = userId,
                 PostId = postId,
                 ReactionType = reactionType,
                 isPost = true
             };
-            await _mediator.Send(command);
-            return Ok();
+            var data = await _mediator.Send(command);
+            return Ok(data);
         }
 
         [HttpPost("add-comment-reaction")]
@@ -48,15 +48,15 @@ namespace Screamer.WebApi.Controllers
             string reactionType
         )
         {
-            var command = new AddReactionRequestCommand
+            var command = new AddCommentReactionRequestCommand
             {
                 UserId = userId,
                 CommentId = commentId,
                 ReactionType = reactionType,
                 isPost = false
             };
-            await _mediator.Send(command);
-            return Ok();
+            var data = await _mediator.Send(command);
+            return Ok(data);
         }
 
         [HttpDelete("delete-reaction")]

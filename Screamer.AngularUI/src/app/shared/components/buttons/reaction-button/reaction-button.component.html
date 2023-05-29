@@ -21,13 +21,31 @@
 
               <!-- Heroicon name: solid/thumb-up -->
 
-              <div [ngSwitch]="reaction">
-                <app-loved *ngSwitchCase="'Loved'"></app-loved>
-                <app-liked *ngSwitchCase="'Liked'"></app-liked>
-                <app-excited *ngSwitchCase="'Excited'"></app-excited>
-                <app-happy *ngSwitchCase="'Happy'"></app-happy>
-                <app-sad *ngSwitchCase="'Sad'"></app-sad>
-                <app-screaming *ngSwitchCase="'Screaming'"></app-screaming>
+              <div [ngSwitch]="reactionType">
+                <app-loved
+                  *ngSwitchCase="'Loved'"
+                  (click)="removeReaction()"
+                ></app-loved>
+                <app-liked
+                  *ngSwitchCase="'Liked'"
+                  (click)="removeReaction()"
+                ></app-liked>
+                <app-excited
+                  *ngSwitchCase="'Excited'"
+                  (click)="removeReaction()"
+                ></app-excited>
+                <app-happy
+                  *ngSwitchCase="'Happy'"
+                  (click)="removeReaction()"
+                ></app-happy>
+                <app-sad
+                  *ngSwitchCase="'Sad'"
+                  (click)="removeReaction()"
+                ></app-sad>
+                <app-screaming
+                  *ngSwitchCase="'Screaming'"
+                  (click)="removeReaction()"
+                ></app-screaming>
                 <svg
                   *ngSwitchDefault
                   class="h-5 w-5"
@@ -91,7 +109,7 @@
             Highlighted: "bg-gray-100", Not Highlighted: "bg-white"
           -->
           <li
-            class="cursor-pointer er bg-white   select-none relative py-2 px-3"
+            class="cursor-pointer er bg-white select-none relative py-2 px-3"
             id="listbox-option-0"
             role="option"
           >
@@ -107,7 +125,7 @@
             Highlighted: "bg-gray-100", Not Highlighted: "bg-white"
           -->
           <li
-            class="bg-white cursor-pointer er  select-none relative py-2 px-3"
+            class="bg-white cursor-pointer er select-none relative py-2 px-3"
             id="listbox-option-1"
             role="option"
           >
@@ -123,7 +141,7 @@
             Highlighted: "bg-gray-100", Not Highlighted: "bg-white"
           -->
           <li
-            class="bg-white cursor-pointer  select-none relative py-2 px-3"
+            class="bg-white cursor-pointer select-none relative py-2 px-3"
             id="listbox-option-2"
             role="option"
           >
@@ -139,7 +157,7 @@
             Highlighted: "bg-gray-100", Not Highlighted: "bg-white"
           -->
           <li
-            class="bg-white cursor-pointer  select-none relative py-2 px-3"
+            class="bg-white cursor-pointer select-none relative py-2 px-3"
             id="listbox-option-3"
             role="option"
           >
@@ -155,7 +173,7 @@
             Highlighted: "bg-gray-100", Not Highlighted: "bg-white"
           -->
           <li
-            class="bg-white cursor-pointer  select-none relative py-2 px-3"
+            class="bg-white cursor-pointer select-none relative py-2 px-3"
             id="listbox-option-4"
             role="option"
           >
@@ -171,7 +189,7 @@
             Highlighted: "bg-gray-100", Not Highlighted: "bg-white"
           -->
           <li
-            class="bg-white cursor-pointer  select-none relative py-2 px-3"
+            class="bg-white cursor-pointer select-none relative py-2 px-3"
             id="listbox-option-5"
             role="option"
           >

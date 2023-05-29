@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MediatR;
+using Screamer.Application.Dtos;
 
 namespace Screamer.Application.Features.ReactionRequest.Commands.AddReactionRequest
 {
-    public class AddReactionRequestCommand : IRequest<int>
+    public class AddPostReactionRequestCommand : IRequest<PostReactionDto>
     {
         public string UserId { get; set; }
         public int? PostId { get; set; }
