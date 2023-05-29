@@ -132,7 +132,9 @@
         *ngIf="authService.currentUser$ | async"
       >
         <button
+          routerLink="/v/feed"
           type="button"
+          [ngClass]="IconsStyle('/v/feed')"
           class="flex-shrink-0 bg-white rounded-full p-1 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-dodger-blue-500"
         >
           <span class="sr-only">Explore</span>
@@ -154,8 +156,8 @@
         </button>
         <button
           routerLink="/v/chat"
+          [ngClass]="IconsStyle('/v/chat')"
           type="button"
-          class="flex-shrink-0 bg-white rounded-full p-1 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-dodger-blue-500"
         >
           <span class="sr-only">View Chat</span>
           <!-- Heroicon name: outline/bell -->
@@ -177,6 +179,7 @@
         </button>
 
         <button
+          [ngClass]="IconsStyle('/v/notification')"
           type="button"
           class="flex-shrink-0 bg-white rounded-full p-1 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-dodger-blue-500"
         >
