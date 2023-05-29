@@ -235,7 +235,7 @@
           <div
             [class.open]="isOpen"
             [@dropdownAnimation]="isOpen ? 'open' : 'closed'"
-            class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 py-1 focus:outline-none"
+            class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5  focus:outline-none"
             role="menu"
             aria-orientation="vertical"
             aria-labelledby="user-menu-button"
@@ -243,7 +243,7 @@
           >
             <!-- Active: "bg-gray-100", Not Active: "" -->
             <a
-              class="block py-2 px-4 text-sm text-gray-700 cursor-pointer"
+              [ngClass]="dropDownLintStyle('/v/user')"
               role="menuitem"
               tabindex="-1"
               id="user-menu-item-0"
@@ -253,12 +253,12 @@
             <p></p>
 
             <a
-              href="#"
               class="block py-2 px-4 text-sm text-gray-700"
               role="menuitem"
               tabindex="-1"
               id="user-menu-item-1"
               routerLink="/v/settings"
+              [ngClass]="dropDownLintStyle('/v/settings')"
               >Settings</a
             >
 

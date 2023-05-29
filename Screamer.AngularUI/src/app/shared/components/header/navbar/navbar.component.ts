@@ -86,6 +86,15 @@ export class NavbarComponent {
       : 'block rounded-md py-2 px-3 text-base font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-900';
   }
 
+  dropDownLintStyle(route: string) {
+    const isActive =
+      this.router.isActive(route, false) || this.router.isActive(route, true);
+
+    return isActive
+      ? 'block py-2 px-4 text-sm text-gray-700 cursor-pointer bg-gray-100'
+      : 'block py-2 px-4 text-sm text-gray-700 cursor-pointer';
+  }
+
   //oninit
   ngOnInit(): void {
     this.userService
