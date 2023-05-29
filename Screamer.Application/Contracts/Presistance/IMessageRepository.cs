@@ -35,5 +35,10 @@ namespace Screamer.Presistance.Repositories
         Task<Group> GetMessageGroup(string groupName);
         Task<Group> GetGroupForConnection(string connectionId);
         Task<CancellationToken> GetMessageThreadRealTime(string value, StringValues otherUser);
+        Task<ChatRoom> CreateRoom(
+            ChatRoomUser SenderChatRoomUser,
+            ChatRoomUser RecipientChatRoomUser,
+            ChatRoom chatRoom
+        );
     }
 }

@@ -1,5 +1,5 @@
 <button
-[routerLink]="['/v/chat/room',chatRoom.id ]"
+[routerLink]="['/v/chat',chatRoom.id ]"
 *ngIf="user"
   class="flex items-start hover:bg-gray-100 w-full space-x-2 divide-double divide-gray-200 mb-3"
 >
@@ -14,7 +14,7 @@
     <p class="text-sm font-medium text-gray-900">
       {{ user.firstName + " " + user.lastName }}
     </p>
-    <p class="text-sm text-gray-500">{{ latestMessage.content  }}</p>
+    <p *ngIf="latestMessage " class="text-sm text-gray-500">{{ latestMessage.content  }}</p>
   </div>
 </button>
 

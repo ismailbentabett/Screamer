@@ -212,7 +212,6 @@ export class MessageService {
       }
     );
     this.hubConnection.on('typing', (userId: string, isTyping: boolean) => {
-
       this.istypingSubject.next(isTyping);
       this.usertypingSubject.next(userId);
     });
@@ -232,5 +231,13 @@ export class MessageService {
 
   typing(roomId: string, userId: string, isTyping: boolean): void {
     this.hubConnection!.invoke('Typing', roomId, userId, isTyping);
+  }
+
+  createRoom(userId: string, recipientId: string) {
+    return this.http.post(
+      this.baseUrl +
+        `Message/createRoom?userId=${userId}&recipientId=${recipientId}`,
+      {}
+    );
   }
 }

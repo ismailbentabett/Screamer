@@ -14,6 +14,6 @@ namespace Screamer.Domain.Entities
 
         [ForeignKey("LatestMessageId")]
         public Message LatestMessage { get; set; }
-        public int LatestMessageId { get; set; }
+        public int? LatestMessageId { get; set; }
     }
 }

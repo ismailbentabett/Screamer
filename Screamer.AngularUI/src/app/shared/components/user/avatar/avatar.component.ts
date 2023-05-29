@@ -38,6 +38,20 @@ export class AvatarComponent {
       // ... other options
     }).toString();
 
-    this.avatar = 'data:image/svg+xml;utf8,' + encodeURIComponent(url);  }
+    this.avatar = 'data:image/svg+xml;utf8,' + encodeURIComponent(url);
 
+
+  }
+
+  getAvatar ()
+  {
+    if(this.user?.avatarUrl)
+    {
+      return this.user?.avatarUrl;
+    }
+    else
+    {
+      return this.avatar;
+    }
+  }
 }

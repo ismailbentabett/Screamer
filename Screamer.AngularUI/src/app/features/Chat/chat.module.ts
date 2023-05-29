@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 
 import { ChatRoutingModule } from './chat-routing.module';
 import { ChatRoomComponent } from './chat-room/chat-room.component';
-import { ChatListComponent } from './chat-list/chat-list.component';
 
 import { PickerComponent } from '@ctrl/ngx-emoji-mart';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -16,7 +15,6 @@ import { ScrollToBottomDirective } from 'src/app/shared/directives/scrol-to-bott
 @NgModule({
   declarations: [
     ChatRoomComponent,
-    ChatListComponent,
     ChatComponent,
     ScrollToBottomDirective
   ],

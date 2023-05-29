@@ -3,6 +3,7 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Screamer.Application.Dtos;
 using Screamer.Application.Features.MessageRequest;
+using Screamer.Application.Features.MessageRequest.Commands.CreateRoomRequest;
 using Screamer.Application.Features.MessageRequest.Queries.GetChatRoomByIdRequest;
 using Screamer.Application.Features.MessageRequest.Queries.GetUserChatRoomsRequest;
 using Screamer.Application.Helpers;
@@ -106,6 +107,18 @@ namespace HR.LeaveManagement.Api.Controllers
         public async Task<ActionResult> GetChatRoomById(int id)
         {
             var command = new GetChatRoomByIdRequestQuery { ChatRoomId = id };
+            var result = await _mediator.Send(command);
+            return Ok(result);
+        }
+
+        [HttpPost("createRoom")]
+        public async Task<ActionResult> CreateRoom(string userId, string recipientId)
+        {
+            var command = new CreateRoomRequestCommand
+            {
+                userId = userId,
+                recipientId = recipientId
+            };
             var result = await _mediator.Send(command);
             return Ok(result);
         }

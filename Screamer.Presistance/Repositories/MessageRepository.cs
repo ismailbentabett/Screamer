@@ -227,6 +227,29 @@ namespace Screamer.Presistance.Repositories
                 .FirstOrDefaultAsync(x => x.Id == id);
         }
 
+        //create room
+        public async Task<ChatRoom> CreateRoom(
+            ChatRoomUser SenderChatRoomUser,
+            ChatRoomUser RecipientChatRoomUser,
+            ChatRoom chatRoom
+        )
+        {
+            var room = new ChatRoom
+            {
+                ChatRoomUsers = new List<ChatRoomUser>
+                {
+                    SenderChatRoomUser,
+                    RecipientChatRoomUser
+                },
+                CreatedAt = DateTime.UtcNow,
+            };
+
+            await _context.ChatRooms.AddAsync(room);
+            await _context.SaveChangesAsync();
+
+            return room;
+        }
+
         Task<CancellationToken> IMessageRepository.GetMessageThreadRealTime(
             string value,
             StringValues otherUser

@@ -50,7 +50,6 @@ export class ReactionButtonComponent {
             .pipe(take(1))
             .subscribe({
               next: (reaction) => {
-                console.log(this.postId, reaction);
 
                 if (reaction && reaction.postId == this.postId) {
                   this.reaction = reaction;
