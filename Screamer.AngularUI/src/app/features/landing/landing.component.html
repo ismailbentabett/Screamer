@@ -52,9 +52,7 @@
           </div>
 
           <!-- login and signup -->
-          <div
-            class="hidden lg:relative lg:z-10 lg:ml-4 lg:flex lg:items-center"
-          >
+          <div class="lg:relative lg:z-10 lg:ml-4 lg:flex lg:items-center">
             <app-login-and-signup-nav
               *ngIf="!(authService.currentUser$ | async)"
             ></app-login-and-signup-nav>
@@ -112,6 +110,11 @@
             </div>
           </div>
           <div class="pt-5 pb-6">
+            <div class="px-2 space-y-1 border-b border-gray-300 mb-4 pb-4">
+              <app-login-and-signup-nav
+                *ngIf="!(authService.currentUser$ | async)"
+              ></app-login-and-signup-nav>
+            </div>
             <div class="px-2 space-y-1">
               <a
                 href="#"
