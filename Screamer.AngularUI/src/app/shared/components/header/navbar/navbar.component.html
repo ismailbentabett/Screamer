@@ -280,16 +280,13 @@
       <!-- Current: "bg-gray-100 text-gray-900", Default: "text-gray-900 hover:bg-gray-50 hover:text-gray-900" -->
       <a
         routerLink="/v/feed"
-        class="bg-gray-100 text-gray-900 rounded-md py-2 px-3 inline-flex items-center text-sm font-medium"
+        [ngClass]="LinkStyle('/v/feed/recent')"
         aria-current="page"
       >
         Feed
       </a>
 
-      <a
-        routerLink="/v/list/users"
-        class="text-gray-900 hover:bg-gray-50 hover:text-gray-900 rounded-md py-2 px-3 inline-flex items-center text-sm font-medium"
-      >
+      <a routerLink="/v/list/users" [ngClass]="LinkStyle('/v/list/users')">
         Users
       </a>
     </nav>
@@ -402,8 +399,8 @@
         >
 
         <a
-        routerLink="/v/settings"
-        class="block rounded-md py-2 px-3 text-base font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-900"
+          routerLink="/v/settings"
+          class="block rounded-md py-2 px-3 text-base font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-900"
           >Settings</a
         >
 
