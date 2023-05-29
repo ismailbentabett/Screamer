@@ -32,28 +32,25 @@ namespace Screamer.Application.Features.ReactionRequest.Queries.GetPostReactionB
             _logger = logger;
         }
 
-        public Task<PostReactionDto> Handle(
+        public async Task<PostReactionDto> Handle(
             GetPostReactionByPostAndUserRequestQuery request,
             CancellationToken cancellationToken
         )
         {
-            var user = _uow.UserRepository.GetUserByIdAsync(request.UserId);
+            var user = await _uow.UserRepository.GetUserByIdAsync(request.UserId);
             if (user == null)
                 throw new NotFoundException(nameof(ApplicationUser), request.UserId);
 
-            var post = _uow.PostRepository.GetPostById((int)request.PostId);
+            var post = await _uow.PostRepository.GetPostById((int)request.PostId);
             if (post == null)
                 throw new NotFoundException(nameof(Post), (int)request.PostId);
 
-            var postReaction = _uow.ReactionRepository.GetPostReactionByPostAndUser(
+            var postReaction = await _uow.ReactionRepository.GetPostReactionByPostAndUser(
                 request.PostId,
                 request.UserId
             );
 
-            if (postReaction == null)
-                throw new NotFoundException(nameof(PostReaction), (int)request.PostId);
-
-            return Task.FromResult(_mapper.Map<PostReactionDto>(postReaction));
+            return _mapper.Map<PostReactionDto>(postReaction);
         }
     }
 }

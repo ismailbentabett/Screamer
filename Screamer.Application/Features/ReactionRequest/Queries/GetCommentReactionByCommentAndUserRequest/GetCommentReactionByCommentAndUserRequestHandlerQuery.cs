@@ -32,28 +32,25 @@ namespace Screamer.Application.Features.ReactionRequest.Queries.GetCommentReacti
             _logger = logger;
         }
 
-        public Task<CommentReactionDto> Handle(
+        public async Task<CommentReactionDto> Handle(
             GetCommentReactionByCommentAndUserRequestQuery request,
             CancellationToken cancellationToken
         )
         {
-            var user = _uow.UserRepository.GetUserByIdAsync(request.UserId);
+            var user = await _uow.UserRepository.GetUserByIdAsync(request.UserId);
             if (user == null)
                 throw new NotFoundException(nameof(ApplicationUser), request.UserId);
 
-            var comment = _uow.CommentRepository.GetCommentById((int)request.CommentId);
+            var comment = await _uow.CommentRepository.GetCommentById((int)request.CommentId);
             if (comment == null)
                 throw new NotFoundException(nameof(Comment), (int)request.CommentId);
 
-            var commentReaction = _uow.ReactionRepository.GetCommentReactionByCommentAndUser(
+            var commentReaction = await _uow.ReactionRepository.GetCommentReactionByCommentAndUser(
                 request.CommentId,
                 request.UserId
             );
-            if (commentReaction == null)
-                throw new NotFoundException(nameof(CommentReaction), (int)request.CommentId);
 
-                
-            return Task.FromResult(_mapper.Map<CommentReactionDto>(commentReaction));
+            return _mapper.Map<CommentReactionDto>(commentReaction);
         }
     }
 }

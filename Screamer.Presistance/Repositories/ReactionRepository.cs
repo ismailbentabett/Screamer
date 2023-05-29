@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using Screamer.Application.Contracts.Presistance;
 using Screamer.Domain.Common;
 using Screamer.Domain.Entities;
@@ -71,24 +72,22 @@ namespace Screamer.Presistance.Repositories
             _context.CommentReactions.Update(reaction);
         }
 
-        public Task<PostReaction> GetPostReactionByPostAndUser(int postId, string userId)
+        public async Task<PostReaction> GetPostReactionByPostAndUser(int postId, string userId)
         {
-            var postReaction = _context.PostReactions.FirstOrDefault(
+            return await _context.PostReactions.SingleOrDefaultAsync(
                 r => r.PostId == postId && r.UserId == userId
             );
 
-            return Task.FromResult(postReaction);
         }
 
-        public Task<CommentReaction> GetCommentReactionByCommentAndUser(
+        public async Task<CommentReaction> GetCommentReactionByCommentAndUser(
             int commentId,
             string userId
         )
         {
-            var commentReaction = _context.CommentReactions.FirstOrDefault(
+            return await  _context.CommentReactions.SingleOrDefaultAsync(
                 r => r.CommentId == commentId && r.UserId == userId
             );
-            return Task.FromResult(commentReaction);
         }
     }
 }
