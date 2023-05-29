@@ -14,8 +14,8 @@
         </div>
         <div class="min-w-0 flex-1">
           <p class="text-sm font-medium text-gray-900">
-            <a href="#" class="hover:underline">
-              {{ user.firstName }} {{ user.lastName }}</a
+            <a href="#" class="hover:underline" *ngIf="user">
+              {{ user.firstName ?? 'N/A' }} {{ user.lastName  ?? 'N/A' }}</a
             >
           </p>
           <p class="text-sm text-gray-500">
@@ -162,7 +162,7 @@
     <div class="mt-2 text-sm text-gray-700 space-y-4">
       {{ post.content }}
     </div>
-    <div class="mt-6 flex justify-between space-x-8 mb-3">
+    <div class="mt-6 flex justify-between space-x-8 mb-3" *ngIf="preview == false">
       <div class="flex space-x-6">
         <span class="inline-flex items-center text-sm">
           <!-- reactions -->

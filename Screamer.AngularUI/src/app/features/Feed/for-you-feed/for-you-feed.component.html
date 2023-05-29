@@ -1,4 +1,4 @@
-<ul role="list"    infiniteScroll
+<ul *ngIf="posts" role="list"    infiniteScroll
 [infiniteScrollDistance]="2"
 [infiniteScrollThrottle]="50"
 (scrolled)="loadMorePosts()"

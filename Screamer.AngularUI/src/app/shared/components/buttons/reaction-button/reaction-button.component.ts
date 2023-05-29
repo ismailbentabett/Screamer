@@ -42,18 +42,24 @@ export class ReactionButtonComponent {
   constructor(private reactionService: ReactionService) {}
 
   ngOnChanges(changes: any): void {
-    this.reactionService
-      .getPostReactionByPostAndUser(this.postId as number)
-      .subscribe(() => {
-        this.reactionService.currentUserPostReaction$.pipe(take(1)).subscribe({
-          next: (reaction) => {
-            if (reaction) {
-              this.reaction = reaction;
-              this.reactionType = reaction.reactionType;
-            }
-          },
+    if (changes['postId']) {
+      this.reactionService
+        .getPostReactionByPostAndUser(this.postId as number)
+        .subscribe(() => {
+          this.reactionService.currentUserPostReaction$
+            .pipe(take(1))
+            .subscribe({
+              next: (reaction) => {
+                console.log(this.postId, reaction);
+
+                if (reaction && reaction.postId == this.postId) {
+                  this.reaction = reaction;
+                  this.reactionType = reaction.reactionType;
+                }
+              },
+            });
         });
-      });
+    }
   }
 
   isOpen = false;

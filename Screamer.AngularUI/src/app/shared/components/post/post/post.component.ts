@@ -41,19 +41,15 @@ export class PostComponent {
   @Input() preview: boolean = false;
 
   user!: User;
-  constructor(
-    private userService: UserService,
-  ) {}
+  constructor(private userService: UserService) {}
 
   ngOnChanges(changes: any): void {
-    if (changes['post']) {
-      this.userService
-        .getUserById(this.post.userId.toString())
-        .subscribe({
-          next: (user: any) => {
-            this.user = user;
-          },
-        });
+    if (changes['post'] && this.post) {
+      this.userService.getUserById(this.post.userId.toString()).subscribe({
+        next: (user: any) => {
+          this.user = user;
+        },
+      });
     }
   }
   isOpen = false;
