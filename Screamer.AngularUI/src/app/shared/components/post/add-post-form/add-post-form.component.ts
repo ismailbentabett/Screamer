@@ -47,7 +47,7 @@ export class AddPostFormComponent {
   postId: any = null;
   baseUrl = environment.baseWebApiUrl;
   postImageUrl: any = false;
-  preview!: any;
+  preview: any = false;
   /**
    *
    */
@@ -138,4 +138,14 @@ export class AddPostFormComponent {
   toggleTabs($tabNumber: number) {
     this.openTab = $tabNumber;
   }
+
+  changeTabStyle(tab : number){
+
+
+    if (this.openTab !== tab) {
+      return 'text-gray-500  px-3 py-1.5 border border-transparent text-sm font-medium rounded-md hover:text-gray-900 bg-white hover:bg-gray-100';
+    }
+    return 'text-gray-900  bg-gray-100 px-3 py-1.5 border border-transparent text-sm font-medium rounded-md';
+    }
+
 }
