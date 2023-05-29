@@ -20,18 +20,27 @@
               <!-- Heroicon name: solid/emoji-happy -->
 
               <!-- Heroicon name: solid/thumb-up -->
-              <svg
-                class="h-5 w-5"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-                aria-hidden="true"
-              >
-                <path
-                  d="M2 10.5a1.5 1.5 0 113 0v6a1.5 1.5 0 01-3 0v-6zM6 10.333v5.43a2 2 0 001.106 1.79l.05.025A4 4 0 008.943 18h5.416a2 2 0 001.962-1.608l1.2-6A2 2 0 0015.56 8H12V4a2 2 0 00-2-2 1 1 0 00-1 1v.667a4 4 0 01-.8 2.4L6.8 7.933a4 4 0 00-.8 2.4z"
-                />
-              </svg>
-              <span class="font-medium text-gray-900">29</span>
+
+              <div [ngSwitch]="reaction">
+                <app-loved *ngSwitchCase="'Loved'"></app-loved>
+                <app-liked *ngSwitchCase="'Liked'"></app-liked>
+                <app-excited *ngSwitchCase="'Excited'"></app-excited>
+                <app-happy *ngSwitchCase="'Happy'"></app-happy>
+                <app-sad *ngSwitchCase="'Sad'"></app-sad>
+                <app-screaming *ngSwitchCase="'Screaming'"></app-screaming>
+                <svg
+                  *ngSwitchDefault
+                  class="h-5 w-5"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M2 10.5a1.5 1.5 0 113 0v6a1.5 1.5 0 01-3 0v-6zM6 10.333v5.43a2 2 0 001.106 1.79l.05.025A4 4 0 008.943 18h5.416a2 2 0 001.962-1.608l1.2-6A2 2 0 0015.56 8H12V4a2 2 0 00-2-2 1 1 0 00-1 1v.667a4 4 0 01-.8 2.4L6.8 7.933a4 4 0 00-.8 2.4z"
+                  />
+                </svg>
+              </div>
             </div>
             <!-- Selected item label, show/hide based on listbox state. -->
             <!--   <span>
@@ -82,12 +91,12 @@
             Highlighted: "bg-gray-100", Not Highlighted: "bg-white"
           -->
           <li
-            class="cursor-pointer bg-white cursor-point select-none relative py-2 px-3"
+            class="cursor-pointer er bg-white cursor-pointer  select-none relative py-2 px-3"
             id="listbox-option-0"
             role="option"
           >
             <div class="flex items-center">
-              <app-excited></app-excited>
+              <app-excited (click)="react('Excited')"></app-excited>
               <span class="ml-3 block font-medium truncate"> Excited </span>
             </div>
           </li>
@@ -98,12 +107,12 @@
             Highlighted: "bg-gray-100", Not Highlighted: "bg-white"
           -->
           <li
-            class="bg-white cursor-point select-none relative py-2 px-3"
+            class="bg-white cursor-pointer er  select-none relative py-2 px-3"
             id="listbox-option-1"
             role="option"
           >
             <div class="flex items-center">
-              <app-loved></app-loved>
+              <app-loved (click)="react('Loved')"></app-loved>
               <span class="ml-3 block font-medium truncate"> Loved </span>
             </div>
           </li>
@@ -114,12 +123,12 @@
             Highlighted: "bg-gray-100", Not Highlighted: "bg-white"
           -->
           <li
-            class="bg-white cursor-point select-none relative py-2 px-3"
+            class="bg-white cursor-pointer  select-none relative py-2 px-3"
             id="listbox-option-2"
             role="option"
           >
             <div class="flex items-center">
-              <app-happy></app-happy>
+              <app-happy (click)="react('Happy')"></app-happy>
               <span class="ml-3 block font-medium truncate"> Happy </span>
             </div>
           </li>
@@ -130,12 +139,12 @@
             Highlighted: "bg-gray-100", Not Highlighted: "bg-white"
           -->
           <li
-            class="bg-white cursor-point select-none relative py-2 px-3"
+            class="bg-white cursor-pointer  select-none relative py-2 px-3"
             id="listbox-option-3"
             role="option"
           >
             <div class="flex items-center">
-              <app-sad></app-sad>
+              <app-sad (click)="react('Sad')"></app-sad>
               <span class="ml-3 block font-medium truncate"> Sad </span>
             </div>
           </li>
@@ -146,12 +155,12 @@
             Highlighted: "bg-gray-100", Not Highlighted: "bg-white"
           -->
           <li
-            class="bg-white cursor-point select-none relative py-2 px-3"
+            class="bg-white cursor-pointer  select-none relative py-2 px-3"
             id="listbox-option-4"
             role="option"
           >
             <div class="flex items-center">
-              <app-liked></app-liked>
+              <app-liked (click)="react('Liked')"></app-liked>
               <span class="ml-3 block font-medium truncate"> Liked </span>
             </div>
           </li>
@@ -162,15 +171,13 @@
             Highlighted: "bg-gray-100", Not Highlighted: "bg-white"
           -->
           <li
-            class="bg-white cursor-point select-none relative py-2 px-3"
+            class="bg-white cursor-pointer  select-none relative py-2 px-3"
             id="listbox-option-5"
             role="option"
           >
             <div class="flex items-center">
-          <app-screaming></app-screaming>
-              <span class="ml-3 block font-medium truncate">
-                Screaming
-              </span>
+              <app-screaming (click)="react('Screaming')"></app-screaming>
+              <span class="ml-3 block font-medium truncate"> Screaming </span>
             </div>
           </li>
         </ul>
