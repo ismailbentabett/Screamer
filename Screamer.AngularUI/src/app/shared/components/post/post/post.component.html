@@ -15,7 +15,7 @@
         <div class="min-w-0 flex-1">
           <p class="text-sm font-medium text-gray-900">
             <a href="#" class="hover:underline" *ngIf="user">
-              {{ user.firstName ?? 'N/A' }} {{ user.lastName  ?? 'N/A' }}</a
+              {{ user.firstName ?? "N/A" }} {{ user.lastName ?? "N/A" }}</a
             >
           </p>
           <p class="text-sm text-gray-500">
@@ -64,7 +64,7 @@
             <div
               [class.open]="isOpen"
               [@dropdownAnimation]="isOpen ? 'open' : 'closed'"
-              class="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
+              class="z-50 origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
               role="menu"
               aria-orientation="vertical"
               aria-labelledby="options-menu-0-button"
@@ -74,24 +74,49 @@
                 <!-- Active: "bg-gray-100 text-gray-900", Not Active: "text-gray-700" -->
                 <a
                   href="#"
+                  class="text-gray-700 flex px-4 py-2 text-sm stroke"
+                  role="menuitem"
+                  tabindex="-1"
+                  id="options-menu-0-item-0"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    class="mr-3 h-5 w-5 text-gray-400 stroke-current stroke-2"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10"
+                    />
+                  </svg>
+
+                  <span>Edit Post</span>
+                </a>
+                <a
+                  href="#"
                   class="text-gray-700 flex px-4 py-2 text-sm"
                   role="menuitem"
                   tabindex="-1"
                   id="options-menu-0-item-0"
                 >
-                  <!-- Heroicon name: solid/star -->
                   <svg
-                    class="mr-3 h-5 w-5 text-gray-400"
+                    class="mr-3 h-5 w-5 text-gray-400 stroke-current stroke-2"
                     xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                    aria-hidden="true"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
                   >
                     <path
-                      d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0111.186 0z"
                     />
                   </svg>
-                  <span>Add to favorites</span>
+
+                  <span>Bookmark</span>
                 </a>
                 <a
                   href="#"
@@ -102,19 +127,46 @@
                 >
                   <!-- Heroicon name: solid/code -->
                   <svg
-                    class="mr-3 h-5 w-5 text-gray-400"
                     xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                    aria-hidden="true"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    class="mr-3 h-5 w-5 text-gray-400 stroke-current stroke-2"
+                    stroke="currentColor"
                   >
                     <path
-                      fill-rule="evenodd"
-                      d="M12.316 3.051a1 1 0 01.633 1.265l-4 12a1 1 0 11-1.898-.632l4-12a1 1 0 011.265-.633zM5.707 6.293a1 1 0 010 1.414L3.414 10l2.293 2.293a1 1 0 11-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0zm8.586 0a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 11-1.414-1.414L16.586 10l-2.293-2.293a1 1 0 010-1.414z"
-                      clip-rule="evenodd"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M16.5 8.25V6a2.25 2.25 0 00-2.25-2.25H6A2.25 2.25 0 003.75 6v8.25A2.25 2.25 0 006 16.5h2.25m8.25-8.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-7.5A2.25 2.25 0 018.25 18v-1.5m8.25-8.25h-6a2.25 2.25 0 00-2.25 2.25v6"
                     />
                   </svg>
-                  <span>Embed</span>
+
+                  <span>Copy Link</span>
+                </a>
+                <a
+                  href="#"
+                  class="text-gray-700 flex px-4 py-2 text-sm"
+                  role="menuitem"
+                  tabindex="-1"
+                  id="options-menu-0-item-1"
+                >
+                  <!-- Heroicon name: solid/code -->
+
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    class="mr-3 h-5 w-5 text-gray-400 stroke-current stroke-2"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"
+                    />
+                  </svg>
+
+                  <span>Remove Post</span>
                 </a>
                 <a
                   href="#"
@@ -123,20 +175,20 @@
                   tabindex="-1"
                   id="options-menu-0-item-2"
                 >
-                  <!-- Heroicon name: solid/flag -->
                   <svg
-                    class="mr-3 h-5 w-5 text-gray-400"
                     xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                    aria-hidden="true"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    class="mr-3 h-5 w-5 text-gray-400 stroke-current stroke-2"
                   >
                     <path
-                      fill-rule="evenodd"
-                      d="M3 6a3 3 0 013-3h10a1 1 0 01.8 1.6L14.25 8l2.55 3.4A1 1 0 0116 13H6a1 1 0 00-1 1v3a1 1 0 11-2 0V6z"
-                      clip-rule="evenodd"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M3 3v1.5M3 21v-6m0 0l2.77-.693a9 9 0 016.208.682l.108.054a9 9 0 006.086.71l3.114-.732a48.524 48.524 0 01-.005-10.499l-3.11.732a9 9 0 01-6.085-.711l-.108-.054a9 9 0 00-6.208-.682L3 4.5M3 15V4.5"
                     />
                   </svg>
+
                   <span>Report content</span>
                 </a>
               </div>
@@ -162,7 +214,10 @@
     <div class="mt-2 text-sm text-gray-700 space-y-4">
       {{ post.content }}
     </div>
-    <div class="mt-6 flex justify-between space-x-8 mb-3" *ngIf="preview == false">
+    <div
+      class="mt-6 flex justify-between space-x-8 mb-3"
+      *ngIf="preview == false"
+    >
       <div class="flex space-x-6">
         <span class="inline-flex items-center text-sm">
           <!-- reactions -->

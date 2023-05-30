@@ -53,7 +53,12 @@ const routes: Routes = [
         path: 'chat',
         loadChildren: () =>
           import('./features/Chat/chat.module').then((m) => m.ChatModule),
-      }
+      },
+      {
+        path: 'post',
+        loadChildren: () =>
+          import('./features/Post/post.module').then((m) => m.PostModule),
+      },
     ],
   },
 
@@ -61,7 +66,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes , {onSameUrlNavigation: 'reload'})],
+  imports: [RouterModule.forRoot(routes, { onSameUrlNavigation: 'reload' })],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}
