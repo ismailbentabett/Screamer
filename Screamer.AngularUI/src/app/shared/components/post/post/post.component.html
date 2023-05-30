@@ -80,6 +80,7 @@
               <div class="" role="none">
                 <!-- Active: "bg-gray-100 text-gray-900", Not Active: "text-gray-700" -->
                 <a
+                *ngIf="!isOnCurrentPost()"
                   [routerLink]="'/v/post/' + post.id"
                   target="_blank"
                   class="text-gray-700 flex px-4 py-2 text-sm stroke cursor-pointer hover:bg-gray-100"
@@ -103,6 +104,7 @@
                   <span>Go To Post</span>
                 </a>
                 <a
+                  *ngIf="isMyPost()"
                   [routerLink]="'/v/post/' + post.id + '/edit'"
                   class="text-gray-700 flex px-4 py-2 text-sm stroke cursor-pointer hover:bg-gray-100"
                   role="menuitem"
@@ -189,6 +191,8 @@
                   <span>Copy Link</span>
                 </a>
                 <a
+                *ngIf="isMyPost()"
+
                   href="#"
                   class="text-gray-700 flex px-4 py-2 text-sm cursor-pointer hover:bg-gray-100"
                   role="menuitem"

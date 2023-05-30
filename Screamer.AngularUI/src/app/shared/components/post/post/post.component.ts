@@ -15,9 +15,10 @@ import {
 } from '@angular/animations';
 import { UserService } from 'src/app/core/services/user.service';
 import { User } from 'src/app/core/models/User';
-import { take } from 'rxjs';
+import { filter, take } from 'rxjs';
 import { ClipboardService } from 'ngx-clipboard';
 import { LocationStrategy, isPlatformBrowser } from '@angular/common';
+import { NavigationEnd, Router } from '@angular/router';
 
 @Component({
   selector: 'app-post',
@@ -47,14 +48,31 @@ import { LocationStrategy, isPlatformBrowser } from '@angular/common';
 export class PostComponent {
   @Input() post!: Post;
   @Input() preview: boolean = false;
-
+  currentUser!: User;
   user!: User;
   constructor(
     private userService: UserService,
     private clipboardService: ClipboardService,
-    @Inject(PLATFORM_ID) private platformId: Object
-  ) {}
+    @Inject(PLATFORM_ID) private platformId: Object,
+    private router: Router
+  ) {
+    this.userService
+      .getCurrentUserData()
+      .pipe(take(1))
+      .subscribe({
+        next: (user: any) => {
+          this.currentUser = user;
+        },
+      });
+  }
 
+  isMyPost() {
+    return this.currentUser?.id == this.post.userId;
+  }
+
+  isOnCurrentPost() {
+    return this.router.url == '/v/post/' + this.post.id;
+  }
   getAppPath(): string {
     if (isPlatformBrowser(this.platformId)) {
       return window.location.origin;
