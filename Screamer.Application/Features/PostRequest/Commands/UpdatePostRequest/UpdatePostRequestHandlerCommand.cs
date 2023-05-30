@@ -12,32 +12,37 @@ using Screamer.Identity.Models;
 
 namespace Screamer.Application.Features.PostRequest.Commands.UpdatePostRequest
 {
-    public class UpdatePostRequestHandlerCommand :
-    IRequestHandler<
-        UpdatePostRequestCommand,
-        Unit
-    >
+    public class UpdatePostRequestHandlerCommand : IRequestHandler<UpdatePostRequestCommand, Unit>
     {
         private readonly IPostRepository _postRepository;
         private readonly IMapper _mapper;
+
         private readonly IUnitOfWork _uow;
-        public UpdatePostRequestHandlerCommand(IPostRepository postRepository, IMapper mapper,
-        IUnitOfWork uow
+        private readonly IAlgoliaService _algoliaService;
+
+        public UpdatePostRequestHandlerCommand(
+            IPostRepository postRepository,
+            IMapper mapper,
+            IUnitOfWork uow,
+            IAlgoliaService algoliaService
         )
         {
             _postRepository = postRepository;
             _mapper = mapper;
             _uow = uow;
+            _algoliaService = algoliaService;
         }
 
-        public async Task<Unit> Handle(UpdatePostRequestCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(
+            UpdatePostRequestCommand request,
+            CancellationToken cancellationToken
+        )
         {
             var validator = new UpdatePostRequestCommandValidator();
             var validationResult = await validator.ValidateAsync(request);
             if (validationResult.IsValid)
             {
-                throw new BadRequestException
-                (
+                throw new BadRequestException(
                     $"Command validation errors for type {typeof(UpdatePostRequestCommand).Name}",
                     validationResult.Errors
                 );
@@ -45,21 +50,20 @@ namespace Screamer.Application.Features.PostRequest.Commands.UpdatePostRequest
 
             var user = await _uow.UserRepository.GetUserByIdAsync(request.UserId);
 
-            if (user == null) throw new NotFoundException(
-                nameof(ApplicationUser), request.UserId);
+            if (user == null)
+                throw new NotFoundException(nameof(ApplicationUser), request.UserId);
             var post = await _postRepository.GetByIdAsync(request.postId);
-            if (post == null) throw new NotFoundException(
-                nameof(Post), request.postId.ToString());
-
+            if (post == null)
+                throw new NotFoundException(nameof(Post), request.postId.ToString());
 
             var postInputDto = _mapper.Map<PostInputDto>(request);
             _mapper.Map(postInputDto, post);
 
             await _uow.PostRepository.UpdateAsync(post);
+            var posts = await _uow.PostRepository.GetAllAsync();
+            await _algoliaService.AddAllPostsToIndex("post", posts);
             await _uow.Complete();
             return Unit.Value;
-
-
         }
     }
 }

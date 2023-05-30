@@ -19,7 +19,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { PostComponent } from './components/post/post/post.component';
 import { AddPostFormComponent } from './components/post/add-post-form/add-post-form.component';
 import { AddPostComponent } from './components/post/add-post/add-post.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SafeHtmlPipe } from './pipes/safe-html-pipe.pipe';
 
 import { UserCardComponent } from './components/card/user-card/user-card.component';
@@ -51,6 +51,7 @@ import { CommentInputComponent } from './components/post/comment-input/comment-i
 import { IntlModule } from 'angular-ecmascript-intl';
 import { DateStuffPipe } from './pipes/date-stuff.pipe';
 import { ClipboardModule } from 'ngx-clipboard';
+import { SearchComponent } from './components/search/search/search.component';
 
 @NgModule({
   declarations: [
@@ -91,6 +92,7 @@ import { ClipboardModule } from 'ngx-clipboard';
     CommentSectionComponent,
     CommentInputComponent,
     DateStuffPipe,
+    SearchComponent,
   ],
   imports: [
     CommonModule,
@@ -103,6 +105,8 @@ import { ClipboardModule } from 'ngx-clipboard';
     CarouselModule,
     IntlModule,
     ClipboardModule,
+    FormsModule
+
   ],
   exports: [
     MyDirectiveDirective,

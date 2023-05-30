@@ -23,6 +23,7 @@
     "@dicebear/collection": "^6.0.3",
     "@dicebear/core": "^6.0.3",
     "@microsoft/signalr": "^7.0.5",
+    "algoliasearch": "^4.17.1",
     "angular-ecmascript-intl": "^1.0.0",
     "font-awesome": "^4.7.0",
     "i": "^0.3.7",

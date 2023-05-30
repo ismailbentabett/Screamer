@@ -12,26 +12,27 @@ using Screamer.Application.Helpers;
 
 namespace Screamer.Application.Features.PostRequest.Queries.GetAllPostsRequest
 {
-    public class GetAllPostsRequestHandlerQuery : IRequestHandler<
-        GetAllPostsRequestQuery,
-        List<PostDto>
-    >
+    public class GetAllPostsRequestHandlerQuery
+        : IRequestHandler<GetAllPostsRequestQuery, List<PostDto>>
     {
         private readonly IPostRepository _postRepository;
         private readonly IMapper _mapper;
 
         private readonly IUnitOfWork _uow;
 
-                private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
         private readonly IAppLogger<GetAllPostsRequestHandlerQuery> _logger;
 
+        private readonly IAlgoliaService _algoliaService;
 
-
-        public GetAllPostsRequestHandlerQuery(IPostRepository postRepository, IMapper mapper,
+        public GetAllPostsRequestHandlerQuery(
+            IPostRepository postRepository,
+            IMapper mapper,
             IAppLogger<GetAllPostsRequestHandlerQuery> logger,
             IUnitOfWork uow,
-            IHttpContextAccessor httpContextAccessor
+            IHttpContextAccessor httpContextAccessor,
+            IAlgoliaService algoliaService
         )
         {
             _postRepository = postRepository;
@@ -39,18 +40,27 @@ namespace Screamer.Application.Features.PostRequest.Queries.GetAllPostsRequest
             _logger = logger;
             _uow = uow;
             _httpContextAccessor = httpContextAccessor;
+            _algoliaService = algoliaService;
         }
 
-        public async Task<List<PostDto>> Handle(GetAllPostsRequestQuery request, CancellationToken cancellationToken)
+        public async Task<List<PostDto>> Handle(
+            GetAllPostsRequestQuery request,
+            CancellationToken cancellationToken
+        )
         {
-          
             var posts = await _uow.PostRepository.GetAllAsync(request.postParams);
 
             HttpContext httpContext = _httpContextAccessor.HttpContext;
             HttpResponse Response = httpContext.Response;
-            Response.AddPaginationHeader(new PaginationHeader(posts.CurrentPage, posts.PageSize,
-              posts.TotalCount, posts.TotalPages));
-
+            Response.AddPaginationHeader(
+                new PaginationHeader(
+                    posts.CurrentPage,
+                    posts.PageSize,
+                    posts.TotalCount,
+                    posts.TotalPages
+                )
+            );
+            await _algoliaService.AddAllPostsToIndex("post", posts);
             var data = _mapper.Map<List<PostDto>>(posts);
 
             return data;

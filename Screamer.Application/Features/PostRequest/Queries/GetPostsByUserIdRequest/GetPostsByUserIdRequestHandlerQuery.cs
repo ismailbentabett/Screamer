@@ -25,13 +25,15 @@ namespace Screamer.Application.Features.PostRequest.Queries.GetPostRequest
         private readonly IUnitOfWork _uow;
 
         private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IAlgoliaService _algoliaService;
 
         public GetPostByUserIdRequestHandlerQuery(
             IPostRepository postRepository,
             IMapper mapper,
             IAppLogger<GetPostByUserIdRequestHandlerQuery> logger,
             IUnitOfWork uow,
-            IHttpContextAccessor httpContextAccessor
+            IHttpContextAccessor httpContextAccessor,
+            IAlgoliaService algoliaService
         )
         {
             _postRepository = postRepository;
@@ -39,6 +41,7 @@ namespace Screamer.Application.Features.PostRequest.Queries.GetPostRequest
             _logger = logger;
             _uow = uow;
             _httpContextAccessor = httpContextAccessor;
+            _algoliaService = algoliaService;
         }
 
         public async Task<List<PostDto>> Handle(
@@ -61,7 +64,7 @@ namespace Screamer.Application.Features.PostRequest.Queries.GetPostRequest
                     posts.TotalPages
                 )
             );
-
+            await _algoliaService.AddAllPostsToIndex("post", posts);
             var data = _mapper.Map<List<Post>>(posts);
             return _mapper.Map<List<PostDto>>(data);
         }

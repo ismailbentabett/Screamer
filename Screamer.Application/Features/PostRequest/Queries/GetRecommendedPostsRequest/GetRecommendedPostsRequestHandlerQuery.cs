@@ -19,22 +19,24 @@ namespace Screamer.Application.Features.PostRequest.Queries.GetRecommendedPostsR
         private readonly IMapper _mapper;
 
         private readonly IUnitOfWork _uow;
+        private readonly IAlgoliaService _algoliaService;
 
         private readonly IHttpContextAccessor _httpContextAccessor;
 
-       public  GetRecommendedPostsRequestHandlerQuery(
+        public GetRecommendedPostsRequestHandlerQuery(
             IPostRepository postRepository,
             IMapper mapper,
             IUnitOfWork uow,
-            IHttpContextAccessor httpContextAccessor
+            IHttpContextAccessor httpContextAccessor,
+            IAlgoliaService algoliaService
         )
         {
             _postRepository = postRepository;
             _mapper = mapper;
             _uow = uow;
             _httpContextAccessor = httpContextAccessor;
+            _algoliaService = algoliaService;
         }
-
 
         public async Task<List<PostDto>> Handle(
             GetRecommendedPostsRequestQuery request,
@@ -53,7 +55,7 @@ namespace Screamer.Application.Features.PostRequest.Queries.GetRecommendedPostsR
                     posts.TotalPages
                 )
             );
-
+            await _algoliaService.AddAllPostsToIndex("post", posts);
             var data = _mapper.Map<List<PostDto>>(posts);
 
             return data;

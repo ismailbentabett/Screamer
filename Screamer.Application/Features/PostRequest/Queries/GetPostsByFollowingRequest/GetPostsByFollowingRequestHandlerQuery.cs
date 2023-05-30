@@ -24,13 +24,15 @@ namespace Screamer.Application.Features.PostRequest.Queries.GetPostsByFollowingR
 
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IAppLogger<GetPostsByFollowingRequestQuery> _logger;
+        private readonly IAlgoliaService _algoliaService;
 
         public GetPostsByFollowingRequestHandlerQuery(
             IPostRepository postRepository,
             IMapper mapper,
             IAppLogger<GetPostsByFollowingRequestQuery> logger,
             IUnitOfWork uow,
-            IHttpContextAccessor httpContextAccessor
+            IHttpContextAccessor httpContextAccessor,
+            IAlgoliaService algoliaService
         )
         {
             _postRepository = postRepository;
@@ -39,6 +41,7 @@ namespace Screamer.Application.Features.PostRequest.Queries.GetPostsByFollowingR
             _uow = uow;
 
             _httpContextAccessor = httpContextAccessor;
+            _algoliaService = algoliaService;
         }
 
         public async Task<List<PostDto>> Handle(
@@ -57,7 +60,7 @@ namespace Screamer.Application.Features.PostRequest.Queries.GetPostsByFollowingR
             );
 
             var postsDto = _mapper.Map<List<PostDto>>(posts);
-
+            await _algoliaService.AddAllPostsToIndex("post", posts);
             HttpContext httpContext = _httpContextAccessor.HttpContext;
             HttpResponse Response = httpContext.Response;
             Response.AddPaginationHeader(

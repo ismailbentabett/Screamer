@@ -22,18 +22,21 @@ namespace Screamer.Application.Features.PostRequest.Queries.GetMostRecentPostsRe
         private readonly IUnitOfWork _uow;
 
         private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IAlgoliaService _algoliaService;
 
         public GetMostRecentPostsRequestHandlerQuery(
             IPostRepository postRepository,
             IMapper mapper,
             IUnitOfWork uow,
-            IHttpContextAccessor httpContextAccessor
+            IHttpContextAccessor httpContextAccessor,
+            IAlgoliaService algoliaService
         )
         {
             _postRepository = postRepository;
             _mapper = mapper;
             _uow = uow;
             _httpContextAccessor = httpContextAccessor;
+            _algoliaService = algoliaService;
         }
 
         public async Task<List<PostDto>> Handle(
@@ -53,7 +56,7 @@ namespace Screamer.Application.Features.PostRequest.Queries.GetMostRecentPostsRe
                     posts.TotalPages
                 )
             );
-
+            await _algoliaService.AddAllPostsToIndex("post", posts);
             var data = _mapper.Map<List<PostDto>>(posts);
 
             return data;
