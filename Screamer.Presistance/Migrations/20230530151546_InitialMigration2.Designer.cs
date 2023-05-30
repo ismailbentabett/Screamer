@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Screamer.Presistance.DatabaseContext;
 
@@ -11,9 +12,11 @@ using Screamer.Presistance.DatabaseContext;
 namespace Screamer.Presistance.Migrations
 {
     [DbContext(typeof(ScreamerDbContext))]
-    partial class ScreamerDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230530151546_InitialMigration2")]
+    partial class InitialMigration2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -246,10 +249,6 @@ namespace Screamer.Presistance.Migrations
 
                     b.Property<string>("ImageUrl")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ObjectID")
-                        .HasColumnType("nvarchar(max)")
-                        .HasAnnotation("Relational:JsonPropertyName", "objectID");
 
                     b.Property<string>("PostImageUrl")
                         .HasColumnType("nvarchar(max)");
@@ -910,7 +909,7 @@ namespace Screamer.Presistance.Migrations
                         {
                             Id = "8e445865-a24d-4543-a6c6-9443d048cdb9",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "8571051c-8173-4b3b-95c8-81783be682e5",
+                            ConcurrencyStamp = "1182fb1f-71ce-475b-b651-9d3193d697d3",
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "admin@localhost.com",
                             EmailConfirmed = true,
@@ -919,9 +918,9 @@ namespace Screamer.Presistance.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@LOCALHOST.COM",
                             NormalizedUserName = "ADMIN@LOCALHOST.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEPssPmGkUMKocMa5CS7+HGDuzvvp7Rw2YvfsT7l20V4TsgiZwufAkLpIqtYccnBYDw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEIt3tjkjQCJdje0dUTskQ2MHFxuQ6K+uO6c03F80hXAUfLjXFm1PtzAq8lUPzzgIjA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "f76300e1-5579-4337-ab9e-752193cd2998",
+                            SecurityStamp = "56b74f25-9797-4129-ae58-4d0e43edb983",
                             TwoFactorEnabled = false,
                             UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UserName = "admin@localhost.com"
@@ -930,7 +929,7 @@ namespace Screamer.Presistance.Migrations
                         {
                             Id = "9e224968-33e4-4652-b7b7-8574d048cdb9",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "9b0a06e5-688c-4587-ad80-bc5b6172bcd5",
+                            ConcurrencyStamp = "40c7939f-3fbc-4e29-9c68-364d96f456dd",
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "user@localhost.com",
                             EmailConfirmed = true,
@@ -939,9 +938,9 @@ namespace Screamer.Presistance.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "USER@LOCALHOST.COM",
                             NormalizedUserName = "USER@LOCALHOST.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEGXKflmDUU6V59c5knPegkWBrE+DgFV7cCwSP2eV4LENC+ksla1Tf1wNRh2e/8RLOA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEKbuwulqsKdm2Fch46vZVapuETPULEyXX/niH5Hsx7lTPabrs/Rk0ETmSGQF1cZseg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "19735c34-5ac8-47b1-a78a-31e6263b5967",
+                            SecurityStamp = "b3ba9825-c5de-4cb4-89c3-361c60872451",
                             TwoFactorEnabled = false,
                             UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UserName = "user@localhost.com"
@@ -950,7 +949,7 @@ namespace Screamer.Presistance.Migrations
                         {
                             Id = "9e224968-33e4-4652-b7b7-agfddsr",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "951a9bde-0f28-4594-b0cb-c4a8e66f069e",
+                            ConcurrencyStamp = "3695f653-8a32-4f1b-97cc-7c431e9a4a63",
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "mod@localhost.com",
                             EmailConfirmed = true,
@@ -959,9 +958,9 @@ namespace Screamer.Presistance.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "MOD@LOCALHOST.COM",
                             NormalizedUserName = "MOD@LOCALHOST.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEG0SpUztpect45DjmbriNIcpv4vadqcPgR6sNR/QtHbZOsBVl1Ph6iG9LUq1bTV1iA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEBckGjtZBmQ5NNIY4T5zp0njZEk3lWkBusBz5Zg0azdJhxT4ygc6FEtACD3Sj8ryNg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "1e492965-c999-480f-8eb5-9be370257a20",
+                            SecurityStamp = "579f1454-213f-49b9-90d9-2cfa0dbcc1fe",
                             TwoFactorEnabled = false,
                             UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UserName = "mod@localhost.com"

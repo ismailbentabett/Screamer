@@ -89,7 +89,6 @@ namespace Screamer.Presistance.Repositories
 
             follows = follows.Where(follow => follow.SourceUserId == recommendationParams.UserId);
             users = follows.Select(follow => follow.TargetUser);
-          
 
             var posts = _context.Posts
                 .Where(p => users.Any(u => u.Id == p.UserId))
@@ -133,6 +132,13 @@ namespace Screamer.Presistance.Repositories
                 postParams.PageNumber,
                 postParams.PageSize
             );
+        }
+
+        async Task<IEnumerable<Post>> IPostRepository.GetAllPosts()
+        {
+            var query = _context.Posts;
+
+            return await query.ToListAsync();
         }
     }
 }

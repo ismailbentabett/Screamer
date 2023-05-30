@@ -22,5 +22,9 @@ namespace Screamer.Application.Contracts.Presistance
         );
         Task<PagedList<Post>> GetMostRecentPosts(PostParams postParams);
         Task<PagedList<Post>> GetRecommendedPosts(PostParams postParams);
+
+        //IEnumerable<Post> getallpostsforsearch
+
+        public Task<IEnumerable<Post>> GetAllPosts();
     }
 }
