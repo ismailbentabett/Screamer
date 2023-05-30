@@ -48,8 +48,9 @@ import { HappyComponent } from './components/reactions/happy/happy.component';
 import { ExcitedComponent } from './components/reactions/excited/excited.component';
 import { CommentSectionComponent } from './components/post/comment-section/comment-section.component';
 import { CommentInputComponent } from './components/post/comment-input/comment-input.component';
-import {IntlModule} from 'angular-ecmascript-intl';
+import { IntlModule } from 'angular-ecmascript-intl';
 import { DateStuffPipe } from './pipes/date-stuff.pipe';
+import { ClipboardModule } from 'ngx-clipboard';
 
 @NgModule({
   declarations: [
@@ -100,7 +101,8 @@ import { DateStuffPipe } from './pipes/date-stuff.pipe';
     ReactiveFormsModule,
     InfiniteScrollModule,
     CarouselModule,
-    IntlModule
+    IntlModule,
+    ClipboardModule,
   ],
   exports: [
     MyDirectiveDirective,
@@ -138,7 +140,6 @@ import { DateStuffPipe } from './pipes/date-stuff.pipe';
     ExcitedComponent,
     CommentSectionComponent,
     CommentInputComponent,
-
   ],
   providers: [],
 })

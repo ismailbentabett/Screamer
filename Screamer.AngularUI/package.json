@@ -30,6 +30,7 @@
     "moment": "^2.29.4",
     "ng2-file-upload": "^3.0.0",
     "ngx-bootstrap": "^10.2.0",
+    "ngx-clipboard": "^16.0.0",
     "ngx-infinite-scroll": "^16.0.0",
     "ngx-moment": "^6.0.2",
     "ngx-owl-carousel": "^2.0.7",

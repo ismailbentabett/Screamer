@@ -7,19 +7,26 @@
       <div class="flex space-x-3">
         <div class="flex-shrink-0">
           <app-avatar
+            [routerLink]="['/v/user', post.userId]"
             *ngIf="user"
             [user]="user"
+            class="cursor-pointer"
             avatarStyle="h-8 w-8 rounded-full ring-4 ring-white sm:h-10 sm:w-10"
           ></app-avatar>
         </div>
         <div class="min-w-0 flex-1">
           <p class="text-sm font-medium text-gray-900">
-            <a href="#" class="hover:underline" *ngIf="user">
+            <a
+              href="#"
+              class="hover:underline"
+              *ngIf="user"
+              [routerLink]="['/v/user', post.userId]"
+            >
               {{ user.firstName ?? "N/A" }} {{ user.lastName ?? "N/A" }}</a
             >
           </p>
           <p class="text-sm text-gray-500">
-            <a href="#" class="hover:underline">
+            <a [routerLink]="['/v/user', post.userId]" class="hover:underline">
               <time>{{ post.createdAt | dateStuff | intlRelativeTime }} </time>
             </a>
           </p>
@@ -70,11 +77,34 @@
               aria-labelledby="options-menu-0-button"
               tabindex="-1"
             >
-              <div class="py-1" role="none">
+              <div class="" role="none">
                 <!-- Active: "bg-gray-100 text-gray-900", Not Active: "text-gray-700" -->
                 <a
-                  href="#"
-                  class="text-gray-700 flex px-4 py-2 text-sm stroke"
+                  [routerLink]="'/v/post/' + post.id"
+                  target="_blank"
+                  class="text-gray-700 flex px-4 py-2 text-sm stroke cursor-pointer hover:bg-gray-100"
+                  role="menuitem"
+                  tabindex="-1"
+                  id="options-menu-0-item-0"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    class="mr-3 h-5 w-5 text-gray-400 stroke-current"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M15.75 2.25H21a.75.75 0 01.75.75v5.25a.75.75 0 01-1.5 0V4.81L8.03 17.03a.75.75 0 01-1.06-1.06L19.19 3.75h-3.44a.75.75 0 010-1.5zm-10.5 4.5a1.5 1.5 0 00-1.5 1.5v10.5a1.5 1.5 0 001.5 1.5h10.5a1.5 1.5 0 001.5-1.5V10.5a.75.75 0 011.5 0v8.25a3 3 0 01-3 3H5.25a3 3 0 01-3-3V8.25a3 3 0 013-3h8.25a.75.75 0 010 1.5H5.25z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
+
+                  <span>Go To Post</span>
+                </a>
+                <a
+                  [routerLink]="'/v/post/' + post.id + '/edit'"
+                  class="text-gray-700 flex px-4 py-2 text-sm stroke cursor-pointer hover:bg-gray-100"
                   role="menuitem"
                   tabindex="-1"
                   id="options-menu-0-item-0"
@@ -97,7 +127,7 @@
                 </a>
                 <a
                   href="#"
-                  class="text-gray-700 flex px-4 py-2 text-sm"
+                  class="text-gray-700 flex px-4 py-2 text-sm cursor-pointer hover:bg-gray-100"
                   role="menuitem"
                   tabindex="-1"
                   id="options-menu-0-item-0"
@@ -119,14 +149,16 @@
                   <span>Bookmark</span>
                 </a>
                 <a
-                  href="#"
-                  class="text-gray-700 flex px-4 py-2 text-sm"
+                  (click)="copyPostLink()"
+                  class="text-gray-700 flex px-4 py-2 text-sm cursor-pointer hover:bg-gray-100"
                   role="menuitem"
                   tabindex="-1"
                   id="options-menu-0-item-1"
                 >
                   <!-- Heroicon name: solid/code -->
+
                   <svg
+                    *ngIf="!isCopied"
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
                     viewBox="0 0 24 24"
@@ -139,12 +171,26 @@
                       d="M16.5 8.25V6a2.25 2.25 0 00-2.25-2.25H6A2.25 2.25 0 003.75 6v8.25A2.25 2.25 0 006 16.5h2.25m8.25-8.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-7.5A2.25 2.25 0 018.25 18v-1.5m8.25-8.25h-6a2.25 2.25 0 00-2.25 2.25v6"
                     />
                   </svg>
+                  <svg
+                    *ngIf="isCopied"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    class="mr-3 h-5 w-5 text-gray-900"
+                  >
+                    <path
+                      d="M16.5 6a3 3 0 00-3-3H6a3 3 0 00-3 3v7.5a3 3 0 003 3v-6A4.5 4.5 0 0110.5 6h6z"
+                    />
+                    <path
+                      d="M18 7.5a3 3 0 013 3V18a3 3 0 01-3 3h-7.5a3 3 0 01-3-3v-7.5a3 3 0 013-3H18z"
+                    />
+                  </svg>
 
                   <span>Copy Link</span>
                 </a>
                 <a
                   href="#"
-                  class="text-gray-700 flex px-4 py-2 text-sm"
+                  class="text-gray-700 flex px-4 py-2 text-sm cursor-pointer hover:bg-gray-100"
                   role="menuitem"
                   tabindex="-1"
                   id="options-menu-0-item-1"
@@ -170,7 +216,7 @@
                 </a>
                 <a
                   href="#"
-                  class="text-gray-700 flex px-4 py-2 text-sm"
+                  class="text-gray-700 flex px-4 py-2 text-sm cursor-pointer hover:bg-gray-100"
                   role="menuitem"
                   tabindex="-1"
                   id="options-menu-0-item-2"

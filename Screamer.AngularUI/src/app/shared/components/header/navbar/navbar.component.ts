@@ -91,8 +91,8 @@ export class NavbarComponent {
       this.router.isActive(route, false) || this.router.isActive(route, true);
 
     return isActive
-      ? 'block py-2 px-4 text-sm text-gray-700 cursor-pointer bg-gray-100'
-      : 'block py-2 px-4 text-sm text-gray-700 cursor-pointer';
+      ? 'block py-2 px-4 text-sm text-gray-700 cursor-pointer bg-gray-100 hover:bg-gray-100'
+      : 'block py-2 px-4 text-sm text-gray-700 cursor-pointer hover:bg-gray-100';
   }
 
   //oninit

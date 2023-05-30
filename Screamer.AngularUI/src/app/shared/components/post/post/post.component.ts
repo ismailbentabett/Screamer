@@ -1,4 +1,10 @@
-import { Component, Input, SimpleChange } from '@angular/core';
+import {
+  Component,
+  Inject,
+  Input,
+  PLATFORM_ID,
+  SimpleChange,
+} from '@angular/core';
 import { Post } from 'src/app/core/models/Post';
 import {
   trigger,
@@ -10,6 +16,8 @@ import {
 import { UserService } from 'src/app/core/services/user.service';
 import { User } from 'src/app/core/models/User';
 import { take } from 'rxjs';
+import { ClipboardService } from 'ngx-clipboard';
+import { LocationStrategy, isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-post',
@@ -41,8 +49,30 @@ export class PostComponent {
   @Input() preview: boolean = false;
 
   user!: User;
-  constructor(private userService: UserService) {}
+  constructor(
+    private userService: UserService,
+    private clipboardService: ClipboardService,
+    @Inject(PLATFORM_ID) private platformId: Object
+  ) {}
 
+  getAppPath(): string {
+    if (isPlatformBrowser(this.platformId)) {
+      return window.location.origin;
+    } else {
+      // Handle server-side rendering scenario if applicable
+      return ''; // or any default value
+    }
+  }
+  isCopied: boolean = false;
+  copyPostLink() {
+    this.clipboardService.copyFromContent(
+      this.getAppPath() + '/v/post/' + this.post.id
+    );
+    this.isCopied = true;
+    setTimeout(() => {
+      this.isCopied = false;
+    }, 1000);
+  }
   ngOnChanges(changes: any): void {
     if (changes['post'] && this.post) {
       this.userService.getUserById(this.post.userId.toString()).subscribe({
