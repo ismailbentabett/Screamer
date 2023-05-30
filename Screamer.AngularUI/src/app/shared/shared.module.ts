@@ -105,7 +105,7 @@ import { SearchComponent } from './components/search/search/search.component';
     CarouselModule,
     IntlModule,
     ClipboardModule,
-    FormsModule
+    FormsModule,
 
   ],
   exports: [

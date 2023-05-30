@@ -14,8 +14,11 @@ export class SearchService {
     this.client = algoliasearch(this.ApplicationId, this.APIKey);
     this.index = this.client.initIndex('post');
   }
-
-  search(query: string) {
-    return this.index.search(query);
+ /* requestOptions?: RequestOptions & SearchOptions */
+  searchOptions : any = {
+  hitsPerPage: 10, // Number of results to retrieve per index
+};
+  search(query: string ) {
+    return this.index.search(query , this.searchOptions);
   }
 }
