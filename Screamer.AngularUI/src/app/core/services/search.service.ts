@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import algoliasearch from 'algoliasearch';
+import { environment } from './../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -7,12 +8,10 @@ import algoliasearch from 'algoliasearch';
 export class SearchService {
   private client: any;
   private index: any;
-
+  ApplicationId = environment.ApplicationId;
+  APIKey = environment.APIKey;
   constructor() {
-    this.client = algoliasearch(
-      'M5MXJTPNYY',
-      '432541b28332ed3c76ac1103ec7ca3ce'
-    );
+    this.client = algoliasearch(this.ApplicationId, this.APIKey);
     this.index = this.client.initIndex('post');
   }
 
