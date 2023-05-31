@@ -1,9 +1,15 @@
 // search.component.ts
 
-import { Component } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+  SimpleChanges,
+  ViewChild,
+} from '@angular/core';
+import { InfiniteScrollDirective } from 'ngx-infinite-scroll';
 import { SearchService } from 'src/app/core/services/search.service';
-
-
 
 @Component({
   selector: 'app-search',
@@ -11,18 +17,13 @@ import { SearchService } from 'src/app/core/services/search.service';
 })
 export class SearchComponent {
   searchQuery: string = '';
-  searchResults: any;
 
-  constructor(private algoliaService: SearchService) {}
+  constructor(public searchService: SearchService) {}
 
-  onSearch() {
-    this.algoliaService.search(this.searchQuery)
-      .then((response: any) => {
-        console.log(response)
-        this.searchResults = response;
-      })
-      .catch((error: any) => {
-        console.error('Algolia search error:', error);
-      });
+  search() {
+    this.searchService.setSearchQuery(this.searchQuery);
+    this.searchService.search().then((data)=>{
+      console.log(data);
+    })
   }
 }

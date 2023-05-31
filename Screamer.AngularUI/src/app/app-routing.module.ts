@@ -59,6 +59,11 @@ const routes: Routes = [
         loadChildren: () =>
           import('./features/Post/post.module').then((m) => m.PostModule),
       },
+      {
+        path: 'search',
+        loadChildren: () =>
+          import('./features/Search/search.module').then((m) => m.SearchModule),
+      },
     ],
   },
 

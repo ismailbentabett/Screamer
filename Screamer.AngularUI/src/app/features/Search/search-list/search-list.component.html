@@ -1,0 +1,9 @@
+<ul>
+  <li *ngFor="let result of searchService.searchResults | async">{{ result | json }}</li>
+</ul>
+
+<!-- Load more button -->
+<div infiniteScroll (scrolled)="loadMore()" [infiniteScrollDistance]="2">
+  <button *ngIf="hasMoreResults">Load More</button>
+  <div *ngIf="!hasMoreResults">No more results</div>
+</div>
