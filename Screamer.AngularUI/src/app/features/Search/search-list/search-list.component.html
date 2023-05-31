@@ -7,21 +7,48 @@
         <app-sidebar></app-sidebar>
       </div>
       <main class="lg:col-span-9 xl:col-span-6">
-        <div class="mt-4 space-y-4">
-          <ul>
-            <li *ngFor="let result of searchService.searchResults | async">
-              {{ result | json }}
-            </li>
-          </ul>
+        <div class="px-4 sm:px-0">
+          <div class="sm:hidden">
+            <label for="question-tabs" class="sr-only">Select a tab</label>
+            <select
+              id="question-tabs"
+              class="block w-full rounded-md border-gray-300 text-base font-medium text-gray-900 shadow-sm focus:border-dodger-blue-500 focus:ring-dodger-blue-500"
+              (change)="navigateToRoute($event.target.value)"
+            >
+              <option value="/v/search/posts" selected>Recent</option>
 
-          <!-- Load more button -->
-          <div
-            infiniteScroll
-            (scrolled)="loadMore()"
-            [infiniteScrollDistance]="2"
-          >
-            <button *ngIf="hasMoreResults">Load More</button>
-            <div *ngIf="!hasMoreResults">No more results</div>
+              <option value="/v/search/users">For You</option>
+            </select>
+          </div>
+          <div class="hidden sm:block">
+            <nav
+              class="relative z-0 rounded-lg shadow flex divide-x divide-gray-200"
+              aria-label="Tabs"
+            >
+              <!-- Current: "text-gray-900", Default: "text-gray-500 hover:text-gray-700" -->
+              <a
+                routerLink="/v/search/posts"
+                aria-current="page"
+                [ngClass]="TabStyle('/v/search/posts')"
+              >
+                <span>Posts</span>
+                <span
+                  aria-hidden="true"
+                  [ngClass]="LineStyle('/v/search/posts')"
+                ></span>
+              </a>
+
+              <a
+                routerLink="/v/feed/users"
+                [ngClass]="TabStyle('/v/search/users')"
+              >
+                <span>Users</span>
+                <span
+                  aria-hidden="true"
+                  [ngClass]="LineStyle('/v/search/users')"
+                ></span>
+              </a>
+            </nav>
           </div>
         </div>
       </main>
