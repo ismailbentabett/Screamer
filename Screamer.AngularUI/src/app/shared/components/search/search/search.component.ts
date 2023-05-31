@@ -2,9 +2,11 @@
 
 import {
   Component,
+  ElementRef,
   EventEmitter,
   Input,
   Output,
+  Renderer2,
   SimpleChanges,
   ViewChild,
 } from '@angular/core';
@@ -45,13 +47,25 @@ import { head } from 'lodash';
   ],
 })
 export class SearchComponent {
-  searchQuery: string = '';
+  @ViewChild('searchInput') searchInput!: ElementRef;
 
-  constructor(public searchService: SearchService) {}
+  constructor(
+    public searchService: SearchService,
+    private renderer: Renderer2
+  ) {}
+  ngAfterViewInit() {
+    this.renderer.selectRootElement(this.searchInput.nativeElement).focus();
+  }
+  onInputFocus() {
 
+      this.renderer.selectRootElement(this.searchInput.nativeElement).focus();
+
+  }
   search() {
-    this.searchService.setSearchQuery(this.searchQuery);
-    this.searchService.search().then((data) => {
+
+    this.searchService.setSearchQuery(this.searchService.searchQuery);
+    this.openSearchModal();
+    this.searchService.search()!.then((data) => {
       console.log(this.searchService.searchResults);
     });
   }
@@ -62,15 +76,7 @@ export class SearchComponent {
     this.isOpen = !this.isOpen;
   }
 
-  getFirstImage(array: any) {
-    let data: any = head(JSON.parse(array as any));
-    if (data) {
-      return data!.url;
-    }
-    return false;
-  }
-
-  openSearchModal(){
+  openSearchModal() {
     this.searchService.openPopup();
   }
 }

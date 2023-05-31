@@ -12,7 +12,7 @@ export class SearchService {
   public hitsPerPage: number = 10;
   public searchQuery: string = '';
   public currentPage: number = 0;
-  searchResults: BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
+  searchResults: BehaviorSubject<any> = new BehaviorSubject<any>([]);
   public isOpen: boolean = false;
 
   constructor() {
@@ -22,7 +22,6 @@ export class SearchService {
     this.indexes['user'] = this.client.initIndex('user');
     // Add more index names and initialize them as needed
   }
-
 
   openPopup() {
     this.isOpen = true;
@@ -35,8 +34,12 @@ export class SearchService {
   setSearchQuery(query: string) {
     this.searchQuery = query;
   }
+  getSearchQuery() {
+    return this.searchQuery;
+  }
 
   search() {
+    if (this.searchQuery == '') return this.client.multipleQueries([]);
     const queries = Object.values(this.indexes).map((index) => ({
       indexName: index.indexName,
       query: this.searchQuery,
@@ -47,8 +50,15 @@ export class SearchService {
     }));
 
     return this.client.multipleQueries(queries).then((response) => {
-      const results = response.results.map((result) => result.hits).flat();
-      this.searchResults.next(results);
+      //seperate result by index array of objects
+      let results: any = {};
+      response.results.forEach((result: any) => {
+        results[result.index] = result.hits;
+      });
+      const arrayOfObjects = Object.entries(results).map(([key, value]) => ({ key, value }));
+
+      console.log(arrayOfObjects)
+      this.searchResults.next(arrayOfObjects);
       this.currentPage = 0; // Reset current page
     });
   }
