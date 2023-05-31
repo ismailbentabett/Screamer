@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { head } from 'lodash';
 import { SearchService } from 'src/app/core/services/search.service';
 
@@ -11,10 +12,7 @@ export class SearchResultModalComponent {
   /**
    *
    */
-  constructor(public searchService: SearchService) {
-
-  }
-
+  constructor(public searchService: SearchService, private router: Router) {}
 
   openPopup() {
     this.searchService.openPopup();
@@ -24,8 +22,8 @@ export class SearchResultModalComponent {
     this.searchService.closePopup();
   }
 
-  getObjectKey(object: any , index : any) {
-    console.log(object , ' ' , index)
+  getObjectKey(object: any, index: any) {
+    console.log(object, ' ', index);
     return Object.keys(object)[index];
   }
 
@@ -35,5 +33,15 @@ export class SearchResultModalComponent {
       return data!.url;
     }
     return false;
+  }
+
+  routeToResult(id: any, key: any) {
+    if (key == 'post') {
+      this.router.navigate(['/v/post', id]);
+    } else if ((key = 'user')) {
+      this.router.navigate(['/v/user', id]);
+    }
+    this.searchService.searchQuery = '';
+    this.searchService.closePopup();
   }
 }

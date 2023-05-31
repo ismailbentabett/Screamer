@@ -1,13 +1,13 @@
 <!-- This example requires Tailwind CSS v2.0+ -->
 <div
-  class="fixed z-10 inset-0 overflow-y-auto "
+  class="fixed z-10 inset-0 overflow-y-auto"
   aria-labelledby="modal-title"
   role="dialog"
   aria-modal="true"
   id="search-popup"
 >
   <div
-    class="flex items-end justify-center min-h-screen pt-4  pb-20 text-center sm:block sm:p-0 max-h-96"
+    class="flex items-end justify-center min-h-screen pt-4 pb-20 text-center sm:block sm:p-0 max-h-96"
   >
     <div
       class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"
@@ -22,7 +22,7 @@
     >
 
     <div
-      class="inline-block align-bottom bg-white rounded-lg  pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full sm:p-6"
+      class="inline-block align-bottom bg-white rounded-lg pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full sm:p-6"
     >
       <div class="hidden sm:block absolute top-0 right-0 pt-4 pr-4">
         <button
@@ -60,14 +60,18 @@
               *ngFor="let data of this.searchService.searchResults | async"
             >
               <div
-                class="z-10 sticky top-0 border-t border-b border-gray-200 bg-gray-50  py-1 text-sm font-medium text-gray-500"
+                class="z-10 sticky top-0 border-t border-b border-gray-200 bg-gray-50 py-1 text-sm font-medium text-gray-500"
               >
                 <h3>{{ data.key }}s</h3>
               </div>
               <ul role="list" class="relative z-0 divide-y divide-gray-200">
-                <li class="bg-white width-96" *ngFor="let item of data.value">
+                <li
+                  class="bg-white width-96"
+                  *ngFor="let item of data.value"
+                  (click)="routeToResult(item.objectID, data.key)"
+                >
                   <div
-                    class=" py-5 flex items-center space-x-3 hover:bg-gray-50 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-500"
+                    class="py-5 flex items-center space-x-3 hover:bg-gray-50 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-500"
                   >
                     <div class="flex-shrink-0">
                       <img
@@ -81,12 +85,12 @@
                       />
                       <app-avatar
                         *ngIf="!item.postImages"
-                        [user]="item "
+                        [user]="item"
                         avatarStyle="h-8 w-8 rounded-full ring-4 ring-white sm:h-10 sm:w-10"
                       ></app-avatar>
                     </div>
                     <div class="flex-1 min-w-0">
-                      <a href="#" class="focus:outline-none">
+                      <a  class="focus:outline-none">
                         <!-- Extend touch target to entire panel -->
                         <span
                           class="absolute inset-0"
