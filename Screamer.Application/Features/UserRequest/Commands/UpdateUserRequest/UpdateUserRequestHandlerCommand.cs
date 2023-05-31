@@ -26,15 +26,19 @@ namespace Screamer.Application.Features.PostRequest.Commands.UpdatePostRequest
 
         private readonly IUnitOfWork _uow;
 
+        private readonly IAlgoliaService _algoliaService;
+
 
         public UpdateUserRequestHandlerCommand(IUserRepository postRepository, IMapper mapper,
 
-            IUnitOfWork uow
+            IUnitOfWork uow,
+            IAlgoliaService algoliaService
         )
         {
             _userRepository = postRepository;
             _mapper = mapper;
             _uow = uow;
+            _algoliaService = algoliaService;
         }
 
         public async Task<Unit> Handle(UpdateUserRequestCommand request, CancellationToken cancellationToken)
@@ -52,8 +56,16 @@ namespace Screamer.Application.Features.PostRequest.Commands.UpdatePostRequest
 
                 _mapper.Map(request, user, typeof(UpdateUserRequestCommand), typeof(UpdateUserDto));
 
-                if (await _uow.Complete()) return
+                if (await _uow.Complete()){
+
+                      var users = await _uow.UserRepository.GetAllAsync();
+            var userSearchDto = _mapper.Map<IEnumerable<UserSearchResult>>(users);
+
+            await _algoliaService.AddAllUsersToIndex("user", userSearchDto);
+
+            return
                     Unit.Value;
+                } 
 
                 throw new Exception($"Updating user with ID {request.Id} failed on save.");
 

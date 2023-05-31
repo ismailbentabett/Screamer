@@ -21,6 +21,11 @@ namespace Screamer.Application.MappingProfiles
                 .ForMember(dest => dest.Avatars, opt => opt.MapFrom(src => src.Avatars))
                 .ForMember(dest => dest.CoverUrl, opt => opt.MapFrom(src => src.Covers.LastOrDefault().Url))
                 .ForMember(dest => dest.Covers, opt => opt.MapFrom(src => src.Covers));
+            CreateMap<ApplicationUser, UserSearchResult>()
+                 .ForMember(dest => dest.AvatarUrl, opt => opt.MapFrom(src => src.Avatars.LastOrDefault().Url))
+                .ForMember(dest => dest.Avatars, opt => opt.MapFrom(src => src.Avatars))
+                .ForMember(dest => dest.CoverUrl, opt => opt.MapFrom(src => src.Covers.LastOrDefault().Url))
+                .ForMember(dest => dest.Covers, opt => opt.MapFrom(src => src.Covers));
 
             CreateMap<UpdateUserRequestCommand, UpdateUserDto>().ReverseMap();
             CreateMap<UpdateUserRequestCommand, ApplicationUser>().ReverseMap();

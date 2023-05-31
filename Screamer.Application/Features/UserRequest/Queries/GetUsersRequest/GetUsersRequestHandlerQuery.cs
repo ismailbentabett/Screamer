@@ -1,4 +1,3 @@
-
 using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Http;
@@ -9,32 +8,37 @@ using Screamer.Application.Helpers;
 
 namespace Screamer.Application.Features.UserRequest.Queries.GetUsersRequest
 {
-    public class GetUsersRequestHandlerQuery : IRequestHandler<
-        GetUsersRequestQuery,
-        List<UserDto>
-    >
+    public class GetUsersRequestHandlerQuery : IRequestHandler<GetUsersRequestQuery, List<UserDto>>
     {
         private readonly IUserRepository _userRepository;
         private readonly IMapper _mapper;
+
         private readonly IUnitOfWork _uow;
+
+        private readonly IAlgoliaService _algoliaService;
+
         private readonly IHttpContextAccessor _httpContextAccessor;
 
-
-        public GetUsersRequestHandlerQuery(IUserRepository userRepository, IMapper mapper,
+        public GetUsersRequestHandlerQuery(
+            IUserRepository userRepository,
+            IMapper mapper,
             IUnitOfWork uow,
-            IHttpContextAccessor httpContextAccessor
-          )
+            IHttpContextAccessor httpContextAccessor,
+            IAlgoliaService algoliaService
+        )
         {
             _userRepository = userRepository;
             _mapper = mapper;
             _uow = uow;
             _httpContextAccessor = httpContextAccessor;
+            _algoliaService = algoliaService;
         }
 
-        public async Task<List<UserDto>> Handle(GetUsersRequestQuery request, CancellationToken cancellationToken)
+        public async Task<List<UserDto>> Handle(
+            GetUsersRequestQuery request,
+            CancellationToken cancellationToken
+        )
         {
-
-
             var currentUser = await _uow.UserRepository.GetUserByIdAsync(request.userId);
             request.userParams.userName = currentUser.UserName;
             request.userParams.AvatarUrl = currentUser.AvatarUrl;
@@ -48,10 +52,6 @@ namespace Screamer.Application.Features.UserRequest.Queries.GetUsersRequest
             request.userParams.LastName = currentUser.LastName;
             request.userParams.CreatedAt = currentUser.CreatedAt;
 
-
-
-
-
             if (string.IsNullOrEmpty(request.userParams.Gender))
             {
                 request.userParams.Gender = currentUser.Gender == "male" ? "female" : "male";
@@ -61,22 +61,20 @@ namespace Screamer.Application.Features.UserRequest.Queries.GetUsersRequest
 
             HttpContext httpContext = _httpContextAccessor.HttpContext;
             HttpResponse Response = httpContext.Response;
-            Response.AddPaginationHeader(new PaginationHeader(users.CurrentPage, users.PageSize,
-              users.TotalCount, users.TotalPages));
-
+            Response.AddPaginationHeader(
+                new PaginationHeader(
+                    users.CurrentPage,
+                    users.PageSize,
+                    users.TotalCount,
+                    users.TotalPages
+                )
+            );
+            var searchusers = await _uow.UserRepository.GetAllAsync();
+            var userSearchDto = _mapper.Map<IEnumerable<UserSearchResult>>(searchusers);
+            await _algoliaService.AddAllUsersToIndex("user", userSearchDto);
             var data = _mapper.Map<List<UserDto>>(users);
 
             return data;
-
         }
-
-
-
-
-
-
-
-
-
     }
 }

@@ -60,7 +60,9 @@ namespace Screamer.Application.Features.PostRequest.Queries.GetAllPostsRequest
                     posts.TotalPages
                 )
             );
-            await _algoliaService.AddAllPostsToIndex("post", posts);
+                                    var postSearchDto = _mapper.Map<IEnumerable<PostSearchResult>>(posts);
+
+            await _algoliaService.AddAllPostsToIndex("post", postSearchDto);
             var data = _mapper.Map<List<PostDto>>(posts);
 
             return data;

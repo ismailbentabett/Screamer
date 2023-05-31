@@ -24,6 +24,13 @@ namespace Screamer.Application.MappingProfiles
                     opt => opt.MapFrom(src => src.PostImages.LastOrDefault().Url)
                 )
                 .ForMember(dest => dest.PostImages, opt => opt.MapFrom(src => src.PostImages));
+            CreateMap<Post, PostSearchResult>()
+                .ReverseMap()
+                .ForMember(
+                    dest => dest.PostImageUrl,
+                    opt => opt.MapFrom(src => src.PostImages.LastOrDefault().Url)
+                )
+                .ForMember(dest => dest.PostImages, opt => opt.MapFrom(src => src.PostImages));
             CreateMap<PostInputDto, Post>().ReverseMap();
             CreateMap<GetAllPostsRequestQuery, PostDto>().ReverseMap();
 

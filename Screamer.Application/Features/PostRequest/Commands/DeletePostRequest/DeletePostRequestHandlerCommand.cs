@@ -6,6 +6,7 @@ using AutoMapper;
 using MediatR;
 using Screamer.Application.Contracts.Exceptions;
 using Screamer.Application.Contracts.Presistance;
+using Screamer.Application.Dtos;
 using Screamer.Domain.Common;
 
 namespace Screamer.Application.Features.PostRequest.Commands.DeletePostRequest
@@ -44,7 +45,9 @@ namespace Screamer.Application.Features.PostRequest.Commands.DeletePostRequest
             }
             await _uow.PostRepository.DeleteAsync(PostToDelete);
             var posts = await _uow.PostRepository.GetAllAsync();
-            await _algoliaService.AddAllPostsToIndex("post", posts);
+            var postSearchDto = _mapper.Map<IEnumerable<PostSearchResult>>(posts);
+
+            await _algoliaService.AddAllPostsToIndex("post", postSearchDto);
             await _uow.Complete();
             return Unit.Value;
         }

@@ -61,7 +61,9 @@ namespace Screamer.Application.Features.PostRequest.Commands.UpdatePostRequest
 
             await _uow.PostRepository.UpdateAsync(post);
             var posts = await _uow.PostRepository.GetAllAsync();
-            await _algoliaService.AddAllPostsToIndex("post", posts);
+                        var postSearchDto = _mapper.Map<IEnumerable<PostSearchResult>>(posts);
+
+            await _algoliaService.AddAllPostsToIndex("post", postSearchDto);
             await _uow.Complete();
             return Unit.Value;
         }

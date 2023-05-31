@@ -60,7 +60,9 @@ namespace Screamer.Application.Features.PostRequest.Queries.GetPostsByFollowingR
             );
 
             var postsDto = _mapper.Map<List<PostDto>>(posts);
-            await _algoliaService.AddAllPostsToIndex("post", posts);
+            var postSearchDto = _mapper.Map<IEnumerable<PostSearchResult>>(posts);
+
+            await _algoliaService.AddAllPostsToIndex("post", postSearchDto);
             HttpContext httpContext = _httpContextAccessor.HttpContext;
             HttpResponse Response = httpContext.Response;
             Response.AddPaginationHeader(

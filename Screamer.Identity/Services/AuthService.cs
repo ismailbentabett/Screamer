@@ -1,4 +1,3 @@
-
 using Screamer.Application.Models.Identity;
 using Screamer.Identity.Models;
 using Microsoft.AspNetCore.Identity;
@@ -9,6 +8,9 @@ using Screamer.Application.Contracts.Identity;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using Screamer.Application.Contracts.Presistance;
+using AutoMapper;
+using Screamer.Application.Dtos;
 
 namespace Screamer.Identity.Services
 {
@@ -17,14 +19,27 @@ namespace Screamer.Identity.Services
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly JwtSettings _jwtSettings;
+        private readonly IUnitOfWork _uow;
+        private readonly IMapper _mapper;
 
-        public AuthService(UserManager<ApplicationUser> userManager,
+        private readonly IAlgoliaService _algoliaService;
+
+        public AuthService(
+            UserManager<ApplicationUser> userManager,
             IOptions<JwtSettings> jwtSettings,
-            SignInManager<ApplicationUser> signInManager)
+            SignInManager<ApplicationUser> signInManager,
+            IUnitOfWork uow,
+            IMapper mapper,
+            IAlgoliaService algoliaService
+        )
         {
             _userManager = userManager;
             _jwtSettings = jwtSettings.Value;
             _signInManager = signInManager;
+            _uow = uow;
+            _mapper = mapper;
+
+            _algoliaService = algoliaService;
         }
 
         public async Task<AuthResponse> Login(AuthRequest request)
@@ -36,7 +51,11 @@ namespace Screamer.Identity.Services
                 throw new NotFoundException($"User with {request.Email} not found.", request.Email);
             }
 
-            var result = await _signInManager.CheckPasswordSignInAsync(user, request.Password, false);
+            var result = await _signInManager.CheckPasswordSignInAsync(
+                user,
+                request.Password,
+                false
+            );
 
             if (result.Succeeded == false)
             {
@@ -52,10 +71,13 @@ namespace Screamer.Identity.Services
                 Email = user.Email,
                 UserName = user.UserName
             };
+            var users = await _uow.UserRepository.GetAllAsync();
+            var userSearchDto = _mapper.Map<IEnumerable<UserSearchResult>>(users);
+
+            await _algoliaService.AddAllUsersToIndex("user", userSearchDto);
 
             return response;
         }
-
 
         public async Task<RegistrationResponse> Register(RegistrationRequest request)
         {
@@ -73,6 +95,10 @@ namespace Screamer.Identity.Services
             if (result.Succeeded)
             {
                 await _userManager.AddToRoleAsync(user, "User");
+                var users = await _uow.UserRepository.GetAllAsync();
+                var userSearchDto = _mapper.Map<IEnumerable<UserSearchResult>>(users);
+
+                await _algoliaService.AddAllUsersToIndex("user", userSearchDto);
                 return new RegistrationResponse() { UserId = user.Id };
             }
             else
@@ -99,24 +125,28 @@ namespace Screamer.Identity.Services
                 new Claim(JwtRegisteredClaimNames.Sub, user.Id),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                 new Claim(JwtRegisteredClaimNames.Email, user.Email),
-                
                 new Claim("uid", user.Id),
             }
-            .Union(userClaims)
-            .Union(roleClaims);
+                .Union(userClaims)
+                .Union(roleClaims);
 
-            var symmetricSecurityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtSettings.Key));
+            var symmetricSecurityKey = new SymmetricSecurityKey(
+                Encoding.UTF8.GetBytes(_jwtSettings.Key)
+            );
 
-            var signingCredentials = new SigningCredentials(symmetricSecurityKey, SecurityAlgorithms.HmacSha256);
+            var signingCredentials = new SigningCredentials(
+                symmetricSecurityKey,
+                SecurityAlgorithms.HmacSha256
+            );
 
             var jwtSecurityToken = new JwtSecurityToken(
-               issuer: _jwtSettings.Issuer,
-               audience: _jwtSettings.Audience,
-               claims: claims,
-               expires: DateTime.Now.AddMinutes(_jwtSettings.DurationInMinutes),
-               signingCredentials: signingCredentials);
+                issuer: _jwtSettings.Issuer,
+                audience: _jwtSettings.Audience,
+                claims: claims,
+                expires: DateTime.Now.AddMinutes(_jwtSettings.DurationInMinutes),
+                signingCredentials: signingCredentials
+            );
             return jwtSecurityToken;
         }
-
     }
 }

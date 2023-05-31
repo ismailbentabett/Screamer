@@ -12,7 +12,7 @@ namespace Screamer.Application.Contracts.Presistance
     public interface IAlgoliaService
     {
         Task<IEnumerable<SearchResult>> Search(string indexName, string query);
-        Task AddAllPostsToIndex(string indexName, IEnumerable<Post> posts);
+        Task AddAllPostsToIndex(string indexName, IEnumerable<PostSearchResult> posts);
+        Task AddAllUsersToIndex(string indexName, IEnumerable<UserSearchResult> users);
     }
-
 }

@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
+using System.Text.Json.Serialization;
 
 namespace Screamer.Identity.Models
 {
@@ -51,5 +52,11 @@ public byte[] PasswordSalt { get; set; } = new byte[32]; */
 
         public Social Socials { get; set; }
         public Adress Adress { get; set; }
+
+        
+        public string objectID => Id.ToString();
+
+        [JsonPropertyName("objectID")]
+        public string ObjectID { get; set; }
     }
 }

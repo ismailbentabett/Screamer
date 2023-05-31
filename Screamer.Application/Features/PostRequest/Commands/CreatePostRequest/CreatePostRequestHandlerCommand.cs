@@ -57,7 +57,10 @@ namespace Screamer.Application.Features.PostRequest.Commands.CreatePostRequest
             post.User = user;
             await _postRepository.AddAsync(post);
             var posts = await _uow.PostRepository.GetAllAsync();
-            await _algoliaService.AddAllPostsToIndex("post", posts);
+            //map post to PostSearchDto
+            var postSearchDto = _mapper.Map<IEnumerable<PostSearchResult>>(posts);
+
+            await _algoliaService.AddAllPostsToIndex("post", postSearchDto);
             await _uow.Complete();
             return post.Id;
         }
