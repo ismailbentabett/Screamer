@@ -20,6 +20,7 @@ import {
   animate,
 } from '@angular/animations';
 import { head } from 'lodash';
+import { NavigationEnd, Router } from '@angular/router';
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
@@ -48,21 +49,31 @@ import { head } from 'lodash';
 })
 export class SearchComponent {
   @ViewChild('searchInput') searchInput!: ElementRef;
+  cantEnter!: boolean;
 
   constructor(
     public searchService: SearchService,
-    private renderer: Renderer2
+    private renderer: Renderer2,
+    private router: Router
   ) {}
+
+
+  ngOnInit () : void {
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        this.cantEnter =
+          this.router.url !== '/v/search/users' &&
+          this.router.url !== '/v/search/posts';
+      }
+    });
+  }
   ngAfterViewInit() {
     this.renderer.selectRootElement(this.searchInput.nativeElement).focus();
   }
   onInputFocus() {
-
-      this.renderer.selectRootElement(this.searchInput.nativeElement).focus();
-
+    this.renderer.selectRootElement(this.searchInput.nativeElement).focus();
   }
   search() {
-
     this.searchService.setSearchQuery(this.searchService.searchQuery);
     this.openSearchModal();
     this.searchService.search()!.then((data) => {
@@ -78,5 +89,11 @@ export class SearchComponent {
 
   openSearchModal() {
     this.searchService.openPopup();
+  }
+
+  onEnter() {
+    if ((this.searchService.searchQuery!== '' && !this.cantEnter)) {
+      this.router.navigate(['/v/search']);
+    }
   }
 }
