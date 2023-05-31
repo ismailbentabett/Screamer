@@ -9,7 +9,7 @@ import { BehaviorSubject } from 'rxjs';
 export class SearchService {
   public client: SearchClient;
   public indexes: { [indexName: string]: SearchIndex } = {};
-  public hitsPerPage: number = 10;
+  public hitsPerPage: number = 7;
   public searchQuery: string = '';
   public currentPage: number = 0;
   searchResults: BehaviorSubject<any> = new BehaviorSubject<any>([]);

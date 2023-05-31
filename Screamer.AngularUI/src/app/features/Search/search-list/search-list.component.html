@@ -39,7 +39,7 @@
               </a>
 
               <a
-                routerLink="/v/feed/users"
+                routerLink="/v/search/users"
                 [ngClass]="TabStyle('/v/search/users')"
               >
                 <span>Users</span>
@@ -51,6 +51,7 @@
             </nav>
           </div>
         </div>
+        <router-outlet></router-outlet>
       </main>
       <aside class="hidden xl:block xl:col-span-4">
         <app-side-content></app-side-content>
