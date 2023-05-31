@@ -8,9 +8,7 @@ import { SearchService } from 'src/app/core/services/search.service';
   styleUrls: ['./search-list.component.scss'],
 })
 export class SearchListComponent {
-
-  constructor( private router: Router) {}
-
+  constructor(private router: Router) {}
 
   LineStyle(route: string): string {
     const isActive =

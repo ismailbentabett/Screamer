@@ -1,17 +1,70 @@
-<div class="mt-4 space-y-4">
-  <ul>
-    <li *ngFor="let result of searchService.searchResults | async">
-      {{ result | json }}
-    </li>
-  </ul>
+<div class="mt-3 w-full">
+  <!-- This example requires Tailwind CSS v2.0+ -->
+  <nav class="h-full max-h-96" aria-label="Directory">
+    <div class="relative" n>
+      <div
+        class="z-10 sticky top-0 border-t border-b border-gray-200 bg-gray-50 py-1 text-sm font-medium text-gray-500"
+      >
+        <h3>
+          {{ getUsertData(this.searchService.searchResults | async).key }}s
+        </h3>
+      </div>
+      <ul role="list" class="relative z-0 divide-y divide-gray-200">
+        <li
+          class="bg-white width-96"
+          *ngFor="
+            let item of getUsertData(this.searchService.searchResults | async)
+              .value;
+            index as i
+          "
+        >
+          <div
+            class="py-5 flex items-center space-x-3 hover:bg-gray-50 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-500"
+          >
+            <div class="flex-shrink-0">
 
-  <!-- Load more button -->
-  <div
-    infiniteScroll
-    (scrolled)="loadMore()"
-    [infiniteScrollDistance]="2"
-  >
-    <button *ngIf="hasMoreResults">Load More</button>
-    <div *ngIf="!hasMoreResults">No more results</div>
-  </div>
+              <img
+                *ngIf="item.postImages && getFirstImage(item.postImages | json)"
+                class="h-10 w-10 rounded-md"
+                [src]="getFirstImage(item.postImages | json)"
+                alt=""
+              />
+              <app-avatar
+                *ngIf="!item.postImages"
+                [user]="item"
+                avatarStyle="h-8 w-8 rounded-full ring-4 ring-white sm:h-10 sm:w-10"
+              ></app-avatar>
+            </div>
+            <div class="flex-1 min-w-0">
+              <a href="#" class="focus:outline-none">
+                <!-- Extend touch target to entire panel -->
+                <span class="absolute inset-0" aria-hidden="true"></span>
+                <p
+                  class="text-sm font-medium text-gray-900 w-full truncate"
+                  *ngIf="item.firstName || item.lastName || item.title"
+                >
+                  {{ item.title ? item.title : item.firstName ?? " " }}
+
+                  {{ item.lastName ?? " " }}
+                </p>
+                <p
+                  class="text-sm text-gray-500 truncate w-full"
+                  *ngIf="item.content || item.userName"
+                >
+                  {{ item.content ? item.content : item.userName }}
+                </p>
+              </a>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div
+      infiniteScroll
+      (scrolled)="loadMore()"
+      [infiniteScrollDistance]="2"
+    ></div>
+  </nav>
 </div>
+
+<!-- Load more button -->

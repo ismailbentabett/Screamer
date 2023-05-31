@@ -69,9 +69,20 @@ export class SearchPostListComponent {
             value,
           }));
         });
-        this.searchService.searchResults.next(this.mergedArray);
-
+      this.searchService.searchResults.next(this.mergedArray);
     });
+  }
+
+  getPostData(searchResults: any) {
+    //five me the object with the key post
+    let postObject = find(
+      searchResults,
+      (obj: { key: string; value: any[] }) => {
+        return obj.key === 'post';
+      }
+    );
+    console.log(postObject);
+    return postObject;
   }
 
   getObjectKey(object: any, index: any) {

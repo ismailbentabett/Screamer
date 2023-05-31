@@ -1,24 +1,27 @@
 <div class="mt-3 w-full">
   <!-- This example requires Tailwind CSS v2.0+ -->
   <nav class="h-full max-h-96" aria-label="Directory">
-    <div
-      class="relative"
-      n
-      *ngFor="let data of this.searchService.searchResults | async"
-    >
+    <div class="relative" n>
       <div
         class="z-10 sticky top-0 border-t border-b border-gray-200 bg-gray-50 py-1 text-sm font-medium text-gray-500"
       >
-        <h3>{{ data.key }}s</h3>
+        <h3>
+          {{ getPostData(this.searchService.searchResults | async).key }}s
+        </h3>
       </div>
       <ul role="list" class="relative z-0 divide-y divide-gray-200">
-        <li class="bg-white width-96" *ngFor="let item of data.value; index as i">
+        <li
+          class="bg-white width-96"
+          *ngFor="
+            let item of getPostData(this.searchService.searchResults | async)
+              .value;
+            index as i
+          "
+        >
           <div
             class="py-5 flex items-center space-x-3 hover:bg-gray-50 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-500"
           >
             <div class="flex-shrink-0">
-              {{i}}
-
               <img
                 *ngIf="item.postImages && getFirstImage(item.postImages | json)"
                 class="h-10 w-10 rounded-md"
@@ -55,10 +58,11 @@
         </li>
       </ul>
     </div>
-    <div infiniteScroll (scrolled)="loadMore()" [infiniteScrollDistance]="2">
-      <button *ngIf="hasMoreResults">Load More</button>
-      <div *ngIf="!hasMoreResults">No more results</div>
-    </div>
+    <div
+      infiniteScroll
+      (scrolled)="loadMore()"
+      [infiniteScrollDistance]="2"
+    ></div>
   </nav>
 </div>
 
