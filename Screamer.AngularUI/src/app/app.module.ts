@@ -28,6 +28,7 @@ export function tokenGetter() {
     FeaturesModule,
     CoreModule,
     HttpClientModule,
+    SharedModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: tokenGetter

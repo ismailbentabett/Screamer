@@ -52,6 +52,7 @@ import { IntlModule } from 'angular-ecmascript-intl';
 import { DateStuffPipe } from './pipes/date-stuff.pipe';
 import { ClipboardModule } from 'ngx-clipboard';
 import { SearchComponent } from './components/search/search/search.component';
+import { SearchResultModalComponent } from './components/modal/search-result-modal/search-result-modal.component';
 
 @NgModule({
   declarations: [
@@ -93,6 +94,7 @@ import { SearchComponent } from './components/search/search/search.component';
     CommentInputComponent,
     DateStuffPipe,
     SearchComponent,
+    SearchResultModalComponent,
   ],
   imports: [
     CommonModule,
@@ -144,6 +146,8 @@ import { SearchComponent } from './components/search/search/search.component';
     ExcitedComponent,
     CommentSectionComponent,
     CommentInputComponent,
+    SearchResultModalComponent,
+
   ],
   providers: [],
 })

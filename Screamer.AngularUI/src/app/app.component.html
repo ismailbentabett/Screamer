@@ -1,3 +1,8 @@
 <app-navbar *ngIf="shouldShowNavAndFooterComponent"></app-navbar>
+
 <router-outlet></router-outlet>
 <app-footer *ngIf="shouldShowNavAndFooterComponent"></app-footer>
+
+<app-search-result-modal
+  *ngIf="this.searchService.isOpen"
+></app-search-result-modal>

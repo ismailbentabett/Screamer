@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { User } from './core/models/User';
 import { AuthenticationService } from './core/services/authentication.service';
 import { Router, NavigationEnd } from '@angular/router';
 import { PresenceService } from './core/services/presence.service';
+import { SearchService } from './core/services/search.service';
 
 @Component({
   selector: 'app-root',
@@ -16,7 +17,8 @@ export class AppComponent {
   constructor(
     private authService: AuthenticationService,
     private router: Router,
-    private presenceService : PresenceService
+    private presenceService: PresenceService,
+    public searchService: SearchService
   ) {}
 
   ngOnInit(): void {
@@ -26,8 +28,16 @@ export class AppComponent {
         this.shouldShowNavAndFooterComponent = this.router.url !== '/';
       }
     });
+  }
 
+  @HostListener('window:keydown.control.k', ['$event'])
+  handleCtrlK(event: KeyboardEvent) {
+    event.preventDefault(); // Prevent default browser behavior (e.g., opening browser's search)
+    this.openSearchModal();
+  }
 
+  openSearchModal() {
+    this.searchService.openPopup();
   }
 
   setCurrentUser() {
@@ -35,6 +45,6 @@ export class AppComponent {
     if (!userString) return;
     const user: User = JSON.parse(userString);
     this.authService.setCurrentUser(user);
-    this.presenceService.createHubConnection(user)
+    this.presenceService.createHubConnection(user);
   }
 }

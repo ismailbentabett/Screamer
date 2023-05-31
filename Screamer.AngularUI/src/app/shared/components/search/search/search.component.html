@@ -23,16 +23,53 @@
       id="search"
       [(ngModel)]="searchQuery"
       (input)="search()"
+      (keydown.control.k)="openSearchModal()"
       name="search"
       class="block w-full bg-white border border-gray-300 rounded-md py-2 pl-10 pr-3 text-sm placeholder-gray-500 focus:outline-none focus:text-gray-900 focus:placeholder-gray-400 focus:ring-1 focus:ring-dodger-blue-500 focus:border-dodger-blue-500 sm:text-sm"
       placeholder="Search"
       type="search"
     />
   </div>
-</div>
 
-<ul>
-  <li *ngFor="let result of searchService.searchResults | async">
-    {{ result | json }}
-  </li>
-</ul>
+  <div
+    [class.open]="isOpen"
+    [@dropdownAnimation]="isOpen ? 'open' : 'closed'"
+    class="absolute mt-2 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none max-w-7xl mx-auto sm:px-6 lg:px-8"
+    role="menu"
+    aria-orientation="vertical"
+    aria-labelledby="user-menu-button"
+    tabindex="-1"
+  >
+    <!-- This example requires Tailwind CSS v2.0+ -->
+  </div>
+
+
+
+  <!--     <ul role="list" class="z-50 divide-y divide-gray-200">
+      <li
+        class="flex"
+        *ngFor="let result of searchService.searchResults | async"
+      >
+        <img
+          *ngIf="result.postImages && getFirstImage(result.postImages | json)"
+          class="h-10 w-10 rounded-md"
+          [src]="getFirstImage(result.postImages | json)"
+          alt=""
+        />
+        <app-avatar
+          *ngIf="result.avatarUrl"
+          [user]="result | json"
+          avatarStyle="h-8 w-8 rounded-full ring-4 ring-white sm:h-10 sm:w-10"
+        ></app-avatar>
+        <div class="ml-3">
+          <p class="text-sm font-medium text-gray-900">
+            {{ result.title ? result.title : result.userName }}
+          </p>
+          <p class="text-sm text-gray-500 truncate">
+            {{ result.content ? result.content : result.email }}
+          </p>
+        </div>
+      </li>
+    </ul>
+  </div> -->
+</div>

@@ -13,6 +13,7 @@ export class SearchService {
   public searchQuery: string = '';
   public currentPage: number = 0;
   searchResults: BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
+  public isOpen: boolean = false;
 
   constructor() {
     this.client = algoliasearch(environment.ApplicationId, environment.APIKey);
@@ -20,6 +21,15 @@ export class SearchService {
     this.indexes['post'] = this.client.initIndex('post');
     this.indexes['user'] = this.client.initIndex('user');
     // Add more index names and initialize them as needed
+  }
+
+
+  openPopup() {
+    this.isOpen = true;
+  }
+
+  closePopup() {
+    this.isOpen = false;
   }
 
   setSearchQuery(query: string) {
