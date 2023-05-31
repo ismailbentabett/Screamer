@@ -13,6 +13,7 @@ import { SearchService } from './core/services/search.service';
 export class AppComponent {
   title = 'Screamer.AngularUI';
   shouldShowNavAndFooterComponent: boolean | undefined;
+  ShoudShowSearchModal: boolean | undefined;
 
   constructor(
     private authService: AuthenticationService,
@@ -26,6 +27,13 @@ export class AppComponent {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         this.shouldShowNavAndFooterComponent = this.router.url !== '/';
+      }
+    });
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        this.ShoudShowSearchModal =
+          this.router.url !== '/v/search/users' &&
+          this.router.url !== '/v/search/posts';
       }
     });
   }
