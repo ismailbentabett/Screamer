@@ -3,7 +3,7 @@
   <nav class="h-full max-h-96" aria-label="Directory">
     <div class="relative" n>
       <div
-        class=" top-0 border-t border-b border-gray-200 bg-gray-50 py-1 text-sm font-medium text-gray-500"
+        class="top-0 border-t border-b border-gray-200 bg-gray-50 py-1 text-sm font-medium text-gray-500"
       >
         <h3>
           {{ getPostData(this.searchService.searchResults | async).key }}s
@@ -11,13 +11,12 @@
       </div>
       <ul role="list" class="relative z-0 divide-y divide-gray-200">
         <li
-          class="bg-white width-96 cursor-pointer"
+          class="bg-white width-96"
           *ngFor="
             let item of getPostData(this.searchService.searchResults | async)
               .value;
             index as i
           "
-          (click)="routeToPost(item.objectID)"
         >
           <div
             class="py-5 flex items-center space-x-3 hover:bg-gray-50 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-500"
@@ -55,6 +54,12 @@
                 </p>
               </a>
             </div>
+            <a
+              (click)="routeToPost(item.objectID)"
+              class="inline-flex items-center shadow-sm px-2.5 py-0.5 border border-gray-300 text-sm leading-5 font-medium rounded-full text-gray-700 bg-white hover:bg-gray-50 cursor-pointer z-50"
+            >
+              View
+            </a>
           </div>
         </li>
       </ul>

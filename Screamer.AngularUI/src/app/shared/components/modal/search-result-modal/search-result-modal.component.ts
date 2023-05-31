@@ -36,7 +36,13 @@ export class SearchResultModalComponent {
   }
 
   routeToResult(id: any, key: any) {
+
     if (key == 'post') {
+      console.log(
+        'routeToResult',
+        id,
+        key,
+      )
       this.router.navigate(['/v/post', id]);
     } else if ((key = 'user')) {
       this.router.navigate(['/v/user', id]);
