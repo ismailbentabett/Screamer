@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import {
   concat,
   find,
@@ -20,7 +21,7 @@ import { SearchService } from 'src/app/core/services/search.service';
 export class SearchPostListComponent {
   hasMoreResults: boolean = true;
   mergedArray!: any;
-  constructor(public searchService: SearchService) {}
+  constructor(public searchService: SearchService, private router: Router) {}
   loadMore() {
     if (this.searchService.searchQuery == '') return;
     this.searchService.getPaginatedResults().then((response) => {
@@ -81,7 +82,6 @@ export class SearchPostListComponent {
         return obj.key === 'post';
       }
     );
-    console.log(postObject);
     return postObject;
   }
 
@@ -96,5 +96,11 @@ export class SearchPostListComponent {
       return data!.url;
     }
     return false;
+  }
+
+  routeToPost(id: any) {
+    this.router.navigate(['/v/post', id]);
+    this.searchService.searchQuery = ''
+    this.searchService.closePopup()
   }
 }

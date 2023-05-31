@@ -11,18 +11,18 @@
       </div>
       <ul role="list" class="relative z-0 divide-y divide-gray-200">
         <li
-          class="bg-white width-96"
+          class="bg-white width-96 cursor-pointer"
           *ngFor="
             let item of getUsertData(this.searchService.searchResults | async)
               .value;
             index as i
           "
+          (click)="routeToUser(item.objectID)"
         >
           <div
             class="py-5 flex items-center space-x-3 hover:bg-gray-50 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-500"
           >
             <div class="flex-shrink-0">
-
               <img
                 *ngIf="item.postImages && getFirstImage(item.postImages | json)"
                 class="h-10 w-10 rounded-md"
@@ -36,7 +36,7 @@
               ></app-avatar>
             </div>
             <div class="flex-1 min-w-0">
-              <a href="#" class="focus:outline-none">
+              <a class="focus:outline-none">
                 <!-- Extend touch target to entire panel -->
                 <span class="absolute inset-0" aria-hidden="true"></span>
                 <p

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import {
   concat,
   find,
@@ -20,7 +21,9 @@ import { SearchService } from 'src/app/core/services/search.service';
 export class SearchUserListComponent {
   hasMoreResults: boolean = true;
   mergedArray!: any;
-  constructor(public searchService: SearchService) {}
+  constructor(public searchService: SearchService ,
+    private router: Router
+    ) {}
   loadMore() {
     if (this.searchService.searchQuery == '') return;
     this.searchService.getPaginatedResults().then((response) => {
@@ -96,5 +99,11 @@ export class SearchUserListComponent {
       return data!.url;
     }
     return false;
+  }
+
+  routeToUser(id: any) {
+    this.router.navigate(['/v/user', id]);
+    this.searchService.searchQuery = ''
+    this.searchService.closePopup()
   }
 }
