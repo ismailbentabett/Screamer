@@ -1,4 +1,4 @@
- @import '~quill/dist/quill.snow.css';
+@import "~quill/dist/quill.bubble.css";
  @import '~quill/dist/quill.core.css';
  @import '~quill-mention/dist/quill.mention.min.css';
 
@@ -13,3 +13,27 @@
   text-decoration: none;
   color: #44B1F4;
  }
+
+
+ .ql-container{ border: none !important;}
+ .ql-editor{ border: none !important;}
+ .ql-container .ql-snow{
+  border: none !important;
+ }
+
+ #quill-container {
+  height:auto !important;
+  max-height:200px;
+  padding: 50px;
+}
+#quill-container .ql-editor {
+  font-size: 18px;
+  overflow-y: auto;
+}
+
+/* Specify our own scrolling container */
+#scrolling-container {
+  height:auto !important;
+  max-height:200px;
+  overflow-y: auto;
+}

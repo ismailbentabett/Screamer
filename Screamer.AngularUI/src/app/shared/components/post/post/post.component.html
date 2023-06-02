@@ -80,7 +80,7 @@
               <div class="" role="none">
                 <!-- Active: "bg-gray-100 text-gray-900", Not Active: "text-gray-700" -->
                 <a
-                *ngIf="!isOnCurrentPost()"
+                  *ngIf="!isOnCurrentPost()"
                   [routerLink]="'/v/post/' + post.id"
                   target="_blank"
                   class="text-gray-700 flex px-4 py-2 text-sm stroke cursor-pointer hover:bg-gray-100"
@@ -191,8 +191,7 @@
                   <span>Copy Link</span>
                 </a>
                 <a
-                *ngIf="isMyPost()"
-
+                  *ngIf="isMyPost()"
                   href="#"
                   class="text-gray-700 flex px-4 py-2 text-sm cursor-pointer hover:bg-gray-100"
                   role="menuitem"
@@ -262,8 +261,9 @@
       </h2>
     </div>
     <div class="mt-2 text-sm text-gray-700 space-y-4">
-      {{ post.content }}
+    <quill-view [content]="post.content" format="html"></quill-view>
     </div>
+
     <div
       class="mt-6 flex justify-between space-x-8 mb-3"
       *ngIf="preview == false"

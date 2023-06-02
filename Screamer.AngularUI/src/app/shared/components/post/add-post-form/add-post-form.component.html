@@ -65,8 +65,9 @@
           class="block w-full border-0 pt-2.5 text-lg font-medium placeholder-gray-500 focus:ring-0"
           placeholder="Title"
         />
-        <label for="description" class="sr-only">Description</label>
-        <textarea
+        <label for="content" class="sr-only">content</label>
+
+        <quill-editor
           rows="2"
           type="text"
           id="content"
@@ -77,13 +78,8 @@
           required
           class="block w-full border-0 py-0 resize-none placeholder-gray-500 focus:ring-0 sm:text-sm"
           placeholder="Write Something..."
-        ></textarea>
-        <div>
-          <quill-editor
-            formControlName="content"
-            [modules]="modules"
-          ></quill-editor>
-        </div>
+          [modules]="modules"
+        ></quill-editor>
         <!-- Spacer element to match the height of the toolbar -->
         <div aria-hidden="true">
           <div class="py-2">

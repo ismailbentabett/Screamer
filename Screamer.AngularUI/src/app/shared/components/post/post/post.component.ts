@@ -4,6 +4,7 @@ import {
   Input,
   PLATFORM_ID,
   SimpleChange,
+  ViewChild,
 } from '@angular/core';
 import { Post } from 'src/app/core/models/Post';
 import {
@@ -19,6 +20,8 @@ import { filter, take } from 'rxjs';
 import { ClipboardService } from 'ngx-clipboard';
 import { LocationStrategy, isPlatformBrowser } from '@angular/common';
 import { NavigationEnd, Router } from '@angular/router';
+import { QuillEditorComponent } from 'ngx-quill';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-post',
@@ -50,11 +53,14 @@ export class PostComponent {
   @Input() preview: boolean = false;
   currentUser!: User;
   user!: User;
+  @ViewChild(QuillEditorComponent, { static: true })
+  editor!: QuillEditorComponent;
   constructor(
     private userService: UserService,
     private clipboardService: ClipboardService,
     @Inject(PLATFORM_ID) private platformId: Object,
-    private router: Router
+    private router: Router,
+    private sanitizer: DomSanitizer
   ) {
     this.userService
       .getCurrentUserData()
@@ -64,6 +70,10 @@ export class PostComponent {
           this.currentUser = user;
         },
       });
+  }
+
+  getSanitizedContent(content: string): SafeHtml {
+    return this.sanitizer.bypassSecurityTrustHtml(content);
   }
 
   isMyPost() {
@@ -119,4 +129,9 @@ export class PostComponent {
       src: 'https://images.unsplash.com/photo-1684867933974-af23d25d6d00?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80',
     },
   ];
+
+  modules = {
+    toolbar: false,
+
+  };
 }

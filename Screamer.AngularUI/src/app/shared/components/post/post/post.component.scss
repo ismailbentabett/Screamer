@@ -17,3 +17,44 @@
 .heroicon-stroke-w-1\.6 > path {
   stroke-width: 1.6;
 }
+
+@import "~quill/dist/quill.bubble.css";
+ @import '~quill/dist/quill.core.css';
+ @import '~quill-mention/dist/quill.mention.min.css';
+
+
+ .ql-mention-denotation-char{
+  font-weight: 1000 !important;
+  text-decoration: none !important;
+  color: #44B1F4 !important;
+ }
+
+ a{
+  text-decoration: none;
+  color: #44B1F4;
+ }
+
+
+ .ql-container{ border: none !important;}
+ .ql-editor{ border: none !important;}
+ .ql-container .ql-snow{
+  border: none !important;
+ }
+
+ #quill-container {
+  height:auto !important;
+  max-height:200px;
+  padding: 50px;
+}
+#quill-container .ql-editor {
+  font-size: 18px;
+  overflow-y: auto;
+}
+
+/* Specify our own scrolling container */
+#scrolling-container {
+  height:auto !important;
+  max-height:200px;
+  overflow-y: auto;
+}
+

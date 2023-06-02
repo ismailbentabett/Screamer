@@ -175,8 +175,8 @@ export class AddPostFormComponent {
           .search(searchTerm)
           .then((response) => {
             const matches = response.hits.map((hit: any) => {
-              const displayValue = `<span class="text-dodger-blue-500 font-bold no-underline">${hit.userName}</span>`;
-              const mentionValue = `<span class="text-dodger-blue-500 font-bold no-underline">${hit.userName}</span>`;
+              const displayValue = `<span class="text-dodger-blue-500 font-black	 no-underline">${hit.userName}</span>`;
+              const mentionValue = `<span class="text-dodger-blue-500 font-black	 no-underline">${hit.userName}</span>`;
 
               const link = `/v/user/${hit.objectID}`;
               return { id: hit.objectID, value: displayValue, link };
