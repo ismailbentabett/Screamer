@@ -12,7 +12,6 @@ import {
   animate,
 } from '@angular/animations';
 import { environment } from 'src/environments/environment';
-import { Post } from 'src/app/core/models/Post';
 import algoliasearch from 'algoliasearch';
 import { QuillEditorComponent } from 'ngx-quill';
 import 'quill-mention';
