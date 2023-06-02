@@ -76,9 +76,7 @@ export class SearchComponent {
   search() {
     this.searchService.setSearchQuery(this.searchService.searchQuery);
     this.openSearchModal();
-    this.searchService.search()!.then((data) => {
-      console.log(this.searchService.searchResults);
-    });
+    this.searchService.search()
   }
 
   isOpen = false;

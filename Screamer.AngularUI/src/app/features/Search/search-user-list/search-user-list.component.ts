@@ -32,7 +32,6 @@ export class SearchUserListComponent {
         this.hasMoreResults = false;
         return;
       }
-      console.log(results);
 
       let data: any = {};
       response.results.forEach((result: any) => {
@@ -84,12 +83,10 @@ export class SearchUserListComponent {
         return obj.key === 'user';
       }
     );
-    console.log(postObject);
     return postObject;
   }
 
   getObjectKey(object: any, index: any) {
-    console.log(object, ' ', index);
     return Object.keys(object)[index];
   }
 

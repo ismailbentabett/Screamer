@@ -131,7 +131,6 @@ export class AddPostFormComponent {
   }
   ngOnInit(): void {
     this.form.valueChanges.subscribe((x: any) => {
-      console.log(x);
       this.preview = {
         id: this.postId,
         title: x.title as any,
@@ -175,12 +174,6 @@ export class AddPostFormComponent {
   searchAlgolia(searchTerm: string): Promise<any> {
     return this.algoliaIndex.search(searchTerm);
   }
-  somefunction(data: any) {
-    console.log(data);
-    this.form.valueChanges.subscribe((zabi: any) => {
-      console.log('Changed Values', zabi);
-    });
-  }
 
   analyzeText() {}
 
@@ -220,7 +213,6 @@ export class AddPostFormComponent {
               renderList([], searchTerm);
             });
         } else if (mentionChar === '#') {
-          console.log('hashtag detected');
           // Handle hashtags
           const hashtagItems = [
             {

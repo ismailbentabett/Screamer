@@ -29,11 +29,7 @@ export class ChatComponent {
   }
 
   createRoom() {
-    console.log(
-      this.currentUser.id.toString() as string,
-      ' ',
-      this.recipientId
-    );
+
     this.messageService
       .createRoom(this.currentUser.id.toString() as string, this.recipientId)
       .subscribe({

@@ -30,7 +30,6 @@ export class SearchPostListComponent {
         this.hasMoreResults = false;
         return;
       }
-      console.log(results);
 
       let data: any = {};
       response.results.forEach((result: any) => {
@@ -86,7 +85,6 @@ export class SearchPostListComponent {
   }
 
   getObjectKey(object: any, index: any) {
-    console.log(object, ' ', index);
     return Object.keys(object)[index];
   }
 

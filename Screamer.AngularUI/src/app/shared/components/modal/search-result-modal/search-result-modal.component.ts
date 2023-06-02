@@ -23,7 +23,6 @@ export class SearchResultModalComponent {
   }
 
   getObjectKey(object: any, index: any) {
-    console.log(object, ' ', index);
     return Object.keys(object)[index];
   }
 
@@ -38,11 +37,7 @@ export class SearchResultModalComponent {
   routeToResult(id: any, key: any) {
 
     if (key == 'post') {
-      console.log(
-        'routeToResult',
-        id,
-        key,
-      )
+
       this.router.navigate(['/v/post', id]);
     } else if ((key = 'user')) {
       this.router.navigate(['/v/user', id]);

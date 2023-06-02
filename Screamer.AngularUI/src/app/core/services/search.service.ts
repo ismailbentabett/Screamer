@@ -57,7 +57,6 @@ export class SearchService {
       });
       const arrayOfObjects = Object.entries(results).map(([key, value]) => ({ key, value }));
 
-      console.log(arrayOfObjects)
       this.searchResults.next(arrayOfObjects);
       this.currentPage = 0; // Reset current page
     });
