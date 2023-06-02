@@ -16,6 +16,12 @@ import { Post } from 'src/app/core/models/Post';
 import algoliasearch from 'algoliasearch';
 import { QuillEditorComponent } from 'ngx-quill';
 import 'quill-mention';
+import * as linkify from 'linkifyjs';
+import 'linkify-plugin-keyword';
+import 'linkify-plugin-hashtag';
+import 'linkify-plugin-mention';
+import 'linkify-plugin-ticket';
+import 'linkify-plugin-ip';
 
 @Component({
   selector: 'app-add-post-form',
@@ -51,6 +57,12 @@ export class AddPostFormComponent {
   baseUrl = environment.baseWebApiUrl;
   postImageUrl: any = false;
   preview: any = false;
+  hashtags: any;
+  mentions: any;
+  tickets: any;
+  ips: any;
+  keywords: any;
+
   /**
    *
    */
@@ -128,6 +140,19 @@ export class AddPostFormComponent {
         user: this.user,
         postImages: this.previewImages,
       };
+      this.hashtags = linkify
+        .find(x.content, 'hashtag')
+        .map((link) => link.value);
+      this.mentions = linkify
+        .find(x.content, 'mention')
+        .map((link) => link.value);
+      this.tickets = linkify
+        .find(x.content, 'ticket')
+        .map((link) => link.value);
+      this.ips = linkify.find(x.content, 'ip').map((link) => link.value);
+      this.keywords = linkify
+        .find(x.content, 'keyword')
+        .map((link) => link.value);
     });
   }
 
@@ -157,6 +182,8 @@ export class AddPostFormComponent {
     });
   }
 
+  analyzeText() {}
+
   modules = {
     toolbar: false,
     mention: {
@@ -180,8 +207,8 @@ export class AddPostFormComponent {
             .search(searchTerm)
             .then((response) => {
               const matches = response.hits.map((hit: any) => {
-                const displayValue = `<span class="text-dodger-blue-500 font-black	 no-underline">${hit.userName}</span>`;
-                const mentionValue = `<span class="text-dodger-blue-500 font-black	 no-underline">${hit.userName}</span>`;
+                const displayValue = `<span class="text-dodger-blue-500 font-black	 no-underline">@${hit.userName}</span>`;
+                const mentionValue = `<span class="text-dodger-blue-500 font-black	 no-underline">@${hit.userName}</span>`;
 
                 const link = `/v/user/${hit.objectID}`;
                 return { id: hit.objectID, value: displayValue, link };
