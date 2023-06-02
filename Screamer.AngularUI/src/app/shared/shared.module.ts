@@ -53,6 +53,7 @@ import { DateStuffPipe } from './pipes/date-stuff.pipe';
 import { ClipboardModule } from 'ngx-clipboard';
 import { SearchComponent } from './components/search/search/search.component';
 import { SearchResultModalComponent } from './components/modal/search-result-modal/search-result-modal.component';
+import { QuillModule } from 'ngx-quill';
 
 @NgModule({
   declarations: [
@@ -108,7 +109,7 @@ import { SearchResultModalComponent } from './components/modal/search-result-mod
     IntlModule,
     ClipboardModule,
     FormsModule,
-
+    QuillModule.forRoot(),
   ],
   exports: [
     MyDirectiveDirective,
@@ -147,7 +148,6 @@ import { SearchResultModalComponent } from './components/modal/search-result-mod
     CommentSectionComponent,
     CommentInputComponent,
     SearchResultModalComponent,
-
   ],
   providers: [],
 })

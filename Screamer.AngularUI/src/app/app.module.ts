@@ -10,14 +10,14 @@ import { CoreModule } from './core/core.module';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtInterceptor } from './core/interceptors/jwt.interceptor';
 import { LoadingInterceptor } from './core/interceptors/loading.interceptor';
-import { JwtModule } from "@auth0/angular-jwt";
-import { HttpClientModule } from "@angular/common/http";
+import { JwtModule } from '@auth0/angular-jwt';
+import { HttpClientModule } from '@angular/common/http';
 import { ToastrModule } from 'ngx-toastr';
+import { QuillModule } from 'ngx-quill';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
 }
-
 
 @NgModule({
   declarations: [AppComponent],
@@ -29,16 +29,17 @@ export function tokenGetter() {
     CoreModule,
     HttpClientModule,
     SharedModule,
+    QuillModule.forRoot(),
+
     JwtModule.forRoot({
       config: {
-        tokenGetter: tokenGetter
+        tokenGetter: tokenGetter,
       },
     }),
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
-    {provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true},
-
+    { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true },
   ],
 
   bootstrap: [AppComponent],

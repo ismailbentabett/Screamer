@@ -3,5 +3,26 @@
 @tailwind components;
 @tailwind utilities;
 
+@import "font-awesome/scss/font-awesome.scss";
+@import "~quill/dist/quill.snow.css";
+@import "~quill/dist/quill.core.css";
+@import "~quill-mention/dist/quill.mention.min.css";
 
-@import 'font-awesome/scss/font-awesome.scss';
+a:link {
+  text-decoration: none !important;
+}
+
+a:visited {
+  text-decoration: none !important;
+}
+
+a:hover {
+  text-decoration: none !important;
+}
+
+a:active {
+  text-decoration: none !important;
+}
+a {
+  text-decoration: none !important;
+}

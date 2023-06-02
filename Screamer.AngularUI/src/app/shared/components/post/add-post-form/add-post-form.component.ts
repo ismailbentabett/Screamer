@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { Component, ViewChild } from '@angular/core';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { take } from 'rxjs';
 import { User } from 'src/app/core/models/User';
 import { AuthenticationService } from 'src/app/core/services/authentication.service';
@@ -13,6 +13,9 @@ import {
 } from '@angular/animations';
 import { environment } from 'src/environments/environment';
 import { Post } from 'src/app/core/models/Post';
+import algoliasearch from 'algoliasearch';
+import { QuillEditorComponent } from 'ngx-quill';
+import 'quill-mention';
 
 @Component({
   selector: 'app-add-post-form',
@@ -65,13 +68,8 @@ export class AddPostFormComponent {
     });
 
     this.form = this.fb.group({
-      /*    {
-        "title": "string",
-        "content": "string",
-        "imageUrl": "string",
-        "userId": "string" */
       title: ['', Validators.required],
-      content: ['', Validators.required],
+      content: new FormControl(''),
       imageUrl: ['placeholder url', Validators.required],
       userId: [this.user.id, Validators.required],
     });
@@ -116,12 +114,12 @@ export class AddPostFormComponent {
         userId: this.user.id,
         user: this.user,
         postImages: data,
-
       };
     }
   }
   ngOnInit(): void {
     this.form.valueChanges.subscribe((x: any) => {
+      console.log(x);
       this.preview = {
         id: this.postId,
         title: x.title as any,
@@ -130,7 +128,6 @@ export class AddPostFormComponent {
         user: this.user,
         postImages: this.previewImages,
       };
-
     });
   }
 
@@ -139,13 +136,58 @@ export class AddPostFormComponent {
     this.openTab = $tabNumber;
   }
 
-  changeTabStyle(tab : number){
-
-
+  changeTabStyle(tab: number) {
     if (this.openTab !== tab) {
       return 'text-gray-500  px-3 py-1.5 border border-transparent text-sm font-medium rounded-md hover:text-gray-900 bg-white hover:bg-gray-100';
     }
     return 'text-gray-900  bg-gray-100 px-3 py-1.5 border border-transparent text-sm font-medium rounded-md';
-    }
+  }
+  @ViewChild(QuillEditorComponent, { static: true })
+  editor!: QuillEditorComponent;
+  algoliaClient = algoliasearch(environment.ApplicationId, environment.APIKey);
+  algoliaIndex = this.algoliaClient.initIndex('user');
 
+  searchAlgolia(searchTerm: string): Promise<any> {
+    return this.algoliaIndex.search(searchTerm);
+  }
+  somefunction(data: any) {
+    console.log(data);
+    this.form.valueChanges.subscribe((zabi: any) => {
+      console.log('Changed Values', zabi);
+    });
+  }
+  modules = {
+    toolbar: false,
+    mention: {
+      mentionListClass: 'ql-mention-list shadow-lg ',
+      allowedChars: /^[A-Za-z\sÅÄÖåäö]*$/,
+      showDenotationChar: false,
+      spaceAfterInsert: false,
+      onSelect: (item: any, insertItem: any) => {
+        const editor = this.editor.quillEditor;
+        insertItem(item);
+        editor.insertText(editor.getLength() - 1, '', 'user');
+      },
+      source: (searchTerm: any, renderList: any) => {
+        const index = this.algoliaClient.initIndex('user');
+
+        index
+          .search(searchTerm)
+          .then((response) => {
+            const matches = response.hits.map((hit: any) => {
+              const displayValue = `<span class="text-dodger-blue-500 font-bold no-underline">${hit.userName}</span>`;
+              const mentionValue = `<span class="text-dodger-blue-500 font-bold no-underline">${hit.userName}</span>`;
+
+              const link = `/v/user/${hit.objectID}`;
+              return { id: hit.objectID, value: displayValue, link };
+            });
+            renderList(matches, searchTerm);
+          })
+          .catch((error) => {
+            console.error('Algolia search error:', error);
+            renderList([], searchTerm);
+          });
+      },
+    },
+  };
 }
