@@ -23,7 +23,6 @@ namespace Screamer.Domain.Common
         public int Views { get; set; }
         public List<PostImage> PostImages { get; set; } = new();
         public string PostImageUrl { get; set; }
-        public ICollection<PostCategory> PostCategories { get; set; } = new List<PostCategory>();
 
         public Post()
         {
@@ -35,5 +34,14 @@ namespace Screamer.Domain.Common
 
         [JsonPropertyName("objectID")]
         public string ObjectID { get; set; }
+
+        [ForeignKey(nameof(MoodId))]
+        public Mood Mood { get; set; }
+        public int MoodId { get; set; }
+        public ICollection<PostUserMention> PostUserMentions { get; set; } = new List<PostUserMention>();
+        public ICollection<PostUserTag> PostUserTags { get; set; } = new List<PostUserTag>();
+        public ICollection<PostCategory> PostCategories { get; set; } = new List<PostCategory>();
+
+        public ICollection<PostHashtag> PostHashtags { get; set; } = new List<PostHashtag>();
     }
 }

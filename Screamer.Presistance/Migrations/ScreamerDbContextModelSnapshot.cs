@@ -247,6 +247,9 @@ namespace Screamer.Presistance.Migrations
                     b.Property<string>("ImageUrl")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("MoodId")
+                        .HasColumnType("int");
+
                     b.Property<string>("ObjectID")
                         .HasColumnType("nvarchar(max)")
                         .HasAnnotation("Relational:JsonPropertyName", "objectID");
@@ -270,6 +273,8 @@ namespace Screamer.Presistance.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("MoodId");
 
                     b.HasIndex("UserId");
 
@@ -531,6 +536,30 @@ namespace Screamer.Presistance.Migrations
                     b.ToTable("Groups");
                 });
 
+            modelBuilder.Entity("Screamer.Domain.Entities.Hashtag", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2")
+                        .HasAnnotation("Relational:JsonPropertyName", "createdAt");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2")
+                        .HasAnnotation("Relational:JsonPropertyName", "updatedAt");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Hashtags");
+                });
+
             modelBuilder.Entity("Screamer.Domain.Entities.Message", b =>
                 {
                     b.Property<int>("Id")
@@ -587,6 +616,30 @@ namespace Screamer.Presistance.Migrations
                     b.ToTable("Messages");
                 });
 
+            modelBuilder.Entity("Screamer.Domain.Entities.Mood", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2")
+                        .HasAnnotation("Relational:JsonPropertyName", "createdAt");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2")
+                        .HasAnnotation("Relational:JsonPropertyName", "updatedAt");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Moods");
+                });
+
             modelBuilder.Entity("Screamer.Domain.Entities.PostCategory", b =>
                 {
                     b.Property<int>("PostId")
@@ -611,6 +664,32 @@ namespace Screamer.Presistance.Migrations
                     b.HasIndex("CategoryId");
 
                     b.ToTable("PostCategories");
+                });
+
+            modelBuilder.Entity("Screamer.Domain.Entities.PostHashtag", b =>
+                {
+                    b.Property<int>("PostId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("HashtagId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2")
+                        .HasAnnotation("Relational:JsonPropertyName", "createdAt");
+
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2")
+                        .HasAnnotation("Relational:JsonPropertyName", "updatedAt");
+
+                    b.HasKey("PostId", "HashtagId");
+
+                    b.HasIndex("HashtagId");
+
+                    b.ToTable("PostHashtags");
                 });
 
             modelBuilder.Entity("Screamer.Domain.Entities.PostImage", b =>
@@ -680,6 +759,58 @@ namespace Screamer.Presistance.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("PostReactions");
+                });
+
+            modelBuilder.Entity("Screamer.Domain.Entities.PostUserMention", b =>
+                {
+                    b.Property<int>("PostId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2")
+                        .HasAnnotation("Relational:JsonPropertyName", "createdAt");
+
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2")
+                        .HasAnnotation("Relational:JsonPropertyName", "updatedAt");
+
+                    b.HasKey("PostId", "UserId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("PostUserMention");
+                });
+
+            modelBuilder.Entity("Screamer.Domain.Entities.PostUserTag", b =>
+                {
+                    b.Property<int>("PostId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2")
+                        .HasAnnotation("Relational:JsonPropertyName", "createdAt");
+
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2")
+                        .HasAnnotation("Relational:JsonPropertyName", "updatedAt");
+
+                    b.HasKey("PostId", "UserId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("PostUserTag");
                 });
 
             modelBuilder.Entity("Screamer.Domain.Entities.Social", b =>
@@ -914,7 +1045,7 @@ namespace Screamer.Presistance.Migrations
                         {
                             Id = "8e445865-a24d-4543-a6c6-9443d048cdb9",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "cda5a23f-7552-4f16-887a-20779cd63ed7",
+                            ConcurrencyStamp = "0073c643-335d-4846-a981-6dd390c3f0ae",
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "admin@localhost.com",
                             EmailConfirmed = true,
@@ -923,9 +1054,9 @@ namespace Screamer.Presistance.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@LOCALHOST.COM",
                             NormalizedUserName = "ADMIN@LOCALHOST.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEN/tecLPFLf34xwW0PN++5m4840MyRONWMEs7WXeB0L9TqpyDIHei3g/M3nT5RfMig==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEDw4cNFOvxeiJUe686jWu8D5ruIEZi3OXKCpeqeWkJ7Hkp55X5aUNWiBaKVGS5BB8g==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "270b1b14-7010-4a32-bb48-d08817da2357",
+                            SecurityStamp = "9fe7c59e-a025-4d77-be3f-3913e7b81568",
                             TwoFactorEnabled = false,
                             UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UserName = "admin@localhost.com"
@@ -934,7 +1065,7 @@ namespace Screamer.Presistance.Migrations
                         {
                             Id = "9e224968-33e4-4652-b7b7-8574d048cdb9",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "60f850ef-d26d-410e-b96e-ca0459a4d672",
+                            ConcurrencyStamp = "b34b8768-3fcd-418a-9ff2-0b8095e480d8",
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "user@localhost.com",
                             EmailConfirmed = true,
@@ -943,9 +1074,9 @@ namespace Screamer.Presistance.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "USER@LOCALHOST.COM",
                             NormalizedUserName = "USER@LOCALHOST.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEIiTYjAkWXfwDy6fCeY2cUPixjxdICCloNzh51uBJ71zFcxeuQ3Eki0QQ8+ZFHjG2Q==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEGe0tgru4eGmcLZdzL3ttMB0eJvWEcHX04uV9Z14McApk0p47NQj7xgOIGLZdR2VYw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "0a2e65d6-845a-4815-a9e4-f9c23fc0c95d",
+                            SecurityStamp = "2449a94d-e67e-492f-970e-71ffd0a99a43",
                             TwoFactorEnabled = false,
                             UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UserName = "user@localhost.com"
@@ -954,7 +1085,7 @@ namespace Screamer.Presistance.Migrations
                         {
                             Id = "9e224968-33e4-4652-b7b7-agfddsr",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "b6ffe85b-902d-4fb3-ac7f-b30315055898",
+                            ConcurrencyStamp = "ebaecbef-a024-4fc0-85cf-0ab4a712abbb",
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "mod@localhost.com",
                             EmailConfirmed = true,
@@ -963,9 +1094,9 @@ namespace Screamer.Presistance.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "MOD@LOCALHOST.COM",
                             NormalizedUserName = "MOD@LOCALHOST.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAENUvDvKxgkdNIu21wgJoXr/42iGPHxCJ3tZXj+hfTBiJlDZ8Yr47vNOfz1nsDsu4Gg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEA3W88Sgh36jqi1xxFY9RHdsvo4NqiFNzhLaCp7YZTgnD8LeB11WAP+8qyOGOZitjg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "1e5059af-88d4-43c7-99b5-1385db4df133",
+                            SecurityStamp = "8bb46212-c74f-4714-9972-557b8ad97f45",
                             TwoFactorEnabled = false,
                             UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UserName = "mod@localhost.com"
@@ -1034,9 +1165,17 @@ namespace Screamer.Presistance.Migrations
 
             modelBuilder.Entity("Screamer.Domain.Common.Post", b =>
                 {
+                    b.HasOne("Screamer.Domain.Entities.Mood", "Mood")
+                        .WithMany("Posts")
+                        .HasForeignKey("MoodId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.HasOne("Screamer.Identity.Models.ApplicationUser", "User")
                         .WithMany("Posts")
                         .HasForeignKey("UserId");
+
+                    b.Navigation("Mood");
 
                     b.Navigation("User");
                 });
@@ -1170,6 +1309,25 @@ namespace Screamer.Presistance.Migrations
                     b.Navigation("Post");
                 });
 
+            modelBuilder.Entity("Screamer.Domain.Entities.PostHashtag", b =>
+                {
+                    b.HasOne("Screamer.Domain.Entities.Hashtag", "Hashtag")
+                        .WithMany("PostHashtags")
+                        .HasForeignKey("HashtagId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Screamer.Domain.Common.Post", "Post")
+                        .WithMany("PostHashtags")
+                        .HasForeignKey("PostId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Hashtag");
+
+                    b.Navigation("Post");
+                });
+
             modelBuilder.Entity("Screamer.Domain.Entities.PostImage", b =>
                 {
                     b.HasOne("Screamer.Domain.Common.Post", "Post")
@@ -1192,6 +1350,44 @@ namespace Screamer.Presistance.Migrations
                     b.HasOne("Screamer.Identity.Models.ApplicationUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId");
+
+                    b.Navigation("Post");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Screamer.Domain.Entities.PostUserMention", b =>
+                {
+                    b.HasOne("Screamer.Domain.Common.Post", "Post")
+                        .WithMany("PostUserMentions")
+                        .HasForeignKey("PostId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Screamer.Identity.Models.ApplicationUser", "User")
+                        .WithMany("PostUserMentions")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Post");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Screamer.Domain.Entities.PostUserTag", b =>
+                {
+                    b.HasOne("Screamer.Domain.Common.Post", "Post")
+                        .WithMany("PostUserTags")
+                        .HasForeignKey("PostId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Screamer.Identity.Models.ApplicationUser", "User")
+                        .WithMany("PostUserTags")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Post");
 
@@ -1232,7 +1428,13 @@ namespace Screamer.Presistance.Migrations
 
                     b.Navigation("PostCategories");
 
+                    b.Navigation("PostHashtags");
+
                     b.Navigation("PostImages");
+
+                    b.Navigation("PostUserMentions");
+
+                    b.Navigation("PostUserTags");
 
                     b.Navigation("Reactions");
                 });
@@ -1259,6 +1461,16 @@ namespace Screamer.Presistance.Migrations
                     b.Navigation("Connections");
                 });
 
+            modelBuilder.Entity("Screamer.Domain.Entities.Hashtag", b =>
+                {
+                    b.Navigation("PostHashtags");
+                });
+
+            modelBuilder.Entity("Screamer.Domain.Entities.Mood", b =>
+                {
+                    b.Navigation("Posts");
+                });
+
             modelBuilder.Entity("Screamer.Identity.Models.ApplicationUser", b =>
                 {
                     b.Navigation("Adress");
@@ -1276,6 +1488,10 @@ namespace Screamer.Presistance.Migrations
                     b.Navigation("MessagesReceived");
 
                     b.Navigation("MessagesSent");
+
+                    b.Navigation("PostUserMentions");
+
+                    b.Navigation("PostUserTags");
 
                     b.Navigation("Posts");
 

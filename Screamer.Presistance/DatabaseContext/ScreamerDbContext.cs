@@ -29,8 +29,13 @@ namespace Screamer.Presistance.DatabaseContext
 
         public DbSet<ChatRoom> ChatRooms { get; set; }
         public DbSet<Category> Categories { get; set; }
-
+        public DbSet<Mood> Moods { get; set; }
+        public DbSet<Hashtag> Hashtags { get; set; }
         public DbSet<PostCategory> PostCategories { get; set; }
+        public DbSet<PostHashtag> PostHashtags { get; set; }
+
+        public ICollection<PostUserMention> PostUserMentions { get; set; } 
+        public ICollection<PostUserTag> PostUserTags { get; set; } 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -94,16 +99,28 @@ namespace Screamer.Presistance.DatabaseContext
                 .HasForeignKey(cu => cu.UserId);
 
             modelBuilder.Entity<PostCategory>().HasKey(bc => new { bc.PostId, bc.CategoryId });
+            modelBuilder.Entity<PostHashtag>().HasKey(bc => new { bc.PostId, bc.HashtagId });
+
             modelBuilder
                 .Entity<PostCategory>()
                 .HasOne(bc => bc.Post)
                 .WithMany(b => b.PostCategories)
                 .HasForeignKey(bc => bc.PostId);
             modelBuilder
+                .Entity<PostHashtag>()
+                .HasOne(bc => bc.Post)
+                .WithMany(b => b.PostHashtags)
+                .HasForeignKey(bc => bc.PostId);
+            modelBuilder
                 .Entity<PostCategory>()
                 .HasOne(bc => bc.Category)
                 .WithMany(c => c.PostCategories)
                 .HasForeignKey(bc => bc.CategoryId);
+            modelBuilder
+                .Entity<PostHashtag>()
+                .HasOne(bc => bc.Hashtag)
+                .WithMany(c => c.PostHashtags)
+                .HasForeignKey(bc => bc.HashtagId);
 
             modelBuilder.Entity<Post>().Property(p => p.CreatedAt).HasDefaultValueSql("getdate()");
             modelBuilder
@@ -115,6 +132,38 @@ namespace Screamer.Presistance.DatabaseContext
                 .Entity<Message>()
                 .Property(p => p.UpdatedAt)
                 .HasDefaultValueSql("getdate()");
+
+            modelBuilder
+                .Entity<Post>()
+                .HasOne(p => p.Mood)
+                .WithMany(m => m.Posts)
+                .HasForeignKey(p => p.MoodId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            /* mentions and taggings */
+            modelBuilder.Entity<PostUserMention>().HasKey(bc => new { bc.PostId, bc.UserId});
+            modelBuilder.Entity<PostUserTag>().HasKey(bc => new { bc.PostId, bc.UserId });
+
+            modelBuilder
+                .Entity<PostUserMention>()
+                .HasOne(bc => bc.Post)
+                .WithMany(b => b.PostUserMentions)
+                .HasForeignKey(bc => bc.PostId);
+            modelBuilder
+                .Entity<PostUserTag>()
+                .HasOne(bc => bc.Post)
+                .WithMany(b => b.PostUserTags)
+                .HasForeignKey(bc => bc.PostId);
+            modelBuilder
+                .Entity<PostUserMention>()
+                .HasOne(bc => bc.User)
+                .WithMany(c => c.PostUserMentions)
+                .HasForeignKey(bc => bc.UserId);
+            modelBuilder
+                .Entity<PostUserTag>()
+                .HasOne(bc => bc.User)
+                .WithMany(c => c.PostUserTags)
+                .HasForeignKey(bc => bc.UserId);
         }
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
