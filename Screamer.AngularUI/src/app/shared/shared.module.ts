@@ -54,6 +54,8 @@ import { ClipboardModule } from 'ngx-clipboard';
 import { SearchComponent } from './components/search/search/search.component';
 import { SearchResultModalComponent } from './components/modal/search-result-modal/search-result-modal.component';
 import { QuillModule } from 'ngx-quill';
+import { CategoryModalComponent } from './components/modal/category-modal/category-modal.component';
+import { TagModalComponent } from './components/modal/tag-modal/tag-modal.component';
 
 @NgModule({
   declarations: [
@@ -96,6 +98,8 @@ import { QuillModule } from 'ngx-quill';
     DateStuffPipe,
     SearchComponent,
     SearchResultModalComponent,
+    CategoryModalComponent,
+    TagModalComponent,
   ],
   imports: [
     CommonModule,
