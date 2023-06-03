@@ -140,5 +140,13 @@ namespace Screamer.Presistance.Repositories
 
             return await query.ToListAsync();
         }
+
+     /*        public new async Task AddAsync(Post post ,
+                    
+            )
+    {
+        await _context.Posts.AddAsync(post);
+        await _context.SaveChangesAsync();
+    } */
     }
 }

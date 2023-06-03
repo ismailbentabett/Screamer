@@ -82,10 +82,7 @@ namespace Screamer.Application.Features.PostRequest.Commands.CreatePostRequest
                 var hashtag = await _uow.HashtagRepository.GetHashTagByNameAsync(hashTagName);
                 if (hashtag == null)
                 {
-                    hashtag = new Hashtag
-                    {
-                        Name = hashTagName
-                    };
+                    hashtag = new Hashtag { Name = hashTagName };
                 }
                 var postHashtag = new PostHashtag
                 {
@@ -98,13 +95,40 @@ namespace Screamer.Application.Features.PostRequest.Commands.CreatePostRequest
                 hashtag.PostHashtags.Add(postHashtag);
             }
 
+            var mood = await _uow.MoodRepository.AddAsync(new Mood { MoodType = request.MoodType });
+            post.Mood = mood;
             await _postRepository.AddAsync(post);
+
             var posts = await _uow.PostRepository.GetAllAsync();
             //map post to PostSearchDto
             var postSearchDto = _mapper.Map<IEnumerable<PostSearchResult>>(posts);
 
             await _algoliaService.AddAllPostsToIndex("post", postSearchDto);
+
+            //get post by id
+            var postById = await _uow.PostRepository.GetPostById(post.Id);
+            foreach (var tag in request.TagsTaaZabi)
+            {
+                var userMention = await _uow.UserRepository.GetUserByUsernameAsync(tag);
+
+                if (userMention == null)
+                {
+                    // Handle the case when the category doesn't exist and throw an exception or return an error response
+                    throw new Exception($"User '{tag}' does not exist.");
+                }
+                var postTag = new Tag
+                {
+                    UserId = userMention.Id,
+                    User = userMention,
+                    PostId = postById.Id,
+                    Post = postById
+                };
+                postById.Tags.Add(postTag);
+                userMention.Tags.Add(postTag);
+            }
+
             await _uow.Complete();
+
             return post.Id;
         }
     }

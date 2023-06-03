@@ -8,7 +8,7 @@ namespace Screamer.Domain.Entities
 {
     public class Mood: BaseEntity
     {
-    public string Name { get; set; }
+    public string MoodType { get; set; }
     public ICollection<Post> Posts { get; set; }
     }
 }

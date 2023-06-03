@@ -77,4 +77,14 @@ public class UserRepository : IUserRepository
             .Include(p => p.Socials)
             .ToListAsync();
     }
+
+    async Task<ApplicationUser> IUserRepository.GetUserByUsername(string username)
+    {
+        return await _context.Users
+            .Include(p => p.Avatars)
+            .Include(p => p.Covers)
+            .Include(p => p.Adress)
+            .Include(p => p.Socials)
+            .SingleOrDefaultAsync(x => x.UserName == username);
+    }
 }

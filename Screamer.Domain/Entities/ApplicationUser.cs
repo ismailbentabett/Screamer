@@ -57,8 +57,6 @@ public byte[] PasswordSalt { get; set; } = new byte[32]; */
 
         [JsonPropertyName("objectID")]
         public string ObjectID { get; set; }
-        public ICollection<PostUserMention> PostUserMentions { get; set; } =
-            new List<PostUserMention>();
-        public ICollection<PostUserTag> PostUserTags { get; set; } = new List<PostUserTag>();
+        public ICollection<Tag> Tags { get; set; } = new List<Tag>();
     }
 }

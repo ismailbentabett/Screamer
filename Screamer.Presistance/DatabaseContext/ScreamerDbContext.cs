@@ -34,8 +34,7 @@ namespace Screamer.Presistance.DatabaseContext
         public DbSet<PostCategory> PostCategories { get; set; }
         public DbSet<PostHashtag> PostHashtags { get; set; }
 
-        public ICollection<PostUserMention> PostUserMentions { get; set; }
-        public ICollection<PostUserTag> PostUserTags { get; set; }
+        public DbSet<Tag> Tags { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -142,29 +141,15 @@ namespace Screamer.Presistance.DatabaseContext
                 .HasForeignKey(p => p.MoodId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            /* mentions and taggings */
-            modelBuilder.Entity<PostUserMention>().HasKey(bc => new { bc.PostId, bc.UserId });
-            modelBuilder.Entity<PostUserTag>().HasKey(bc => new { bc.PostId, bc.UserId });
-
             modelBuilder
-                .Entity<PostUserMention>()
+                .Entity<Tag>()
                 .HasOne(bc => bc.Post)
-                .WithMany(b => b.PostUserMentions)
+                .WithMany(b => b.Tags)
                 .HasForeignKey(bc => bc.PostId);
             modelBuilder
-                .Entity<PostUserTag>()
-                .HasOne(bc => bc.Post)
-                .WithMany(b => b.PostUserTags)
-                .HasForeignKey(bc => bc.PostId);
-            modelBuilder
-                .Entity<PostUserMention>()
+                .Entity<Tag>()
                 .HasOne(bc => bc.User)
-                .WithMany(c => c.PostUserMentions)
-                .HasForeignKey(bc => bc.UserId);
-            modelBuilder
-                .Entity<PostUserTag>()
-                .HasOne(bc => bc.User)
-                .WithMany(c => c.PostUserTags)
+                .WithMany(c => c.Tags)
                 .HasForeignKey(bc => bc.UserId);
         }
 

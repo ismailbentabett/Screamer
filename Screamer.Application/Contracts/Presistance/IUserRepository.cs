@@ -14,5 +14,7 @@ namespace Screamer.Application.Contracts.Presistance
 
         //get all async 
         Task<IEnumerable<ApplicationUser>> GetAllAsync();
+
+        Task<ApplicationUser> GetUserByUsername(string username);
     }
 }
