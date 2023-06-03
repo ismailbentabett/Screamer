@@ -21,6 +21,7 @@ import 'linkify-plugin-hashtag';
 import 'linkify-plugin-mention';
 import 'linkify-plugin-ticket';
 import 'linkify-plugin-ip';
+import { uniq } from 'lodash';
 
 @Component({
   selector: 'app-add-post-form',
@@ -56,12 +57,16 @@ export class AddPostFormComponent {
   baseUrl = environment.baseWebApiUrl;
   postImageUrl: any = false;
   preview: any = false;
-  hashtags: any;
-  mentions: any;
-  tickets: any;
-  ips: any;
-  keywords: any;
+  hashtags: string[] = [];
+  mentions: string[] = [];
+  tickets: string[] = [];
+  ips: string[] = [];
+  keywords: string[] = [];
   moodType!: string;
+  categoriesArray: string[] = [];
+  tagsArray: string[] = [];
+  isMoodOpen = false;
+  openTab = 1;
 
   /**
    *
@@ -86,6 +91,13 @@ export class AddPostFormComponent {
       userId: [this.user.id, Validators.required],
     });
   }
+
+  addTag(tag: any) {
+    this.tagsArray.push(tag);
+  }
+  addCategory(category: any) {
+    this.categoriesArray.push(category);
+  }
   react(moodType: string) {
     this.moodType = moodType;
   }
@@ -94,6 +106,11 @@ export class AddPostFormComponent {
       .createPost({
         userId: this.user.id,
         ...this.form.value,
+        mood: this.moodType,
+        hashtags: this.hashtags,
+        mentions: this.mentions,
+        categories: this.categoriesArray,
+        tags: this.tagsArray,
       })
       .subscribe({
         next: (postId) => {
@@ -103,8 +120,6 @@ export class AddPostFormComponent {
         },
       });
   }
-
-  isMoodOpen = false;
 
   toggleMoodDropdown() {
     this.isMoodOpen = !this.isMoodOpen;
@@ -123,6 +138,7 @@ export class AddPostFormComponent {
       };
     }
   }
+
   ngOnInit(): void {
     this.form.valueChanges.subscribe((x: any) => {
       this.preview = {
@@ -146,10 +162,16 @@ export class AddPostFormComponent {
       this.keywords = linkify
         .find(x.content, 'keyword')
         .map((link) => link.value);
+
+      //make values unique and remove the @ from mentions
+      this.mentions = uniq(
+        this.mentions.map((mention) => mention.replace('@', ''))
+      );
+
+      this.hashtags = uniq(this.hashtags);
     });
   }
 
-  openTab = 1;
   toggleTabs($tabNumber: number) {
     this.openTab = $tabNumber;
   }
@@ -212,7 +234,7 @@ export class AddPostFormComponent {
           const hashtagItems = [
             {
               id: 'hashtag',
-              value: searchTerm,
+              value: `<span class="text-dodger-blue-500 font-black	 no-underline">#${searchTerm}</span>`,
               link: '',
             },
           ];
