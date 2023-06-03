@@ -21,6 +21,12 @@ namespace Screamer.Application.Contracts.Presistance
 
         ICommentRepository CommentRepository { get; }
 
+        IHashtagRepository HashtagRepository { get; }
+        
+        IMoodRepository MoodRepository { get; }
+
+        ICategoryRepository CategoryRepository { get; }
+
         Task<bool> Complete();
         bool HasChanges();
     }
