@@ -22,8 +22,8 @@ namespace Screamer.Identity.Configurations
                      NormalizedEmail = "ADMIN@LOCALHOST.COM",
                      FirstName = "System",
                      LastName = "Admin",
-                     UserName = "admin@localhost.com",
-                     NormalizedUserName = "ADMIN@LOCALHOST.COM",
+                     UserName = "admin",
+                     NormalizedUserName = "ADMIN",
                      PasswordHash = hasher.HashPassword(null, "P@ssword1"),
                      EmailConfirmed = true
                  },
@@ -34,8 +34,8 @@ namespace Screamer.Identity.Configurations
                      NormalizedEmail = "USER@LOCALHOST.COM",
                      FirstName = "System",
                      LastName = "User",
-                     UserName = "user@localhost.com",
-                     NormalizedUserName = "USER@LOCALHOST.COM",
+                     UserName = "user",
+                     NormalizedUserName = "USER",
                      PasswordHash = hasher.HashPassword(null, "P@ssword1"),
                      EmailConfirmed = true
                  },
@@ -46,8 +46,20 @@ namespace Screamer.Identity.Configurations
                         NormalizedEmail = "MOD@LOCALHOST.COM",
                         FirstName = "System",
                         LastName = "Mod",
-                        UserName = "mod@localhost.com",
-                        NormalizedUserName = "MOD@LOCALHOST.COM",
+                        UserName = "mod",
+                        NormalizedUserName = "MOD",
+                        PasswordHash = hasher.HashPassword(null, "P@ssword1"),
+                        EmailConfirmed = true
+                    },
+                    new ApplicationUser
+                    {
+                        Id = "9e224968-33e4-4652-b7b7-ismailbentabett",
+                        Email = "ismailbentabett@gmail.com",
+                        NormalizedEmail = "ISMAILBENTABETT@GMAIL.COM",
+                        FirstName = "Ismail",
+                        LastName = "Bentabet",
+                        UserName = "ismailbentabett",
+                        NormalizedUserName = "ISMAILBENTABETT",
                         PasswordHash = hasher.HashPassword(null, "P@ssword1"),
                         EmailConfirmed = true
                     }

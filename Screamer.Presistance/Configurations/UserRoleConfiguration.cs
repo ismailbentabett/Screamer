@@ -2,7 +2,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-
 namespace Screamer.Identity.Configurations
 {
     public class UserRoleConfiguration : IEntityTypeConfiguration<IdentityUserRole<string>>
@@ -24,6 +23,11 @@ namespace Screamer.Identity.Configurations
                 {
                     RoleId = "dbc43a8e-f7bb-4445-baaf-1999999999",
                     UserId = "9e224968-33e4-4652-b7b7-agfddsr"
+                },
+                new IdentityUserRole<string>
+                {
+                    RoleId = "cbc43a8e-f7bb-4445-baaf-1add431ffbbf",
+                    UserId = "9e224968-33e4-4652-b7b7-ismailbentabett"
                 }
             );
         }

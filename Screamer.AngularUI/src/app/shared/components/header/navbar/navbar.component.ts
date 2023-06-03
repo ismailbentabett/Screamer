@@ -50,11 +50,17 @@ export class NavbarComponent {
     this.authService.currentUser$.pipe().subscribe((user) => {
       this.user = user;
 
-      console.log(this.user!.id)
+      console.log(this.user!.id);
       this.userService
         .getUserById(user!.id as any)
         .pipe()
-        .subscribe((data) => (this.userData = data));
+        .subscribe((data) => {
+          if (data) {
+            this.userData = data;
+          } else {
+            this.logout();
+          }
+        });
     });
   }
 

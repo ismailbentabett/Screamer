@@ -179,6 +179,7 @@ export class AddPostFormComponent {
   modules = {
     toolbar: false,
     mention: {
+      positioningStrategy : 'fixed',
       mentionListClass: 'ql-mention-list shadow-lg ',
       allowedChars: /^[A-Za-z\sÅÄÖåäö]*$/,
       showDenotationChar: false,
