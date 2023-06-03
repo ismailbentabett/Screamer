@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { PostService } from 'src/app/core/services/post.service';
+import { SearchService } from 'src/app/core/services/search.service';
 
 @Component({
   selector: 'app-category-modal',
@@ -6,5 +8,13 @@ import { Component } from '@angular/core';
   styleUrls: ['./category-modal.component.scss']
 })
 export class CategoryModalComponent {
+  constructor(public postService: PostService) {}
 
+  openPopup() {
+    this.postService.openCategoryPopup();
+  }
+
+  closePopup() {
+    this.postService.closeCategoryPopup();
+  }
 }

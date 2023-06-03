@@ -67,7 +67,7 @@ export class AddPostFormComponent {
    */
   constructor(
     private authService: AuthenticationService,
-    private postService: PostService,
+    public postService: PostService,
     private fb: FormBuilder
   ) {
     this.authService.currentUser$.pipe(take(1)).subscribe({
@@ -179,7 +179,7 @@ export class AddPostFormComponent {
   modules = {
     toolbar: false,
     mention: {
-      positioningStrategy : 'fixed',
+      positioningStrategy: 'fixed',
       mentionListClass: 'ql-mention-list shadow-lg ',
       allowedChars: /^[A-Za-z\sÅÄÖåäö]*$/,
       showDenotationChar: false,
@@ -226,4 +226,17 @@ export class AddPostFormComponent {
       },
     },
   };
+
+  openTagPopUp() {
+    this.postService.openTagPopup();
+  }
+  closeTagPopUp() {
+    this.postService.CloseTagPopup();
+  }
+  openCategoryPopUp() {
+    this.postService.openCategoryPopup();
+  }
+  closeCategoryPopUp() {
+    this.postService.closeCategoryPopup();
+  }
 }

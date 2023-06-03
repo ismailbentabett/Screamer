@@ -152,6 +152,8 @@ import { TagModalComponent } from './components/modal/tag-modal/tag-modal.compon
     CommentSectionComponent,
     CommentInputComponent,
     SearchResultModalComponent,
+    CategoryModalComponent,
+    TagModalComponent,
   ],
   providers: [],
 })

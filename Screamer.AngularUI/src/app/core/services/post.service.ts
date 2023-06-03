@@ -21,7 +21,8 @@ export class PostService {
 
   private postImageUrl: BehaviorSubject<any> = new BehaviorSubject<any>(null);
   recommendationParams!: RecommendationParams;
-
+  public isCategoryOpen: boolean = false;
+  public isTagOpen: boolean = false;
   constructor(
     private http: HttpClient,
     private authService: AuthenticationService
@@ -202,5 +203,21 @@ export class PostService {
     return this.http.delete(
       this.baseUrl + 'User/delete-post-image/' + postImageId
     );
+  }
+
+  openCategoryPopup() {
+    this.isCategoryOpen = true;
+  }
+
+  closeCategoryPopup() {
+    this.isCategoryOpen = false;
+  }
+
+  openTagPopup() {
+    this.isTagOpen = true;
+  }
+
+  CloseTagPopup() {
+    this.isTagOpen = false;
   }
 }
