@@ -1045,7 +1045,7 @@ namespace Screamer.Presistance.Migrations
                         {
                             Id = "8e445865-a24d-4543-a6c6-9443d048cdb9",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "0073c643-335d-4846-a981-6dd390c3f0ae",
+                            ConcurrencyStamp = "b08897d6-09be-47af-8839-84a02bb081c8",
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "admin@localhost.com",
                             EmailConfirmed = true,
@@ -1054,9 +1054,9 @@ namespace Screamer.Presistance.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@LOCALHOST.COM",
                             NormalizedUserName = "ADMIN@LOCALHOST.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEDw4cNFOvxeiJUe686jWu8D5ruIEZi3OXKCpeqeWkJ7Hkp55X5aUNWiBaKVGS5BB8g==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEMyewGAonAsqI6FtaEl2FBGrbcjmcJ1t028ZOFu7CObfFy+RVbKFESgW38A2G7LxhQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "9fe7c59e-a025-4d77-be3f-3913e7b81568",
+                            SecurityStamp = "d6288da9-d8ce-45ae-83d4-e873fdba592a",
                             TwoFactorEnabled = false,
                             UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UserName = "admin@localhost.com"
@@ -1065,7 +1065,7 @@ namespace Screamer.Presistance.Migrations
                         {
                             Id = "9e224968-33e4-4652-b7b7-8574d048cdb9",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "b34b8768-3fcd-418a-9ff2-0b8095e480d8",
+                            ConcurrencyStamp = "ca187e53-7f84-4aa1-9442-b3f640bd19ce",
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "user@localhost.com",
                             EmailConfirmed = true,
@@ -1074,9 +1074,9 @@ namespace Screamer.Presistance.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "USER@LOCALHOST.COM",
                             NormalizedUserName = "USER@LOCALHOST.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEGe0tgru4eGmcLZdzL3ttMB0eJvWEcHX04uV9Z14McApk0p47NQj7xgOIGLZdR2VYw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEFyUKX7atnS3BQD9qGveduPwdTow0k7ITPFRjYprD/rA74aT4ngU9MjcxmKLLUllJg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "2449a94d-e67e-492f-970e-71ffd0a99a43",
+                            SecurityStamp = "849ab462-d893-4391-a74a-5ef986538647",
                             TwoFactorEnabled = false,
                             UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UserName = "user@localhost.com"
@@ -1085,7 +1085,7 @@ namespace Screamer.Presistance.Migrations
                         {
                             Id = "9e224968-33e4-4652-b7b7-agfddsr",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "ebaecbef-a024-4fc0-85cf-0ab4a712abbb",
+                            ConcurrencyStamp = "b3683c44-a248-4d1a-ab68-dacb69fa06ba",
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "mod@localhost.com",
                             EmailConfirmed = true,
@@ -1094,9 +1094,9 @@ namespace Screamer.Presistance.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "MOD@LOCALHOST.COM",
                             NormalizedUserName = "MOD@LOCALHOST.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEA3W88Sgh36jqi1xxFY9RHdsvo4NqiFNzhLaCp7YZTgnD8LeB11WAP+8qyOGOZitjg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEPblDC1vZJ2cLs9yOD+kv3BgY4FpLKfCBAOUaa4PmFHRDwfnNmldVLHNXno5Ah1XpQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "8bb46212-c74f-4714-9972-557b8ad97f45",
+                            SecurityStamp = "7eeaec9a-3a59-4b12-85ad-133ce25643b1",
                             TwoFactorEnabled = false,
                             UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UserName = "mod@localhost.com"
