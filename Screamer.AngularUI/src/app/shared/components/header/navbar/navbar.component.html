@@ -40,6 +40,8 @@
       <div class="relative z-10 flex items-center lg:hidden">
         <!-- Mobile menu button -->
         <button
+        (click)="toggleNavbar()"
+
           type="button"
           class="rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-dodger-blue-500"
           aria-controls="mobile-menu"
@@ -54,6 +56,7 @@
             Menu open: "hidden", Menu closed: "block"
           -->
           <svg
+            *ngIf="!navbarOpen"
             class="block h-6 w-6"
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -76,7 +79,8 @@
             Menu open: "block", Menu closed: "hidden"
           -->
           <svg
-            class="hidden h-6 w-6"
+            *ngIf="navbarOpen"
+            class="h-6 w-6"
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
@@ -268,7 +272,15 @@
   </div>
 
   <!-- Mobile menu, show/hide based on menu state. -->
-  <nav class="lg:hidden" aria-label="Global" id="mobile-menu">
+  <nav
+    class="lg:hidden"
+    aria-label="Global"
+    id="mobile-menu"
+    [@navOpenClose]="!isOpen ? 'navopen' : 'navclosed'"
+    [ngClass]="
+      navbarOpen ? 'block' : 'hidden'
+    "
+  >
     <div class="pt-2 pb-3 px-2 space-y-1">
       <!-- Current: "bg-gray-100 text-gray-900", Default: "text-gray-900 hover:bg-gray-50 hover:text-gray-900" -->
       <a

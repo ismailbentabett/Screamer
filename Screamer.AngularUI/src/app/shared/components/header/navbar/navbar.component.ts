@@ -35,12 +35,33 @@ import {
       transition('closed => open', animate('100ms ease-out')),
       transition('open => closed', animate('75ms ease-in')),
     ]),
+    trigger('navOpenClose', [
+      state(
+        'navopen',
+        style({
+          opacity: 1,
+          transform: 'scale(1, 1)',
+        })
+      ),
+      state(
+        'navclosed',
+        style({
+          opacity: 0,
+          transform: 'scale(0.95, 0.95)',
+        })
+      ),
+      transition('navopen => navclosed', [animate('100ms ease-in')]),
+      transition('navclosed => navopen', [animate('200ms ease-out')]),
+    ]),
   ],
 })
 export class NavbarComponent {
   user: User | null = null;
   userData!: User;
-
+  navbarOpen: boolean = false;
+  get openCloseTrigger() {
+    return this.navbarOpen ? 'open' : 'closed';
+  }
   constructor(
     public authService: AuthenticationService,
     private router: Router,
@@ -64,6 +85,9 @@ export class NavbarComponent {
     });
   }
 
+  toggleNavbar() {
+    this.navbarOpen = !this.navbarOpen;
+  }
   LinkStyle(route: string): string {
     const isActive =
       this.router.isActive(route, false) || this.router.isActive(route, true);
