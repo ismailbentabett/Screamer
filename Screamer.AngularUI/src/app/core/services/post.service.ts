@@ -22,6 +22,14 @@ export class PostService {
   private postImageUrl: BehaviorSubject<any> = new BehaviorSubject<any>(null);
   recommendationParams!: RecommendationParams;
   public isCategoryOpen: boolean = false;
+  tagSearchResults!: any;
+  tagSearchQuery!: any;
+  tagSearchResultArray: any[] = [];
+
+  //get username from tagSearchResultArray
+  gettagSearchResultArrayUsernames() {
+    return this.tagSearchResultArray.map((user) => user.userName);
+  }
   public isTagOpen: boolean = false;
   constructor(
     private http: HttpClient,

@@ -22,6 +22,7 @@ import 'linkify-plugin-mention';
 import 'linkify-plugin-ticket';
 import 'linkify-plugin-ip';
 import { uniq } from 'lodash';
+import { CategoryService } from 'src/app/core/services/category.service';
 
 @Component({
   selector: 'app-add-post-form',
@@ -74,7 +75,8 @@ export class AddPostFormComponent {
   constructor(
     private authService: AuthenticationService,
     public postService: PostService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private categoryService: CategoryService
   ) {
     this.authService.currentUser$.pipe(take(1)).subscribe({
       next: (user) => {
@@ -95,9 +97,7 @@ export class AddPostFormComponent {
   addTag(tag: any) {
     this.tagsArray.push(tag);
   }
-  addCategory(category: any) {
-    this.categoriesArray.push(category);
-  }
+
   react(moodType: string) {
     this.moodType = moodType;
   }
@@ -106,11 +106,11 @@ export class AddPostFormComponent {
       .createPost({
         userId: this.user.id,
         ...this.form.value,
-        mood: this.moodType,
-        hashtags: this.hashtags,
-        mentions: this.mentions,
-        categories: this.categoriesArray,
-        tags: this.tagsArray,
+        mood: this.moodType ?? null,
+        hashtags: this.hashtags ?? [],
+        mentions: this.mentions ?? [],
+        categories: this.categoryService.addedCategories ?? [],
+        tags: this.postService.gettagSearchResultArrayUsernames() ?? [],
       })
       .subscribe({
         next: (postId) => {
