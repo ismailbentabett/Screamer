@@ -61,6 +61,7 @@ export class AddPostFormComponent {
   tickets: any;
   ips: any;
   keywords: any;
+  moodType!: string;
 
   /**
    *
@@ -85,7 +86,9 @@ export class AddPostFormComponent {
       userId: [this.user.id, Validators.required],
     });
   }
-
+  react(moodType: string) {
+    this.moodType = moodType;
+  }
   createPost() {
     this.postService
       .createPost({
@@ -101,18 +104,10 @@ export class AddPostFormComponent {
       });
   }
 
-  isAssignOpen = false;
-  isLabelOpen = false;
-  isDueDateOpen = false;
+  isMoodOpen = false;
 
-  toggleAssignDropdown() {
-    this.isAssignOpen = !this.isAssignOpen;
-  }
-  toggleLabelDropdown() {
-    this.isLabelOpen = !this.isLabelOpen;
-  }
-  toggleDueDateDropdown() {
-    this.isDueDateOpen = !this.isDueDateOpen;
+  toggleMoodDropdown() {
+    this.isMoodOpen = !this.isMoodOpen;
   }
 
   previewImages: any[] = [];

@@ -35,8 +35,7 @@
         class="relative z-0 flex-1 px-2 flex items-center justify-center sm:absolute sm:inset-0"
         *ngIf="authService.currentUser$ | async"
       >
-      <app-search></app-search>
-
+        <app-search></app-search>
       </div>
       <div class="relative z-10 flex items-center lg:hidden">
         <!-- Mobile menu button -->
@@ -205,9 +204,10 @@
               To: "transform opacity-0 scale-95"
           -->
           <div
+            *ngIf="isOpen"
             [class.open]="isOpen"
             [@dropdownAnimation]="isOpen ? 'open' : 'closed'"
-            class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5  focus:outline-none"
+            class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
             role="menu"
             aria-orientation="vertical"
             aria-labelledby="user-menu-button"

@@ -17,7 +17,6 @@
         <div class="min-w-0 flex-1">
           <p class="text-sm font-medium text-gray-900">
             <a
-              href="#"
               class="hover:underline"
               *ngIf="user"
               [routerLink]="['/v/user', post.userId]"
@@ -69,6 +68,7 @@
                 To: "transform opacity-0 scale-95"
             -->
             <div
+            *ngIf="isOpen"
               [class.open]="isOpen"
               [@dropdownAnimation]="isOpen ? 'open' : 'closed'"
               class="z-50 origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
@@ -128,7 +128,6 @@
                   <span>Edit Post</span>
                 </a>
                 <a
-                  href="#"
                   class="text-gray-700 flex px-4 py-2 text-sm cursor-pointer hover:bg-gray-100"
                   role="menuitem"
                   tabindex="-1"
@@ -192,7 +191,6 @@
                 </a>
                 <a
                   *ngIf="isMyPost()"
-                  href="#"
                   class="text-gray-700 flex px-4 py-2 text-sm cursor-pointer hover:bg-gray-100"
                   role="menuitem"
                   tabindex="-1"
@@ -218,7 +216,6 @@
                   <span>Remove Post</span>
                 </a>
                 <a
-                  href="#"
                   class="text-gray-700 flex px-4 py-2 text-sm cursor-pointer hover:bg-gray-100"
                   role="menuitem"
                   tabindex="-1"
@@ -261,7 +258,7 @@
       </h2>
     </div>
     <div class="mt-2 text-sm text-gray-700 space-y-4">
-    <quill-view [content]="post.content" format="html"></quill-view>
+      <quill-view [content]="post.content" format="html"></quill-view>
     </div>
 
     <div

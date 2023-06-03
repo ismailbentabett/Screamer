@@ -185,27 +185,34 @@
                 aria-haspopup="listbox"
                 aria-expanded="true"
                 aria-labelledby="listbox-label"
-                (click)="toggleDueDateDropdown()"
+                (click)="toggleMoodDropdown()"
               >
                 <!--
               Heroicon name: solid/calendar
 
               Selected: "text-gray-300", Default: "text-gray-500"
             -->
-                <svg
-                  class="text-gray-300 flex-shrink-0 h-5 w-5 sm:-ml-1"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                  aria-hidden="true"
-                >
-                  <path
-                    fill-rule="evenodd"
-                    d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zm-2.625 6c-.54 0-.828.419-.936.634a1.96 1.96 0 00-.189.866c0 .298.059.605.189.866.108.215.395.634.936.634.54 0 .828-.419.936-.634.13-.26.189-.568.189-.866 0-.298-.059-.605-.189-.866-.108-.215-.395-.634-.936-.634zm4.314.634c.108-.215.395-.634.936-.634.54 0 .828.419.936.634.13.26.189.568.189.866 0 .298-.059.605-.189.866-.108.215-.395.634-.936.634-.54 0-.828-.419-.936-.634a1.96 1.96 0 01-.189-.866c0-.298.059-.605.189-.866zm2.023 6.828a.75.75 0 10-1.06-1.06 3.75 3.75 0 01-5.304 0 .75.75 0 00-1.06 1.06 5.25 5.25 0 007.424 0z"
-                    clip-rule="evenodd"
-                  />
-                </svg>
 
+                <div [ngSwitch]="moodType">
+                  <app-loved *ngSwitchCase="'Loved'"></app-loved>
+                  <app-liked *ngSwitchCase="'Liked'"></app-liked>
+                  <app-excited *ngSwitchCase="'Excited'"></app-excited>
+                  <app-happy *ngSwitchCase="'Happy'"></app-happy>
+                  <app-sad *ngSwitchCase="'Sad'"></app-sad>
+                  <app-screaming *ngSwitchCase="'Screaming'"></app-screaming>
+                  <svg
+                    *ngSwitchDefault
+                    class="h-5 w-5"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M2 10.5a1.5 1.5 0 113 0v6a1.5 1.5 0 01-3 0v-6zM6 10.333v5.43a2 2 0 001.106 1.79l.05.025A4 4 0 008.943 18h5.416a2 2 0 001.962-1.608l1.2-6A2 2 0 0015.56 8H12V4a2 2 0 00-2-2 1 1 0 00-1 1v.667a4 4 0 01-.8 2.4L6.8 7.933a4 4 0 00-.8 2.4z"
+                    />
+                  </svg>
+                </div>
                 <!-- Selected: "text-gray-900" -->
                 <span class="hidden truncate sm:ml-2 sm:block"> Mood </span>
               </button>
@@ -226,8 +233,9 @@
                 role="listbox"
                 aria-labelledby="listbox-label"
                 aria-activedescendant="listbox-option-0"
-                [class.open]="isDueDateOpen"
-                [@dropdownAnimation]="isDueDateOpen ? 'open' : 'closed'"
+                *ngIf="isMoodOpen"
+                [class.open]="isMoodOpen"
+                [@dropdownAnimation]="isMoodOpen ? 'open' : 'closed'"
               >
                 <!--
               Select option, manage highlight styles based on mouseenter/mouseleave and keyboard navigation.
@@ -235,33 +243,80 @@
               Highlighted: "bg-gray-100", Not Highlighted: "bg-white"
             -->
                 <li
-                  class="bg-white cursor-default select-none relative py-2 px-3"
+                  class="cursor-pointer er bg-white select-none relative py-2 px-3"
                   id="listbox-option-0"
                   role="option"
+                  (click)="react('Excited')"
                 >
                   <div class="flex items-center">
-                    <span class="block font-medium truncate">
-                      No due date
+                    <app-excited></app-excited>
+                    <span class="ml-3 block font-medium truncate">
+                      Excited
                     </span>
                   </div>
                 </li>
 
-                <!--
-              Select option, manage highlight styles based on mouseenter/mouseleave and keyboard navigation.
-
-              Highlighted: "bg-gray-100", Not Highlighted: "bg-white"
-            -->
                 <li
-                  class="bg-white cursor-default select-none relative py-2 px-3"
+                  class="bg-white cursor-pointer er select-none relative py-2 px-3"
                   id="listbox-option-1"
                   role="option"
+                  (click)="react('Loved')"
                 >
                   <div class="flex items-center">
-                    <span class="block font-medium truncate"> Today </span>
+                    <app-loved></app-loved>
+                    <span class="ml-3 block font-medium truncate"> Loved </span>
                   </div>
                 </li>
 
-                <!-- More items... -->
+                <li
+                  class="bg-white cursor-pointer select-none relative py-2 px-3"
+                  id="listbox-option-2"
+                  role="option"
+                  (click)="react('Happy')"
+                >
+                  <div class="flex items-center">
+                    <app-happy></app-happy>
+                    <span class="ml-3 block font-medium truncate"> Happy </span>
+                  </div>
+                </li>
+
+                <li
+                  class="bg-white cursor-pointer select-none relative py-2 px-3"
+                  id="listbox-option-3"
+                  role="option"
+                  (click)="react('Sad')"
+                >
+                  <div class="flex items-center">
+                    <app-sad></app-sad>
+                    <span class="ml-3 block font-medium truncate"> Sad </span>
+                  </div>
+                </li>
+
+                <li
+                  class="bg-white cursor-pointer select-none relative py-2 px-3"
+                  id="listbox-option-4"
+                  role="option"
+                  (click)="react('Liked')"
+                >
+                  <div class="flex items-center">
+                    <app-liked></app-liked>
+                    <span class="ml-3 block font-medium truncate"> Liked </span>
+                  </div>
+                </li>
+
+                <li
+                  class="bg-white cursor-pointer select-none relative py-2 px-3"
+                  id="listbox-option-5"
+                  role="option"
+                  (click)="react('Screaming')"
+                >
+                  <div class="flex items-center">
+                    <app-screaming></app-screaming>
+                    <span class="ml-3 block font-medium truncate">
+                      Screaming
+                    </span>
+                  </div>
+                </li>
               </ul>
             </div>
           </div>

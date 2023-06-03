@@ -95,6 +95,7 @@
             To: "opacity-0"
         -->
         <ul
+          *ngIf="isOpen"
           [class.open]="isOpen"
           [@dropdownAnimation]="isOpen ? 'open' : 'closed'"
           class="absolute z-10 mt-1 -ml-6 w-60 bg-white shadow rounded-lg py-3 text-base ring-1 ring-black ring-opacity-5 focus:outline-none sm:ml-auto sm:w-64 sm:text-sm"
