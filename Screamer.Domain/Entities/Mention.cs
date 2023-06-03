@@ -8,9 +8,9 @@ using Screamer.Identity.Models;
 
 namespace Screamer.Domain.Entities
 {
-    public class Tag : BaseEntity
+    public class Mention : BaseEntity
     {
-        public string PostTitle { get; set; }
+       public string PostTitle { get; set; }
 
         [ForeignKey("UserId")]
         public ApplicationUser User { get; set; }

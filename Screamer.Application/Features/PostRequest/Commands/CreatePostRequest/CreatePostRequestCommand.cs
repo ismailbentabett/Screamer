@@ -17,7 +17,8 @@ namespace Screamer.Application.Features.PostRequest.Commands.CreatePostRequest
         public string UserId { get; set; }
         public List<string> Categories { get; set; }
         public List<string> Hashtags { get; set; }
-        public List<string> TagsTaaZabi { get; set; }
+        public List<string> TagsArr { get; set; }
+        public List<string> MentionsArr { get; set; }
 
         public string MoodType { get; set; }
     }

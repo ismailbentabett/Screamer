@@ -35,6 +35,7 @@ namespace Screamer.Presistance.DatabaseContext
         public DbSet<PostHashtag> PostHashtags { get; set; }
 
         public DbSet<Tag> Tags { get; set; }
+        public DbSet<Mention> Mentions { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -145,12 +146,29 @@ namespace Screamer.Presistance.DatabaseContext
                 .Entity<Tag>()
                 .HasOne(bc => bc.Post)
                 .WithMany(b => b.Tags)
-                .HasForeignKey(bc => bc.PostId);
+                .HasForeignKey(bc => bc.PostId)
+                .OnDelete(DeleteBehavior.Restrict);
+
             modelBuilder
                 .Entity<Tag>()
                 .HasOne(bc => bc.User)
                 .WithMany(c => c.Tags)
-                .HasForeignKey(bc => bc.UserId);
+                .HasForeignKey(bc => bc.UserId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder
+                .Entity<Mention>()
+                .HasOne(bc => bc.Post)
+                .WithMany(b => b.Mentions)
+                .HasForeignKey(bc => bc.PostId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder
+                .Entity<Mention>()
+                .HasOne(bc => bc.User)
+                .WithMany(c => c.Mentions)
+                .HasForeignKey(bc => bc.UserId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)

@@ -36,10 +36,11 @@ namespace Screamer.Domain.Common
         public string ObjectID { get; set; }
 
         [ForeignKey(nameof(MoodId))]
-        
         public Mood Mood { get; set; }
         public int? MoodId { get; set; }
- public ICollection<Tag> Tags { get; set; } = new List<Tag>();
+        public ICollection<Tag> Tags { get; set; } = new List<Tag>();
+        public ICollection<Mention> Mentions { get; set; } = new List<Mention>();
+
         public ICollection<PostCategory> PostCategories { get; set; } = new List<PostCategory>();
 
         public ICollection<PostHashtag> PostHashtags { get; set; } = new List<PostHashtag>();

@@ -107,7 +107,7 @@ namespace Screamer.Application.Features.PostRequest.Commands.CreatePostRequest
 
             //get post by id
             var postById = await _uow.PostRepository.GetPostById(post.Id);
-            foreach (var tag in request.TagsTaaZabi)
+            foreach (var tag in request.TagsArr)
             {
                 var userMention = await _uow.UserRepository.GetUserByUsernameAsync(tag);
 
@@ -127,7 +127,26 @@ namespace Screamer.Application.Features.PostRequest.Commands.CreatePostRequest
                 userMention.Tags.Add(postTag);
             }
 
-            await _uow.Complete();
+            foreach (var mention in request.MentionsArr)
+            {
+                var userMention = await _uow.UserRepository.GetUserByUsernameAsync(mention);
+
+                if (userMention == null)
+                {
+                    // Handle the case when the category doesn't exist and throw an exception or return an error response
+                    throw new Exception($"User '{mention}' does not exist.");
+                }
+                var postMention = new Mention
+                {
+                    UserId = userMention.Id,
+                    User = userMention,
+                    PostId = postById.Id,
+                    Post = postById
+                };
+                postById.Mentions.Add(postMention);
+                userMention.Mentions.Add(postMention);
+            }
+                        await _uow.Complete();
 
             return post.Id;
         }
