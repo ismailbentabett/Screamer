@@ -8,6 +8,7 @@ using Screamer.Application.Contracts.Exceptions;
 using Screamer.Application.Contracts.Presistance;
 using Screamer.Application.Dtos;
 using Screamer.Domain.Common;
+using Screamer.Domain.Entities;
 using Screamer.Identity.Models;
 
 namespace Screamer.Application.Features.PostRequest.Commands.CreatePostRequest
@@ -53,8 +54,50 @@ namespace Screamer.Application.Features.PostRequest.Commands.CreatePostRequest
 
             if (user == null)
                 throw new NotFoundException(nameof(ApplicationUser), request.UserId);
+
             var post = _mapper.Map<CreatePostRequestCommand, Post>(request);
             post.User = user;
+            foreach (var categoryName in request.Categories)
+            {
+                var category = await _uow.CategoryRepository.GetCategoryByNameAsync(categoryName);
+                if (category == null)
+                {
+                    // Handle the case when the category doesn't exist and throw an exception or return an error response
+                    throw new Exception($"Category '{categoryName}' does not exist.");
+                }
+
+                var postCategory = new PostCategory
+                {
+                    CategoryId = category.Id,
+                    Category = category,
+                    PostId = post.Id,
+                    Post = post
+                };
+
+                post.PostCategories.Add(postCategory);
+                category.PostCategories.Add(postCategory);
+            }
+            foreach (var hashTagName in request.Hashtags)
+            {
+                var hashtag = await _uow.HashtagRepository.GetHashTagByNameAsync(hashTagName);
+                if (hashtag == null)
+                {
+                    hashtag = new Hashtag
+                    {
+                        Name = hashTagName
+                    };
+                }
+                var postHashtag = new PostHashtag
+                {
+                    HashtagId = hashtag.Id,
+                    Hashtag = hashtag,
+                    PostId = post.Id,
+                    Post = post
+                };
+                post.PostHashtags.Add(postHashtag);
+                hashtag.PostHashtags.Add(postHashtag);
+            }
+
             await _postRepository.AddAsync(post);
             var posts = await _uow.PostRepository.GetAllAsync();
             //map post to PostSearchDto

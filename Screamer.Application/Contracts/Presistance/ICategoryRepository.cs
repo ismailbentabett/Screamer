@@ -6,5 +6,7 @@ using Screamer.Domain.Entities;
 
 namespace Screamer.Application.Contracts.Presistance
 {
-    public interface ICategoryRepository : IGenericRepository<Category> { }
+    public interface ICategoryRepository : IGenericRepository<Category> { 
+        Task<Category> GetCategoryByNameAsync(string name);
+    }
 }

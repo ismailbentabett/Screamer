@@ -34,8 +34,8 @@ namespace Screamer.Presistance.DatabaseContext
         public DbSet<PostCategory> PostCategories { get; set; }
         public DbSet<PostHashtag> PostHashtags { get; set; }
 
-        public ICollection<PostUserMention> PostUserMentions { get; set; } 
-        public ICollection<PostUserTag> PostUserTags { get; set; } 
+        public ICollection<PostUserMention> PostUserMentions { get; set; }
+        public ICollection<PostUserTag> PostUserTags { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -100,7 +100,9 @@ namespace Screamer.Presistance.DatabaseContext
 
             modelBuilder.Entity<PostCategory>().HasKey(bc => new { bc.PostId, bc.CategoryId });
             modelBuilder.Entity<PostHashtag>().HasKey(bc => new { bc.PostId, bc.HashtagId });
+            modelBuilder.Entity<PostCategory>().Property(pc => pc.Id).ValueGeneratedOnAdd();
 
+            modelBuilder.Entity<PostHashtag>().Property(pc => pc.Id).ValueGeneratedOnAdd();
             modelBuilder
                 .Entity<PostCategory>()
                 .HasOne(bc => bc.Post)
@@ -141,7 +143,7 @@ namespace Screamer.Presistance.DatabaseContext
                 .OnDelete(DeleteBehavior.Restrict);
 
             /* mentions and taggings */
-            modelBuilder.Entity<PostUserMention>().HasKey(bc => new { bc.PostId, bc.UserId});
+            modelBuilder.Entity<PostUserMention>().HasKey(bc => new { bc.PostId, bc.UserId });
             modelBuilder.Entity<PostUserTag>().HasKey(bc => new { bc.PostId, bc.UserId });
 
             modelBuilder
