@@ -103,21 +103,30 @@ export class AddPostFormComponent {
   }
 
   ngOnChanges(changes: any): void {
-    if (
-      changes.post &&
-      changes.post.currentValue &&
-      changes.edit.currentValue == true
-    ) {
-      console.log(changes.post);
+    if (changes.edit.currentValue == true) {
+      var categories = changes.post.currentValue.postCategories.map(
+        (x: any) => x.category.name
+      );
+      var mentions = changes.post.currentValue.mentions.map(
+        (x: any) => x.user.userName
+      );
+      var hashtag = changes.post.currentValue.postHashtags.map(
+        (x: any) => x.hashtag.name
+      );
+      var tags = changes.post.currentValue.tags.map((x: any) => x.user);
+
+      console.log(changes.post.currentValue);
+      console.log(mentions);
+      console.log(hashtag);
       this.form.patchValue(changes.post.currentValue);
       this.preview = changes.post.currentValue;
       this.previewImages = changes.post.currentValue.postImages;
       this.postImageUrl = changes.post.currentValue.imageUrl;
-      this.moodType = changes.post.currentValue.mood;
-      this.hashtags = changes.post.currentValue.hashtags;
-      this.mentions = changes.post.currentValue.mentions;
-      this.categoriesArray = changes.post.currentValue.categories;
-      this.tagsArray = changes.post.currentValue.tags;
+      this.moodType = changes.post.currentValue.mood.moodType;
+      this.hashtags = hashtag;
+      this.mentions = mentions;
+      this.categoryService.addedCategories = categories;
+      this.postService.tagSearchResultArray = tags;
       this.postId = changes.post.currentValue.id;
     }
   }

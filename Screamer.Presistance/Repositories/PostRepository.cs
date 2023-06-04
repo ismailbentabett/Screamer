@@ -24,9 +24,15 @@ namespace Screamer.Presistance.Repositories
             var query = _context.Posts
                 .Where(u => u.UserId == userId)
                 .Include(u => u.PostImages)
-                .Include(u => u.Comments)
-                .Include(u => u.Reactions)
-                .Include(u => u.User)
+                .Include(u => u.PostCategories)
+                .ThenInclude(pc => pc.Category)
+                .Include(u => u.PostHashtags)
+                .ThenInclude(pc => pc.Hashtag)
+                .Include(pc => pc.Tags)
+                .ThenInclude(pc => pc.User)
+                .Include(u => u.Mentions)
+                .ThenInclude(pc => pc.User)
+                .Include(u => u.Mood)
                 .AsQueryable();
 
             query = postParams.OrderBy switch
@@ -104,8 +110,16 @@ namespace Screamer.Presistance.Repositories
 
             var posts = _context.Posts
                 .Where(p => users.Any(u => u.Id == p.UserId))
-                .Include(p => p.PostImages)
-                .Include(p => p.User)
+                .Include(u => u.PostImages)
+                .Include(u => u.PostCategories)
+                .ThenInclude(pc => pc.Category)
+                .Include(u => u.PostHashtags)
+                .ThenInclude(pc => pc.Hashtag)
+                .Include(pc => pc.Tags)
+                .ThenInclude(pc => pc.User)
+                .Include(u => u.Mentions)
+                .ThenInclude(pc => pc.User)
+                .Include(u => u.Mood)
                 .AsQueryable();
 
             return PagedList<Post>.CreateAsync(
@@ -119,9 +133,15 @@ namespace Screamer.Presistance.Repositories
         {
             var query = _context.Posts
                 .Include(u => u.PostImages)
-                .Include(u => u.Comments)
-                .Include(u => u.Reactions)
-                .Include(u => u.User)
+                .Include(u => u.PostCategories)
+                .ThenInclude(pc => pc.Category)
+                .Include(u => u.PostHashtags)
+                .ThenInclude(pc => pc.Hashtag)
+                .Include(pc => pc.Tags)
+                .ThenInclude(pc => pc.User)
+                .Include(u => u.Mentions)
+                .ThenInclude(pc => pc.User)
+                .Include(u => u.Mood)
                 .AsQueryable();
 
             query = postParams.OrderBy switch
@@ -137,7 +157,15 @@ namespace Screamer.Presistance.Repositories
             var randomPosts = _context.Posts
                 .OrderBy(u => Guid.NewGuid())
                 .Include(u => u.PostImages)
-                .Include(u => u.User);
+                .Include(u => u.PostCategories)
+                .ThenInclude(pc => pc.Category)
+                .Include(u => u.PostHashtags)
+                .ThenInclude(pc => pc.Hashtag)
+                .Include(pc => pc.Tags)
+                .ThenInclude(pc => pc.User)
+                .Include(u => u.Mentions)
+                .ThenInclude(pc => pc.User)
+                .Include(u => u.Mood);
 
             return PagedList<Post>.CreateAsync(
                 randomPosts.AsQueryable(),
