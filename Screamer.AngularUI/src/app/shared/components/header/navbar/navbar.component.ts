@@ -71,7 +71,6 @@ export class NavbarComponent {
     this.authService.currentUser$.pipe().subscribe((user) => {
       this.user = user;
 
-      console.log(this.user!.id);
       this.userService
         .getUserById(user!.id as any)
         .pipe()

@@ -27,7 +27,6 @@ export class CategoryModalComponent {
   }
 
   addCategory(category: string): void {
-    console.log(category);
     if (!this.categoryService.addedCategories.includes(category)) {
       this.categoryService.addedCategories.push(category);
     }

@@ -96,7 +96,6 @@ export class AddPostFormComponent {
   }
 
   toggleEmojiMart(): void {
-    console.log(this.emojiMartVisible);
     this.emojiMartVisible = !this.emojiMartVisible;
   }
 
@@ -148,7 +147,6 @@ export class AddPostFormComponent {
     if (data) {
       this.preview.postImages = data;
       this.previewImages = data;
-      console.log(this.preview);
     }
   }
 
@@ -162,7 +160,6 @@ export class AddPostFormComponent {
         user: this.user,
         postImages: this.previewImages,
       };
-      console.log(this.preview);
       this.hashtags = linkify
         .find(x.content, 'hashtag')
         .map((link) => link.value);
