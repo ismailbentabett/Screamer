@@ -22,6 +22,7 @@ import { LocationStrategy, isPlatformBrowser } from '@angular/common';
 import { NavigationEnd, Router } from '@angular/router';
 import { QuillEditorComponent } from 'ngx-quill';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import 'quill-mention';
 
 @Component({
   selector: 'app-post',
@@ -132,6 +133,14 @@ export class PostComponent {
 
   modules = {
     toolbar: false,
-
+    mention: {
+      positioningStrategy: 'fixed',
+      mentionListClass: 'ql-mention-list shadow-lg ',
+      allowedChars: /^[A-Za-z\sÅÄÖåäö]*$/,
+      showDenotationChar: false,
+      spaceAfterInsert: false,
+      mentionDenotationChars: ['@', '#'],
+      linkTarget: '_blank',
+    },
   };
 }

@@ -68,6 +68,7 @@ export class AddPostFormComponent {
   tagsArray: string[] = [];
   isMoodOpen = false;
   openTab = 1;
+  emojiMartVisible: any;
 
   /**
    *
@@ -94,6 +95,23 @@ export class AddPostFormComponent {
     });
   }
 
+  toggleEmojiMart(): void {
+    console.log(this.emojiMartVisible);
+    this.emojiMartVisible = !this.emojiMartVisible;
+  }
+
+  addEmoji($event: { emoji: { native: any } }) {
+    const emojiNative = $event.emoji.native;
+
+    let data = this.form.get('content');
+    const existingContent = data!.value;
+    const updatedContent = existingContent.replace(
+      '</p>',
+      `${emojiNative}</p>`
+    );
+    data!.patchValue(updatedContent);
+  }
+
   addTag(tag: any) {
     this.tagsArray.push(tag);
   }
@@ -102,17 +120,6 @@ export class AddPostFormComponent {
     this.moodType = moodType;
   }
   createPost() {
-    console.log(
-      {
-        userId: this.user.id,
-        ...this.form.value,
-        moodType: this.moodType ?? null,
-        hashtags: this.hashtags ?? null,
-        mentionsArr: this.mentions ?? null,
-        categories: this.categoryService.addedCategories ?? null,
-        tagsArr: this.postService.gettagSearchResultArrayUsernames() ?? null,
-      }
-    )
     this.postService
       .createPost({
         userId: this.user.id,
@@ -139,14 +146,9 @@ export class AddPostFormComponent {
   previewImages: any[] = [];
   getImages(data: any) {
     if (data) {
-      this.preview = {
-        id: this.postId,
-        title: '',
-        content: '',
-        userId: this.user.id,
-        user: this.user,
-        postImages: data,
-      };
+      this.preview.postImages = data;
+      this.previewImages = data;
+      console.log(this.preview);
     }
   }
 
@@ -160,6 +162,7 @@ export class AddPostFormComponent {
         user: this.user,
         postImages: this.previewImages,
       };
+      console.log(this.preview);
       this.hashtags = linkify
         .find(x.content, 'hashtag')
         .map((link) => link.value);
@@ -246,7 +249,7 @@ export class AddPostFormComponent {
             {
               id: 'hashtag',
               value: `<span class="text-dodger-blue-500 font-black	 no-underline">#${searchTerm}</span>`,
-              link: '',
+              link: `/v/hashtag/#${searchTerm}`,
             },
           ];
           renderList(hashtagItems, searchTerm);

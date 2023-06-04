@@ -2,7 +2,26 @@
  @import '~quill/dist/quill.core.css';
  @import '~quill-mention/dist/quill.mention.min.css';
 
+ @import '@ctrl/ngx-emoji-mart/picker';
 
+
+ .emojicontainer {
+   position: relative;
+ }
+
+ button {
+   /* Your button styles here */
+ }
+
+ emoji-mart {
+   position: absolute;
+   bottom: 100%;
+   left: 0;
+   z-index: 100;
+   width: 100%;
+   max-width: 300px;
+
+ }
  .ql-mention-denotation-char{
   font-weight: 1000 !important;
   text-decoration: none !important;

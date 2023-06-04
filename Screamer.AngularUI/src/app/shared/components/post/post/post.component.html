@@ -68,7 +68,7 @@
                 To: "transform opacity-0 scale-95"
             -->
             <div
-            *ngIf="isOpen"
+              *ngIf="isOpen"
               [class.open]="isOpen"
               [@dropdownAnimation]="isOpen ? 'open' : 'closed'"
               class="z-50 origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
@@ -258,7 +258,7 @@
       </h2>
     </div>
     <div class="mt-2 text-sm text-gray-700 space-y-4">
-      <quill-view [content]="post.content" format="html"></quill-view>
+      <quill-view-html [content]="post.content" ></quill-view-html>
     </div>
 
     <div

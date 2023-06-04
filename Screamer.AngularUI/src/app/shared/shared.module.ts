@@ -56,6 +56,7 @@ import { SearchResultModalComponent } from './components/modal/search-result-mod
 import { QuillModule } from 'ngx-quill';
 import { CategoryModalComponent } from './components/modal/category-modal/category-modal.component';
 import { TagModalComponent } from './components/modal/tag-modal/tag-modal.component';
+import { PickerModule } from '@ctrl/ngx-emoji-mart';
 
 @NgModule({
   declarations: [
@@ -114,6 +115,7 @@ import { TagModalComponent } from './components/modal/tag-modal/tag-modal.compon
     ClipboardModule,
     FormsModule,
     QuillModule.forRoot(),
+    PickerModule,
   ],
   exports: [
     MyDirectiveDirective,

@@ -97,6 +97,41 @@
       <div class="absolute bottom-0 inset-x-px">
         <!-- Actions: These are just examples to demonstrate the concept, replace/wire these up however makes sense for your project. -->
         <div class="flex flex-nowrap justify-end py-2 px-2 space-x-2 sm:px-3">
+          <div class="flex-shrink-0 flex justify-center items-center">
+            <!-- imojie -->
+            <div>
+              <div class="emojicontainer">
+                <button
+                  class="flex items-center justify-center text-gray-400 hover:text-gray-600"
+                >
+                  <svg
+                    (click)="toggleEmojiMart()"
+                    class="w-6 h-6"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                    ></path>
+                  </svg>
+                </button>
+
+                <emoji-mart
+                  *ngIf="emojiMartVisible"
+                  title="Pick your emoji…"
+                  emoji="point_up"
+                  [darkMode]="false"
+                  (emojiSelect)="addEmoji($event)"
+                  set="twitter"
+                ></emoji-mart>
+              </div>
+            </div>
+          </div>
           <div class="flex-shrink-0">
             <label id="listbox-label" class="sr-only"> Tag </label>
             <div class="relative">
@@ -328,6 +363,7 @@
             (sendImages)="getImages($event)"
           ></app-post-images-upload>
         </div>
+
       </div>
     </div>
   </div>
@@ -381,3 +417,6 @@
 <app-category-modal
   *ngIf="this.postService.isCategoryOpen"
 ></app-category-modal>
+
+
+
