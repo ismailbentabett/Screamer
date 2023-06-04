@@ -39,11 +39,14 @@ namespace Screamer.Application.Features.PostRequest.Queries.GetPostRequest
             CancellationToken cancellationToken
         )
         {
-            var post = await _postRepository.GetPostById(request.Id);
+            var post = await _uow.PostRepository.GetPostById(request.Id);
             _logger.LogInformation("GetPostByIdRequestHandlerQuery called");
             var searchposts = await _uow.PostRepository.GetAllAsync();
-        
-            return _mapper.Map<PostDto>(post);
+            post.Views++;
+            if (await _uow.Complete())
+                return _mapper.Map<PostDto>(post);
+
+            throw new Exception("Problem saving changes");
         }
     }
 }

@@ -57,6 +57,7 @@ import { QuillModule } from 'ngx-quill';
 import { CategoryModalComponent } from './components/modal/category-modal/category-modal.component';
 import { TagModalComponent } from './components/modal/tag-modal/tag-modal.component';
 import { PickerModule } from '@ctrl/ngx-emoji-mart';
+import { ShortNumberPipe } from './pipes/short-number.pipe';
 
 @NgModule({
   declarations: [
@@ -101,6 +102,7 @@ import { PickerModule } from '@ctrl/ngx-emoji-mart';
     SearchResultModalComponent,
     CategoryModalComponent,
     TagModalComponent,
+    ShortNumberPipe
   ],
   imports: [
     CommonModule,
