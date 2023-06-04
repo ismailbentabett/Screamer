@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, Input, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { take } from 'rxjs';
 import { User } from 'src/app/core/models/User';
@@ -52,6 +52,9 @@ import { CategoryService } from 'src/app/core/services/category.service';
   ],
 })
 export class AddPostFormComponent {
+  @Input() post: any = null;
+  @Input() edit: boolean = false;
+
   user!: User;
   form: any;
   postId: any = null;
@@ -99,6 +102,28 @@ export class AddPostFormComponent {
     this.emojiMartVisible = !this.emojiMartVisible;
   }
 
+  ngOnChanges(changes: any): void {
+    if (
+      changes.post &&
+      changes.post.currentValue &&
+      changes.edit.currentValue == true
+    ) {
+      console.log(
+        changes.post
+      )
+      this.form.patchValue(changes.post.currentValue);
+      this.preview = changes.post.currentValue;
+      this.previewImages = changes.post.currentValue.postImages;
+      this.postImageUrl = changes.post.currentValue.imageUrl;
+      this.moodType = changes.post.currentValue.mood;
+      this.hashtags = changes.post.currentValue.hashtags;
+      this.mentions = changes.post.currentValue.mentions;
+      this.categoriesArray = changes.post.currentValue.categories;
+      this.tagsArray = changes.post.currentValue.tags;
+      this.postId = changes.post.currentValue.id;
+    }
+  }
+
   addEmoji($event: { emoji: { native: any } }) {
     const emojiNative = $event.emoji.native;
 
@@ -121,6 +146,26 @@ export class AddPostFormComponent {
   createPost() {
     this.postService
       .createPost({
+        userId: this.user.id,
+        ...this.form.value,
+        mood: this.moodType ?? null,
+        hashtags: this.hashtags ?? null,
+        mentions: this.mentions ?? null,
+        categories: this.categoryService.addedCategories ?? null,
+        tags: this.postService.gettagSearchResultArrayUsernames() ?? null,
+      })
+      .subscribe({
+        next: (postId) => {
+          this.postId = postId;
+
+          this.postService.sendpostImageUrl(postId);
+        },
+      });
+  }
+
+  editPost() {
+    this.postService
+      .updatePost({
         userId: this.user.id,
         ...this.form.value,
         mood: this.moodType ?? null,

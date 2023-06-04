@@ -50,6 +50,7 @@ import 'quill-mention';
   ],
 })
 export class PostComponent {
+  edit: boolean = false;
   @Input() post!: Post;
   @Input() preview: boolean = false;
   currentUser!: User;
@@ -79,6 +80,10 @@ export class PostComponent {
 
   isMyPost() {
     return this.currentUser?.id == this.post.userId;
+  }
+
+  toggleEdit(){
+    this.edit = !this.edit;
   }
 
   isOnCurrentPost() {

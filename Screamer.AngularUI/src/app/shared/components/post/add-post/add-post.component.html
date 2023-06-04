@@ -1,5 +1,6 @@
 <!-- This example requires Tailwind CSS v2.0+ -->
 <div class="max-w-7xl mx-auto my-3 mt-7">
   <!-- We've used 3xl here, but feel free to try other max-widths based on your needs -->
-    <app-add-post-form> </app-add-post-form>
+  <app-add-post-form [edit]="edit" [post]="edit == true ? post : null">
+  </app-add-post-form>
 </div>

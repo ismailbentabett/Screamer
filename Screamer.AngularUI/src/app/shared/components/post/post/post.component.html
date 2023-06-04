@@ -2,7 +2,7 @@
   class="list-none bg-white px-4 py-6 shadow sm:p-6 sm:rounded-lg mb-5"
   *ngIf="post"
 >
-  <article aria-labelledby="question-title-81614">
+  <article aria-labelledby="question-title-81614" *ngIf="!edit">
     <div>
       <div class="flex space-x-3">
         <div class="flex-shrink-0">
@@ -103,9 +103,10 @@
 
                   <span>Go To Post</span>
                 </a>
+                <!-- [routerLink]="'/v/post/' + post.id + '/edit'" -->
                 <a
                   *ngIf="isMyPost()"
-                  [routerLink]="'/v/post/' + post.id + '/edit'"
+                  (click)="toggleEdit()"
                   class="text-gray-700 flex px-4 py-2 text-sm stroke cursor-pointer hover:bg-gray-100"
                   role="menuitem"
                   tabindex="-1"
@@ -258,7 +259,7 @@
       </h2>
     </div>
     <div class="mt-2 text-sm text-gray-700 space-y-4">
-      <quill-view-html [content]="post.content" ></quill-view-html>
+      <quill-view-html [content]="post.content"></quill-view-html>
     </div>
 
     <div
@@ -316,7 +317,9 @@
                 clip-rule="evenodd"
               />
             </svg>
-            <span class="font-medium text-gray-900">{{post.views | shortNumber}}</span>
+            <span class="font-medium text-gray-900">{{
+              post.views | shortNumber
+            }}</span>
             <span class="sr-only">views</span>
           </button>
         </span>
@@ -344,11 +347,17 @@
       </div>
     </div>
   </article>
+  <app-add-post
+    [edit]="true"
+    *ngIf="edit"
+    [post]="edit == true ? post : null"
+  ></app-add-post>
+
   <div
     class="z-50 max-w-7xl mx-auto sm:p-6 lg:p-8 mt-5 border-t border-gray-200"
     *ngIf="isCommentsOpen"
   >
-    <app-comment-input></app-comment-input>
-    <app-comment-section></app-comment-section>
+    <app-comment-input *ngIf="!edit"></app-comment-input>
+    <app-comment-section *ngIf="!edit"></app-comment-section>
   </div>
 </li>
