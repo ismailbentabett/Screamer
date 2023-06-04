@@ -23,6 +23,8 @@ import { NavigationEnd, Router } from '@angular/router';
 import { QuillEditorComponent } from 'ngx-quill';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import 'quill-mention';
+import { PostService } from 'src/app/core/services/post.service';
+import { head } from 'lodash';
 
 @Component({
   selector: 'app-post',
@@ -62,7 +64,8 @@ export class PostComponent {
     private clipboardService: ClipboardService,
     @Inject(PLATFORM_ID) private platformId: Object,
     private router: Router,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    public postService: PostService
   ) {
     this.userService
       .getCurrentUserData()
@@ -82,7 +85,7 @@ export class PostComponent {
     return this.currentUser?.id == this.post.userId;
   }
 
-  toggleEdit(){
+  toggleEdit() {
     this.edit = !this.edit;
   }
 
@@ -148,4 +151,12 @@ export class PostComponent {
       linkTarget: '_blank',
     },
   };
+
+  openPopup() {
+    this.postService.openSharePopup();
+  }
+
+  getFirstImageUrl(images: any[]) {
+    return head(images).url;
+  }
 }

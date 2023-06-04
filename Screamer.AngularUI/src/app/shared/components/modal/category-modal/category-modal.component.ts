@@ -15,6 +15,7 @@ export class CategoryModalComponent {
     public categoryService: CategoryService
   ) {}
 
+
   searchCategories(): void {
     this.categoryService.searchResults = this.categoryService.categories.filter(
       (category) =>

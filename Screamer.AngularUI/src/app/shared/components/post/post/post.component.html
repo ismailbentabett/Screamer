@@ -327,6 +327,7 @@
       <div class="flex text-sm">
         <span class="inline-flex items-center text-sm">
           <button
+            (click)="openPopup()"
             type="button"
             class="inline-flex space-x-2 text-gray-400 hover:text-gray-500"
           >
@@ -361,3 +362,12 @@
     <app-comment-section *ngIf="!edit"></app-comment-section>
   </div>
 </li>
+<app-share-post-modal
+  *ngIf="this.postService.isShareOpen && post"
+  [url]="this.getAppPath() + '/v/post/' + this.post.id"
+  [description]="post.content ? post.content : null"
+  [image]="
+    post.postImages.length > 0 ? getFirstImageUrl(post.postImages) : null
+  "
+  [title]="post.title ? post.title : null"
+></app-share-post-modal>

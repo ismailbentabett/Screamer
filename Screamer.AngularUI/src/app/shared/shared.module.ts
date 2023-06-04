@@ -58,6 +58,10 @@ import { CategoryModalComponent } from './components/modal/category-modal/catego
 import { TagModalComponent } from './components/modal/tag-modal/tag-modal.component';
 import { PickerModule } from '@ctrl/ngx-emoji-mart';
 import { ShortNumberPipe } from './pipes/short-number.pipe';
+import { ShareButtonsModule } from 'ngx-sharebuttons/buttons';
+import { ShareIconsModule } from 'ngx-sharebuttons/icons';
+import { SharePostModalComponent } from './components/modal/share-post-modal/share-post-modal.component';
+
 
 @NgModule({
   declarations: [
@@ -102,7 +106,8 @@ import { ShortNumberPipe } from './pipes/short-number.pipe';
     SearchResultModalComponent,
     CategoryModalComponent,
     TagModalComponent,
-    ShortNumberPipe
+    ShortNumberPipe,
+    SharePostModalComponent
   ],
   imports: [
     CommonModule,
@@ -118,6 +123,8 @@ import { ShortNumberPipe } from './pipes/short-number.pipe';
     FormsModule,
     QuillModule.forRoot(),
     PickerModule,
+    ShareButtonsModule,
+    ShareIconsModule
   ],
   exports: [
     MyDirectiveDirective,
@@ -158,6 +165,7 @@ import { ShortNumberPipe } from './pipes/short-number.pipe';
     SearchResultModalComponent,
     CategoryModalComponent,
     TagModalComponent,
+    SharePostModalComponent
   ],
   providers: [],
 })

@@ -103,7 +103,7 @@ export class AddPostFormComponent {
   }
 
   ngOnChanges(changes: any): void {
-    if (changes.edit.currentValue == true) {
+    if (changes.edit.currentValue == true && this.post) {
       var categories = changes.post.currentValue.postCategories.map(
         (x: any) => x.category.name
       );
@@ -115,9 +115,7 @@ export class AddPostFormComponent {
       );
       var tags = changes.post.currentValue.tags.map((x: any) => x.user);
 
-      console.log(changes.post.currentValue);
-      console.log(mentions);
-      console.log(hashtag);
+
       this.form.patchValue(changes.post.currentValue);
       this.preview = changes.post.currentValue;
       this.previewImages = changes.post.currentValue.postImages;
@@ -178,10 +176,8 @@ export class AddPostFormComponent {
           this.postService.sendpostImageUrl(postId);
         },
       });
-  }
 
-  editPost() {
-    this.postService
+      this.postService
       .updatePost({
         userId: this.user.id,
         ...this.form.value,
@@ -199,6 +195,8 @@ export class AddPostFormComponent {
         },
       });
   }
+
+
 
   toggleMoodDropdown() {
     this.isMoodOpen = !this.isMoodOpen;

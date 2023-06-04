@@ -31,6 +31,7 @@ export class PostService {
     return this.tagSearchResultArray.map((user) => user.userName);
   }
   public isTagOpen: boolean = false;
+  public isShareOpen: boolean = false;
   constructor(
     private http: HttpClient,
     private authService: AuthenticationService
@@ -166,7 +167,7 @@ export class PostService {
   }
 
   createPost(post: any) {
-    console.log(post)
+    console.log(post);
     return this.http.post(this.baseUrl + 'Post', post);
   }
 
@@ -228,5 +229,12 @@ export class PostService {
 
   CloseTagPopup() {
     this.isTagOpen = false;
+  }
+  openSharePopup() {
+    this.isShareOpen = true;
+  }
+
+  CloseSharePopup() {
+    this.isShareOpen = false;
   }
 }
