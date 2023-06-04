@@ -166,6 +166,7 @@ export class PostService {
   }
 
   createPost(post: any) {
+    console.log(post)
     return this.http.post(this.baseUrl + 'Post', post);
   }
 

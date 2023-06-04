@@ -45,7 +45,19 @@ namespace Screamer.Presistance.Repositories
         //get post by id
         public async Task<Post> GetPostById(int id)
         {
-            var query = _context.Posts.Where(u => u.Id == id).Include(u => u.PostImages);
+            var query = _context.Posts
+                .Where(u => u.Id == id)
+                .Include(u => u.PostImages)
+                .Include(u => u.PostCategories)
+                .ThenInclude(pc => pc.Category)
+                .Include(u => u.PostHashtags)
+                .ThenInclude(pc => pc.Hashtag)
+                .Include(pc => pc.Tags)
+                .ThenInclude(pc => pc.User)
+                .Include(u => u.Mentions)
+                .ThenInclude(pc => pc.User)
+                .Include(u => u.Mood)
+                .AsQueryable();
 
             return await query.FirstOrDefaultAsync();
         }
@@ -141,12 +153,12 @@ namespace Screamer.Presistance.Repositories
             return await query.ToListAsync();
         }
 
-     /*        public new async Task AddAsync(Post post ,
-                    
-            )
-    {
-        await _context.Posts.AddAsync(post);
-        await _context.SaveChangesAsync();
-    } */
+        /*        public new async Task AddAsync(Post post ,
+                       
+               )
+       {
+           await _context.Posts.AddAsync(post);
+           await _context.SaveChangesAsync();
+       } */
     }
 }

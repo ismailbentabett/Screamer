@@ -53,9 +53,7 @@ public byte[] PasswordSalt { get; set; } = new byte[32]; */
         public Social Socials { get; set; }
         public Adress Adress { get; set; }
 
-        public string objectID => Id.ToString();
 
-        [JsonPropertyName("objectID")]
         public string ObjectID { get; set; }
         public ICollection<Tag> Tags { get; set; } = new List<Tag>();
         public ICollection<Mention> Mentions { get; set; } = new List<Mention>();

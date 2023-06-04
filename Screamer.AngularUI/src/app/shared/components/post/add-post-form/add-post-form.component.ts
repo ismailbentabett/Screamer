@@ -108,9 +108,7 @@ export class AddPostFormComponent {
       changes.post.currentValue &&
       changes.edit.currentValue == true
     ) {
-      console.log(
-        changes.post
-      )
+      console.log(changes.post);
       this.form.patchValue(changes.post.currentValue);
       this.preview = changes.post.currentValue;
       this.previewImages = changes.post.currentValue.postImages;
@@ -144,15 +142,25 @@ export class AddPostFormComponent {
     this.moodType = moodType;
   }
   createPost() {
+    console.log({
+      userId: this.user.id,
+      ...this.form.value,
+      moodType: this.moodType ?? null,
+      hashtags: this.hashtags ?? null,
+      mentionsArr: this.mentions ?? null,
+      categories: this.categoryService.addedCategories ?? null,
+      tagsArr: this.postService.gettagSearchResultArrayUsernames() ?? null,
+    });
+
     this.postService
       .createPost({
         userId: this.user.id,
         ...this.form.value,
-        mood: this.moodType ?? null,
+        moodType: this.moodType ?? null,
         hashtags: this.hashtags ?? null,
-        mentions: this.mentions ?? null,
+        mentionsArr: this.mentions ?? null,
         categories: this.categoryService.addedCategories ?? null,
-        tags: this.postService.gettagSearchResultArrayUsernames() ?? null,
+        tagsArr: this.postService.gettagSearchResultArrayUsernames() ?? null,
       })
       .subscribe({
         next: (postId) => {

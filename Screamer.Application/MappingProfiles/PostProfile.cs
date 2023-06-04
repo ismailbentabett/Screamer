@@ -23,7 +23,20 @@ namespace Screamer.Application.MappingProfiles
                     dest => dest.PostImageUrl,
                     opt => opt.MapFrom(src => src.PostImages.LastOrDefault().Url)
                 )
-                .ForMember(dest => dest.PostImages, opt => opt.MapFrom(src => src.PostImages));
+                .ForMember(dest => dest.PostImages, opt => opt.MapFrom(src => src.PostImages))
+                .ForMember(
+                    dest => dest.PostCategories,
+                    opt => opt.MapFrom(src => src.PostCategories)
+                )
+                .ForMember(dest => dest.PostHashtags, opt => opt.MapFrom(src => src.PostHashtags))
+                .ForMember(dest => dest.Tags, opt => opt.MapFrom(src => src.UserTags))
+                .ForMember(dest => dest.Mentions, opt => opt.MapFrom(src => src.UserMentions))
+                .ForMember(dest => dest.Mood, opt => opt.MapFrom(src => src.Mood));
+            CreateMap<PostCategory, PostCategoryDto>();
+            CreateMap<Category, CategoryDto>();
+            CreateMap<PostHashtag, PostHashtagDto>();
+            CreateMap<Hashtag, HashtagDto>();
+
             CreateMap<Post, PostSearchResult>()
                 .ReverseMap()
                 .ForMember(
@@ -43,6 +56,12 @@ namespace Screamer.Application.MappingProfiles
             CreateMap<SetMainPostImageRequestCommand, PostImage>().ReverseMap();
 
             CreateMap<PostImage, PostImageDto>().ReverseMap();
+
+            CreateMap<Tag, UserTagDto>().ReverseMap();
+            CreateMap<Tag, PostTagDto>().ReverseMap();
+            CreateMap<Mention, UserMentionDto>().ReverseMap();
+            CreateMap<Mention, PostMentionDto>().ReverseMap();
+            CreateMap<Mood, MoodDto>().ReverseMap();
         }
     }
 }

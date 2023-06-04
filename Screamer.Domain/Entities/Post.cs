@@ -30,9 +30,6 @@ namespace Screamer.Domain.Common
             UpdatedAt = DateTime.Now;
         }
 
-        public string objectID => Id.ToString();
-
-        [JsonPropertyName("objectID")]
         public string ObjectID { get; set; }
 
         public int MoodId { get; set; }
