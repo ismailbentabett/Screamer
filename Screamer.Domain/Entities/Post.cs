@@ -35,9 +35,8 @@ namespace Screamer.Domain.Common
         [JsonPropertyName("objectID")]
         public string ObjectID { get; set; }
 
-        [ForeignKey(nameof(MoodId))]
+        public int MoodId { get; set; }
         public Mood Mood { get; set; }
-        public int? MoodId { get; set; }
         public ICollection<Tag> Tags { get; set; } = new List<Tag>();
         public ICollection<Mention> Mentions { get; set; } = new List<Mention>();
 

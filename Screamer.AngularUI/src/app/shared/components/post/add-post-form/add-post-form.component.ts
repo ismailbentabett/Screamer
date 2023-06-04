@@ -102,15 +102,26 @@ export class AddPostFormComponent {
     this.moodType = moodType;
   }
   createPost() {
+    console.log(
+      {
+        userId: this.user.id,
+        ...this.form.value,
+        moodType: this.moodType ?? null,
+        hashtags: this.hashtags ?? null,
+        mentionsArr: this.mentions ?? null,
+        categories: this.categoryService.addedCategories ?? null,
+        tagsArr: this.postService.gettagSearchResultArrayUsernames() ?? null,
+      }
+    )
     this.postService
       .createPost({
         userId: this.user.id,
         ...this.form.value,
         mood: this.moodType ?? null,
-        hashtags: this.hashtags ?? [],
-        mentions: this.mentions ?? [],
-        categories: this.categoryService.addedCategories ?? [],
-        tags: this.postService.gettagSearchResultArrayUsernames() ?? [],
+        hashtags: this.hashtags ?? null,
+        mentions: this.mentions ?? null,
+        categories: this.categoryService.addedCategories ?? null,
+        tags: this.postService.gettagSearchResultArrayUsernames() ?? null,
       })
       .subscribe({
         next: (postId) => {
