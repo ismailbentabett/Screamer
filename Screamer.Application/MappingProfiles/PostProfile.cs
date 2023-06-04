@@ -29,8 +29,6 @@ namespace Screamer.Application.MappingProfiles
                     opt => opt.MapFrom(src => src.PostCategories)
                 )
                 .ForMember(dest => dest.PostHashtags, opt => opt.MapFrom(src => src.PostHashtags))
-                .ForMember(dest => dest.Tags, opt => opt.MapFrom(src => src.UserTags))
-                .ForMember(dest => dest.Mentions, opt => opt.MapFrom(src => src.UserMentions))
                 .ForMember(dest => dest.Mood, opt => opt.MapFrom(src => src.Mood));
             CreateMap<PostCategory, PostCategoryDto>();
             CreateMap<Category, CategoryDto>();

@@ -31,7 +31,7 @@ namespace Screamer.Application.Dtos
 
         public MoodDto Mood { get; set; }
 
-        public ICollection<UserTagDto> UserTags { get; set; } = new List<UserTagDto>();
-        public ICollection<UserMentionDto> UserMentions { get; set; } = new List<UserMentionDto>();
+        public ICollection<UserTagDto> Tags { get; set; } = new List<UserTagDto>();
+        public ICollection<UserMentionDto> Mentions { get; set; } = new List<UserMentionDto>();
     }
 }
