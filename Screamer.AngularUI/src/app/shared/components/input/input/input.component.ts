@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
+import { ValidationService } from 'src/app/core/services/validation.service';
 
 @Component({
   selector: 'app-input',
@@ -13,6 +14,32 @@ export class InputComponent {
   @Input() label: string = '';
   @Input() inputType: string = 'text';
   @Input() placeholder: string = '';
+  @Input() autocomplete: string = '';
   @Input() classStyle: string = '';
   @Input() error: string = '';
+  private isFocused: boolean = false;
+
+  constructor(private validationService: ValidationService) {}
+
+  public get control(): FormControl {
+    return this.form!.get(this.formControlNameText) as FormControl;
+  }
+
+  public get firstErrorMessage(): string {
+    return this.validationService.getFirstErrorMessage(this.control);
+  }
+
+  public onFocus(): void {
+    this.isFocused = true;
+  }
+
+  public onBlur(): void {
+    this.isFocused = false;
+    // Trigger validation on blur
+    this.control.markAsTouched();
+  }
+
+  public showError(): boolean {
+    return this.control.invalid && (this.control.touched || this.isFocused);
+  }
 }
