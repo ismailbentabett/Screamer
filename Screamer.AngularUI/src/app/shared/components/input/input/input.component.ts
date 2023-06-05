@@ -18,6 +18,7 @@ export class InputComponent {
   @Input() classStyle: string = '';
   @Input() error: string = '';
   @Input() special: boolean = false;
+  @Input() formGroupName: string | null = null;
   private isFocused: boolean = false;
 
   constructor(private validationService: ValidationService) {}
@@ -41,6 +42,9 @@ export class InputComponent {
   }
 
   public showError(): boolean {
-    return this.control.invalid && (this.control.touched || this.isFocused);
+    if (this.control) {
+      return this.control.invalid && (this.control.touched || this.isFocused);
+    }
+    return false;
   }
 }
