@@ -93,9 +93,13 @@ namespace Screamer.Application.Features.PostRequest.Commands.CreatePostRequest
                     {
                         throw new Exception($"User '{mention}' does not exist.");
                     }
-                    var postMention = new Mention { User = userMention, Post = post };
+                    var postMention = new PostMention
+                    {
+                        User = userMention,
+                        Post = post,
+                    };
                     post.Mentions.Add(postMention);
-                    userMention.Mentions.Add(postMention);
+                    userMention.PostMentions.Add(postMention);
                 }
             }
 

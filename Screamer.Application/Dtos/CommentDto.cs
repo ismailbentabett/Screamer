@@ -7,7 +7,7 @@ namespace Screamer.Application.Dtos
 {
     public class CommentDto
     {
-                public int Id { get; set; }
+        public int Id { get; set; }
 
         public string Content { get; set; }
         public int UserId { get; set; }
@@ -20,6 +20,6 @@ namespace Screamer.Application.Dtos
         public string CommentableType { get; set; }
         public ICollection<ReactionDto> Reactions { get; set; }
 
-
+        public ICollection<UserMentionDto> Mentions { get; set; } = new List<UserMentionDto>();
     }
 }

@@ -57,8 +57,10 @@ namespace Screamer.Application.MappingProfiles
 
             CreateMap<Tag, UserTagDto>().ReverseMap();
             CreateMap<Tag, PostTagDto>().ReverseMap();
-            CreateMap<Mention, UserMentionDto>().ReverseMap();
-            CreateMap<Mention, PostMentionDto>().ReverseMap();
+            CreateMap<PostMention, UserMentionDto>().ReverseMap();
+            CreateMap<CommentMention, UserMentionDto>().ReverseMap();
+            CreateMap<PostMention, PostMentionDto>().ReverseMap();
+            CreateMap<CommentMention, CommentMentionDto>().ReverseMap();
             CreateMap<Mood, MoodDto>().ReverseMap();
         }
     }

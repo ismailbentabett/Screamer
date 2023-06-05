@@ -16,10 +16,11 @@ namespace Screamer.Presistance.Repositories
         public CommentRepository(ScreamerDbContext context)
             : base(context) { }
 
-        public void AddComment(Comment comment)
+        public async Task<Comment> AddComment(Comment comment)
         {
-            _context.Comments.Add(comment);
-            _context.SaveChanges();
+            await _context.Comments.AddAsync(comment);
+            await _context.SaveChangesAsync();
+            return comment;
         }
 
         public void AddReply(Comment parentComment, Comment reply)

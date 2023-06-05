@@ -10,19 +10,11 @@ namespace Screamer.Domain.Entities
 {
     public class Comment : BaseEntity
     {
-
-        [
-        ForeignKey(
-            nameof(UserId)
-        )
-        ]
+        [ForeignKey(nameof(UserId))]
         public ApplicationUser User { get; set; }
         public string UserId { get; set; }
-        [
-            ForeignKey(
-                nameof(PostId)
-            )
-        ]
+
+        [ForeignKey(nameof(PostId))]
         public Post Post { get; set; }
         public int PostId { get; set; }
         public string Content { get; set; }
@@ -31,9 +23,12 @@ namespace Screamer.Domain.Entities
 
         //ParentComment
         public int? ParentCommentId { get; set; }
-        [ForeignKey(
-            nameof(ParentCommentId)
-        )]
+
+        [ForeignKey(nameof(ParentCommentId))]
         public Comment ParentComment { get; set; }
+
+        public ICollection<CommentHashtag> CommentHashtags { get; set; } =
+            new List<CommentHashtag>();
+        public ICollection<CommentMention> Mentions { get; set; } = new List<CommentMention>();
     }
 }

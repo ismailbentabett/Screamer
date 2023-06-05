@@ -46,15 +46,43 @@ namespace Screamer.Application.Features.CommentRequest.Commands.AddCommentReques
                 User = user,
                 Post = post
             };
-
-            _uow.CommentRepository.AddComment(comment);
-
-            if (await _uow.Complete())
+            foreach (var hashTagName in request.Hashtags)
             {
-                return comment.Id;
+                var hashtag = await _uow.HashtagRepository.GetHashTagByNameAsync(hashTagName);
+                if (hashtag == null)
+                {
+                    hashtag = new Hashtag { Name = hashTagName };
+                }
+                var commentHashtag = new CommentHashtag { Hashtag = hashtag, Comment = comment };
+                comment.CommentHashtags.Add(commentHashtag);
+                hashtag.CommentHashtags.Add(commentHashtag);
             }
 
-            throw new BadRequestException("Problem adding Cotmmen");
+            if (request.MentionsArr != null)
+            {
+                foreach (var mention in request.MentionsArr)
+                {
+                    var userMention = await _uow.UserRepository.GetUserByUsernameAsync(mention);
+
+                    if (userMention == null)
+                    {
+                        throw new Exception($"User '{mention}' does not exist.");
+                    }
+                    var commentMention = new CommentMention
+                    {
+                        User = userMention,
+                        Comment = comment,
+                    };
+                    comment.Mentions.Add(commentMention);
+                    userMention.CommentMentions.Add(commentMention);
+                }
+            }
+
+            await _uow.CommentRepository.AddComment(comment);
+
+            await _uow.Complete();
+
+            return comment.Id;
         }
     }
 }

@@ -189,34 +189,20 @@ namespace Screamer.WebApi.Controllers
         }
 
         [HttpPost("add-comment")]
-        public async Task<IActionResult> AddComment(int postId, string userId, string Content)
+        public async Task<IActionResult> AddComment(
+            [FromBody] AddCommentRequestCommand addCommentRequestCommandRequest
+        )
         {
-            var command = new AddCommentRequestCommand
-            {
-                PostId = postId,
-                UserId = userId,
-                Content = Content
-            };
-            await _mediator.Send(command);
+            await _mediator.Send(addCommentRequestCommandRequest);
             return Ok();
         }
 
         [HttpPost("add-reply")]
         public async Task<IActionResult> AddReply(
-            int postId,
-            string userId,
-            string Content,
-            int ParentCommentId
+            [FromBody] AddReplyRequestCommand addReplyRequestCommandRequest
         )
         {
-            var command = new AddReplyRequestCommand
-            {
-                PostId = postId,
-                UserId = userId,
-                Content = Content,
-                ParentCommentId = ParentCommentId
-            };
-            await _mediator.Send(command);
+            await _mediator.Send(addReplyRequestCommandRequest);
             return Ok();
         }
 
@@ -275,7 +261,5 @@ namespace Screamer.WebApi.Controllers
             var result = await _mediator.Send(query);
             return Ok(result);
         }
-
-       
     }
 }

@@ -12,5 +12,8 @@ namespace Screamer.Application.Features.CommentRequest.Commands.AddReplyRequest
         public string Content { get; set; }
         public string UserId { get; set; }
         public int PostId { get; set; }
+
+        public List<string> Hashtags { get; set; }
+        public List<string> MentionsArr { get; set; }
     }
 }

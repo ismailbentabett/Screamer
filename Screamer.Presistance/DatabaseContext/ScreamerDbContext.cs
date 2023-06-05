@@ -35,7 +35,8 @@ namespace Screamer.Presistance.DatabaseContext
         public DbSet<PostHashtag> PostHashtags { get; set; }
 
         public DbSet<Tag> Tags { get; set; }
-        public DbSet<Mention> Mentions { get; set; }
+        public DbSet<PostMention> PostMentions { get; set; }
+        public DbSet<CommentMention> CommentMentions { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -157,16 +158,30 @@ namespace Screamer.Presistance.DatabaseContext
                 .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder
-                .Entity<Mention>()
+                .Entity<PostMention>()
                 .HasOne(bc => bc.Post)
                 .WithMany(b => b.Mentions)
                 .HasForeignKey(bc => bc.PostId)
                 .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder
-                .Entity<Mention>()
+                .Entity<PostMention>()
                 .HasOne(bc => bc.User)
-                .WithMany(c => c.Mentions)
+                .WithMany(c => c.PostMentions)
+                .HasForeignKey(bc => bc.UserId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder
+                .Entity<CommentMention>()
+                .HasOne(bc => bc.Comment)
+                .WithMany(b => b.Mentions)
+                .HasForeignKey(bc => bc.CommentId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder
+                .Entity<CommentMention>()
+                .HasOne(bc => bc.User)
+                .WithMany(c => c.CommentMentions)
                 .HasForeignKey(bc => bc.UserId)
                 .OnDelete(DeleteBehavior.Restrict);
         }
