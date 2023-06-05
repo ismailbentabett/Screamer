@@ -1,14 +1,24 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, Input, ViewChild } from '@angular/core';
+import { environment } from 'src/environments/environment';
 import algoliasearch from 'algoliasearch';
 import { QuillEditorComponent } from 'ngx-quill';
-import { take } from 'rxjs';
+import 'quill-mention';
+import * as linkify from 'linkifyjs';
+import 'linkify-plugin-keyword';
+import 'linkify-plugin-hashtag';
+import 'linkify-plugin-mention';
+import 'linkify-plugin-ticket';
+import 'linkify-plugin-ip';
+import { uniq } from 'lodash';
 import { UserService } from 'src/app/core/services/user.service';
-import { environment } from 'src/environments/environment';
+import { FormBuilder, FormControl } from '@angular/forms';
+import { take } from 'rxjs';
+import { CommentService } from 'src/app/core/services/comment.service';
 
 @Component({
   selector: 'app-comment-input',
   templateUrl: './comment-input.component.html',
-  styleUrls: ['./comment-input.component.scss']
+  styleUrls: ['./comment-input.component.scss'],
 })
 export class CommentInputComponent {
   @ViewChild(QuillEditorComponent, { static: true })
@@ -16,13 +26,21 @@ export class CommentInputComponent {
   algoliaClient = algoliasearch(environment.ApplicationId, environment.APIKey);
   algoliaIndex = this.algoliaClient.initIndex('user');
   currentUser: any;
+  form: any;
+  hashtags: string[] = [];
+  mentions: string[] = [];
+  tickets: string[] = [];
+  ips: string[] = [];
+  keywords: string[] = [];
+  @Input() post: any;
 
   searchAlgolia(searchTerm: string): Promise<any> {
     return this.algoliaIndex.search(searchTerm);
   }
   constructor(
     private userService: UserService,
-
+    private fb: FormBuilder,
+    private commentService: CommentService
   ) {
     this.userService
       .getCurrentUserData()
@@ -32,9 +50,55 @@ export class CommentInputComponent {
           this.currentUser = user;
         },
       });
+
+    this.form = this.fb.group({
+      comment: new FormControl(''),
+    });
   }
   analyzeText() {}
+  ngOnInit(): void {
+    this.form.valueChanges.subscribe((x: any) => {
+      this.hashtags = linkify
+        .find(x.comment, 'hashtag')
+        .map((link) => link.value);
+      this.mentions = linkify
+        .find(x.comment, 'mention')
+        .map((link) => link.value);
+      this.tickets = linkify
+        .find(x.comment, 'ticket')
+        .map((link) => link.value);
+      this.ips = linkify.find(x.comment, 'ip').map((link) => link.value);
+      this.keywords = linkify
+        .find(x.comment, 'keyword')
+        .map((link) => link.value);
 
+      //make values unique and remove the @ from mentions
+      this.mentions = uniq(
+        this.mentions.map((mention) => mention.replace('@', ''))
+      );
+
+      this.hashtags = uniq(this.hashtags);
+    });
+  }
+
+  createComment() {
+    console.log(this.post)
+    const comment = {
+      postId: this.post.id,
+      content: this.form.value.comment,
+      userId: this.currentUser.id,
+      hashtags: this.hashtags ?? [],
+      mentionsArr: this.mentions ?? [],
+    };
+      console.log(
+        'Comment created successfully',
+          comment
+      )
+    this.commentService.createComment(comment).subscribe((response: any) => {
+      console.log('Comment created successfully', response);
+      this.form.reset();
+    });
+  }
   modules = {
     toolbar: false,
     mention: {
@@ -85,5 +149,4 @@ export class CommentInputComponent {
       },
     },
   };
-
 }

@@ -7,17 +7,18 @@
     ></app-avatar>
   </div>
   <div class="min-w-0 flex-1">
-    <form action="#">
+    <form [formGroup]="form">
       <div>
         <label for="comment" class="sr-only">Add your comment</label>
         <quill-editor
           type="text"
-          autocomplete="content"
+          autocomplete="comment"
+          formControlName="comment"
           role="textbox"
           rows="3"
           name="comment"
           id="comment"
-          class="p-0  max-w-lg shadow-sm block w-full focus:ring-dodger-blue-500 focus:border-dodger-blue-500 sm:text-sm border border-gray-300 rounded-full"
+          class="p-0 max-w-lg shadow-sm block w-full focus:ring-dodger-blue-500 focus:border-dodger-blue-500 sm:text-sm border border-gray-300 rounded-full"
           [modules]="modules"
         ></quill-editor>
       </div>
@@ -25,6 +26,7 @@
       <div class="bottom-0 inset-x-0 flex justify-end rounded-full bg-none">
         <div class="flex-shrink-0">
           <button
+          (click)="createComment()"
             type="submit"
             class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-dodger-blue-700"
           >
