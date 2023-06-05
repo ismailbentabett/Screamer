@@ -58,6 +58,7 @@ export class ValidationService {
       state: 'Invalid state.',
       country: 'Invalid country.',
       postalCode: 'Invalid postal code.',
+      socialMediaUsername: 'Invalid social media username.',
     };
 
     return errorMessages[errorKey] || 'Invalid value.';
@@ -183,5 +184,18 @@ export class ValidationService {
     }
 
     return { postalCode: true }; // Return the error if the value contains special characters
+  }
+
+  //social media username as do not write url just username or id
+  public socialMediaUsername(control: FormControl): ValidationErrors | null {
+    const value: string = control.value;
+    const regex: RegExp =
+      /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}$/;
+
+    if (value && !regex.test(value)) {
+      return null; // Return null if the value does not contain special characters
+    }
+
+    return { socialMediaUsername: true }; // Return the error if the value contains special characters
   }
 }
