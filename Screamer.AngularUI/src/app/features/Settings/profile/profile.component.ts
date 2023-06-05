@@ -5,6 +5,7 @@ import { User } from 'src/app/core/models/User';
 import { UserUpdateInput } from 'src/app/core/models/UserUpdateInput';
 import { BusyService } from 'src/app/core/services/busy.service';
 import { UserService } from 'src/app/core/services/user.service';
+import { ValidationService } from 'src/app/core/services/validation.service';
 
 @Component({
   selector: 'app-profile',
@@ -41,24 +42,60 @@ export class ProfileComponent {
   constructor(
     private fb: FormBuilder,
     private userService: UserService,
-    private busyService: BusyService
+    private busyService: BusyService,
+    private validationService: ValidationService
   ) {
     this.form = this.fb.group({
-      firstName: [' ', Validators.required],
-      lastName: [' ', Validators.required],
-      bio: [' ', Validators.required],
-      website: [' ', Validators.required],
-      phone: [' ', Validators.required],
-      birthday: [' ', Validators.required],
-      gender: [' ', Validators.required],
-      userName: [' ', Validators.required],
+      firstName: [
+        ' ',
+        this.validationService.noNumbers,
+        this.validationService.nospecialCharactersValidator,
+        this.validationService.noWhitespace,
+      ],
+      lastName: [
+        ' ',
+        this.validationService.noNumbers,
+        this.validationService.nospecialCharactersValidator,
+        this.validationService.noWhitespace,
+      ],
+      bio: [' ', Validators.maxLength(500)],
+      website: [' ', Validators.maxLength(500), this.validationService.website],
+      phone: [' ', this.validationService.phone],
+      birthday: [' '],
+      gender: [' '],
+      userName: [
+        ' ',
+        Validators.required,
+        Validators.minLength(3),
+        this.validationService.noWhitespace,
+      ],
 
       adress: this.fb.group({
-        street: [' ', Validators.required],
-        city: [' ', Validators.required],
-        state: [' ', Validators.required],
+        street: [
+          ' ',
+          Validators.required,
+          Validators.maxLength(500),
+          this.validationService.street,
+        ],
+        city: [
+          ' ',
+          Validators.required,
+          Validators.maxLength(500),
+          this.validationService.city,
+        ],
+        state: [
+          ' ',
+          Validators.required,
+          Validators.maxLength(500),
+          this.validationService.state,
+        ],
         country: [' ', Validators.required],
-        postalCode: [' ', Validators.required],
+        postalCode: [
+          ' ',
+          Validators.required,
+          Validators.maxLength(500),
+          this.validationService.postalCode,
+        ],
       }),
       socials: this.fb.group({
         facebook: [' ', Validators.required],
