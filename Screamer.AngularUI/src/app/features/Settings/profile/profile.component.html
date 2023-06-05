@@ -16,25 +16,21 @@
     <div class="mt-6 flex flex-col lg:flex-row">
       <div class="flex-grow space-y-6">
         <div>
-          <label for="username" class="block text-sm font-medium text-gray-700">
-            Username
-          </label>
           <div class="mt-1 rounded-md shadow-sm flex">
-            <span
-              class="bg-gray-50 border border-r-0 border-gray-300 rounded-l-md px-3 inline-flex items-center text-gray-500 sm:text-sm"
-            >
-              workcation.com/
-            </span>
-            <input
-              type="text"
+            <app-input
+              [special]="true"
+              label="userName"
+              autocomplete="userName"
               id="userName"
               name="userName"
-              formControlName="userName"
-              autocomplete="userName"
-              required
+              inputType="text"
+              formControlNameText="userName"
+              placeholder="userName"
               class="focus:ring-dodger-blue-500 focus:border-dodger-blue-500 flex-grow block w-full min-w-0 rounded-none rounded-r-md sm:text-sm border-gray-300"
-              value="deblewis"
-            />
+              classStyle="w-full focus:ring-dodger-blue-500 focus:border-dodger-blue-500 flex-grow block w-full min-w-0 rounded-none rounded-r-md sm:text-sm border-gray-300"
+              [form]="form"
+              error="error text"
+            ></app-input>
           </div>
         </div>
 
@@ -70,92 +66,77 @@
 
     <div class="mt-6 gap-6 flex flex-wrap">
       <div class="col-span-12 sm:col-span-6">
-        <label for="first-name" class="block text-sm font-medium text-gray-700"
-          >First name</label
-        >
-        <input
-          type="text"
+        <app-input
+          label="First name"
+          autocomplete="firstName"
           id="firstName"
           name="firstName"
-          formControlName="firstName"
-          autocomplete="firstName"
-          required
-          class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-dodger-blue-500 focus:border-dodger-blue-500 sm:text-sm"
-        />
+          inputType="text"
+          formControlNameText="firstName"
+          placeholder="firstName"
+          classStyle="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-dodger-blue-500 focus:border-dodger-blue-500 sm:text-sm"
+          [form]="form"
+          error="error text"
+        ></app-input>
       </div>
 
       <div class="col-span-12 sm:col-span-6">
-        <label for="last-name" class="block text-sm font-medium text-gray-700"
-          >Last name</label
-        >
-        <input
-          type="text"
+        <app-input
+          label="Last name"
+          autocomplete="lastName"
           id="lastName"
           name="lastName"
-          formControlName="lastName"
-          autocomplete="lastName"
-          required
-          class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-dodger-blue-500 focus:border-dodger-blue-500 sm:text-sm"
-        />
+          inputType="text"
+          formControlNameText="lastName"
+          placeholder="lastName"
+          classStyle="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-dodger-blue-500 focus:border-dodger-blue-500 sm:text-sm"
+          [form]="form"
+          error="error text"
+        ></app-input>
       </div>
       <div class="col-span-12 sm:col-span-6">
-        <label for="website" class="block text-sm font-medium text-gray-700"
-          >website</label
-        >
-        <input
-          type="text"
+        <app-input
+          label="website"
+          autocomplete="website"
           id="website"
           name="website"
-          formControlName="website"
-          autocomplete="website"
-          required
-          class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-dodger-blue-500 focus:border-dodger-blue-500 sm:text-sm"
-        />
+          inputType="text"
+          formControlNameText="website"
+          placeholder="website"
+          classStyle="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-dodger-blue-500 focus:border-dodger-blue-500 sm:text-sm"
+          [form]="form"
+          error="error text"
+        ></app-input>
       </div>
 
       <div class="col-span-12 sm:col-span-6">
-        <label for="website" class="block text-sm font-medium text-gray-700"
-          >website</label
-        >
-        <input
-          type="date"
+        <app-input
+          label="Birthday"
+          autocomplete="birthday"
           id="birthday"
           name="birthday"
-          formControlName="birthday"
-          autocomplete="birthday"
-          required
-          class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-dodger-blue-500 focus:border-dodger-blue-500 sm:text-sm"
-          required
-        />
+          inputType="date"
+          formControlNameText="birthday"
+          placeholder="birthday"
+          classStyle="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-dodger-blue-500 focus:border-dodger-blue-500 sm:text-sm"
+          [form]="form"
+          error="error text"
+        ></app-input>
       </div>
       <div>
-        <label for="phone" class="block text-sm font-medium text-gray-700"
-          >Phone Number</label
-        >
         <div class="mt-1 relative rounded-md shadow-sm">
-          <div class="absolute inset-y-0 left-0 flex items-center">
-            <label for="country-code" class="sr-only">Country</label>
-            <select
-              id="country-code"
-              name="country-code"
-              autocomplete="country-code"
-              class="focus:ring-dodger-blue-500 focus:border-dodger-blue-500 h-full py-0 pl-3 pr-7 border-transparent bg-transparent text-gray-500 sm:text-sm rounded-md"
-            >
-              <option>US</option>
-              <option>CA</option>
-              <option>EU</option>
-            </select>
-          </div>
-          <input
-            type="text"
+          <app-input
+            label="Phone Number"
+            autocomplete="phone"
             id="phone"
             name="phone"
-            formControlName="phone"
-            autocomplete="phone"
-            required
-            class="focus:ring-dodger-blue-500 focus:border-dodger-blue-500 block w-full pl-16 sm:text-sm border-gray-300 rounded-md"
-            placeholder="+1 (555) 987-6543"
-          />
+            inputType="text"
+            formControlNameText="phone"
+            placeholder="phone"
+            classStyle="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-dodger-blue-500 focus:border-dodger-blue-500 sm:text-sm"
+            [form]="form"
+            error="error text"
+          ></app-input>
         </div>
       </div>
       <div class="sm:col-span-3">

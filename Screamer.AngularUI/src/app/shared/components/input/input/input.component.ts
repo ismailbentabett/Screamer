@@ -17,6 +17,7 @@ export class InputComponent {
   @Input() autocomplete: string = '';
   @Input() classStyle: string = '';
   @Input() error: string = '';
+  @Input() special: boolean = false;
   private isFocused: boolean = false;
 
   constructor(private validationService: ValidationService) {}
