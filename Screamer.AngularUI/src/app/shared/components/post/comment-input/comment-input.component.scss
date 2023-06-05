@@ -1,0 +1,101 @@
+@import "~quill/dist/quill.bubble.css";
+ @import '~quill/dist/quill.core.css';
+ @import '~quill-mention/dist/quill.mention.min.css';
+
+ @import '@ctrl/ngx-emoji-mart/picker';
+
+
+ .emojicontainer {
+   position: relative;
+ }
+
+ button {
+   /* Your button styles here */
+ }
+/*
+ emoji-mart {
+   position: absolute;
+   bottom: 100%;
+   left: 0;
+   z-index: 100;
+   width: 100%;
+   max-width: 300px;
+
+ }
+ .ql-mention-denotation-char{
+  font-weight: 1000 !important;
+  text-decoration: none !important;
+  color: #44B1F4 !important;
+ }
+
+ a{
+  text-decoration: none;
+  color: #44B1F4;
+ }
+
+
+ .ql-container{ border: none !important;}
+ .ql-editor{ border: none !important;}
+ .ql-container .ql-snow{
+  border: none !important;
+ }
+
+ #quill-container {
+  height:auto !important;
+  max-height:200px;
+  padding: 50px;
+}
+#quill-container .ql-editor {
+  font-size: 18px;
+  overflow-y: hidden;
+}
+
+/* Specify our own scrolling container */
+#scrolling-container {
+  height:auto !important;
+  max-height:200px;
+  overflow-y: hidden;
+}
+.textarea{
+  overflow:hidden;
+  height:50px;
+  width:200px;
+  resize: none;
+}
+.ql-container.ql-snow {
+  height: auto;
+
+}
+.ql-container.ql-snow .ql-editor {
+  min-height: 100px;
+  max-height: 200px;
+  overflow-y: auto;
+}
+.ql-editor {
+  overflow-y: hidden;
+  padding: 0;
+  margin: 0;
+}
+.ql-container, .ql-editor{
+  height: auto;
+}
+
+.ql-editor.ql-blank::before {
+  display: block;  /* needed to allow for the below margin */
+  margin-bottom: -1.42em; /* pulls content below the placeholder up to match the position: absolute behavior where content is on the same line as the placeholder; 1.42 matches the line-height of the editor */
+  position: static;
+}
+
+
+.ql-editor.ql-blank::before {
+  content: none;
+}
+
+.ql-editor.ql-blank::after {
+  color: rgba(0,0,0,0.6);
+  content: attr(data-placeholder);
+  font-style: italic;
+  pointer-events: none;
+  display: block;
+  margin-top: -1.42rem;
+}
