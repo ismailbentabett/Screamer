@@ -149,15 +149,7 @@ export class AddPostFormComponent {
     this.moodType = moodType;
   }
   createPost() {
-    console.log({
-      userId: this.user.id,
-      ...this.form.value,
-      moodType: this.moodType ?? null,
-      hashtags: this.hashtags ?? null,
-      mentionsArr: this.mentions ?? null,
-      categories: this.categoryService.addedCategories ?? null,
-      tagsArr: this.postService.gettagSearchResultArrayUsernames() ?? null,
-    });
+
 
     this.postService
       .createPost({

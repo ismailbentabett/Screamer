@@ -82,7 +82,6 @@ export class CommentInputComponent {
   }
 
   createComment() {
-    console.log(this.post)
     const comment = {
       postId: this.post.id,
       content: this.form.value.comment,
@@ -90,12 +89,8 @@ export class CommentInputComponent {
       hashtags: this.hashtags ?? [],
       mentionsArr: this.mentions ?? [],
     };
-      console.log(
-        'Comment created successfully',
-          comment
-      )
+
     this.commentService.createComment(comment).subscribe((response: any) => {
-      console.log('Comment created successfully', response);
       this.form.reset();
     });
   }
