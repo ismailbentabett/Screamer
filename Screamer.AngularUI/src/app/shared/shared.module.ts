@@ -61,6 +61,7 @@ import { ShortNumberPipe } from './pipes/short-number.pipe';
 import { ShareButtonsModule } from 'ngx-sharebuttons/buttons';
 import { ShareIconsModule } from 'ngx-sharebuttons/icons';
 import { SharePostModalComponent } from './components/modal/share-post-modal/share-post-modal.component';
+import { InputComponent } from './components/input/input/input.component';
 
 
 @NgModule({
@@ -107,7 +108,8 @@ import { SharePostModalComponent } from './components/modal/share-post-modal/sha
     CategoryModalComponent,
     TagModalComponent,
     ShortNumberPipe,
-    SharePostModalComponent
+    SharePostModalComponent,
+    InputComponent
   ],
   imports: [
     CommonModule,
@@ -165,7 +167,8 @@ import { SharePostModalComponent } from './components/modal/share-post-modal/sha
     SearchResultModalComponent,
     CategoryModalComponent,
     TagModalComponent,
-    SharePostModalComponent
+    SharePostModalComponent,
+    InputComponent
   ],
   providers: [],
 })

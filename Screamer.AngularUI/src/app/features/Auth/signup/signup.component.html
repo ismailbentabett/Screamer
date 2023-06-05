@@ -15,8 +15,8 @@
         <p class="mt-2 text-sm text-gray-600">
           Or
           <a
-          routerLink="/auth/login"
-          class="font-medium text-dodger-blue-600 hover:text-dodger-blue-500 cursor-pointer"
+            routerLink="/auth/login"
+            class="font-medium text-dodger-blue-600 hover:text-dodger-blue-500 cursor-pointer"
           >
             SignIn
           </a>
@@ -106,106 +106,62 @@
 
         <div class="mt-6">
           <form [formGroup]="form" (ngSubmit)="onSubmit()" class="space-y-6">
-            <div>
-              <label
-                for="userName"
-                class="block text-sm font-medium text-gray-700"
-              >
-                username
-              </label>
-              <div class="mt-1">
-                <input
-                  type="text"
-                  id="userName"
-                  formControlName="userName"
-                  name="userName"
-                  formControlName="userName"
-                  autocomplete="userName"
-                  required
-                  class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-dodger-blue-500 focus:border-dodger-blue-500 sm:text-sm"
-                />
-              </div>
-            </div>
-            <div>
-              <label
-                for="First Name"
-                class="block text-sm font-medium text-gray-700"
-              >
-                First Name
-              </label>
-              <div class="mt-1">
-                <input
-                  type="text"
-                  id="firstName"
-                  formControlName="firstName"
-                  name="firstName"
-                  formControlName="firstName"
-                  autocomplete="firstName"
-                  required
-                  class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-dodger-blue-500 focus:border-dodger-blue-500 sm:text-sm"
-                />
-              </div>
-            </div>
+            <app-input
+              label="Username"
+              id="userName"
+              name="userName"
+              inputType="text"
+              formControlNameText="userName"
+              placeholder="userName"
+              classStyle="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-dodger-blue-500 focus:border-dodger-blue-500 sm:text-sm"
+              [form]="form"
+              error="error text"
+            ></app-input>
+            <app-input
+              label="First Name"
+              id="firstName"
+              name="firstName"
+              inputType="text"
+              formControlNameText="firstName"
+              placeholder="firstName"
+              classStyle="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-dodger-blue-500 focus:border-dodger-blue-500 sm:text-sm"
+              [form]="form"
+              error="error text"
+            ></app-input>
 
-            <div>
-              <label
-                for="lastName"
-                class="block text-sm font-medium text-gray-700"
-              >
-                last Name
-              </label>
-              <div class="mt-1">
-                <input
-                  type="text"
-                  id="lastName"
-                  formControlName="lastName"
-                  name="lastName"
-                  formControlName="lastName"
-                  autocomplete="lastName"
-                  required
-                  class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-dodger-blue-500 focus:border-dodger-blue-500 sm:text-sm"
-                />
-              </div>
-            </div>
-            <div>
-              <label
-                for="email"
-                class="block text-sm font-medium text-gray-700"
-              >
-                Email address
-              </label>
-              <div class="mt-1">
-                <input
-                  id="email"
-                  name="email"
-                  formControlName="email"
-                  type="email"
-                  autocomplete="email"
-                  required
-                  class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-dodger-blue-500 focus:border-dodger-blue-500 sm:text-sm"
-                />
-              </div>
-            </div>
+            <app-input
+              label="Last Name"
+              id="lastName"
+              name="lastName"
+              inputType="text"
+              formControlNameText="lastName"
+              placeholder="lastName"
+              classStyle="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-dodger-blue-500 focus:border-dodger-blue-500 sm:text-sm"
+              [form]="form"
+              error="error text"
+            ></app-input>
 
-            <div class="space-y-1">
-              <label
-                for="password"
-                class="block text-sm font-medium text-gray-700"
-              >
-                Password
-              </label>
-              <div class="mt-1">
-                <input
-                  id="password"
-                  name="password"
-                  type="password"
-                  formControlName="password"
-                  autocomplete="current-password"
-                  required
-                  class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-dodger-blue-500 focus:border-dodger-blue-500 sm:text-sm"
-                />
-              </div>
-            </div>
+            <app-input
+              label="Email Address"
+              id="email"
+              name="email"
+              inputType="email"
+              placeholder="email"
+              classStyle="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-dodger-blue-500 focus:border-dodger-blue-500 sm:text-sm"
+              [form]="form"
+              error="error text"
+            ></app-input>
+
+            <app-input
+              label="Password"
+              id="password"
+              name="password"
+              inputType="password"
+              placeholder="password"
+              classStyle="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-dodger-blue-500 focus:border-dodger-blue-500 sm:text-sm"
+              [form]="form"
+              error="error text"
+            ></app-input>
 
             <div class="flex items-center justify-between">
               <div class="flex items-center">

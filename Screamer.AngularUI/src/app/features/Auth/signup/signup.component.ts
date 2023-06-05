@@ -14,8 +14,7 @@ export class SignupComponent {
   constructor(
     private fb: FormBuilder,
     private authService: AuthenticationService,
-    private router: Router,
-
+    private router: Router
   ) {
     this.form = this.fb.group({
       firstName: ['', Validators.required],
@@ -31,6 +30,10 @@ export class SignupComponent {
         ],
       ],
     });
+  }
+
+  ngOnInit(): void {
+    this.form.valueChanges.subscribe((value) => console.log(value));
   }
 
   onSubmit() {
