@@ -137,6 +137,7 @@ export class AddPostFormComponent {
 
       this.form.patchValue(changes.post.currentValue);
       this.preview = changes.post.currentValue;
+      this.preview.content = changes.post.currentValue.content ?? '';
       this.previewImages = changes.post.currentValue.postImages;
       this.postImageUrl = changes.post.currentValue.imageUrl;
       this.moodType = changes.post.currentValue.mood.moodType;
@@ -258,7 +259,7 @@ export class AddPostFormComponent {
       this.preview = {
         id: this.postId,
         title: x.title as any,
-        content: x.content,
+        content: x.content ?? '',
         userId: this.user.id,
         user: this.user,
         postImages: this.previewImages,
