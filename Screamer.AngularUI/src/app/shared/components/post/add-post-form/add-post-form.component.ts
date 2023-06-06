@@ -73,6 +73,9 @@ export class AddPostFormComponent {
   openTab = 1;
   emojiMartVisible: any;
   isFocused: boolean = false;
+  isTitleFocused: boolean = false;
+  ShowContentErrors: boolean = false;
+  ShowTitleErrors: boolean = false;
 
   /**
    *
@@ -166,7 +169,8 @@ export class AddPostFormComponent {
   }
   createPost() {
     const mainform = document.querySelector('.mainform');
-
+    const titleControl = this.form.get('title');
+    const contentControl = this.form.get('content');
     if (!this.form.valid) {
       //get the add-post class div
       const addPost = document.querySelector('.add-post');
@@ -181,8 +185,23 @@ export class AddPostFormComponent {
         addPost?.classList.remove('shake');
       }, 200);
 
+      if (
+        titleControl?.errors?.required ||
+        titleControl?.errors?.minlength ||
+        titleControl?.errors?.maxlength
+      )
+        this.ShowTitleErrors = true;
+
+      if (
+        contentControl?.errors?.required ||
+        contentControl?.errors?.minlength ||
+        contentControl?.errors?.maxlength
+      )
+        this.ShowContentErrors = true;
       return;
     }
+    this.ShowContentErrors = false;
+    this.ShowTitleErrors = false;
     mainform?.classList.remove('border-red-300');
     mainform?.classList.remove('border-2');
     this.postService
@@ -361,6 +380,15 @@ export class AddPostFormComponent {
     this.isFocused = false;
     console.log('Editor blurred');
   }
+  public onTitleFocus(): void {
+    this.isTitleFocused = true;
+    console.log('Editor focused');
+  }
+
+  public onTitleBlur(): void {
+    this.isTitleFocused = false;
+    console.log('Editor blurred');
+  }
 
   public showContentError(): boolean {
     const contentControl = this.form.get('content');
@@ -373,8 +401,12 @@ export class AddPostFormComponent {
   }
   //show title error
   public showTitleError(): boolean {
+    const titleControl = this.form.get('title');
+
     return (
-      this.form.invalid && this.isFocused && this.form.get('title')?.touched
+      titleControl &&
+      titleControl.invalid &&
+      (titleControl.touched || this.isTitleFocused)
     );
   }
 
@@ -393,6 +425,21 @@ export class AddPostFormComponent {
     return null;
   }
 
+  public get firstTitleErrorMessage(): string | null {
+    const errors = this.form.get('title')?.errors;
+    if (errors?.required) {
+      return 'Title is required';
+    }
+    //max and lin length
+    if (errors?.maxlength) {
+      return 'Title is too long';
+    }
+    if (errors?.minlength) {
+      return 'Title is too short';
+    }
+    return null;
+  }
+
   onSelectionChanged = (event: any) => {
     console.log('onSelectionChanged: ', event);
     if (event.oldRange == null) {
@@ -402,5 +449,4 @@ export class AddPostFormComponent {
       this.onBlur();
     }
   };
-
 }
