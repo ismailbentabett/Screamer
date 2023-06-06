@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { FormControl, ValidationErrors } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, ValidationErrors } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root',
@@ -7,14 +7,23 @@ import { FormControl, ValidationErrors } from '@angular/forms';
 export class ValidationService {
   constructor() {}
 
-  public getValidationErrors(control: FormControl): string[] {
+  public getValidationErrors(control: AbstractControl, controlPath: string = ''): string[] {
     const errors: string[] = [];
 
-    if (control.errors) {
+    if (control instanceof FormGroup) {
+      const formGroup = control as FormGroup;
+      Object.keys(formGroup.controls).forEach((key) => {
+        const nestedControlPath = controlPath ? `${controlPath}.${key}` : key;
+        const nestedControl = formGroup.controls[key];
+        const nestedErrors = this.getValidationErrors(nestedControl, nestedControlPath);
+        errors.push(...nestedErrors);
+      });
+    } else if (control instanceof FormControl && control.errors) {
       Object.keys(control.errors).forEach((errorKey) => {
         const errorMessage = this.getErrorMessage(
           errorKey,
-          control.errors![errorKey]
+          control.errors![errorKey],
+          controlPath
         );
         errors.push(errorMessage);
       });
@@ -23,7 +32,11 @@ export class ValidationService {
     return errors;
   }
 
-  public getErrorMessage(errorKey: string, errorValue: any): string {
+  public getErrorMessage(
+    errorKey: string,
+    errorValue: any,
+    controlPath: string = ''
+  ): string {
     const errorMessages: any = {
       // Required
       required: 'This field is required.',
@@ -56,9 +69,11 @@ export class ValidationService {
       website: 'Invalid website.',
     };
 
-    return errorMessages[errorKey] || 'Invalid value.';
+    const controlName = controlPath.split('.').pop();
+    const controlLabel = controlName ? `${controlName} ` : '';
+    const errorMessage = errorMessages[errorKey] || 'Invalid value.';
+    return `${controlLabel}${errorMessage}`;
   }
-
   public getFirstErrorMessage(control: FormControl): string {
     const errors: string[] = this.getValidationErrors(control);
     return errors.length > 0 ? errors[0] : '';

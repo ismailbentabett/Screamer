@@ -24,10 +24,15 @@ export class InputComponent {
   constructor(private validationService: ValidationService) {}
 
   public get control(): FormControl {
-    return this.form!.get(this.formControlNameText) as FormControl;
+    if (this.formGroupName) {
+      const formGroup = this.form?.get(this.formGroupName) as FormGroup;
+      return formGroup.get(this.formControlNameText) as FormControl;
+    } else {
+      return this.form?.get(this.formControlNameText) as FormControl;
+    }
   }
 
-  public get firstErrorMessage(): string {
+  public get firstErrorMessage(): string | null {
     return this.validationService.getFirstErrorMessage(this.control);
   }
 
@@ -38,13 +43,26 @@ export class InputComponent {
   public onBlur(): void {
     this.isFocused = false;
     // Trigger validation on blur
-    this.control.markAsTouched();
+    if (this.control) {
+      this.control.markAsTouched();
+    }
   }
 
   public showError(): boolean {
-    if (this.control) {
-      return this.control.invalid && (this.control.touched || this.isFocused);
+    if (this.formGroupName) {
+      const formGroup = this.form?.get(this.formGroupName) as FormGroup;
+      const formControl = formGroup?.get(this.formControlNameText) as FormControl;
+      return (
+        formControl &&
+        formControl.invalid &&
+        (formControl.touched || this.isFocused)
+      );
+    } else {
+      return (
+        this.control &&
+        this.control.invalid &&
+        (this.control.touched || this.isFocused)
+      );
     }
-    return false;
   }
 }
