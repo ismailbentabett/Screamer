@@ -4,6 +4,7 @@ import { take } from 'rxjs/operators';
 import { User } from 'src/app/core/models/User';
 import { UserUpdateInput } from 'src/app/core/models/UserUpdateInput';
 import { BusyService } from 'src/app/core/services/busy.service';
+import { CountryService } from 'src/app/core/services/country.service';
 import { UserService } from 'src/app/core/services/user.service';
 import { ValidationService } from 'src/app/core/services/validation.service';
 
@@ -44,7 +45,8 @@ export class ProfileComponent implements OnInit {
     private fb: FormBuilder,
     private userService: UserService,
     private busyService: BusyService,
-    private validationService: ValidationService
+    private validationService: ValidationService,
+    public countryService: CountryService
   ) {}
 
   ngOnInit(): void {
@@ -67,12 +69,9 @@ export class ProfileComponent implements OnInit {
           Validators.required,
         ],
       ],
-      bio: ['', Validators.maxLength(500)],
-      website: [
-        '',
-        [Validators.maxLength(500), this.validationService.website],
-      ],
-      phone: ['', this.validationService.phone],
+      bio: ['', [Validators.minLength(1), Validators.maxLength(500)]],
+      website: ['', [Validators.maxLength(500)]],
+      phone: [''],
       birthday: [''],
       gender: [''],
       userName: [
@@ -84,196 +83,104 @@ export class ProfileComponent implements OnInit {
         ],
       ],
       adress: this.fb.group({
-        street: ['', [this.validationService.street]],
-        city: ['', [this.validationService.city]],
-        state: ['', [this.validationService.state]],
+        street: [''],
+        city: [''],
+        state: [''],
         country: [''],
-        postalCode: ['', [this.validationService.postalCode]],
+        postalCode: [''],
       }),
       socials: this.fb.group({
         facebook: [
           '',
-          [
-            Validators.maxLength(500),
-            this.validationService.socialMediaUsername,
-            this.validationService.noWhitespace,
-          ],
+          [Validators.maxLength(500), this.validationService.noWhitespace],
         ],
         twitter: [
           '',
-          [
-            Validators.maxLength(500),
-            this.validationService.socialMediaUsername,
-            this.validationService.noWhitespace,
-          ],
+          [Validators.maxLength(500), this.validationService.noWhitespace],
         ],
         instagram: [
           '',
-          [
-            Validators.maxLength(500),
-            this.validationService.socialMediaUsername,
-            this.validationService.noWhitespace,
-          ],
+          [Validators.maxLength(500), this.validationService.noWhitespace],
         ],
         youtube: [
           '',
-          [
-            Validators.maxLength(500),
-            this.validationService.socialMediaUsername,
-            this.validationService.noWhitespace,
-          ],
+          [Validators.maxLength(500), this.validationService.noWhitespace],
         ],
         twitch: [
           '',
-          [
-            Validators.maxLength(500),
-            this.validationService.socialMediaUsername,
-            this.validationService.noWhitespace,
-          ],
+          [Validators.maxLength(500), this.validationService.noWhitespace],
         ],
         tiktok: [
           '',
-          [
-            Validators.maxLength(500),
-            this.validationService.socialMediaUsername,
-            this.validationService.noWhitespace,
-          ],
+          [Validators.maxLength(500), this.validationService.noWhitespace],
         ],
         snapchat: [
           '',
-          [
-            Validators.maxLength(500),
-            this.validationService.socialMediaUsername,
-            this.validationService.noWhitespace,
-          ],
+          [Validators.maxLength(500), this.validationService.noWhitespace],
         ],
         pinterest: [
           '',
-          [
-            Validators.maxLength(500),
-            this.validationService.socialMediaUsername,
-            this.validationService.noWhitespace,
-          ],
+          [Validators.maxLength(500), this.validationService.noWhitespace],
         ],
         reddit: [
           '',
-          [
-            Validators.maxLength(500),
-            this.validationService.socialMediaUsername,
-            this.validationService.noWhitespace,
-          ],
+          [Validators.maxLength(500), this.validationService.noWhitespace],
         ],
         linkedin: [
           '',
-          [
-            Validators.maxLength(500),
-            this.validationService.socialMediaUsername,
-            this.validationService.noWhitespace,
-          ],
+          [Validators.maxLength(500), this.validationService.noWhitespace],
         ],
         github: [
           '',
-          [
-            Validators.maxLength(500),
-            this.validationService.socialMediaUsername,
-            this.validationService.noWhitespace,
-          ],
+          [Validators.maxLength(500), this.validationService.noWhitespace],
         ],
         discord: [
           '',
-          [
-            Validators.maxLength(500),
-            this.validationService.socialMediaUsername,
-            this.validationService.noWhitespace,
-          ],
+          [Validators.maxLength(500), this.validationService.noWhitespace],
         ],
         whatsapp: [
           '',
-          [
-            Validators.maxLength(500),
-            this.validationService.socialMediaUsername,
-            this.validationService.noWhitespace,
-          ],
+          [Validators.maxLength(500), this.validationService.noWhitespace],
         ],
         telegram: [
           '',
-          [
-            Validators.maxLength(500),
-            this.validationService.socialMediaUsername,
-            this.validationService.noWhitespace,
-          ],
+          [Validators.maxLength(500), this.validationService.noWhitespace],
         ],
         skype: [
           '',
-          [
-            Validators.maxLength(500),
-            this.validationService.socialMediaUsername,
-            this.validationService.noWhitespace,
-          ],
+          [Validators.maxLength(500), this.validationService.noWhitespace],
         ],
         viber: [
           '',
-          [
-            Validators.maxLength(500),
-            this.validationService.socialMediaUsername,
-            this.validationService.noWhitespace,
-          ],
+          [Validators.maxLength(500), this.validationService.noWhitespace],
         ],
         signal: [
           '',
-          [
-            Validators.maxLength(500),
-            this.validationService.socialMediaUsername,
-            this.validationService.noWhitespace,
-          ],
+          [Validators.maxLength(500), this.validationService.noWhitespace],
         ],
         slack: [
           '',
-          [
-            Validators.maxLength(500),
-            this.validationService.socialMediaUsername,
-            this.validationService.noWhitespace,
-          ],
+          [Validators.maxLength(500), this.validationService.noWhitespace],
         ],
         wechat: [
           '',
-          [
-            Validators.maxLength(500),
-            this.validationService.socialMediaUsername,
-            this.validationService.noWhitespace,
-          ],
+          [Validators.maxLength(500), this.validationService.noWhitespace],
         ],
         onlyfans: [
           '',
-          [
-            Validators.maxLength(500),
-            this.validationService.socialMediaUsername,
-            this.validationService.noWhitespace,
-          ],
+          [Validators.maxLength(500), this.validationService.noWhitespace],
         ],
         patreon: [
           '',
-          [
-            Validators.maxLength(500),
-            this.validationService.socialMediaUsername,
-            this.validationService.noWhitespace,
-          ],
+          [Validators.maxLength(500), this.validationService.noWhitespace],
         ],
         medium: [
           '',
-          [
-            Validators.maxLength(500),
-            this.validationService.socialMediaUsername,
-            this.validationService.noWhitespace,
-          ],
+          [Validators.maxLength(500), this.validationService.noWhitespace],
         ],
         tumblr: [
           '',
-          [
-            Validators.maxLength(500),
-            this.validationService.socialMediaUsername,
-            this.validationService.noWhitespace,
-          ],
+          [Validators.maxLength(500), this.validationService.noWhitespace],
         ],
       }),
     });
@@ -285,9 +192,15 @@ export class ProfileComponent implements OnInit {
         this.user = user;
         this.form.patchValue({ ...user });
       });
+
+    this.form.valueChanges.subscribe((value) => {
+      console.log(this.form);
+    });
   }
 
   onSubmit() {
+    if (!this.form.valid) return;
+
     this.busyService.busy();
     const values: UserUpdateInput = this.form.value;
     this.userService.updateUser(values, this.user.id).subscribe(

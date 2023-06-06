@@ -51,7 +51,9 @@ export class InputComponent {
   public showError(): boolean {
     if (this.formGroupName) {
       const formGroup = this.form?.get(this.formGroupName) as FormGroup;
-      const formControl = formGroup?.get(this.formControlNameText) as FormControl;
+      const formControl = formGroup?.get(
+        this.formControlNameText
+      ) as FormControl;
       return (
         formControl &&
         formControl.invalid &&
@@ -65,4 +67,18 @@ export class InputComponent {
       );
     }
   }
+
+  inputClass() {
+    return this.showError()
+      ?  'shadow-sm ring-red-500 border-red-500 focus:ring-red-500 focus:border-red-500 block w-full sm:text-sm border-gray-300 rounded-md'
+      : this.classStyle;
+  }
+  textareaClass() {
+    return this.showError()
+      ?  'shadow-sm focus:ring-red-500 focus:border-red-500 mt-1 block w-full sm:text-sm border border-red-300 rounded-md'
+      : 'shadow-sm focus:ring-dodger-blue-500 focus:border-dodger-blue-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md';
+  }
+
+
+
 }

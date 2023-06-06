@@ -35,21 +35,18 @@
         </div>
 
         <div>
-          <label for="bio" class="block text-sm font-medium text-gray-700">
-            bio
-          </label>
-          <div class="mt-1">
-            <textarea
-              type="text"
-              id="bio"
-              name="bio"
-              formControlName="bio"
-              autocomplete="bio"
-              required
-              rows="3"
-              class="shadow-sm focus:ring-dodger-blue-500 focus:border-dodger-blue-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md"
-            ></textarea>
-          </div>
+          <app-input
+            label="Bio"
+            autocomplete="bio"
+            id="bio"
+            name="bio"
+            inputType="textarea"
+            formControlNameText="bio"
+            placeholder="bio"
+            [form]="form"
+            error="error text"
+          ></app-input>
+
           <p class="mt-2 text-sm text-gray-500">
             Brief description for your profile. URLs are hyperlinked.
           </p>
@@ -74,7 +71,8 @@
           inputType="text"
           formControlNameText="firstName"
           placeholder="firstName"
-          classStyle="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-dodger-blue-500 focus:border-dodger-blue-500 sm:text-sm"
+          class="shadow-sm focus:ring-dodger-blue-500 focus:border-dodger-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
+          classStyle="shadow-sm focus:ring-dodger-blue-500 focus:border-dodger-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
           [form]="form"
           error="error text"
         ></app-input>
@@ -89,7 +87,8 @@
           inputType="text"
           formControlNameText="lastName"
           placeholder="lastName"
-          classStyle="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-dodger-blue-500 focus:border-dodger-blue-500 sm:text-sm"
+          class="shadow-sm focus:ring-dodger-blue-500 focus:border-dodger-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
+          classStyle="shadow-sm focus:ring-dodger-blue-500 focus:border-dodger-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
           [form]="form"
           error="error text"
         ></app-input>
@@ -103,7 +102,8 @@
           inputType="text"
           formControlNameText="website"
           placeholder="website"
-          classStyle="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-dodger-blue-500 focus:border-dodger-blue-500 sm:text-sm"
+          class="shadow-sm focus:ring-dodger-blue-500 focus:border-dodger-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
+          classStyle="shadow-sm focus:ring-dodger-blue-500 focus:border-dodger-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
           [form]="form"
           error="error text"
         ></app-input>
@@ -118,7 +118,8 @@
           inputType="date"
           formControlNameText="birthday"
           placeholder="birthday"
-          classStyle="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-dodger-blue-500 focus:border-dodger-blue-500 sm:text-sm"
+          class="shadow-sm focus:ring-dodger-blue-500 focus:border-dodger-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
+          classStyle="shadow-sm focus:ring-dodger-blue-500 focus:border-dodger-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
           [form]="form"
           error="error text"
         ></app-input>
@@ -149,7 +150,6 @@
             name="gender"
             formControlName="gender"
             autocomplete="gender"
-            required
             class="shadow-sm focus:ring-dodger-blue-500 focus:border-dodger-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
           >
             <option>Male</option>
@@ -186,12 +186,14 @@
                 name="country"
                 formControlName="country"
                 autocomplete="country"
-                required
                 class="shadow-sm focus:ring-dodger-blue-500 focus:border-dodger-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
               >
-                <option>United States</option>
-                <option>Canada</option>
-                <option>Mexico</option>
+                <option
+                  *ngFor="let title of this.countryService.countryList"
+                  [value]="title"
+                >
+                  {{ title }}
+                </option>
               </select>
             </div>
           </div>
@@ -297,10 +299,17 @@
         </div>
       </div>
     </div>
+
     <div class="mt-4 py-4 px-4 flex justify-end sm:px-6">
       <button
         type="submit"
         class="ml-5 bg-dodger-blue-700 border border-transparent rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-white hover:bg-dodger-blue-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-dodger-blue-500"
+        [disabled]="!form.valid"
+        [ngClass]="
+          form.valid
+            ? 'bg-dodger-blue-600 hover:bg-dodger-blue-700'
+            : 'bg-gray-300 cursor-not-allowed disabled'
+        "
       >
         Save
       </button>

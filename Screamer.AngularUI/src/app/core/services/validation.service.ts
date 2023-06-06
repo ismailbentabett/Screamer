@@ -78,6 +78,8 @@ export class ValidationService {
       time: 'Invalid time.',
       url: 'Invalid url.',
       website: 'Invalid website.',
+    birthday :
+    'Invalid birthday.',
     };
 
     const controlName = controlPath.split('.').pop();
@@ -259,6 +261,17 @@ export class ValidationService {
     }
 
     return { website: true };
+  }
+  //birthday
+  public birthday(control: FormControl): ValidationErrors | null {
+    const value: string = control.value;
+    const regex: RegExp = /[0-9]{4}-[0-9]{2}-[0-9]{2}/;
+
+    if (value && regex.test(value)) {
+      return null;
+    }
+
+    return { birthday: true };
   }
 }
 
