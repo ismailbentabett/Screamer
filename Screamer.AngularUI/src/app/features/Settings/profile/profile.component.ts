@@ -193,9 +193,7 @@ export class ProfileComponent implements OnInit {
         this.form.patchValue({ ...user });
       });
 
-    this.form.valueChanges.subscribe((value) => {
-      console.log(this.form);
-    });
+
   }
 
   onSubmit() {

@@ -66,7 +66,6 @@ export class SignupComponent {
   }
 
   ngOnInit(): void {
-    this.form.valueChanges.subscribe((value) => console.log(this.form));
   }
 
   onSubmit() {

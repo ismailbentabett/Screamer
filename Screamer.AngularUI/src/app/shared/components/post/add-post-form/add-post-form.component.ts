@@ -373,21 +373,17 @@ export class AddPostFormComponent {
 
   public onFocus(): void {
     this.isFocused = true;
-    console.log('Editor focused');
   }
 
   public onBlur(): void {
     this.isFocused = false;
-    console.log('Editor blurred');
   }
   public onTitleFocus(): void {
     this.isTitleFocused = true;
-    console.log('Editor focused');
   }
 
   public onTitleBlur(): void {
     this.isTitleFocused = false;
-    console.log('Editor blurred');
   }
 
   public showContentError(): boolean {
@@ -441,7 +437,6 @@ export class AddPostFormComponent {
   }
 
   onSelectionChanged = (event: any) => {
-    console.log('onSelectionChanged: ', event);
     if (event.oldRange == null) {
       this.onFocus();
     }
