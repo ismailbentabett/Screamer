@@ -14,6 +14,7 @@
   }
   ```
 -->
+
 <form [formGroup]="form">
   <div
     class="ml-5 flex items-center"
@@ -161,8 +162,6 @@
                     clip-rule="evenodd"
                   />
                 </svg>
-
-
 
                 <!-- Selected: "text-gray-900" -->
                 <span class="hidden truncate sm:ml-2 sm:block"> Tag </span>
@@ -363,7 +362,6 @@
             (sendImages)="getImages($event)"
           ></app-post-images-upload>
         </div>
-
       </div>
     </div>
   </div>
@@ -417,6 +415,3 @@
 <app-category-modal
   *ngIf="this.postService.isCategoryOpen"
 ></app-category-modal>
-
-
-

@@ -91,8 +91,24 @@ export class AddPostFormComponent {
     });
 
     this.form = this.fb.group({
-      title: ['', Validators.required],
-      content: new FormControl(''),
+      title: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(1),
+          Validators.maxLength(300),
+        ],
+      ],
+      content: new FormControl(
+        '',
+
+        [
+          Validators.required,
+          Validators.minLength(1),
+          Validators.maxLength(5000),
+        ]
+      ),
+
       imageUrl: ['placeholder url', Validators.required],
       userId: [this.user.id, Validators.required],
     });
@@ -114,7 +130,6 @@ export class AddPostFormComponent {
         (x: any) => x.hashtag.name
       );
       var tags = changes.post.currentValue.tags.map((x: any) => x.user);
-
 
       this.form.patchValue(changes.post.currentValue);
       this.preview = changes.post.currentValue;
@@ -149,7 +164,7 @@ export class AddPostFormComponent {
     this.moodType = moodType;
   }
   createPost() {
-
+    if (!this.form.valid) return;
 
     this.postService
       .createPost({
@@ -169,7 +184,7 @@ export class AddPostFormComponent {
         },
       });
 
-      this.postService
+ /*    this.postService
       .updatePost({
         userId: this.user.id,
         ...this.form.value,
@@ -185,10 +200,8 @@ export class AddPostFormComponent {
 
           this.postService.sendpostImageUrl(postId);
         },
-      });
+      }); */
   }
-
-
 
   toggleMoodDropdown() {
     this.isMoodOpen = !this.isMoodOpen;
