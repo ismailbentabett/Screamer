@@ -105,7 +105,7 @@ export class AddPostFormComponent {
         [
           Validators.required,
           Validators.minLength(1),
-          Validators.maxLength(5000),
+          Validators.maxLength(1000000),
         ]
       ),
 
@@ -349,5 +349,25 @@ export class AddPostFormComponent {
   }
   closeCategoryPopUp() {
     this.postService.closeCategoryPopup();
+  }
+
+  //show errors
+  showErrors() {
+    this.form.markAllAsTouched();
+  }
+
+  //errors get errors then get first error
+  getContentErrors() {
+    return this.form.controls.content.errors;
+  }
+  getFirstContentError() {
+    return this.form.controls.content.errors?.required;
+  }
+
+  getTitleErrors() {
+    return this.form.controls.title.errors;
+  }
+  getFirstTitleError() {
+    return this.form.controls.title.errors?.required;
   }
 }
