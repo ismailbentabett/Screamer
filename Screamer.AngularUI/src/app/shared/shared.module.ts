@@ -31,7 +31,6 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { FollowCardComponent } from './components/card/follow-card/follow-card.component';
 import { FollowModalComponent } from './components/modal/follow-modal/follow-modal.component';
 import { CoverUploadComponent } from './components/user/cover-upload/cover-upload.component';
-import { SocialInputComponent } from './components/input/social-input/social-input.component';
 import { ChatRoomTabComponent } from './components/chat/chat-room-tab/chat-room-tab.component';
 import { SocialsListComponent } from './components/list/socials-list/socials-list.component';
 import { CarouselComponent } from './components/carousel/carousel/carousel.component';
@@ -64,7 +63,6 @@ import { SharePostModalComponent } from './components/modal/share-post-modal/sha
 import { InputComponent } from './components/input/input/input.component';
 import { AutocompleteOffDirective } from './directives/autocomplete-off.directive';
 
-
 @NgModule({
   declarations: [
     MyDirectiveDirective,
@@ -88,7 +86,6 @@ import { AutocompleteOffDirective } from './directives/autocomplete-off.directiv
     FollowCardComponent,
     FollowModalComponent,
     CoverUploadComponent,
-    SocialInputComponent,
     ChatRoomTabComponent,
     SocialsListComponent,
     CarouselComponent,
@@ -111,7 +108,7 @@ import { AutocompleteOffDirective } from './directives/autocomplete-off.directiv
     ShortNumberPipe,
     SharePostModalComponent,
     InputComponent,
-    AutocompleteOffDirective
+    AutocompleteOffDirective,
   ],
   imports: [
     CommonModule,
@@ -128,7 +125,7 @@ import { AutocompleteOffDirective } from './directives/autocomplete-off.directiv
     QuillModule.forRoot(),
     PickerModule,
     ShareButtonsModule,
-    ShareIconsModule
+    ShareIconsModule,
   ],
   exports: [
     MyDirectiveDirective,
@@ -152,7 +149,6 @@ import { AutocompleteOffDirective } from './directives/autocomplete-off.directiv
     SideContentComponent,
     FollowModalComponent,
     CoverUploadComponent,
-    SocialInputComponent,
     ChatRoomTabComponent,
     SocialsListComponent,
     CarouselComponent,
@@ -170,7 +166,7 @@ import { AutocompleteOffDirective } from './directives/autocomplete-off.directiv
     CategoryModalComponent,
     TagModalComponent,
     SharePostModalComponent,
-    InputComponent
+    InputComponent,
   ],
   providers: [],
 })

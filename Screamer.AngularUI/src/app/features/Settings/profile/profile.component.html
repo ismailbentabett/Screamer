@@ -171,7 +171,7 @@
           Use a permanent address where you can receive mail.
         </p>
       </div>
-      <div >
+      <div>
         <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
           <div class="sm:col-span-3" formGroupName="adress">
             <label
@@ -279,7 +279,20 @@
         <!-- socials -->
         <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
           <div class="sm:col-span-2" *ngFor="let social of socials">
-            <app-social-input [form]="form" [data]="social"></app-social-input>
+            <app-input
+              [label]="social"
+              [autocomplete]="social"
+              [id]="social"
+              [name]="social"
+              inputType="text"
+              [formControlNameText]="social"
+              [placeholder]="social"
+              class="shadow-sm focus:ring-dodger-blue-500 focus:border-dodger-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
+              classStyle="shadow-sm focus:ring-dodger-blue-500 focus:border-dodger-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
+              [form]="form"
+              error="error text"
+              formGroupName="socials"
+            ></app-input>
           </div>
         </div>
       </div>

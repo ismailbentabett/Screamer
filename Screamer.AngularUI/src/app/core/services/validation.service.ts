@@ -1,5 +1,10 @@
 import { Injectable } from '@angular/core';
-import { AbstractControl, FormControl, FormGroup, ValidationErrors } from '@angular/forms';
+import {
+  AbstractControl,
+  FormControl,
+  FormGroup,
+  ValidationErrors,
+} from '@angular/forms';
 
 @Injectable({
   providedIn: 'root',
@@ -7,7 +12,10 @@ import { AbstractControl, FormControl, FormGroup, ValidationErrors } from '@angu
 export class ValidationService {
   constructor() {}
 
-  public getValidationErrors(control: AbstractControl, controlPath: string = ''): string[] {
+  public getValidationErrors(
+    control: AbstractControl,
+    controlPath: string = ''
+  ): string[] {
     const errors: string[] = [];
 
     if (control instanceof FormGroup) {
@@ -15,7 +23,10 @@ export class ValidationService {
       Object.keys(formGroup.controls).forEach((key) => {
         const nestedControlPath = controlPath ? `${controlPath}.${key}` : key;
         const nestedControl = formGroup.controls[key];
-        const nestedErrors = this.getValidationErrors(nestedControl, nestedControlPath);
+        const nestedErrors = this.getValidationErrors(
+          nestedControl,
+          nestedControlPath
+        );
         errors.push(...nestedErrors);
       });
     } else if (control instanceof FormControl && control.errors) {
@@ -56,7 +67,7 @@ export class ValidationService {
       // Add more custom validators and their error messages as needed
 
       // Default
-      socialMediaUsername: 'At least one special character is required.',
+      socialMediaUsername: 'Value Not Valid.',
       postalCode: 'Invalid postal code.',
       phoneNumber: 'Invalid phone number.',
       state: 'Invalid state.',
@@ -139,13 +150,13 @@ export class ValidationService {
 
   //socialMediaUsername
   public socialMediaUsername(control: FormControl): ValidationErrors | null {
+    //social media username style no url
     const value: string = control.value;
-    const regex: RegExp = /[@]+/;
+    const regex: RegExp = /[A-Za-z0-9_]{1,15}/;
 
     if (value && regex.test(value)) {
       return null;
     }
-
     return { socialMediaUsername: true };
   }
   //postalCode
