@@ -72,6 +72,7 @@ export class AddPostFormComponent {
   isMoodOpen = false;
   openTab = 1;
   emojiMartVisible: any;
+  isFocused: boolean = false;
 
   /**
    *
@@ -351,23 +352,55 @@ export class AddPostFormComponent {
     this.postService.closeCategoryPopup();
   }
 
-  //show errors
-  showErrors() {
-    this.form.markAllAsTouched();
+  public onFocus(): void {
+    this.isFocused = true;
+    console.log('Editor focused');
   }
 
-  //errors get errors then get first error
-  getContentErrors() {
-    return this.form.controls.content.errors;
-  }
-  getFirstContentError() {
-    return this.form.controls.content.errors?.required;
+  public onBlur(): void {
+    this.isFocused = false;
+    console.log('Editor blurred');
   }
 
-  getTitleErrors() {
-    return this.form.controls.title.errors;
+  public showContentError(): boolean {
+    const contentControl = this.form.get('content');
+
+    return (
+      contentControl &&
+      contentControl.invalid &&
+      (contentControl.touched || this.isFocused)
+    );
   }
-  getFirstTitleError() {
-    return this.form.controls.title.errors?.required;
+  //show title error
+  public showTitleError(): boolean {
+    return (
+      this.form.invalid && this.isFocused && this.form.get('title')?.touched
+    );
   }
+
+  public get firstContentErrorMessage(): string | null {
+    const errors = this.form.get('content')?.errors;
+    if (errors?.required) {
+      return 'Content is required';
+    }
+    //max and lin length
+    if (errors?.maxlength) {
+      return 'Content is too long';
+    }
+    if (errors?.minlength) {
+      return 'Content is too short';
+    }
+    return null;
+  }
+
+  onSelectionChanged = (event: any) => {
+    console.log('onSelectionChanged: ', event);
+    if (event.oldRange == null) {
+      this.onFocus();
+    }
+    if (event.range == null) {
+      this.onBlur();
+    }
+  };
+
 }

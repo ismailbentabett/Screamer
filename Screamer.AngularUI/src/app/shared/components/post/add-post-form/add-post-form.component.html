@@ -80,7 +80,13 @@
           class="block w-full border-0 py-0 resize-none placeholder-gray-500 focus:ring-0 sm:text-sm"
           placeholder="Write Something..."
           [modules]="modules"
+          (focus)="onFocus()"
+          (blur)="onBlur()"
+          (onSelectionChanged)="onSelectionChanged($event)"
         ></quill-editor>
+        <p class="mt-2 text-sm text-red-600" *ngIf="showContentError()">
+          {{ firstContentErrorMessage }}
+        </p>
         <!-- Spacer element to match the height of the toolbar -->
         <div aria-hidden="true">
           <div class="py-2">
