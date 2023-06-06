@@ -11,15 +11,13 @@ export class ValidationService {
     const errors: string[] = [];
 
     if (control.errors) {
-      for (const errorKey in control.errors) {
-        if (control.errors.hasOwnProperty(errorKey)) {
-          const errorMessage = this.getErrorMessage(
-            errorKey,
-            control.errors[errorKey]
-          );
-          errors.push(errorMessage);
-        }
-      }
+      Object.keys(control.errors).forEach((errorKey) => {
+        const errorMessage = this.getErrorMessage(
+          errorKey,
+          control.errors![errorKey]
+        );
+        errors.push(errorMessage);
+      });
     }
 
     return errors;
@@ -29,36 +27,33 @@ export class ValidationService {
     const errorMessages: any = {
       // Required
       required: 'This field is required.',
-
       // Email
       email: 'Invalid email address.',
-
       // Min/Max Length
-      minlength: `Minimum length is ${errorValue.requiredLength} characters.`,
-      maxlength: `Maximum length is ${errorValue.requiredLength} characters.`,
-
+      minlength: `Minimum length is ${errorValue?.requiredLength}.`,
+      maxlength: `Maximum length is ${errorValue?.requiredLength}.`,
       // Pattern
       pattern: 'Invalid format.',
-
       // Custom Validators
       nospecialCharacters: 'Special characters are not allowed.',
-      specialCharacters: 'at least one Special character.',
-
+      specialCharacters: 'At least one special character is required.',
       noNumbers: 'Numbers are not allowed.',
-      Numbers: 'at least one Number.',
+      Numbers: 'At least one number is required.',
       noWhitespace: 'Whitespace characters are not allowed.',
       // Add more custom validators and their error messages as needed
-      website: 'Invalid website address.',
-      phone: 'Invalid phone number.',
-      zipCode: 'Invalid zip code.',
+
+      // Default
+      socialMediaUsername: 'At least one special character is required.',
+      postalCode: 'Invalid postal code.',
+      phoneNumber: 'Invalid phone number.',
+      state: 'Invalid state.',
+      city: 'Invalid city.',
+      address: 'Invalid address.',
+      country: 'Invalid country.',
       date: 'Invalid date.',
       time: 'Invalid time.',
-      street: 'Invalid street address.',
-      city: 'Invalid city.',
-      state: 'Invalid state.',
-      country: 'Invalid country.',
-      postalCode: 'Invalid postal code.',
-      socialMediaUsername: 'Invalid social media username.',
+      url: 'Invalid url.',
+      website: 'Invalid website.',
     };
 
     return errorMessages[errorKey] || 'Invalid value.';
@@ -69,6 +64,7 @@ export class ValidationService {
     return errors.length > 0 ? errors[0] : '';
   }
 
+  // Custom Validators
   public noNumbers(control: FormControl): ValidationErrors | null {
     const value: string = control.value;
     const regex: RegExp = /\d/;
@@ -83,20 +79,25 @@ export class ValidationService {
   public Numbers(control: FormControl): ValidationErrors | null {
     const value: string = control.value;
     const regex: RegExp = /\d/;
+
     if (regex.test(value)) {
       return null;
     }
+
     return { Numbers: true };
   }
 
   public noWhitespace(control: FormControl): ValidationErrors | null {
     const value: string = control.value;
     const regex: RegExp = /\s/;
+
     if (regex.test(value)) {
       return { noWhitespace: true };
     }
+
     return null;
   }
+
   public nospecialCharactersValidator(
     control: FormControl
   ): ValidationErrors | null {
@@ -104,98 +105,135 @@ export class ValidationService {
     const regex: RegExp = /[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]+/;
 
     if (value && !regex.test(value)) {
-      return null; // Return null if the value does not contain special characters
+      return null;
     }
 
-    return { nospecialCharacters: true }; // Return the error if the value contains special characters
+    return { nospecialCharacters: true };
   }
+
   public specialCharactersValidator(
     control: FormControl
   ): ValidationErrors | null {
     const value: string = control.value;
     const regex: RegExp = /[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]+/;
-
     if (value && regex.test(value)) {
-      return null; // Return null if the value does not contain special characters
+      return null;
     }
-
-    return { specialCharacters: true }; // Return the error if the value contains special characters
+    return { specialCharacters: true };
   }
 
+  //socialMediaUsername
+  public socialMediaUsername(control: FormControl): ValidationErrors | null {
+    const value: string = control.value;
+    const regex: RegExp = /[@]+/;
+
+    if (value && regex.test(value)) {
+      return null;
+    }
+
+    return { socialMediaUsername: true };
+  }
+  //postalCode
+  public postalCode(control: FormControl): ValidationErrors | null {
+    const value: string = control.value;
+    const regex: RegExp = /[0-9]{5}/;
+
+    if (value && regex.test(value)) {
+      return null;
+    }
+
+    return { postalCode: true };
+  }
+  //phoneNumber
+  public phone(control: FormControl): ValidationErrors | null {
+    const value: string = control.value;
+    const regex: RegExp = /[0-9]{10}/;
+
+    if (value && regex.test(value)) {
+      return null;
+    }
+
+    return { phoneNumber: true };
+  }
+  //noNumbers
+  public noNumbersValidator(control: FormControl): ValidationErrors | null {
+    const value: string = control.value;
+    const regex: RegExp = /[0-9]/;
+
+    if (value && !regex.test(value)) {
+      return null;
+    }
+
+    return { noNumbers: true };
+  }
+  //state
+
+  public state(control: FormControl): ValidationErrors | null {
+    const value: string = control.value;
+    const regex: RegExp = /[A-Z]{2}/;
+
+    if (value && regex.test(value)) {
+      return null;
+    }
+
+    return { state: true };
+  }
+  //city
+  public city(control: FormControl): ValidationErrors | null {
+    const value: string = control.value;
+    const regex: RegExp = /[A-Z]{2}/;
+
+    if (value && regex.test(value)) {
+      return null;
+    }
+
+    return { city: true };
+  }
+  //country
+  public country(control: FormControl): ValidationErrors | null {
+    const value: string = control.value;
+    const regex: RegExp = /[A-Z]{2}/;
+
+    if (value && regex.test(value)) {
+      return null;
+    }
+
+    return { country: true };
+  }
+  //address
+  public address(control: FormControl): ValidationErrors | null {
+    const value: string = control.value;
+    const regex: RegExp = /[A-Z]{2}/;
+
+    if (value && regex.test(value)) {
+      return null;
+    }
+
+    return { address: true };
+  }
+  //street
+  public street(control: FormControl): ValidationErrors | null {
+    const value: string = control.value;
+    const regex: RegExp = /[A-Z]{2}/;
+
+    if (value && regex.test(value)) {
+      return null;
+    }
+
+    return { street: true };
+  }
+  //website
   public website(control: FormControl): ValidationErrors | null {
     const value: string = control.value;
     const regex: RegExp =
-      /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}$/;
+      /((https?|ftp|smtp):\/\/)?(www.)?[a-z0-9]+\.[a-z]+(\/[a-zA-Z0-9#]+\/?)*$/;
 
     if (value && regex.test(value)) {
-      return null; // Return null if the value does not contain special characters
+      return null;
     }
 
-    return { website: true }; // Return the error if the value contains special characters
-  }
-
-  public phone(control: FormControl): ValidationErrors | null {
-    const value: string = control.value;
-    const regex: RegExp = /^\d{10}$/;
-
-    if (value && regex.test(value)) {
-      return null; // Return null if the value does not contain special characters
-    }
-
-    return { phone: true }; // Return the error if the value contains special characters
-  }
-
-  public street(control: FormControl): ValidationErrors | null {
-    const value: string = control.value;
-    const regex: RegExp = /^[a-zA-Z0-9\s,'-]*$/;
-
-    if (value && regex.test(value)) {
-      return null; // Return null if the value does not contain special characters
-    }
-
-    return { street: true }; // Return the error if the value contains special characters
-  }
-  public city(control: FormControl): ValidationErrors | null {
-    const value: string = control.value;
-    const regex: RegExp = /^[a-zA-Z\s,'-]*$/;
-
-    if (value && regex.test(value)) {
-      return null; // Return null if the value does not contain special characters
-    }
-
-    return { city: true }; // Return the error if the value contains special characters
-  }
-  public state(control: FormControl): ValidationErrors | null {
-    const value: string = control.value;
-    const regex: RegExp = /^[a-zA-Z\s,'-]*$/;
-
-    if (value && regex.test(value)) {
-      return null; // Return null if the value does not contain special characters
-    }
-
-    return { state: true }; // Return the error if the value contains special characters
-  }
-  public postalCode(control: FormControl): ValidationErrors | null {
-    const value: string = control.value;
-    const regex: RegExp = /^[0-9]*$/;
-
-    if (value && regex.test(value)) {
-      return null; // Return null if the value does not contain special characters
-    }
-
-    return { postalCode: true }; // Return the error if the value contains special characters
-  }
-
-  //social media username as do not write url just username or id
-  public socialMediaUsername(control: FormControl): ValidationErrors | null {
-    const value: string = control.value;
-    const regex: RegExp =
-      /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}$/;
-
-    if (value && !regex.test(value)) {
-      return null; // Return null if the value does not contain special characters
-    }
-
-    return { socialMediaUsername: true }; // Return the error if the value contains special characters
+    return { website: true };
   }
 }
+
+//specialCharactersValidator

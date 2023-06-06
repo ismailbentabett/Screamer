@@ -62,6 +62,7 @@ import { ShareButtonsModule } from 'ngx-sharebuttons/buttons';
 import { ShareIconsModule } from 'ngx-sharebuttons/icons';
 import { SharePostModalComponent } from './components/modal/share-post-modal/share-post-modal.component';
 import { InputComponent } from './components/input/input/input.component';
+import { AutocompleteOffDirective } from './directives/autocomplete-off.directive';
 
 
 @NgModule({
@@ -109,7 +110,8 @@ import { InputComponent } from './components/input/input/input.component';
     TagModalComponent,
     ShortNumberPipe,
     SharePostModalComponent,
-    InputComponent
+    InputComponent,
+    AutocompleteOffDirective
   ],
   imports: [
     CommonModule,
