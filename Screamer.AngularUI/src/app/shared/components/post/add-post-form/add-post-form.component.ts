@@ -164,8 +164,26 @@ export class AddPostFormComponent {
     this.moodType = moodType;
   }
   createPost() {
-    if (!this.form.valid) return;
+    const mainform = document.querySelector('.mainform');
 
+    if (!this.form.valid) {
+      //get the add-post class div
+      const addPost = document.querySelector('.add-post');
+      //add the error class to the div
+      addPost?.classList.add('shake');
+
+      mainform?.classList.add('border-red-300');
+      mainform?.classList.add('border-2');
+
+      //after a time remove it
+      setTimeout(() => {
+        addPost?.classList.remove('shake');
+      }, 200);
+
+      return;
+    }
+    mainform?.classList.remove('border-red-300');
+    mainform?.classList.remove('border-2');
     this.postService
       .createPost({
         userId: this.user.id,
@@ -184,7 +202,7 @@ export class AddPostFormComponent {
         },
       });
 
- /*    this.postService
+    /*    this.postService
       .updatePost({
         userId: this.user.id,
         ...this.form.value,
