@@ -68,7 +68,10 @@ namespace Screamer.Presistance.Repositories
         {
             var query = _context.Comments
                 .Where(
-                    c => c.ParentComment.Id == commentParams.commentId && c.ParentComment != null
+                    c =>
+                        c.Post.Id == commentParams.postId
+                        && c.ParentComment.Id == commentParams.parentCommentId
+                        && c.ParentComment != null
                 )
                 .AsQueryable();
 

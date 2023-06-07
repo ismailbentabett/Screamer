@@ -247,7 +247,9 @@ namespace Screamer.WebApi.Controllers
         }
 
         [HttpGet("get-comments-by-post-id")]
-        public async Task<IActionResult> GetCommentsByPostId(CommentParams commentParams)
+        public async Task<IActionResult> GetCommentsByPostId(
+            [FromQuery] CommentParams commentParams
+        )
         {
             var query = new GetCommentsByPostIdRequestQuery { commentParams = commentParams, };
             var result = await _mediator.Send(query);
@@ -255,7 +257,9 @@ namespace Screamer.WebApi.Controllers
         }
 
         [HttpGet("get-replies-by-comment-id")]
-        public async Task<IActionResult> GetRepliesByCommentId(CommentParams commentParams)
+        public async Task<IActionResult> GetRepliesByCommentId(
+            [FromQuery] CommentParams commentParams
+        )
         {
             var query = new GetRepliesByCommentIdRequestQuery { commentParams = commentParams, };
             var result = await _mediator.Send(query);

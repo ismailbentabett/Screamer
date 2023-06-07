@@ -377,6 +377,8 @@ export class AddPostFormComponent {
   }
 
   public onBlur(): void {
+    this.ShowContentErrors = false;
+    this.ShowTitleErrors = false;
     this.isFocused = false;
   }
   public onTitleFocus(): void {
@@ -390,21 +392,13 @@ export class AddPostFormComponent {
   public showContentError(): boolean {
     const contentControl = this.form.get('content');
 
-    return (
-      contentControl &&
-      contentControl.invalid &&
-      (contentControl.touched || this.isFocused)
-    );
+    return contentControl && contentControl.invalid && this.isFocused;
   }
   //show title error
   public showTitleError(): boolean {
     const titleControl = this.form.get('title');
 
-    return (
-      titleControl &&
-      titleControl.invalid &&
-      (titleControl.touched || this.isTitleFocused)
-    );
+    return titleControl && titleControl.invalid && this.isTitleFocused;
   }
 
   public get firstContentErrorMessage(): string | null {
