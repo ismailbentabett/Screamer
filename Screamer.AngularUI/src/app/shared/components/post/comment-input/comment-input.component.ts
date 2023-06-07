@@ -33,6 +33,7 @@ export class CommentInputComponent {
   ips: string[] = [];
   keywords: string[] = [];
   @Input() post: any;
+  @Input() parentCommentId: any = null;
 
   searchAlgolia(searchTerm: string): Promise<any> {
     return this.algoliaIndex.search(searchTerm);
@@ -93,6 +94,32 @@ export class CommentInputComponent {
     this.commentService.createComment(comment).subscribe((response: any) => {
       this.form.reset();
     });
+  }
+
+  createReply() {
+    const reply = {
+      parentCommentId: this.parentCommentId,
+      postId: this.post.id,
+      content: this.form.value.comment,
+      userId: this.currentUser.id,
+      hashtags: this.hashtags ?? [],
+      mentionsArr: this.mentions ?? [],
+    };
+
+    this.commentService.createReply(reply).subscribe((response: any) => {
+      this.form.reset();
+    });
+  }
+
+  create() {
+    if (this.parentCommentId && this.parentCommentId !== null) {
+      console.log('createReply');
+      this.createReply();
+    } else {
+      console.log('createComment');
+
+      this.createComment();
+    }
   }
   modules = {
     toolbar: false,

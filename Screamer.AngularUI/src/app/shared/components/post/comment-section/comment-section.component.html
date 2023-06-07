@@ -32,15 +32,22 @@
         </p>
       </div>
     </div>
-    <button
+
+    <div class="flex justify-end items-end">
+      <button
       (click)="togglereplyInput()"
       *ngIf="!replyInput"
       type="submit"
-      class="w-full bg- block text-end px-4 py-2 border border-transparent text-sm font-medium rounded-md text-dodger-blue-700 bg-white hover:text-dodger-blue-500"
+      class="  block text-end px-4 py-2 border border-transparent text-sm font-medium rounded-md text-dodger-blue-700 bg-white hover:text-dodger-blue-500"
     >
       Reply
     </button>
-    <app-comment-input *ngIf="replyInput"></app-comment-input>
+    </div>
+    <app-comment-input
+      *ngIf="replyInput"
+      [parentCommentId]="comment.id"
+      [post]="post"
+    ></app-comment-input>
     <button
       *ngIf="comment.replies.length > 3"
       (click)="showMoreReplies(comment.id)"

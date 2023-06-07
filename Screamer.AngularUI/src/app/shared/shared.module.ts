@@ -62,6 +62,7 @@ import { ShareIconsModule } from 'ngx-sharebuttons/icons';
 import { SharePostModalComponent } from './components/modal/share-post-modal/share-post-modal.component';
 import { InputComponent } from './components/input/input/input.component';
 import { AutocompleteOffDirective } from './directives/autocomplete-off.directive';
+import { CommentDropDownComponent } from './components/dropdown/comment-drop-down/comment-drop-down.component';
 
 @NgModule({
   declarations: [
@@ -109,6 +110,7 @@ import { AutocompleteOffDirective } from './directives/autocomplete-off.directiv
     SharePostModalComponent,
     InputComponent,
     AutocompleteOffDirective,
+    CommentDropDownComponent,
   ],
   imports: [
     CommonModule,
