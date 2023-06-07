@@ -38,7 +38,7 @@ namespace Screamer.Application.Features.CommentRequest.Queries.GetCommentsByPost
             CancellationToken cancellationToken
         )
         {
-            var comments = await _uow.CommentRepository.GetPostComments(request.commentParams);
+            var comments = await _uow.CommentRepository.GetPostComments(request.CommentParams);
 
             HttpContext httpContext = _httpContextAccessor.HttpContext;
             HttpResponse Response = httpContext.Response;

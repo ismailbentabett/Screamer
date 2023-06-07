@@ -21,5 +21,9 @@ namespace Screamer.Application.Dtos
         public ICollection<ReactionDto> Reactions { get; set; }
 
         public ICollection<UserMentionDto> Mentions { get; set; } = new List<UserMentionDto>();
+
+        public int? ParentCommentId { get; set; }
+        public CommentDto ParentComment { get; set; } 
+        public List<CommentDto> Replies { get; set; }
     }
 }

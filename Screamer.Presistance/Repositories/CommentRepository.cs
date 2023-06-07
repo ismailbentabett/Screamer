@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using Screamer.Application.Contracts.Presistance;
 using Screamer.Application.Helpers;
 using Screamer.Domain.Common;
@@ -49,8 +50,8 @@ namespace Screamer.Presistance.Repositories
         {
             var query = _context.Comments
                 .Where(c => c.Post.Id == commentParams.postId && c.ParentComment == null)
+                .Include(c => c.User)
                 .AsQueryable();
-
             query = commentParams.OrderBy switch
             {
                 "CreatedAt" => query.OrderByDescending(u => u.CreatedAt),
@@ -68,11 +69,9 @@ namespace Screamer.Presistance.Repositories
         {
             var query = _context.Comments
                 .Where(
-                    c =>
-                        c.Post.Id == commentParams.postId
-                        && c.ParentComment.Id == commentParams.parentCommentId
-                        && c.ParentComment != null
+                    c => c.ParentComment.Id == commentParams.commentId && c.ParentComment != null
                 )
+                .Include(c => c.User)
                 .AsQueryable();
 
             query = commentParams.OrderBy switch

@@ -8,8 +8,10 @@ using Screamer.Application.Helpers;
 
 namespace Screamer.Application.Features.CommentRequest.Queries.GetCommentsByPostIdRequest
 {
-    public class GetCommentsByPostIdRequestQuery : IRequest<List<CommentDto>>
+ public class GetCommentsByPostIdRequestQuery : IRequest<List<CommentDto>>
     {
-        public CommentParams commentParams { get; set; }
+        public CommentParams CommentParams { get; set; }
+        public CommentParams ReplyParams { get; set; }
     }
+
 }

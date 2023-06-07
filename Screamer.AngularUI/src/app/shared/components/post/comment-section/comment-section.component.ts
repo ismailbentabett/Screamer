@@ -12,7 +12,6 @@ import { UserService } from 'src/app/core/services/user.service';
 })
 export class CommentSectionComponent {
   @Input() post: any;
-  @Input() comment: any;
   comments: any[] | undefined;
   replies: any[] | undefined;
   commentPageNumber = 1;
@@ -23,6 +22,8 @@ export class CommentSectionComponent {
   replyParams: CommentParams | undefined;
   user!: User;
   userId?: string;
+
+  finalform: any;
 
   constructor(
     private userService: UserService,
@@ -53,6 +54,10 @@ export class CommentSectionComponent {
         .subscribe((response) => {
           if (response.result && response.pagination) {
             this.comments = response.result;
+            //add the replies
+            this.comments!.forEach((comment) => {
+              this.loadReplies(comment.id);
+            });
           }
         });
     }
@@ -61,11 +66,21 @@ export class CommentSectionComponent {
   loadReplies(commentId: number) {
     if (this.replyParams) {
       this.replyParams.parentCommentId = commentId;
+      this.replyParams.commentId = commentId;
+
       this.commentService
         .getRepliesByCommentId(this.replyParams)
         .subscribe((response) => {
           if (response.result && response.pagination) {
             this.replies = response.result;
+            this.comments?.forEach((comment) => {
+              this.replies?.forEach((reply) => {
+                if (comment.id == reply.parentCommentId) {
+                  comment.replies.push(reply);
+                }
+              });
+            });
+            console.log(this.comments)
           }
         });
     }

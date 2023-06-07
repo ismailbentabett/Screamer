@@ -45,7 +45,8 @@ export function getCommentPaginationHeaders(
   postId: number,
   parentCommentId: number |null,
   pageNumber: number,
-  pageSize: number
+  pageSize: number,
+  commentId: any
 ) {
   let params = new HttpParams();
   if (postId) {
@@ -53,6 +54,9 @@ export function getCommentPaginationHeaders(
   }
   if (parentCommentId) {
     params = params.append('parentCommentId', parentCommentId);
+  }
+  if (commentId) {
+    params = params.append('commentId', commentId);
   }
 
   params = params.append('orderBy', orderBy);

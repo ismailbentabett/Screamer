@@ -33,7 +33,7 @@ export class CommentService {
     postId: number,
     pageSize: number,
     pageNumber: number,
-    parentCommentId: number |null
+    parentCommentId: number | null
   ) {
     this.commentParams = new CommentParams();
     this.commentParams.orderBy = 'CreatedAt';
@@ -69,15 +69,14 @@ export class CommentService {
     this.repliesParams = params;
   }
 
-
-
   getCommentsByPostId(commentParams: CommentParams) {
     let params = getCommentPaginationHeaders(
       commentParams.orderBy,
       commentParams.postId,
       commentParams.parentCommentId,
       commentParams.pageNumber,
-      commentParams.pageSize
+      commentParams.pageSize,
+      commentParams.commentId
     );
 
     return getPaginatedResult<any[]>(
@@ -91,12 +90,14 @@ export class CommentService {
     );
   }
   getRepliesByCommentId(commentParams: CommentParams) {
+    console.log(commentParams);
     let params = getCommentPaginationHeaders(
       commentParams.orderBy,
       commentParams.postId,
       commentParams.parentCommentId,
       commentParams.pageNumber,
-      commentParams.pageSize
+      commentParams.pageSize,
+      commentParams.commentId
     );
 
     return getPaginatedResult<any[]>(

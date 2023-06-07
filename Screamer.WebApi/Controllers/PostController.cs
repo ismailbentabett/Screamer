@@ -251,7 +251,7 @@ namespace Screamer.WebApi.Controllers
             [FromQuery] CommentParams commentParams
         )
         {
-            var query = new GetCommentsByPostIdRequestQuery { commentParams = commentParams, };
+            var query = new GetCommentsByPostIdRequestQuery { CommentParams = commentParams, };
             var result = await _mediator.Send(query);
             return Ok(result);
         }

@@ -6,4 +6,5 @@ export class CommentParams {
   orderBy = 'CreatedAt';
   postId!: number;
   parentCommentId!: number | null;
+  commentId : any;
 }

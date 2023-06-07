@@ -359,7 +359,7 @@
     *ngIf="isCommentsOpen"
   >
     <app-comment-input *ngIf="!edit" [post]="post"></app-comment-input>
-    <app-comment-section *ngIf="!edit"></app-comment-section>
+    <app-comment-section *ngIf="!edit" [post]="post"></app-comment-section>
   </div>
 </li>
 <app-share-post-modal
