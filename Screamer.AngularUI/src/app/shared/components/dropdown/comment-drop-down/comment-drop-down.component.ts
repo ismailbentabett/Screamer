@@ -6,5 +6,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./comment-drop-down.component.scss']
 })
 export class CommentDropDownComponent {
-
+  isOpen :  boolean = false;
+  toggleDropdown() {
+    this.isOpen = !this.isOpen;
+  }
 }
