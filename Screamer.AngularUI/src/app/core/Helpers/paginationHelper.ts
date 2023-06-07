@@ -29,9 +29,30 @@ export function getPaginationHeaders(
   pageSize: number
 ) {
   let params = new HttpParams();
-  if(userId){
+  if (userId) {
     params = params.append('userId', userId);
+  }
 
+  params = params.append('orderBy', orderBy);
+
+  params = params.append('pageNumber', pageNumber);
+  params = params.append('pageSize', pageSize);
+
+  return params;
+}
+export function getCommentPaginationHeaders(
+  orderBy: string,
+  postId: number,
+  parentCommentId: number,
+  pageNumber: number,
+  pageSize: number
+) {
+  let params = new HttpParams();
+  if (postId) {
+    params = params.append('postId', postId);
+  }
+  if (parentCommentId) {
+    params = params.append('parentCommentId', parentCommentId);
   }
 
   params = params.append('orderBy', orderBy);
@@ -49,13 +70,12 @@ export function getPaginationHeadersMessages(
   currentUserId: string
 ) {
   let params = new HttpParams();
-  if(userId){
+  if (userId) {
     params = params.append('userId', userId);
-
   }
-  if(currentUserId){
+  if (currentUserId) {
     params = params.append('currentUserId', currentUserId);
-    }
+  }
   params = params.append('orderBy', orderBy);
 
   params = params.append('pageNumber', pageNumber);
@@ -63,16 +83,11 @@ export function getPaginationHeadersMessages(
 
   return params;
 }
-export function getThePaginationHeaders(
-  pageNumber: number,
-  pageSize: number
-) {
+export function getThePaginationHeaders(pageNumber: number, pageSize: number) {
   let params = new HttpParams();
-
 
   params = params.append('pageNumber', pageNumber);
   params = params.append('pageSize', pageSize);
 
   return params;
 }
-
