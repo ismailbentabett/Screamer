@@ -10,30 +10,43 @@
     <form [formGroup]="form">
       <div>
         <label for="comment" class="sr-only">Add your comment</label>
-        <quill-editor
-          type="text"
-          autocomplete="comment"
-          formControlName="comment"
-          role="textbox"
-          rows="3"
-          name="comment"
-          id="comment"
-          class="p-0 max-w-lg shadow-sm block w-full focus:ring-dodger-blue-500 focus:border-dodger-blue-500 sm:text-sm border border-gray-300 rounded-full"
-          [modules]="modules"
-        ></quill-editor>
-      </div>
-
-      <div class="bottom-0 inset-x-0 flex justify-end rounded-full bg-none">
-        <div class="flex-shrink-0">
-          <button
-          (click)="createComment()"
-            type="submit"
-            class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-dodger-blue-700"
+        <div class="mt-1 relative rounded-md shadow-sm">
+          <quill-editor
+            type="text"
+            autocomplete="comment"
+            formControlName="comment"
+            role="textbox"
+            rows="3"
+            name="comment"
+            id="comment"
+            class="pr-10 p-0 max-w-lg shadow-sm block w-full focus:ring-dodger-blue-500 focus:border-dodger-blue-500 sm:text-sm border border-gray-300 rounded-full"
+            [modules]="modules"
           >
-            Post
-          </button>
+          </quill-editor>
+          <div
+            class="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer "
+          >
+            <!-- Heroicon name: solid/question-mark-circle -->
+            <button
+              (click)="createComment()"
+              class="z-50 h-5 w-5 text-dodger-blue-500 cursor-pointer hover:text-dodger-blue-700"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+              >
+                <path
+                  d="M3.478 2.405a.75.75 0 00-.926.94l2.432 7.905H13.5a.75.75 0 010 1.5H4.984l-2.432 7.905a.75.75 0 00.926.94 60.519 60.519 0 0018.445-8.986.75.75 0 000-1.218A60.517 60.517 0 003.478 2.405z"
+                />
+              </svg>
+            </button>
+          </div>
         </div>
       </div>
+      <div
+        class="bottom-0 inset-x-0 flex justify-end rounded-full bg-none"
+      ></div>
     </form>
   </div>
 </div>

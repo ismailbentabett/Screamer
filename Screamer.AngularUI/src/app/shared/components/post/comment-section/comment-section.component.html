@@ -1,5 +1,5 @@
 <div></div>
-<div class="flex" *ngFor="let comment of comments">
+<div class="flex mt-5" *ngFor="let comment of comments">
   <div class="mr-4 flex-shrink-0">
     <app-avatar
       *ngIf="comment.user"
@@ -7,7 +7,7 @@
       avatarStyle="h-8 w-8 rounded-full ring-4 ring-white sm:h-10 sm:w-10"
     ></app-avatar>
   </div>
-  <div>
+  <div class="w-full">
     <h4 class="text-lg font-bold">
       {{ comment.user.firstName }} {{ comment.user.lastName }}
     </h4>
@@ -32,19 +32,29 @@
         </p>
       </div>
     </div>
+    <button
+      (click)="togglereplyInput()"
+      *ngIf="!replyInput"
+      type="submit"
+      class="w-full bg- block text-end px-4 py-2 border border-transparent text-sm font-medium rounded-md text-dodger-blue-700 bg-white hover:text-dodger-blue-500"
+    >
+      Reply
+    </button>
+    <app-comment-input *ngIf="replyInput"></app-comment-input>
+    <button
+      *ngIf="comment.replies.length > 3"
+      (click)="showMoreReplies(comment.id)"
+      type="button"
+      class="mt-2 w-full bg- block text-center px-2 py-1 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50"
+    >
+      Load More Comments
+    </button>
   </div>
-  <button
-    (click)="showMoreReplies(comment.id)"
-    type="submit"
-    class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-dodger-blue-700"
-  >
-    Show More Replies
-  </button>
 </div>
 <button
   (click)="showMoreComments()"
   type="button"
-  class="inline-flex items-center px-3 py-1.5 border border-transparent text-xs font-medium rounded-full shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+  class="mt-2 w-full bg- block text-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50"
 >
   Load More Comments
 </button>

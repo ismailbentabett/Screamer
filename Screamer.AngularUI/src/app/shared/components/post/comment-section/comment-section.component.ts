@@ -15,9 +15,9 @@ export class CommentSectionComponent {
   comments: any[] | undefined;
   replies: any[] | undefined;
   commentPageNumber = 1;
-  commentPageSize = 5;
+  commentPageSize = 2;
   replyPageNumber = 1;
-  replyPageSize = 5;
+  replyPageSize = 2;
   commentParams: CommentParams | undefined;
   replyParams: CommentParams | undefined;
   user!: User;
@@ -25,6 +25,7 @@ export class CommentSectionComponent {
 
   finalform: any;
 
+  replyInput: boolean = false;
   constructor(
     private userService: UserService,
     private commentService: CommentService
@@ -46,7 +47,9 @@ export class CommentSectionComponent {
       null
     );
   }
-
+  togglereplyInput() {
+    this.replyInput = !this.replyInput;
+  }
   loadComments() {
     if (this.commentParams) {
       this.commentService

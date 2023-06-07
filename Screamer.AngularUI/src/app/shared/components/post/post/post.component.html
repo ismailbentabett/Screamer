@@ -355,11 +355,17 @@
   ></app-add-post>
 
   <div
-    class="z-50 max-w-7xl mx-auto sm:p-6 lg:p-8 mt-5 border-t border-gray-200"
+    class="z-50 max-w-7xl mx-auto sm:p-6 lg:p-8 mt-5 border-t border-gray-200 space-y-5"
     *ngIf="isCommentsOpen"
   >
-    <app-comment-input *ngIf="!edit" [post]="post"></app-comment-input>
-    <app-comment-section *ngIf="!edit" [post]="post"></app-comment-section>
+    <app-comment-input
+      *ngIf="!edit"
+      [post]="post"
+    ></app-comment-input>
+    <app-comment-section
+      *ngIf="!edit"
+      [post]="post"
+    ></app-comment-section>
   </div>
 </li>
 <app-share-post-modal
