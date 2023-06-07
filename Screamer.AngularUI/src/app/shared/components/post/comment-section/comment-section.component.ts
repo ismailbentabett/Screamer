@@ -80,7 +80,7 @@ export class CommentSectionComponent {
                 }
               });
             });
-            console.log(this.comments)
+            console.log(this.comments);
           }
         });
     }
@@ -94,20 +94,39 @@ export class CommentSectionComponent {
         .subscribe((response) => {
           if (response.result && response.pagination) {
             this.comments = this.comments!.concat(response.result);
+            response.result!.forEach((comment: any) => {
+              this.loadReplies(comment.id);
+            });
+            this.comments?.forEach((comment) => {
+              this.replies?.forEach((reply) => {
+                if (comment.id == reply.parentCommentId) {
+                  comment.replies.push(reply);
+                }
+              });
+            });
           }
         });
     }
   }
 
   showMoreReplies(commentId: number) {
+    console.log(commentId);
     if (this.replies && this.replyParams) {
       this.replyParams.pageNumber++;
       this.replyParams.parentCommentId = commentId;
+      this.replyParams.commentId = commentId;
+
       this.commentService
         .getRepliesByCommentId(this.replyParams)
         .subscribe((response) => {
           if (response.result && response.pagination) {
-            this.replies = this.replies!.concat(response.result);
+            this.comments?.forEach((comment) => {
+              response.result?.forEach((reply: any) => {
+                if (comment.id == reply.parentCommentId) {
+                  comment.replies.push(reply);
+                }
+              });
+            });
           }
         });
     }

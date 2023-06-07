@@ -15,15 +15,13 @@
       <quill-view-html [content]="comment.content"></quill-view-html>
     </p>
 
-    <div class="mt-3 flex"
-      *ngFor="let reply of comment.replies"
-    >
+    <div class="mt-3 flex" *ngFor="let reply of comment.replies">
       <div class="mr-4 flex-shrink-0">
         <app-avatar
-        *ngIf="reply.user"
-        [user]="reply.user"
-        avatarStyle="h-8 w-8 rounded-full ring-4 ring-white sm:h-10 sm:w-10"
-      ></app-avatar>
+          *ngIf="reply.user"
+          [user]="reply.user"
+          avatarStyle="h-8 w-8 rounded-full ring-4 ring-white sm:h-10 sm:w-10"
+        ></app-avatar>
       </div>
       <div>
         <h4 class="text-lg font-bold">
@@ -35,4 +33,18 @@
       </div>
     </div>
   </div>
+  <button
+    (click)="showMoreReplies(comment.id)"
+    type="submit"
+    class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-dodger-blue-700"
+  >
+    Show More Replies
+  </button>
 </div>
+<button
+  (click)="showMoreComments()"
+  type="button"
+  class="inline-flex items-center px-3 py-1.5 border border-transparent text-xs font-medium rounded-full shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+>
+  Load More Comments
+</button>
