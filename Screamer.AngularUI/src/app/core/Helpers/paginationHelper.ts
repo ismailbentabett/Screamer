@@ -43,7 +43,7 @@ export function getPaginationHeaders(
 export function getCommentPaginationHeaders(
   orderBy: string,
   postId: number,
-  parentCommentId: number,
+  parentCommentId: number |null,
   pageNumber: number,
   pageSize: number
 ) {

@@ -5,5 +5,5 @@ export class CommentParams {
   pageSize = 5;
   orderBy = 'CreatedAt';
   postId!: number;
-  parentCommentId!: number;
+  parentCommentId!: number | null;
 }

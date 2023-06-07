@@ -22,12 +22,18 @@ export class CommentService {
     private http: HttpClient,
     private authService: AuthenticationService
   ) {}
+  createComment(comment: any) {
+    return this.http.post(this.baseUrl + 'Post/add-comment', comment);
+  }
+  createReply(comment: any) {
+    return this.http.post(this.baseUrl + 'Post/add-reply', comment);
+  }
 
   getCommentParams(
     postId: number,
     pageSize: number,
     pageNumber: number,
-    parentCommentId: number
+    parentCommentId: number |null
   ) {
     this.commentParams = new CommentParams();
     this.commentParams.orderBy = 'CreatedAt';
@@ -47,7 +53,7 @@ export class CommentService {
     postId: number,
     pageSize: number,
     pageNumber: number,
-    parentCommentId: number
+    parentCommentId: number | null
   ) {
     this.repliesParams = new CommentParams();
     this.repliesParams.orderBy = 'CreatedAt';
@@ -63,12 +69,7 @@ export class CommentService {
     this.repliesParams = params;
   }
 
-  createComment(comment: any) {
-    return this.http.post(this.baseUrl + 'Post/add-comment', comment);
-  }
-  createReply(comment: any) {
-    return this.http.post(this.baseUrl + 'Post/add-reply', comment);
-  }
+
 
   getCommentsByPostId(commentParams: CommentParams) {
     let params = getCommentPaginationHeaders(
