@@ -90,7 +90,6 @@ export class CommentService {
     );
   }
   getRepliesByCommentId(commentParams: CommentParams) {
-    console.log(commentParams);
     let params = getCommentPaginationHeaders(
       commentParams.orderBy,
       commentParams.postId,

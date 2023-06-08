@@ -84,7 +84,6 @@ export class CommentSectionComponent {
                 }
               });
             });
-            console.log(this.comments);
           }
         });
     }
@@ -114,7 +113,6 @@ export class CommentSectionComponent {
   }
 
   showMoreReplies(commentId: number) {
-    console.log(commentId);
     if (this.replies && this.replyParams) {
       this.replyParams.pageNumber++;
       this.replyParams.parentCommentId = commentId;

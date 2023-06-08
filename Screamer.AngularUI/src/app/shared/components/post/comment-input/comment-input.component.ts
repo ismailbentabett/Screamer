@@ -113,10 +113,8 @@ export class CommentInputComponent {
 
   create() {
     if (this.parentCommentId && this.parentCommentId !== null) {
-      console.log('createReply');
       this.createReply();
     } else {
-      console.log('createComment');
 
       this.createComment();
     }
