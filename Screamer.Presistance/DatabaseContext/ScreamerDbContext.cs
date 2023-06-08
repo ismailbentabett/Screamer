@@ -33,6 +33,7 @@ namespace Screamer.Presistance.DatabaseContext
         public DbSet<Hashtag> Hashtags { get; set; }
         public DbSet<PostCategory> PostCategories { get; set; }
         public DbSet<PostHashtag> PostHashtags { get; set; }
+        public DbSet<CommentHashtag> CommentHashtags { get; set; }
 
         public DbSet<Tag> Tags { get; set; }
         public DbSet<PostMention> PostMentions { get; set; }

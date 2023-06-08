@@ -272,5 +272,13 @@ namespace Screamer.WebApi.Controllers
             var count = _uow.CommentRepository.CountCommentsByPost(postId);
             return Task.FromResult<IActionResult>(Ok(count));
         }
+
+        //get most used hashtags
+        [HttpGet("get-most-used-hashtags")]
+        public async Task<IActionResult> GetMostUsedHashtags()
+        {
+            var hashtags = await _uow.PostRepository.GetMostUsedHashtags();
+            return Ok(hashtags);
+        }
     }
 }

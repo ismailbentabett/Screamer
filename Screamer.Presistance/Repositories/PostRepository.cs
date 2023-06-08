@@ -188,5 +188,35 @@ namespace Screamer.Presistance.Repositories
            await _context.Posts.AddAsync(post);
            await _context.SaveChangesAsync();
        } */
+
+        //most used hashtags
+        async Task<IEnumerable<PostHashtag>> IPostRepository.GetMostUsedHashtags()
+        {
+            var postHashtags = _context.PostHashtags
+                .GroupBy(p => p.HashtagId)
+                .Select(g => new { HashtagId = g.Key, Count = g.Count() })
+                .OrderByDescending(x => x.Count)
+                .Take(10)
+                .Join(
+                    _context.Hashtags,
+                    ph => ph.HashtagId,
+                    h => h.Id,
+                    (ph, h) => new PostHashtag { Hashtag = h, HashtagId = ph.HashtagId, }
+                );
+
+            var commentHashtags = _context.CommentHashtags
+                .GroupBy(p => p.HashtagId)
+                .Select(g => new { HashtagId = g.Key, Count = g.Count() })
+                .OrderByDescending(x => x.Count)
+                .Take(10)
+                .Join(
+                    _context.Hashtags,
+                    ph => ph.HashtagId,
+                    h => h.Id,
+                    (ph, h) => new PostHashtag { Hashtag = h, HashtagId = ph.HashtagId, }
+                );
+            var allHashtags = postHashtags.Union(commentHashtags);
+            return await allHashtags.ToListAsync();
+        }
     }
 }

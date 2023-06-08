@@ -236,4 +236,8 @@ export class PostService {
   CloseSharePopup() {
     this.isShareOpen = false;
   }
+
+  getMostUsedHashtags() {
+    return this.http.get(this.baseUrl + 'Post/get-most-used-hashtags');
+  }
 }
