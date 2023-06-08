@@ -1,46 +1,33 @@
 <!-- This example requires Tailwind CSS v2.0+ -->
-<ul role="list" class="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
-
-
+<ul
+  role="list"
+  class="grid grid-cols-1 gap-2 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
 >
-
-  <div *ngFor="let user of users">
-    <app-user-card *ngIf="user" [user]="user">
-
-    </app-user-card>
+  <div *ngFor="let user of users" class="px-2 py-6">
+    <app-user-card *ngIf="user" [user]="user"> </app-user-card>
   </div>
-
 
   <!-- More people... -->
 </ul>
 
-<div class="flex-1 flex justify-between ">
+<div class="flex-1 flex justify-between"></div>
 
-</div>
-
-
-
-
-
-      <nav class=" rounded-md shadow-sm space-x-2 w-full  flex items-center justify-center p-3" aria-label="Pagination"  *ngIf="pagination">
-          <pagination
-              [boundaryLinks]="true"
-              [totalItems]="pagination.totalItems"
-              [itemsPerPage]="pagination.itemsPerPage"
-              [maxSize]="3"
-              [(ngModel)]="pagination.currentPage"
-              (pageChanged)="pageChanged($event)"
-              previousText="&lsaquo;"
-              nextText="&rsaquo;"
-              firstText="&laquo;"
-              lastText="&raquo;">
-          </pagination>
-  </nav>
-
-
-
-
-
-
-
-
+<nav
+  class="rounded-md shadow-sm space-x-2 w-full flex items-center justify-center p-3"
+  aria-label="Pagination"
+  *ngIf="pagination"
+>
+  <pagination
+    [boundaryLinks]="true"
+    [totalItems]="pagination.totalItems"
+    [itemsPerPage]="pagination.itemsPerPage"
+    [maxSize]="3"
+    [(ngModel)]="pagination.currentPage"
+    (pageChanged)="pageChanged($event)"
+    previousText="&lsaquo;"
+    nextText="&rsaquo;"
+    firstText="&laquo;"
+    lastText="&raquo;"
+  >
+  </pagination>
+</nav>
