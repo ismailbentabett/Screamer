@@ -11,6 +11,7 @@ using System.Text;
 using Screamer.Application.Contracts.Presistance;
 using AutoMapper;
 using Screamer.Application.Dtos;
+using Google.Apis.Auth;
 
 namespace Screamer.Identity.Services
 {
@@ -110,6 +111,57 @@ namespace Screamer.Identity.Services
                 }
 
                 throw new BadRequestException($"{str}");
+            }
+        }
+
+        public async Task<AuthResponse> ExternalGoogleLogin(ExternalAuthRequest request)
+        {
+            try
+            {
+                var payload = await GoogleJsonWebSignature.ValidateAsync(request.AccessToken);
+
+                var user = await _userManager.FindByEmailAsync(payload.Email);
+
+                if (user == null)
+                {
+                    user = new ApplicationUser
+                    {
+                        UserName = payload.Email,
+                        Email = payload.Email,
+                        FirstName = payload.GivenName,
+                        LastName = payload.FamilyName
+                    };
+
+                    var result = await _userManager.CreateAsync(user);
+
+                    if (!result.Succeeded)
+                    {
+                        throw new Exception("the failed one");
+                    }
+                }
+
+                var signInResult = await _signInManager.ExternalLoginSignInAsync(
+                    user.Email,
+                    request.Provider,
+                    isPersistent: false,
+                    bypassTwoFactor: true
+                );
+
+                JwtSecurityToken jwtSecurityToken = await GenerateToken(user);
+
+                var response = new AuthResponse
+                {
+                    Id = user.Id,
+                    Token = new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken),
+                    Email = user.Email,
+                    UserName = user.UserName
+                };
+
+                return response;
+            }
+            catch (Exception ex)
+            {
+                throw new BadRequestException(ex.Message);
             }
         }
 
