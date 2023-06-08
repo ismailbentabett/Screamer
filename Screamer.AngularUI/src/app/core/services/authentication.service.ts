@@ -5,6 +5,7 @@ import { BehaviorSubject, Subject, map } from 'rxjs';
 import { User } from 'src/app/core/models/User';
 import { PresenceService } from './presence.service';
 import { SocialAuthService, SocialUser } from '@abacritt/angularx-social-login';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -19,7 +20,8 @@ export class AuthenticationService {
   public extAuthChanged = this.extAuthChangeSub.asObservable();
   constructor(
     private http: HttpClient,
-    private presenceService: PresenceService
+    private presenceService: PresenceService,
+    private router: Router
   ) {}
 
   login(model: any) {
@@ -78,6 +80,8 @@ export class AuthenticationService {
         if (user) {
           this.setCurrentUser(user);
           this.presenceService.createHubConnection(user);
+
+          this.router.navigate(['/v/feed']);
         }
       });
     /*  .pipe(

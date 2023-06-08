@@ -63,6 +63,9 @@ import { SharePostModalComponent } from './components/modal/share-post-modal/sha
 import { InputComponent } from './components/input/input/input.component';
 import { AutocompleteOffDirective } from './directives/autocomplete-off.directive';
 import { CommentDropDownComponent } from './components/dropdown/comment-drop-down/comment-drop-down.component';
+import { GoogleSocialAuthButtonComponent } from './components/auth/social/google-social-auth-button/google-social-auth-button.component';
+import { FacebookSocialAuthButtonComponent } from './components/auth/social/facebook-social-auth-button/facebook-social-auth-button.component';
+import { MicrosoftSocialAuthButtonComponent } from './components/auth/social/microsoft-social-auth-button/microsoft-social-auth-button.component';
 
 @NgModule({
   declarations: [
@@ -111,6 +114,9 @@ import { CommentDropDownComponent } from './components/dropdown/comment-drop-dow
     InputComponent,
     AutocompleteOffDirective,
     CommentDropDownComponent,
+    GoogleSocialAuthButtonComponent,
+    FacebookSocialAuthButtonComponent,
+    MicrosoftSocialAuthButtonComponent,
   ],
   imports: [
     CommonModule,
@@ -170,6 +176,10 @@ import { CommentDropDownComponent } from './components/dropdown/comment-drop-dow
     SharePostModalComponent,
     InputComponent,
     AutocompleteOffDirective,
+    CommentDropDownComponent,
+    GoogleSocialAuthButtonComponent,
+    FacebookSocialAuthButtonComponent,
+    MicrosoftSocialAuthButtonComponent,
   ],
   providers: [],
 })
