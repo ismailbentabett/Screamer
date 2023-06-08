@@ -22,5 +22,7 @@ namespace Screamer.Application.Contracts.Presistance
 
         Task<PagedList<Comment>> GetRepliesByCommentId(CommentParams commentParams);
         Task<PagedList<Comment>> GetPostComments(CommentParams commentParams);
+
+        Task<int> CountCommentsByPost(int postId);
     }
 }

@@ -47,6 +47,7 @@ export class CommentSectionComponent {
       null
     );
   }
+
   togglereplyInput() {
     this.replyInput = !this.replyInput;
   }

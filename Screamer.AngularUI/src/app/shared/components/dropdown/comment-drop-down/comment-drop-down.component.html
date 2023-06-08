@@ -47,9 +47,10 @@
     >
       <div class="" role="none">
         <!-- Active: "bg-gray-100 text-gray-900", Not Active: "text-gray-700" -->
+        <!-- *ngIf="!isOnCurrentPost()" -->
+        <!--           [routerLink]="'/v/post/' + post.id"
+ -->
         <a
-          *ngIf="!isOnCurrentPost()"
-          [routerLink]="'/v/post/' + post.id"
           target="_blank"
           class="text-gray-700 flex px-4 py-2 text-sm stroke cursor-pointer hover:bg-gray-100"
           role="menuitem"
@@ -71,10 +72,9 @@
 
           <span>Go To Post</span>
         </a>
-        <!-- [routerLink]="'/v/post/' + post.id + '/edit'" -->
+        <!--   *ngIf="isMyPost()"
+          (click)="toggleEdit()" -->
         <a
-          *ngIf="isMyPost()"
-          (click)="toggleEdit()"
           class="text-gray-700 flex px-4 py-2 text-sm stroke cursor-pointer hover:bg-gray-100"
           role="menuitem"
           tabindex="-1"
@@ -118,17 +118,18 @@
 
           <span>Bookmark</span>
         </a>
+        <!--           (click)="copyPostLink()"
+ -->
         <a
-          (click)="copyPostLink()"
           class="text-gray-700 flex px-4 py-2 text-sm cursor-pointer hover:bg-gray-100"
           role="menuitem"
           tabindex="-1"
           id="options-menu-0-item-1"
         >
           <!-- Heroicon name: solid/code -->
-
+          <!--             *ngIf="!isCopied"
+ -->
           <svg
-            *ngIf="!isCopied"
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
@@ -158,8 +159,9 @@
 
           <span>Copy Link</span>
         </a>
+        <!--           *ngIf="isMyPost()"
+ -->
         <a
-          *ngIf="isMyPost()"
           class="text-gray-700 flex px-4 py-2 text-sm cursor-pointer hover:bg-gray-100"
           role="menuitem"
           tabindex="-1"

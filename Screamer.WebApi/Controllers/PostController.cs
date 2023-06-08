@@ -265,5 +265,12 @@ namespace Screamer.WebApi.Controllers
             var result = await _mediator.Send(query);
             return Ok(result);
         }
+
+        [HttpGet("get-comment-count-by-post-id")]
+        public Task<IActionResult> GetCommentCountByPostId(int postId)
+        {
+            var count = _uow.CommentRepository.CountCommentsByPost(postId);
+            return Task.FromResult<IActionResult>(Ok(count));
+        }
     }
 }

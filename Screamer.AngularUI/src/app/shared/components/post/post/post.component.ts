@@ -25,6 +25,7 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import 'quill-mention';
 import { PostService } from 'src/app/core/services/post.service';
 import { head } from 'lodash';
+import { CommentService } from 'src/app/core/services/comment.service';
 
 @Component({
   selector: 'app-post',
@@ -57,15 +58,18 @@ export class PostComponent {
   @Input() preview: boolean = false;
   currentUser!: User;
   user!: User;
+  commentCount: any = null;
   @ViewChild(QuillEditorComponent, { static: true })
   editor!: QuillEditorComponent;
+  shouldShowCommentSection!: boolean;
   constructor(
     private userService: UserService,
     private clipboardService: ClipboardService,
     @Inject(PLATFORM_ID) private platformId: Object,
     private router: Router,
     private sanitizer: DomSanitizer,
-    public postService: PostService
+    public postService: PostService,
+    private commentService: CommentService
   ) {
     this.userService
       .getCurrentUserData()
@@ -75,6 +79,11 @@ export class PostComponent {
           this.currentUser = user;
         },
       });
+  }
+  ngOnInit(): void {
+    this.router.events.subscribe((event) => {
+      this.shouldShowCommentSection = this.router.url != '/v/post/';
+    });
   }
 
   getSanitizedContent(content: string): SafeHtml {
@@ -111,7 +120,16 @@ export class PostComponent {
     }, 1000);
   }
   ngOnChanges(changes: any): void {
-    if (changes['post'] && this.post) {
+    if (changes['post'] && this.post && this.post.id != null) {
+      this.commentService
+        .getCommentCount(this.post.id)
+        .pipe(take(1))
+        .subscribe({
+          next: (count: any) => {
+            this.commentCount = count.result;
+          },
+        });
+
       this.userService.getUserById(this.post.userId.toString()).subscribe({
         next: (user: any) => {
           this.user = user;

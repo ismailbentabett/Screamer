@@ -8,9 +8,14 @@
     ></app-avatar>
   </div>
   <div class="w-full">
-    <h4 class="text-lg font-bold">
-      {{ comment.user.firstName }} {{ comment.user.lastName }}
-    </h4>
+    <div class="flex justify-between ">
+      <h4 class="text-lg font-bold">
+        {{ comment.user.firstName }} {{ comment.user.lastName }}
+      </h4>
+      <app-comment-drop-down></app-comment-drop-down>
+    </div>
+
+
     <p class="mt-1">
       <quill-view-html [content]="comment.content"></quill-view-html>
     </p>

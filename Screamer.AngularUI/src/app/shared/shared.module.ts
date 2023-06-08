@@ -169,6 +169,7 @@ import { CommentDropDownComponent } from './components/dropdown/comment-drop-dow
     TagModalComponent,
     SharePostModalComponent,
     InputComponent,
+    AutocompleteOffDirective,
   ],
   providers: [],
 })

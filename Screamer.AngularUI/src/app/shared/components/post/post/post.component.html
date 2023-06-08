@@ -295,7 +295,9 @@
                 clip-rule="evenodd"
               />
             </svg>
-            <span class="font-medium text-gray-900">11</span>
+            <span class="font-medium text-gray-900" *ngIf="commentCount">{{
+              commentCount | shortNumber
+            }}</span>
             <span class="sr-only">replies</span>
           </button>
         </span>
@@ -358,16 +360,10 @@
 
   <div
     class="z-50 max-w-7xl mx-auto sm:p-6 lg:p-8 mt-5 border-t border-gray-200 space-y-5"
-    *ngIf="isCommentsOpen"
+    *ngIf="isCommentsOpen || shouldShowCommentSection"
   >
-    <app-comment-input
-      *ngIf="!edit"
-      [post]="post"
-    ></app-comment-input>
-    <app-comment-section
-      *ngIf="!edit"
-      [post]="post"
-    ></app-comment-section>
+    <app-comment-input *ngIf="!edit" [post]="post"></app-comment-input>
+    <app-comment-section *ngIf="!edit" [post]="post"></app-comment-section>
   </div>
 </li>
 <app-share-post-modal

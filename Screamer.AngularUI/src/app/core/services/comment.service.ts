@@ -110,4 +110,9 @@ export class CommentService {
       })
     );
   }
+
+  getCommentCount
+  (postId: number) {
+    return this.http.get(this.baseUrl + 'Post/get-comment-count-by-post-id/?postId=' + postId);
+  }
 }

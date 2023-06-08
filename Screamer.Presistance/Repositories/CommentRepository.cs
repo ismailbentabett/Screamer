@@ -103,5 +103,12 @@ namespace Screamer.Presistance.Repositories
         {
             throw new NotImplementedException();
         }
+
+        //count all comments and replies
+        public Task<int> CountCommentsByPost(int postId)
+        {
+            var comments = _context.Comments.Where(c => c.Post.Id == postId).ToList();
+            return Task.FromResult(comments.Count);
+        }
     }
 }
