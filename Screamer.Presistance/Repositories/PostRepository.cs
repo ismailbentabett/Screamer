@@ -218,5 +218,22 @@ namespace Screamer.Presistance.Repositories
             var allHashtags = postHashtags.Union(commentHashtags);
             return await allHashtags.ToListAsync();
         }
+
+        async Task<IEnumerable<PostCategory>> IPostRepository.GetMostUsedCategories()
+        {
+            var postCategories = _context.PostCategories
+                .GroupBy(p => p.CategoryId)
+                .Select(g => new { CategoryId = g.Key, Count = g.Count() })
+                .OrderByDescending(x => x.Count)
+                .Take(10)
+                .Join(
+                    _context.Categories,
+                    ph => ph.CategoryId,
+                    h => h.Id,
+                    (ph, h) => new PostCategory { Category = h, CategoryId = ph.CategoryId, }
+                );
+
+            return await postCategories.ToListAsync();
+        }
     }
 }

@@ -27,5 +27,6 @@ namespace Screamer.Application.Contracts.Presistance
 
         public Task<IEnumerable<Post>> GetAllPosts();
         Task<IEnumerable<PostHashtag>> GetMostUsedHashtags();
+        Task<IEnumerable<PostCategory>> GetMostUsedCategories();
     }
 }

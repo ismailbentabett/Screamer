@@ -273,12 +273,18 @@ namespace Screamer.WebApi.Controllers
             return Task.FromResult<IActionResult>(Ok(count));
         }
 
-        //get most used hashtags
         [HttpGet("get-most-used-hashtags")]
         public async Task<IActionResult> GetMostUsedHashtags()
         {
             var hashtags = await _uow.PostRepository.GetMostUsedHashtags();
             return Ok(hashtags);
+        }
+
+        [HttpGet("get-most-used-categories")]
+        public async Task<IActionResult> GetMostUsedCategories()
+        {
+            var categories = await _uow.PostRepository.GetMostUsedCategories();
+            return Ok(categories);
         }
     }
 }

@@ -240,4 +240,7 @@ export class PostService {
   getMostUsedHashtags() {
     return this.http.get(this.baseUrl + 'Post/get-most-used-hashtags');
   }
+  getMostUsedCategories() {
+    return this.http.get(this.baseUrl + 'Post/get-most-used-categories');
+  }
 }
