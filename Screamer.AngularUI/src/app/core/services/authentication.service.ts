@@ -64,11 +64,6 @@ export class AuthenticationService {
   }
 
   externallogin(model: any) {
-    console.log({
-      provider: model.provider,
-      accessToken: model.token,
-    });
-
     /* Auth/external/google */
     return this.http
       .post<User>(this.baseUrl + 'Auth/external/google', {
@@ -84,14 +79,8 @@ export class AuthenticationService {
           this.router.navigate(['/v/feed']);
         }
       });
-
   }
   externalfacebook(model: any) {
-    console.log({
-      provider: model.provider,
-      accessToken: model.token,
-    });
-
     /* Auth/external/google */
     return this.http
       .post<User>(this.baseUrl + 'Auth/external/facebook', {
@@ -107,6 +96,5 @@ export class AuthenticationService {
           this.router.navigate(['/v/feed']);
         }
       });
-
   }
 }

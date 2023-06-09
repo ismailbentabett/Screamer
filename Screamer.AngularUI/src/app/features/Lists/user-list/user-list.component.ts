@@ -32,7 +32,6 @@ export class UserListComponent {
   }
   loadUsers() {
     if (this.userParams) {
-      console.log(this.userParams);
       this.userService.setUserParams(this.userParams);
       this.userService.getUsers(this.userParams).subscribe({
         next: (response) => {
