@@ -52,7 +52,23 @@ export class GoogleSocialAuthButtonComponent {
     google.accounts.id.renderButton(
       // @ts-ignore
       document.getElementById('google-button'),
-      { theme: 'outline', size: 'large', width: '100%' }
+      {
+        /* type	The button type: icon, or standard button.
+theme	The button theme. For example, filled_blue or filled_black.
+size	The button size. For example, small or large.
+text	The button text. For example, "Sign in with Google" or "Sign up with Google".
+shape	The button shape. For example, rectangular or circular.
+logo_alignment	The Google logo alignment: left or center.
+width	The button width, in pixels.
+locale */
+
+        theme: 'outline',
+        size: 'large',
+        text: 'Sign in with Google',
+        shape: 'rectangular',
+        logo_alignment: 'left',
+        locale: 'en',
+      }
     );
     // @ts-ignore
     google.accounts.id.prompt((notification: PromptMomentNotification) => {});
