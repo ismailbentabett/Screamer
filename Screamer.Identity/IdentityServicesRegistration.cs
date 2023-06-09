@@ -77,12 +77,8 @@ namespace Screamer.Identity
                 {
                     options.AppId = "Facebook:AppId";
                     options.AppSecret = "Facebook:AppSecret";
-                })
-                .AddMicrosoftAccount(options =>
-                {
-                    options.ClientId = "Microsoft:ClientId";
-                    options.ClientSecret = "Microsoft:ClientSecret";
                 });
+            
 
             return services;
         }

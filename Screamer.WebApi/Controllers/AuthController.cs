@@ -8,7 +8,9 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.EntityFrameworkCore;
+using Screamer.Application.Contracts.Email;
 using Screamer.Application.Contracts.Identity;
 using Screamer.Application.Contracts.Presistance;
 using Screamer.Application.Models.Identity;
@@ -25,18 +27,25 @@ namespace HR.LeaveManagement.Api.Controllers
         private readonly ScreamerDbContext _context;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IUnitOfWork _uow;
+        private readonly IEmailSender _emailSender;
+
+        private readonly UserManager<ApplicationUser> _userManager;
 
         public AuthController(
             IAuthService authenticationService,
             ScreamerDbContext dbcontext,
             SignInManager<ApplicationUser> signInManager,
-            IUnitOfWork uow
+            IUnitOfWork uow,
+            UserManager<ApplicationUser> userManager,
+            IEmailSender emailSender
         )
         {
             this._authenticationService = authenticationService;
             this._context = dbcontext;
             this._signInManager = signInManager;
             this._uow = uow;
+            this._userManager = userManager;
+            this._emailSender = emailSender;
         }
 
         [HttpPost("login")]
@@ -151,5 +160,67 @@ namespace HR.LeaveManagement.Api.Controllers
          {
               return Convert.ToHexString(RandomNumberGenerator.GetBytes(64));
          }*/
+
+        [HttpPost("send-verification-email")]
+        public async Task<IActionResult> SendVerificationEmail(
+            [FromBody] SendVerificationEmailRequest request
+        )
+        {
+            var user = await _userManager.FindByEmailAsync(request.Email);
+
+            if (user == null)
+            {
+                return BadRequest("User not found.");
+            }
+
+            var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+            var callbackUrl = Url.Action(
+                "ConfirmEmail",
+                "Auth",
+                new { userId = user.Id, code = token },
+                protocol: HttpContext.Request.Scheme
+            );
+
+            // Log the callback URL
+            Console.WriteLine(
+                $"Token {token} User {user.Id} requested to verify their email. Callback URL: {callbackUrl}"
+            );
+
+            var sendResult = await _emailSender.SendVerificationEmailAsync(
+                request.Email,
+                callbackUrl
+            );
+
+            return Ok(sendResult);
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        [Route("api/Account/ConfirmEmail")]
+        public async Task<IActionResult> ConfirmEmail(string userId, string code)
+        {
+            if (userId == null || code == null)
+            {
+                return BadRequest("User ID and code are required.");
+            }
+
+            var user = await _userManager.FindByIdAsync(userId);
+
+            if (user == null)
+            {
+                return NotFound($"User with ID '{userId}' not found.");
+            }
+            var result = await _userManager.ConfirmEmailAsync(user, code);
+
+            Console.WriteLine(result);
+            if (result.Succeeded)
+            {
+                return Ok("Email confirmed successfully.");
+            }
+            else
+            {
+                return BadRequest($"Error confirming email for user with ID '{userId}'.");
+            }
+        }
     }
 }
