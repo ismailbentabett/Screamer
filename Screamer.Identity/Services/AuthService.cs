@@ -12,6 +12,9 @@ using Screamer.Application.Contracts.Presistance;
 using AutoMapper;
 using Screamer.Application.Dtos;
 using Google.Apis.Auth;
+using Microsoft.AspNetCore.Authentication.Facebook;
+using Microsoft.AspNetCore.Http;
+using Newtonsoft.Json.Linq;
 
 namespace Screamer.Identity.Services
 {
@@ -200,5 +203,59 @@ namespace Screamer.Identity.Services
             );
             return jwtSecurityToken;
         }
+
+        public async Task<AuthResponse> ExternalFacebookLogin(ExternalAuthRequest request)
+        {
+               var httpClient = new HttpClient();
+    var response = await httpClient.GetAsync($"https://graph.facebook.com/v12.0/me?fields=id,email,first_name,last_name&access_token={request.AccessToken}");
+    var content = await response.Content.ReadAsStringAsync();
+    var json = JObject.Parse(content);
+
+    var email = json.Value<string>("email");
+    var firstName = json.Value<string>("first_name");
+    var lastName = json.Value<string>("last_name");
+
+    var user = await _userManager.FindByEmailAsync(email);
+
+    if (user == null)
+    {
+        user = new ApplicationUser
+        {
+            UserName = email,
+            Email = email,
+            FirstName = firstName,
+            LastName = lastName,
+        };
+
+        var result = await _userManager.CreateAsync(user);
+
+        if (!result.Succeeded)
+        {
+            throw new Exception("Failed to create user.");
+        }
     }
+
+    var signInResult = await _signInManager.ExternalLoginSignInAsync(
+        user.Email,
+        request.Provider,
+        isPersistent: false,
+        bypassTwoFactor: true
+    );
+
+    JwtSecurityToken jwtSecurityToken = await GenerateToken(user);
+
+    var authResponse = new AuthResponse
+    {
+        Id = user.Id,
+        Token = new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken),
+        Email = user.Email,
+        UserName = user.UserName
+    };
+
+    return authResponse;
 }
+
+
+        }
+    }
+

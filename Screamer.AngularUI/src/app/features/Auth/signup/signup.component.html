@@ -25,13 +25,13 @@
 
       <div class="mt-8">
         <div>
-          <div>
+          <div class="">
             <p class="text-sm font-medium text-gray-700">Sign in with</p>
 
-            <div class="mt-1 grid grid-cols-3 gap-3">
+            <div class="mt-1 grid grid-rows-3 gap-3">
               <div>
                 <a
-                  href="#"
+                  (click)="facebookLogIn()"
                   class="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
                 >
                   <span class="sr-only">Sign in with Facebook</span>
@@ -56,7 +56,7 @@
                   class="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
                 >
                   <span class="sr-only">Sign in with Twitter</span>
-               <app-google-social-auth-button></app-google-social-auth-button>
+                  <app-google-social-auth-button></app-google-social-auth-button>
                 </a>
               </div>
 

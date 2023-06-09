@@ -1,11 +1,18 @@
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Facebook;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Screamer.Application.Contracts.Identity;
+using Screamer.Application.Contracts.Presistance;
 using Screamer.Application.Models.Identity;
+using Screamer.Identity.Models;
 using Screamer.Presistance.DatabaseContext;
 
 namespace HR.LeaveManagement.Api.Controllers
@@ -16,11 +23,20 @@ namespace HR.LeaveManagement.Api.Controllers
     {
         private readonly IAuthService _authenticationService;
         private readonly ScreamerDbContext _context;
+        private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly IUnitOfWork _uow;
 
-        public AuthController(IAuthService authenticationService, ScreamerDbContext dbcontext)
+        public AuthController(
+            IAuthService authenticationService,
+            ScreamerDbContext dbcontext,
+            SignInManager<ApplicationUser> signInManager,
+            IUnitOfWork uow
+        )
         {
             this._authenticationService = authenticationService;
             this._context = dbcontext;
+            this._signInManager = signInManager;
+            this._uow = uow;
         }
 
         [HttpPost("login")]
@@ -31,10 +47,23 @@ namespace HR.LeaveManagement.Api.Controllers
 
         [AllowAnonymous]
         [HttpPost("external/google")]
-        public async Task<IActionResult> ExternalLogin([FromBody] ExternalAuthRequest request)
+        public async Task<IActionResult> ExternalGoogleLogin([FromBody] ExternalAuthRequest request)
         {
             // Perform external login
             var response = await _authenticationService.ExternalGoogleLogin(request);
+
+            // Return the authentication response
+            return Ok(response);
+        }
+
+        [AllowAnonymous]
+        [HttpPost("external/facebook")]
+        public async Task<IActionResult> ExternalFacebookLogin(
+            [FromBody] ExternalAuthRequest request
+        )
+        {
+            // Perform external login
+            var response = await _authenticationService.ExternalFacebookLogin(request);
 
             // Return the authentication response
             return Ok(response);
@@ -45,6 +74,7 @@ namespace HR.LeaveManagement.Api.Controllers
         {
             return Ok(await _authenticationService.Register(request));
         }
+
         /*  [HttpPost("verify")]
          public async Task<IActionResult> Verify(string token)
          {

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, NgZone } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -8,6 +8,13 @@ import {
 import { Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/core/services/authentication.service';
 import { ValidationService } from 'src/app/core/services/validation.service';
+import {
+  GoogleLoginProvider,
+  FacebookLoginProvider,
+  MicrosoftLoginProvider,
+  SocialAuthService,
+} from '@abacritt/angularx-social-login';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-signup',
@@ -16,13 +23,17 @@ import { ValidationService } from 'src/app/core/services/validation.service';
 })
 export class SignupComponent {
   form: FormGroup;
+  gapi: any;
 
   constructor(
     private fb: FormBuilder,
-    private authService: AuthenticationService,
+    public authService: AuthenticationService,
     private router: Router,
-    private validationService: ValidationService
+    private validationService: ValidationService,
+    private externalAuthService: SocialAuthService,
+    private ngZone: NgZone
   ) {
+
     this.form = this.fb.group({
       firstName: [
         '',
@@ -65,8 +76,9 @@ export class SignupComponent {
     });
   }
 
-  ngOnInit(): void {
-  }
+
+
+
 
   onSubmit() {
     if (!this.form.valid) return;
@@ -76,5 +88,41 @@ export class SignupComponent {
       },
       (error) => console.error('Registration failed', error)
     );
+  }
+
+
+
+  facebookLogIn() {
+    this.externalAuthService
+      .signIn(FacebookLoginProvider.PROVIDER_ID)
+/*       .then((user: any) => {
+        if (user) {
+          const accessToken = user.authToken;
+          this.authService.externallogin({
+            provider: 'Google',
+            token: accessToken,
+          });
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      }); */
+  }
+
+  microsoftLogIn() {
+    this.externalAuthService
+      .signIn(MicrosoftLoginProvider.PROVIDER_ID)
+      .then((user: any) => {
+        if (user) {
+          const accessToken = user.authToken;
+          this.authService.externallogin({
+            provider: 'Google',
+            token: accessToken,
+          });
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 }

@@ -12,5 +12,6 @@ namespace Screamer.Application.Contracts.Identity
         Task<RegistrationResponse> Register(RegistrationRequest request);
 
         Task<AuthResponse> ExternalGoogleLogin(ExternalAuthRequest request);
+        Task<AuthResponse> ExternalFacebookLogin(ExternalAuthRequest request);
     }
 }

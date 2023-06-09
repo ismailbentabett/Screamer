@@ -42,9 +42,7 @@ import { GoogleSigninButtonDirective } from '@abacritt/angularx-social-login';
           {
             id: FacebookLoginProvider.PROVIDER_ID,
 
-            provider: new FacebookLoginProvider(environment.Facebook.AppId, {
-              scope: 'email',
-            }),
+            provider: new FacebookLoginProvider(environment.Facebook.AppId),
           },
           {
             id: MicrosoftLoginProvider.PROVIDER_ID,

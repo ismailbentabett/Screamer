@@ -87,4 +87,14 @@ public class UserRepository : IUserRepository
             .Include(p => p.Socials)
             .SingleOrDefaultAsync(x => x.UserName == username);
     }
+
+    Task<ApplicationUser> IUserRepository.GetUserByEmail(string email)
+    {
+        return _context.Users
+            .Include(p => p.Avatars)
+            .Include(p => p.Covers)
+            .Include(p => p.Adress)
+            .Include(p => p.Socials)
+            .SingleOrDefaultAsync(x => x.Email == email);
+    }
 }

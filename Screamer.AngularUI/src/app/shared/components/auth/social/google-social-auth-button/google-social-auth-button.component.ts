@@ -18,12 +18,19 @@ export class GoogleSocialAuthButtonComponent {
   ) {
     this.externalAuthService.authState.subscribe((user) => {
       if (user) {
-        const accessToken = user.idToken;
+
+        console.log(user)
+
+        this.authService.externalfacebook({
+          provider: 'Facebook',
+          token: user.authToken,
+        });
+     /*    const accessToken = user.idToken;
 
         this.authService.externallogin({
           provider: 'Google',
           token: accessToken,
-        });
+        }); */
       }
     });
   }

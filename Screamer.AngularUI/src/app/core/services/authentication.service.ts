@@ -84,10 +84,29 @@ export class AuthenticationService {
           this.router.navigate(['/v/feed']);
         }
       });
-    /*  .pipe(
-        map((response: User) => {
 
-        })
-      ); */
+  }
+  externalfacebook(model: any) {
+    console.log({
+      provider: model.provider,
+      accessToken: model.token,
+    });
+
+    /* Auth/external/google */
+    return this.http
+      .post<User>(this.baseUrl + 'Auth/external/facebook', {
+        provider: model.provider,
+        accessToken: model.token,
+      })
+      .subscribe((response) => {
+        const user = response;
+        if (user) {
+          this.setCurrentUser(user);
+          this.presenceService.createHubConnection(user);
+
+          this.router.navigate(['/v/feed']);
+        }
+      });
+
   }
 }
