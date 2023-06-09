@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MyDirectiveDirective } from './directives/my-directive.directive';
 import { MyPipePipe } from './pipes/my-pipe.pipe';
@@ -65,7 +65,14 @@ import { AutocompleteOffDirective } from './directives/autocomplete-off.directiv
 import { CommentDropDownComponent } from './components/dropdown/comment-drop-down/comment-drop-down.component';
 import { GoogleSocialAuthButtonComponent } from './components/auth/social/google-social-auth-button/google-social-auth-button.component';
 import { FacebookSocialAuthButtonComponent } from './components/auth/social/facebook-social-auth-button/facebook-social-auth-button.component';
-import { MicrosoftSocialAuthButtonComponent } from './components/auth/social/microsoft-social-auth-button/microsoft-social-auth-button.component';
+import {
+  FacebookLoginProvider,
+  GoogleLoginProvider,
+  GoogleSigninButtonModule,
+  SocialAuthServiceConfig,
+
+} from '@abacritt/angularx-social-login';
+import { environment } from 'src/environments/environment';
 
 @NgModule({
   declarations: [
@@ -116,7 +123,6 @@ import { MicrosoftSocialAuthButtonComponent } from './components/auth/social/mic
     CommentDropDownComponent,
     GoogleSocialAuthButtonComponent,
     FacebookSocialAuthButtonComponent,
-    MicrosoftSocialAuthButtonComponent,
   ],
   imports: [
     CommonModule,
@@ -134,6 +140,7 @@ import { MicrosoftSocialAuthButtonComponent } from './components/auth/social/mic
     PickerModule,
     ShareButtonsModule,
     ShareIconsModule,
+    GoogleSigninButtonModule,
   ],
   exports: [
     MyDirectiveDirective,
@@ -179,8 +186,31 @@ import { MicrosoftSocialAuthButtonComponent } from './components/auth/social/mic
     CommentDropDownComponent,
     GoogleSocialAuthButtonComponent,
     FacebookSocialAuthButtonComponent,
-    MicrosoftSocialAuthButtonComponent,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: 'SocialAuthServiceConfig',
+      useValue: {
+        autoLogin: false,
+        providers: [
+          {
+            id: GoogleLoginProvider.PROVIDER_ID,
+            provider: new GoogleLoginProvider(environment.Google.ClientId, {
+              scopes: 'email',
+            }),
+          },
+          {
+            id: FacebookLoginProvider.PROVIDER_ID,
+
+            provider: new FacebookLoginProvider(environment.Facebook.AppId),
+          },
+        ],
+        onError: (err) => {
+          console.error(err);
+        },
+      } as SocialAuthServiceConfig,
+    },
+  ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class SharedModule {}

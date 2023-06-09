@@ -1,4 +1,7 @@
-import { SocialAuthService } from '@abacritt/angularx-social-login';
+import {
+  GoogleLoginProvider,
+  SocialAuthService,
+} from '@abacritt/angularx-social-login';
 import { Component, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/core/services/authentication.service';
@@ -18,19 +21,21 @@ export class GoogleSocialAuthButtonComponent {
   ) {
     this.externalAuthService.authState.subscribe((user) => {
       if (user) {
+        if (user && user.provider === GoogleLoginProvider.PROVIDER_ID) {
+          const accessToken = user.idToken;
+          this.authService.externallogin({
+            provider: 'Google',
+            token: accessToken,
+          });
+        }
 
-        console.log(user)
-
-        this.authService.externalfacebook({
+        /*   this.authService.externalfacebook({
           provider: 'Facebook',
           token: user.authToken,
-        });
-     /*    const accessToken = user.idToken;
-
-        this.authService.externallogin({
-          provider: 'Google',
-          token: accessToken,
         }); */
+        /*    ;
+
+        */
       }
     });
   }

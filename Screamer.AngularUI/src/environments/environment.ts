@@ -15,8 +15,4 @@ export const environment = {
     AppId: '802448357960217',
     AppSecret: 'eB68Q~F8tlaT40lKAz1NKLqT2J4k3wDIbjDg2aGv',
   },
-  Microsoft: {
-    ClientId: 'fec01bb2-68d1-4d5e-b8a0-c7e60e483281',
-    ClientSecret: 'eB68Q~F8tlaT40lKAz1NKLqT2J4k3wDIbjDg2aGv',
-  },
 };

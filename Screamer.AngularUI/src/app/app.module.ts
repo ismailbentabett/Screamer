@@ -13,7 +13,8 @@ import { LoadingInterceptor } from './core/interceptors/loading.interceptor';
 import { JwtModule } from '@auth0/angular-jwt';
 import { HttpClientModule } from '@angular/common/http';
 import { QuillModule } from 'ngx-quill';
-
+import {  SocialLoginModule,
+} from '@abacritt/angularx-social-login';
 export function tokenGetter() {
   return localStorage.getItem('token');
 }
@@ -35,6 +36,7 @@ export function tokenGetter() {
         tokenGetter: tokenGetter,
       },
     }),
+    SocialLoginModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
