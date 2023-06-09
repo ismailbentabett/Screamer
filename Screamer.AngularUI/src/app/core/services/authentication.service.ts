@@ -105,8 +105,6 @@ export class AuthenticationService {
   sendVerificationEmail(model: any) {
     return this.http
       .post(this.baseUrl + 'Auth/send-verification-email', model)
-      .subscribe((response) => {
-        console.log(response);
-      });
+      .subscribe((response) => {});
   }
 }

@@ -23,15 +23,11 @@ export class AuthComponent {
       .subscribe({
         next: (user: any) => {
           this.currentUser = user;
-          console.log(user)
         },
       });
   }
 
   sendVerificationEmail(email: string) {
-    console.log(
-      email
-    )
     this.authService.sendVerificationEmail({
       email: email,
     });

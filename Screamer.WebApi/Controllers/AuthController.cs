@@ -181,11 +181,6 @@ namespace HR.LeaveManagement.Api.Controllers
                 protocol: HttpContext.Request.Scheme
             );
 
-            // Log the callback URL
-            Console.WriteLine(
-                $"Token {token} User {user.Id} requested to verify their email. Callback URL: {callbackUrl}"
-            );
-
             var sendResult = await _emailSender.SendVerificationEmailAsync(
                 request.Email,
                 callbackUrl
