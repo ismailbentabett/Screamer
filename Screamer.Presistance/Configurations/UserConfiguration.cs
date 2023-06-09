@@ -61,7 +61,7 @@ namespace Screamer.Identity.Configurations
                         UserName = "ismailbentabett",
                         NormalizedUserName = "ISMAILBENTABETT",
                         PasswordHash = hasher.HashPassword(null, "P@ssword1"),
-                        EmailConfirmed = true
+                        EmailConfirmed = false
                     }
             );
         }

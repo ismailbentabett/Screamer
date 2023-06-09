@@ -92,7 +92,7 @@ namespace Screamer.Identity.Services
                 FirstName = request.FirstName,
                 LastName = request.LastName,
                 UserName = request.UserName,
-                EmailConfirmed = true
+                EmailConfirmed = false
             };
 
             var result = await _userManager.CreateAsync(user, request.Password);
@@ -257,7 +257,5 @@ namespace Screamer.Identity.Services
 
             return authResponse;
         }
-        
-     
     }
 }

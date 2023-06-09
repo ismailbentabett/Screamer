@@ -99,4 +99,14 @@ export class AuthenticationService {
         }
       });
   }
+
+  //https://localhost:5001/api/Auth/send-verification-email
+
+  sendVerificationEmail(model: any) {
+    return this.http
+      .post(this.baseUrl + 'Auth/send-verification-email', model)
+      .subscribe((response) => {
+        console.log(response);
+      });
+  }
 }

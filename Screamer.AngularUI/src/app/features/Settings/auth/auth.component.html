@@ -1,4 +1,4 @@
-<div >
+<div>
   <div
     class="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden transform transition-all sm:my-8 sm:align-middle sm:p-6 border-b"
   >
@@ -19,13 +19,52 @@
         </div>
       </div>
     </div>
-    <div class="mt-5 sm:mt-4 sm:flex sm:flex-row-reverse">
+    <div
+      *ngIf="currentUser && currentUser.emailConfirmed == false"
+      class="mt-5 sm:mt-4 sm:flex sm:flex-row-reverse"
+    >
       <button
+        (click)="sendVerificationEmail(currentUser.email)"
         type="button"
-        class="inline-flex items-center px-8 py-3 border border-transparent text-sm leading-4 font-medium rounded-md text-dodger-blue-700 bg-dodger-blue-100 hover:bg-dodger-blue-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-dodger-blue-500"
+        class="inline-flex items-center justify-center px-8 py-3 border border-transparent text-sm leading-4 font-medium rounded-md text-dodger-blue-700 bg-dodger-blue-100 hover:bg-dodger-blue-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-dodger-blue-500"
       >
         Confirm Email
       </button>
+    </div>
+    <!-- This example requires Tailwind CSS v2.0+ -->
+    <div
+      *ngIf="currentUser && currentUser.emailConfirmed == true"
+      class="rounded-md bg-dodger-blue-50 p-4 mt-5"
+    >
+      <div class="flex">
+        <div class="flex-shrink-0">
+          <!-- Heroicon name: solid/check-circle -->
+          <svg
+            class="h-5 w-5 text-dodger-blue-400"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+            aria-hidden="true"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+              clip-rule="evenodd"
+            />
+          </svg>
+        </div>
+        <div class="ml-3">
+          <h3 class="text-sm font-medium text-dodger-blue-800">
+            Email Confirmed
+          </h3>
+          <div class="mt-2 text-sm text-dodger-blue-700">
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid
+              pariatur, ipsum similique veniam.
+            </p>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
   <form class="space-y-6 lg:px-8">

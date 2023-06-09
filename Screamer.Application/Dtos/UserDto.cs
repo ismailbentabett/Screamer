@@ -12,7 +12,6 @@ namespace Screamer.Application.Dtos
         public string Id { get; set; }
         public string Email { get; set; }
 
-
         /*         public string Cover { get; set; }
          */
         public string Bio { get; set; }
@@ -29,21 +28,23 @@ namespace Screamer.Application.Dtos
         public List<AvatarDto> Avatars { get; set; } = new();
         public List<PostDto> Posts { get; set; } = new();
 
-
         public List<Message> MessagesSent { get; set; }
         public List<Message> MessagesReceived { get; set; }
 
         public List<Follow> Followers { get; set; } = new();
         public List<Follow> Following { get; set; } = new();
 
-
- public List<CoverDto> Covers { get; set; } = new();
+        public List<CoverDto> Covers { get; set; } = new();
         public string CoverUrl { get; set; }
 
         /*         public string Avatar { get; set; }
          */
 
- public SocialDto Socials { get; set; }
+        public SocialDto Socials { get; set; }
         public AdressDto Adress { get; set; }
+
+        //EmailConfirmed
+
+        public bool EmailConfirmed { get; set; }
     }
 }

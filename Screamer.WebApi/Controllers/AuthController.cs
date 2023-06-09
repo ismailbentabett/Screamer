@@ -212,15 +212,7 @@ namespace HR.LeaveManagement.Api.Controllers
             }
             var result = await _userManager.ConfirmEmailAsync(user, code);
 
-            Console.WriteLine(result);
-            if (result.Succeeded)
-            {
-                return Ok("Email confirmed successfully.");
-            }
-            else
-            {
-                return BadRequest($"Error confirming email for user with ID '{userId}'.");
-            }
+            return Redirect("http://localhost:4200/v/settings/auth");
         }
     }
 }
