@@ -21,7 +21,8 @@ export class AuthenticationService {
   constructor(
     private http: HttpClient,
     private presenceService: PresenceService,
-    private router: Router
+    private router: Router,
+    private externalAuthService: SocialAuthService
   ) {}
 
   login(model: any) {
@@ -57,6 +58,7 @@ export class AuthenticationService {
     localStorage.removeItem('user');
     this.currentUserSource.next(null);
     this.presenceService.stopHubConnection();
+    this.externalAuthService.signOut();
   }
 
   getDecodedToken(token: string) {
