@@ -70,13 +70,14 @@ import {
   GoogleLoginProvider,
   GoogleSigninButtonModule,
   SocialAuthServiceConfig,
-
 } from '@abacritt/angularx-social-login';
 import { environment } from 'src/environments/environment';
 import { DeleteMyAccountModalComponent } from './components/modal/delete-my-account-modal/delete-my-account-modal.component';
 import { DeleteUserModalComponent } from './components/modal/delete-user-modal/delete-user-modal.component';
 import { DeletePostModalComponent } from './components/modal/delete-post-modal/delete-post-modal.component';
 import { DeleteCommentModalComponent } from './components/modal/delete-comment-modal/delete-comment-modal.component';
+import { StoriesCarouselComponent } from './components/stories/stories-carousel/stories-carousel.component';
+import { StoryComponent } from './components/stories/story/story.component';
 
 @NgModule({
   declarations: [
@@ -131,6 +132,8 @@ import { DeleteCommentModalComponent } from './components/modal/delete-comment-m
     DeleteUserModalComponent,
     DeletePostModalComponent,
     DeleteCommentModalComponent,
+    StoriesCarouselComponent,
+    StoryComponent,
   ],
   imports: [
     CommonModule,
@@ -194,6 +197,12 @@ import { DeleteCommentModalComponent } from './components/modal/delete-comment-m
     CommentDropDownComponent,
     GoogleSocialAuthButtonComponent,
     FacebookSocialAuthButtonComponent,
+    DeleteMyAccountModalComponent,
+    DeleteUserModalComponent,
+    DeletePostModalComponent,
+    DeleteCommentModalComponent,
+    StoriesCarouselComponent,
+    StoryComponent,
   ],
   providers: [
     {

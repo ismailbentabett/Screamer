@@ -143,6 +143,8 @@
     </div>
     <div class="mt-5 sm:mt-4 sm:flex sm:flex-row-reverse">
       <button
+      *ngIf="currentUser"
+      (click)="openDeleteMyAccountPopup()"
         type="button"
         class="inline-flex items-center px-8 py-3 border border-transparent text-sm leading-4 font-medium rounded-md text-red-700 bg-red-100 hover:bg-red-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
       >
@@ -151,3 +153,7 @@
     </div>
   </div>
 </div>
+<app-delete-my-account-modal
+*ngIf="this.userService.isDeleteMyAccountOpen"
+[currentUser]="currentUser"
+></app-delete-my-account-modal>

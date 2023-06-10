@@ -242,7 +242,7 @@ namespace HR.LeaveManagement.Api.Controllers
         }
 
         [HttpDelete("delete-account")]
-        public async Task<IActionResult> DeleteAccount([FromBody] string userId)
+        public async Task<IActionResult> DeleteAccount(string userId)
         {
             var user = await _userManager.FindByIdAsync(userId);
 
@@ -250,7 +250,7 @@ namespace HR.LeaveManagement.Api.Controllers
             {
                 return NotFound($"Unable to load user with ID {userId}.");
             }
-
+            
             var result = await _userManager.DeleteAsync(user);
 
             if (result.Succeeded)

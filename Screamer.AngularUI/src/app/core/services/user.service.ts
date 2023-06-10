@@ -77,8 +77,7 @@ export class UserService {
     );
   }
 
-  updateUser(user: UserUpdateInput , id : number) {
-
+  updateUser(user: UserUpdateInput, id: number) {
     return this.http.put(this.baseUrl + 'User', {
       ...user,
       id,
@@ -144,6 +143,22 @@ export class UserService {
       this.baseUrl + 'Follow',
       params,
       this.http
+    );
+  }
+
+  public isDeleteMyAccountOpen: boolean = false;
+
+  openDeleteMyAccountPopup() {
+    this.isDeleteMyAccountOpen = true;
+  }
+
+  closeDeleteMyAccountPopup() {
+    this.isDeleteMyAccountOpen = false;
+  }
+
+  deleteMyAccount(id: string) {
+    return this.http.delete(
+      this.baseUrl + 'Auth/delete-account?' + 'userId=' + id
     );
   }
 }
