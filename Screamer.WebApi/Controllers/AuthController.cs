@@ -2,6 +2,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
+using System.Web;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Facebook;
 using Microsoft.AspNetCore.Authorization;
@@ -156,9 +157,12 @@ namespace HR.LeaveManagement.Api.Controllers
                    ); */
 
                 //i want lo took like this localhost http://localhost:4200/v/settings/account/reset-password?code=code?email=email
+                var encodedToken = HttpUtility.UrlEncode(code);
 
                 var callbackUrl =
-                    $"http://localhost:4200/auth/reset-password?code={code}&email={model.Email}";
+                    $"http://localhost:4200/auth/reset-password?code={encodedToken}&email={HttpUtility.UrlEncode(model.Email)}";
+
+                Console.WriteLine(code);
 
                 // Send email with callback URL
                 await _emailSender.SendResetPasswordEmailAsync(model.Email, callbackUrl);
