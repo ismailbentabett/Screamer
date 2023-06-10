@@ -240,5 +240,31 @@ namespace HR.LeaveManagement.Api.Controllers
 
             return BadRequest(ModelState);
         }
+
+        [HttpDelete("delete-account")]
+        public async Task<IActionResult> DeleteAccount([FromBody] string userId)
+        {
+            var user = await _userManager.FindByIdAsync(userId);
+
+            if (user == null)
+            {
+                return NotFound($"Unable to load user with ID {userId}.");
+            }
+
+            var result = await _userManager.DeleteAsync(user);
+
+            if (result.Succeeded)
+            {
+                await HttpContext.SignOutAsync(IdentityConstants.ApplicationScheme);
+                return Ok();
+            }
+
+            foreach (var error in result.Errors)
+            {
+                ModelState.AddModelError(string.Empty, error.Description);
+            }
+
+            return BadRequest(ModelState);
+        }
     }
 }

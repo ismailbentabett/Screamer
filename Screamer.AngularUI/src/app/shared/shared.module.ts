@@ -73,6 +73,10 @@ import {
 
 } from '@abacritt/angularx-social-login';
 import { environment } from 'src/environments/environment';
+import { DeleteMyAccountModalComponent } from './components/modal/delete-my-account-modal/delete-my-account-modal.component';
+import { DeleteUserModalComponent } from './components/modal/delete-user-modal/delete-user-modal.component';
+import { DeletePostModalComponent } from './components/modal/delete-post-modal/delete-post-modal.component';
+import { DeleteCommentModalComponent } from './components/modal/delete-comment-modal/delete-comment-modal.component';
 
 @NgModule({
   declarations: [
@@ -123,6 +127,10 @@ import { environment } from 'src/environments/environment';
     CommentDropDownComponent,
     GoogleSocialAuthButtonComponent,
     FacebookSocialAuthButtonComponent,
+    DeleteMyAccountModalComponent,
+    DeleteUserModalComponent,
+    DeletePostModalComponent,
+    DeleteCommentModalComponent,
   ],
   imports: [
     CommonModule,
