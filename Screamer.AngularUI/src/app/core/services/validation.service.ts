@@ -78,8 +78,10 @@ export class ValidationService {
       time: 'Invalid time.',
       url: 'Invalid url.',
       website: 'Invalid website.',
-    birthday :
-    'Invalid birthday.',
+      birthday: 'Invalid birthday.',
+      mismatch: 'Password mismatch.',
+
+      sameAsOld: 'New password cannot be the same as old password.',
     };
 
     const controlName = controlPath.split('.').pop();

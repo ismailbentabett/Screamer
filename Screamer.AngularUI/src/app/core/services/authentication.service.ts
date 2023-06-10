@@ -100,13 +100,11 @@ export class AuthenticationService {
       });
   }
 
-
   sendVerificationEmail(model: any) {
     return this.http
       .post(this.baseUrl + 'Auth/send-verification-email', model)
       .subscribe((response) => {});
   }
-
 
   forgotPassword(model: any) {
     return this.http
@@ -117,6 +115,12 @@ export class AuthenticationService {
   resetPassword(model: any) {
     return this.http
       .post(this.baseUrl + 'Auth/reset-password', model)
+      .subscribe((response) => {});
+  }
+
+  changePassword(model: any) {
+    return this.http
+      .post(this.baseUrl + 'Auth/change-password', model)
       .subscribe((response) => {});
   }
 }

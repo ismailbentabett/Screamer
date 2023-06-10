@@ -28,6 +28,8 @@ export class ForgotPasswordComponent {
   }
 
   forgotPassword() {
+    if (!this.form.valid) return;
+
     this.authService.forgotPassword({
       email: this.form.value.email,
     });

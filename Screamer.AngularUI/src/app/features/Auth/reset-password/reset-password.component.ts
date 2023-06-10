@@ -29,7 +29,6 @@ export class ResetPasswordComponent {
           [
             Validators.required,
             Validators.minLength(6),
-            Validators.maxLength(20),
             this.validationService.specialCharactersValidator,
             this.validationService.noWhitespace,
             this.validationService.Numbers,
@@ -40,7 +39,6 @@ export class ResetPasswordComponent {
           [
             Validators.required,
             Validators.minLength(6),
-            Validators.maxLength(20),
             this.validationService.specialCharactersValidator,
             this.validationService.noWhitespace,
             this.validationService.Numbers,

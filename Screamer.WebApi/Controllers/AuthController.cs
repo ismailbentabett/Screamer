@@ -212,7 +212,7 @@ namespace HR.LeaveManagement.Api.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = await _userManager.GetUserAsync(User);
+                var user = await _userManager.FindByEmailAsync(model.Email);
 
                 if (user == null)
                 {
