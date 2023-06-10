@@ -142,5 +142,106 @@ namespace Screamer.Infrastructure.EmailService
             return response.StatusCode == HttpStatusCode.OK
                 || response.StatusCode == HttpStatusCode.Accepted;
         }
+
+        public async Task<bool>SendResetPasswordEmailAsync(string email, string callbackUrl)
+        {
+            var client = new SendGridClient(_emailSettings.ApiKey);
+            var from = new EmailAddress(_emailSettings.FromAddress, _emailSettings.FromName);
+            var to = new EmailAddress(email);
+            var subject = "Reset Password";
+
+            var htmlContent =
+                $@"
+<!DOCTYPE html> 
+<html>
+<head>
+    <meta charset='UTF-8'>
+    <title>Reset Password</title>
+</head>
+<body style='font-family: Arial, sans-serif; margin: 0; padding: 0;'>
+    <table style='width: 100%; max-width: 600px; margin: 0 auto; background-color: #f4f4f4;'>
+        <tr>
+            <td style='padding: 20px;'>
+                <table style='width: 100%; background-color: #ffffff; padding: 20px; border-radius: 5px;'>
+                    <tr>
+                        <td>
+                            <h2 style='text-align: center;'>Reset Password</h2>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style='padding: 20px;'>
+                            <p>We received a request to reset the password for your account. If you did not make this request, you can safely ignore this email.</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style='text-align: center;'>
+                            <a href='{callbackUrl}' target='_blank' style='display: inline-block; padding: 10px 20px; background-color: #007bff; color: #fff; text-decoration: none; border-radius: 4px;'>Reset Password</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style='padding: 20px;'>
+                            <p>If the button above does not work, you can also copy and paste the following URL into your web browser:</p>
+                            <p>{callbackUrl}</p>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>";
+
+            var plainTextContent =
+                $@"
+<!DOCTYPE html> 
+<html>
+<head>
+    <meta charset='UTF-8'>
+    <title>Reset Password</title>
+</head>
+<body style='font-family: Arial, sans-serif; margin: 0; padding: 0;'>
+    <table style='width: 100%; max-width: 600px; margin: 0 auto; background-color: #f4f4f4;'>
+        <tr>
+            <td style='padding: 20px;'>
+                <table style='width: 100%; background-color: #ffffff; padding: 20px; border-radius: 5px;'>
+                    <tr>
+                        <td>
+                            <h2 style='text-align: center;'>Reset Password</h2>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style='padding: 20px;'>
+                            <p>We received a request to reset the password for your account. If you did not make this request, you can safely ignore this email.</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style='text-align: center;'>
+                            <a href='{callbackUrl}' target='_blank' style='display: inline-block; padding: 10px 20px; background-color: #007bff; color: #fff; text-decoration: none; border-radius: 4px;'>Reset Password</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style='padding: 20px;'>
+                            <p>If the button above does not work, you can also copy and paste the following URL into your web browser:</p>
+                            <p>{callbackUrl}</p>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>";
+
+            var msg = MailHelper.CreateSingleEmail(
+                from,
+                to,
+                subject,
+                plainTextContent,
+                htmlContent
+            );
+            var response = await client.SendEmailAsync(msg);
+            return response.StatusCode == HttpStatusCode.OK
+                || response.StatusCode == HttpStatusCode.Accepted;
+        }
     }
 }

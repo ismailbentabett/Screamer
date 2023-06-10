@@ -84,83 +84,6 @@ namespace HR.LeaveManagement.Api.Controllers
             return Ok(await _authenticationService.Register(request));
         }
 
-        /*  [HttpPost("verify")]
-         public async Task<IActionResult> Verify(string token)
-         {
-             var user = await _context.Users.FirstOrDefaultAsync(u => u.VerificationToken == token);
-             if (user == null)
-             {
-                 return BadRequest("Invalid token.");
-             }
- 
-             user.VerifiedAt = DateTime.Now;
-             await _context.SaveChangesAsync();
- 
-             return Ok("User verified! :)");
-         }
- 
-         [HttpPost("forgot-password")]
-         public async Task<IActionResult> ForgotPassword(string email)
-         {
-             var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
-             if (user == null)
-             {
-                 return BadRequest("User not found.");
-             }
- 
-             user.PasswordResetToken = CreateRandomToken();
-             user.ResetTokenExpires = DateTime.Now.AddDays(1);
-             await _context.SaveChangesAsync();
- 
-             return Ok("You may now reset your password.");
-         }
- 
-         [HttpPost("reset-password")]
-         public async Task<IActionResult> ResettPassword(ResetPasswordRequest request)
-         {
-             var user = await _context.Users.FirstOrDefaultAsync(u => u.PasswordResetToken == request.Token);
-             if (user == null || user.ResetTokenExpires < DateTime.Now)
-             {
-                 return BadRequest("Invalid Token.");
-             }
- 
-             CreatePasswordHash(request.Password, out byte[] passwordHash, out byte[] passwordSalt);
- 
-             user.PasswordHash = Encoding.Default.GetString(passwordHash);
-             user.PasswordSalt = passwordSalt;
-             user.PasswordResetToken = null;
-             user.ResetTokenExpires = null;
- 
-             await _context.SaveChangesAsync();
- 
-             return Ok("Password successfully reset.");
-         }
- 
-         private void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
-         {
-             using (var hmac = new HMACSHA512())
-             {
-                 passwordSalt = hmac.Key;
-                 passwordHash = hmac
-                     .ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
-             }
-         }
- 
-         private bool VerifyPasswordHash(string password, byte[] passwordHash, byte[] passwordSalt)
-         {
-             using (var hmac = new HMACSHA512(passwordSalt))
-             {
-                 var computedHash = hmac
-                     .ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
-                 return computedHash.SequenceEqual(passwordHash);
-             }
-         }
- 
-         private string CreateRandomToken()
-         {
-              return Convert.ToHexString(RandomNumberGenerator.GetBytes(64));
-         }*/
-
         [HttpPost("send-verification-email")]
         public async Task<IActionResult> SendVerificationEmail(
             [FromBody] SendVerificationEmailRequest request
@@ -208,6 +131,110 @@ namespace HR.LeaveManagement.Api.Controllers
             var result = await _userManager.ConfirmEmailAsync(user, code);
 
             return Redirect("http://localhost:4200/v/settings/auth");
+        }
+
+        [HttpPost("forgot-password")]
+        [AllowAnonymous]
+        public async Task<IActionResult> ForgotPassword([FromBody] ForgotPasswordRequest model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await _userManager.FindByEmailAsync(model.Email);
+
+                if (user == null || !(await _userManager.IsEmailConfirmedAsync(user)))
+                {
+                    // Don't reveal that the user does not exist or is not confirmed
+                    return Ok();
+                }
+
+                var code = await _userManager.GeneratePasswordResetTokenAsync(user);
+                /*    var callbackUrl = Url.Action(
+                       "ResetPassword",
+                       "Auth",
+                       new { code },
+                       protocol: HttpContext.Request.Scheme
+                   ); */
+
+                //i want lo took like this localhost http://localhost:4200/v/settings/account/reset-password?code=code?email=email
+
+                var callbackUrl =
+                    $"http://localhost:4200/auth/reset-password?code={code}&email={model.Email}";
+
+                // Send email with callback URL
+                await _emailSender.SendResetPasswordEmailAsync(model.Email, callbackUrl);
+
+                return Ok();
+            }
+
+            return BadRequest(ModelState);
+        }
+
+        [HttpPost("reset-password")]
+        [AllowAnonymous]
+        public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordRequest model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await _userManager.FindByEmailAsync(model.Email);
+
+                if (user == null)
+                {
+                    // Don't reveal that the user does not exist
+                    return Ok();
+                }
+
+                var result = await _userManager.ResetPasswordAsync(
+                    user,
+                    model.Code,
+                    model.Password
+                );
+
+                if (result.Succeeded)
+                {
+                    return Ok();
+                }
+
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError(string.Empty, error.Description);
+                }
+            }
+
+            return BadRequest(ModelState);
+        }
+
+        [HttpPost("change-password")]
+        public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordRequest model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await _userManager.GetUserAsync(User);
+
+                if (user == null)
+                {
+                    return NotFound(
+                        $"Unable to load user with ID '{_userManager.GetUserId(User)}'."
+                    );
+                }
+
+                var result = await _userManager.ChangePasswordAsync(
+                    user,
+                    model.OldPassword,
+                    model.NewPassword
+                );
+
+                if (result.Succeeded)
+                {
+                    return Ok();
+                }
+
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError(string.Empty, error.Description);
+                }
+            }
+
+            return BadRequest(ModelState);
         }
     }
 }

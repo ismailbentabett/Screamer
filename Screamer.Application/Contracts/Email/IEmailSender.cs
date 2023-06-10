@@ -9,6 +9,8 @@ namespace Screamer.Application.Contracts.Email
     public interface IEmailSender
     {
         Task<bool> SendEmail(EmailMessage email);
- Task<bool> SendVerificationEmailAsync(string email, string callbackUrl);
+        Task<bool> SendVerificationEmailAsync(string email, string callbackUrl);
+
+        Task<bool> SendResetPasswordEmailAsync(string email, string callbackUrl);
     }
 }
