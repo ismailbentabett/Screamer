@@ -7,57 +7,58 @@ using MediatR;
 using Screamer.Application.Contracts.Exceptions;
 using Screamer.Application.Contracts.Presistance;
 using Screamer.Domain.Common;
+using Screamer.Domain.Entities;
 using Screamer.Identity.Models;
 
-namespace Screamer.Application.Features.AvatarRequest.Commands.DeleteAvatarRequest
+namespace Screamer.Application.Features.StoryImageRequest
 {
-    public class DeleteAvatarRequestHandlerCommand :
+    public class DeleteStoryImageRequestHandlerCommand :
     IRequestHandler
     <
-        DeleteAvatarRequestCommand,
+        DeleteStoryImageRequestCommand,
         Unit
         >
     {
-        private readonly IAvatarRepository _avatarRepository;
+        private readonly IStoryImageRepository _storyImageRepository;
         private readonly IUnitOfWork _uow;
 
 
 
-        public DeleteAvatarRequestHandlerCommand(IAvatarRepository avatarRepository , 
+        public DeleteStoryImageRequestHandlerCommand(IStoryImageRepository storyImageRepository , 
             IUnitOfWork uow
         )
         {
-            _avatarRepository = avatarRepository;
+            _storyImageRepository = storyImageRepository;
             _uow = uow;
         }
 
-    public async Task<Unit> Handle(DeleteAvatarRequestCommand request, CancellationToken cancellationToken)
+    public async Task<Unit> Handle(DeleteStoryImageRequestCommand request, CancellationToken cancellationToken)
         {
-      var user = await _uow.UserRepository.GetUserByIdAsync(
-                request.userId
+      var story = await _uow.StoryRepository.GetByIdAsync(
+                request.storyId
             );
 
-            if (user == null) throw new NotFoundException(
-                nameof(ApplicationUser), request.userId
+            if (story == null) throw new NotFoundException(
+                nameof(Story), request.storyId
       );
 
-            var avatar = user.Avatars.FirstOrDefault(x => x.Id == request.avatarId);
+            var storyImage = story.StoryImages.FirstOrDefault(x => x.Id == request.storyImageId);
 
-            if (avatar == null)  throw new NotFoundException(
-                nameof(Avatar), request.userId
+            if (storyImage == null)  throw new NotFoundException(
+                nameof(StoryImage), request.storyImageId
             );
 
-            if (avatar.IsMain) throw new 
+            if (storyImage.IsMain) throw new 
                 BadRequestException("You cannot delete your main photo");
 
-            if (avatar.PublicId != null)
+            if (storyImage.PublicId != null)
             {
-                var result = await _avatarRepository.DeletePhotoAsync(avatar.PublicId);
+                var result = await _storyImageRepository.DeletePhotoAsync(storyImage.PublicId);
                 if (result.Error != null) 
                     throw new Exception(result.Error.Message);
             }
 
-            user.Avatars.Remove(avatar);
+            story.StoryImages.Remove(storyImage);
 
             if (await _uow.Complete()) {
                 return Unit.Value;
@@ -65,5 +66,7 @@ namespace Screamer.Application.Features.AvatarRequest.Commands.DeleteAvatarReque
                 throw new Exception("Problem deleting photo");
             }
         }
+
+       
     }
 }

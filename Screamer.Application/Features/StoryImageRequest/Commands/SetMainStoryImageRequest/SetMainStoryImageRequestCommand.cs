@@ -2,15 +2,15 @@ using MediatR;
 using Microsoft.AspNetCore.Http;
 
 
-namespace Screamer.Application.Features.AvatarRequest.Commands.CreateAvatarRequest
+namespace Screamer.Application.Features.StoryImageRequest
 {
-    public record SetMainAvatarRequestCommand :
+    public record SetMainStoryImageRequestCommand :
     IRequest<
         int
     >
     {
-    public  int avatarId;
-    public  string userId;
+   public int storyImageId { get; set; }
+        public int storyId;
 
     }
 }
