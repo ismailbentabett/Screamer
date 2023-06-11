@@ -1,4 +1,4 @@
-import { Component, HostListener } from '@angular/core';
+import { Component, HostListener, VERSION, ViewChild } from '@angular/core';
 import { User } from './core/models/User';
 import { AuthenticationService } from './core/services/authentication.service';
 import { Router, NavigationEnd } from '@angular/router';
@@ -55,4 +55,5 @@ export class AppComponent {
     this.authService.setCurrentUser(user);
     this.presenceService.createHubConnection(user);
   }
+
 }

@@ -33,3 +33,40 @@ a {
 
 @import 'ngx-owl-carousel-o/lib/styles/scss/owl.carousel';
 @import 'ngx-owl-carousel-o/lib/styles/scss/owl.theme.default';
+p {
+  font-family: Lato;
+}
+i {
+}
+.tui-image-editor-header {
+  display: none;
+}
+.tui-image-editor-container .tui-image-editor-main {
+  top: 0;
+}
+
+
+.stories.snapgram .story > .item-link {
+  text-decoration: none;
+  color: #333;
+}
+.stories.snapgram .story > .item-link > .item-preview {
+  border-radius: 50%;
+  padding: 2px;
+  background: radial-gradient(ellipse at 70% 70%, #44B1F4 8%, #44B1F4 42%, #44B1F4 58%);
+}
+.stories.snapgram .story > .item-link > .item-preview img {
+  border-radius: 50%;
+  border: 3px solid #fff;
+}
+
+.stories.snapgram .story.seen {
+  opacity: 0.75;
+}
+.stories.snapgram .story.seen > a > .item-preview {
+  background: #999;
+}
+.stories.snapgram .story.seen > a {
+  color: #999 !important;
+}
+
