@@ -27,6 +27,10 @@ namespace Screamer.Application.Contracts.Presistance
 
         ICategoryRepository CategoryRepository { get; }
 
+        IStoryRepository StoryRepository { get; }
+
+        IStoryImageRepository StoryImageRepository { get; }
+
         Task<bool> Complete();
         bool HasChanges();
     }

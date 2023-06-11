@@ -43,6 +43,11 @@ namespace Screamer.Presistance
             services.AddScoped<ICoverRepository, CoverRepository>();
             services.AddScoped<IPostImageRepository, PostImageRepository>();
             services.AddScoped<ICommentRepository, CommentRepository>();
+            services.AddScoped<IHashtagRepository, HashtagRepository>();
+            services.AddScoped<IMoodRepository, MoodRepository>();
+            services.AddScoped<ICategoryRepository, CategoryRepository>();
+            services.AddScoped<IStoryRepository, StoryRepository>();
+            services.AddScoped<IStoryImageRepository, StoryImageRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             services.AddSingleton<SearchClient>(

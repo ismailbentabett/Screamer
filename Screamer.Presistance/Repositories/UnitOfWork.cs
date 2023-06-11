@@ -40,6 +40,10 @@ namespace Screamer.Presistance.Repositories
 
         public ICategoryRepository CategoryRepository => new CategoryRepository(_context);
 
+        public IStoryRepository StoryRepository => new StoryRepository(_context);
+
+        public IStoryImageRepository StoryImageRepository => throw new NotImplementedException();
+
         public async Task<bool> Complete()
         {
             return await _context.SaveChangesAsync() > 0;
