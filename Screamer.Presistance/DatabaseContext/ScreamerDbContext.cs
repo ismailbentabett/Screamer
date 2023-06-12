@@ -17,6 +17,7 @@ namespace Screamer.Presistance.DatabaseContext
             : base(options) { }
 
         public DbSet<Post> Posts { get; set; }
+        public DbSet<Story> Stories { get; set; }
         public DbSet<Message> Messages { get; set; }
         public DbSet<Group> Groups { get; set; }
         public DbSet<Connection> Connections { get; set; }

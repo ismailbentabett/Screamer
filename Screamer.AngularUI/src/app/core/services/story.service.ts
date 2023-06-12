@@ -1,13 +1,15 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class StoryService {
   public isOpen: boolean = false;
+  baseUrl = environment.baseWebApiUrl;
 
-  constructor() { }
-
+  constructor(private http: HttpClient) {}
 
   openPopup() {
     this.isOpen = true;
@@ -15,5 +17,9 @@ export class StoryService {
 
   closePopup() {
     this.isOpen = false;
+  }
+
+  AddStory(story: any) {
+    return this.http.post(this.baseUrl + 'Story', story);
   }
 }

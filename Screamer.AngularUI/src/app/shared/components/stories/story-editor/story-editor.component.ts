@@ -1,6 +1,9 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { FileItem, FileUploader } from 'ng2-file-upload';
+import { take } from 'rxjs';
 import { PostService } from 'src/app/core/services/post.service';
+import { StoryService } from 'src/app/core/services/story.service';
+import { UserService } from 'src/app/core/services/user.service';
 import { environment } from 'src/environments/environment';
 import ImageEditor from 'tui-image-editor';
 
@@ -18,8 +21,21 @@ export class StoryEditorComponent {
   private _tuiImageEditor!: ImageEditor;
   public uploader!: FileUploader;
   private uploadedImageUrl: string = '';
+  currentUser: any;
 
-  constructor() {}
+  constructor(
+    private storyService: StoryService,
+    private userService : UserService
+  ) {
+    this.userService
+    .getCurrentUserData()
+    .pipe(take(1))
+    .subscribe({
+      next: (user: any) => {
+        this.currentUser = user;
+      },
+    });
+  }
 
   ngAfterViewInit() {
     this.initializeUploader();
@@ -27,9 +43,8 @@ export class StoryEditorComponent {
 
   private initializeUploader() {
     this.uploader = new FileUploader({
-      url: this.baseUrl + `User/add-avatar/9e224968-33e4-4652-b7b7-ismailbentabett`, // Replace with your server-side upload endpoint
-      itemAlias: 'file',
-      autoUpload: false,
+      url: this.baseUrl,
+
     });
 
     this.uploader.onAfterAddingFile = (fileItem: FileItem) => {
@@ -80,6 +95,25 @@ export class StoryEditorComponent {
   }
 
   applyChanges() {
+this.storyService.AddStory({
+  title: "string",
+  content: "string",
+  imageUrl: "string",
+  userId:this.currentUser.id
+
+}).subscribe({
+  next: (response : any) => {
+    console.log(response)
+    console.log(this.currentUser)
+    this.uploader.setOptions({
+      url: this.baseUrl + `Story/add-story-image/${response}`,
+      authToken: 'Bearer ' + this.currentUser?.token,
+      isHTML5: true,
+      allowedFileType: ['image'],
+      removeAfterUpload: true,
+      autoUpload: false,
+      maxFileSize: 10 * 1024 * 1024,
+    });
     if (this._tuiImageEditor) {
       // Get the edited image data
       const editedImageData = this._tuiImageEditor.toDataURL();
@@ -99,6 +133,8 @@ export class StoryEditorComponent {
       // Upload the edited image
       this.uploader.uploadAll();
     }
+  }
+  });
   }
 
   private dataURLToBlob(dataURL: string): Blob {

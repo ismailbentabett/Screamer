@@ -39,12 +39,9 @@ namespace Screamer.Application.Features.StoryRequest.Commands.AddStoryRequest
 
             await _uow.StoryRepository.AddAsync(story);
 
-            if (await _uow.Complete())
-            {
-                return story.Id;
-            }
+            await _uow.Complete();
 
-            throw new Exception("Problem saving changes");
+                return story.Id;
         }
     }
 }
