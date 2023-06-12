@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { StoryService } from 'src/app/core/services/story.service';
 
 @Component({
   selector: 'app-feed',
@@ -7,7 +8,11 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./feed.component.scss'],
 })
 export class FeedComponent {
-  constructor(private router: Router, private route: ActivatedRoute) {}
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    public storyService: StoryService
+  ) {}
 
   LineStyle(route: string): string {
     const isActive =

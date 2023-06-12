@@ -39,6 +39,7 @@
     "font-awesome": "^4.7.0",
     "i": "^0.3.7",
     "instantsearch.js": "^4.37.3",
+    "konva": "^9.2.0",
     "linkify": "^0.2.1",
     "linkify-html": "^4.1.1",
     "linkify-plugin-hashtag": "^4.1.1",

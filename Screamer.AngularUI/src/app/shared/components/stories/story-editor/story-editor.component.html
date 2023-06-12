@@ -1,0 +1,5 @@
+<div class="story-editor">
+  <div #imageEditorContainer></div>
+  <input type="file" ng2FileSelect [uploader]="uploader" (change)="applyChanges()" />
+  <button (click)="applyChanges()">Apply Changes</button>
+</div>

@@ -78,6 +78,8 @@ import { DeletePostModalComponent } from './components/modal/delete-post-modal/d
 import { DeleteCommentModalComponent } from './components/modal/delete-comment-modal/delete-comment-modal.component';
 import { StoriesCarouselComponent } from './components/stories/stories-carousel/stories-carousel.component';
 import { StoryComponent } from './components/stories/story/story.component';
+import { StoryEditorComponent } from './components/stories/story-editor/story-editor.component';
+import { StoryEditorFullscreenModalComponent } from './components/stories/story-editor-fullscreen-modal/story-editor-fullscreen-modal.component';
 
 @NgModule({
   declarations: [
@@ -134,6 +136,8 @@ import { StoryComponent } from './components/stories/story/story.component';
     DeleteCommentModalComponent,
     StoriesCarouselComponent,
     StoryComponent,
+    StoryEditorComponent,
+    StoryEditorFullscreenModalComponent,
   ],
   imports: [
     CommonModule,
@@ -203,6 +207,8 @@ import { StoryComponent } from './components/stories/story/story.component';
     DeleteCommentModalComponent,
     StoriesCarouselComponent,
     StoryComponent,
+    StoryEditorComponent,
+    StoryEditorFullscreenModalComponent,
   ],
   providers: [
     {

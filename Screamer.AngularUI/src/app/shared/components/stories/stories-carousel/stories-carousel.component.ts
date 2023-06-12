@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { OwlOptions } from 'ngx-owl-carousel-o';
+import { StoryService } from 'src/app/core/services/story.service';
 
 @Component({
   selector: 'app-stories-carousel',
@@ -7,16 +8,19 @@ import { OwlOptions } from 'ngx-owl-carousel-o';
   styleUrls: ['./stories-carousel.component.scss'],
 })
 export class StoriesCarouselComponent {
-  customOptions: OwlOptions = {
-    loop: false,
-    mouseDrag: true,
-    touchDrag: true,
-    pullDrag: true,
-    dots: false,
-    navSpeed: 700,
-    navText: ['', ''],
-    nav: false,
-    margin: 0,
-    stagePadding: 0,
-  };
+
+  /**
+   *
+   */
+  constructor(
+
+    public storyService : StoryService
+  ) {
+
+  }
+
+  openModal() {
+    this.storyService.openPopup();
+  }
+
 }
