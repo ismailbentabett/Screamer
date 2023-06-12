@@ -1,6 +1,7 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { FileItem, FileUploader } from 'ng2-file-upload';
 import { take } from 'rxjs';
+import { AuthenticationService } from 'src/app/core/services/authentication.service';
 import { PostService } from 'src/app/core/services/post.service';
 import { StoryService } from 'src/app/core/services/story.service';
 import { UserService } from 'src/app/core/services/user.service';
@@ -25,17 +26,9 @@ export class StoryEditorComponent {
 
   constructor(
     private storyService: StoryService,
-    private userService : UserService
-  ) {
-    this.userService
-    .getCurrentUserData()
-    .pipe(take(1))
-    .subscribe({
-      next: (user: any) => {
-        this.currentUser = user;
-      },
-    });
-  }
+    private userService: UserService,
+    private authService: AuthenticationService
+  ) {}
 
   ngAfterViewInit() {
     this.initializeUploader();
@@ -44,7 +37,6 @@ export class StoryEditorComponent {
   private initializeUploader() {
     this.uploader = new FileUploader({
       url: this.baseUrl,
-
     });
 
     this.uploader.onAfterAddingFile = (fileItem: FileItem) => {
@@ -95,46 +87,64 @@ export class StoryEditorComponent {
   }
 
   applyChanges() {
-this.storyService.AddStory({
-  title: "string",
-  content: "string",
-  imageUrl: "string",
-  userId:this.currentUser.id
+    this.authService.currentUser$.pipe(take(1)).subscribe({
+      next: (userData) => {
+        this.currentUser = userData;
 
-}).subscribe({
-  next: (response : any) => {
-    console.log(response)
-    console.log(this.currentUser)
-    this.uploader.setOptions({
-      url: this.baseUrl + `Story/add-story-image/${response}`,
-      authToken: 'Bearer ' + this.currentUser?.token,
-      isHTML5: true,
-      allowedFileType: ['image'],
-      removeAfterUpload: true,
-      autoUpload: false,
-      maxFileSize: 10 * 1024 * 1024,
+        this.storyService
+          .AddStory({
+            title: 'string',
+            content: 'string',
+            imageUrl: 'string',
+            userId: this.currentUser.id,
+          })
+          .subscribe({
+            next: (response: any) => {
+              console.log(response);
+              console.log(this.currentUser);
+              this.uploader.setOptions({
+                url: this.baseUrl + `Story/add-story-image/${response}`,
+                authToken: 'Bearer ' + this.currentUser?.token,
+                isHTML5: true,
+                allowedFileType: ['image'],
+                removeAfterUpload: true,
+                autoUpload: false,
+                maxFileSize: 10 * 1024 * 1024,
+              });
+              console.log({
+                url: this.baseUrl + `Story/add-story-image/${response}`,
+                authToken: 'Bearer ' + this.currentUser?.token,
+                isHTML5: true,
+                allowedFileType: ['image'],
+                removeAfterUpload: true,
+                autoUpload: false,
+                maxFileSize: 10 * 1024 * 1024,
+              });
+              if (this._tuiImageEditor) {
+                // Get the edited image data
+                const editedImageData = this._tuiImageEditor.toDataURL();
+
+                // Create a new Blob object from the edited image data
+                const blob = this.dataURLToBlob(editedImageData);
+
+                // Create a new File object with the edited image blob
+                const editedImageFile = new File([blob], 'edited-image.png', {
+                  type: 'image/png',
+                });
+
+                // Remove the original image from the uploader's queue
+                this.uploader.clearQueue();
+
+                // Add the edited image file to the uploader's queue
+                this.uploader.addToQueue([editedImageFile]);
+                console.log(editedImageFile);
+                // Upload the edited image
+                this.uploader.uploadAll();
+              }
+            },
+          });
+      },
     });
-    if (this._tuiImageEditor) {
-      // Get the edited image data
-      const editedImageData = this._tuiImageEditor.toDataURL();
-
-      // Create a new Blob object from the edited image data
-      const blob = this.dataURLToBlob(editedImageData);
-
-      // Create a new File object with the edited image blob
-      const editedImageFile = new File([blob], 'edited-image.png', { type: 'image/png' });
-
-      // Remove the original image from the uploader's queue
-      this.uploader.clearQueue();
-
-      // Add the edited image file to the uploader's queue
-      this.uploader.addToQueue([editedImageFile]);
-
-      // Upload the edited image
-      this.uploader.uploadAll();
-    }
-  }
-  });
   }
 
   private dataURLToBlob(dataURL: string): Blob {
@@ -150,5 +160,4 @@ this.storyService.AddStory({
 
     return new Blob([u8arr], { type: mime });
   }
-
 }

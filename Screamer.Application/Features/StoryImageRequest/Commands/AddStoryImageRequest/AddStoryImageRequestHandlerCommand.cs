@@ -35,7 +35,7 @@ namespace Screamer.Application.Features.StoryImageRequest
             CancellationToken cancellationToken
         )
         {
-            var story = await _uow.StoryRepository.GetByIdAsync(request.storyId);
+            var story = await _uow.StoryRepository.GetStoryByIdAsync(request.storyId);
 
             if (story == null)
                 throw new NotFoundException(nameof(Story), request.storyId);

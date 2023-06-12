@@ -10,8 +10,12 @@ namespace Screamer.Presistance.Repositories
 {
     public class StoryRepository : GenericRepository<Story>, IStoryRepository
     {
-        public StoryRepository(ScreamerDbContext context) : base(context)
+        public StoryRepository(ScreamerDbContext context)
+            : base(context) { }
+
+        public async Task<Story> GetStoryByIdAsync(int id)
         {
+            return await _context.Storys.FindAsync(id);
         }
     }
 }
