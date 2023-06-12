@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Screamer.Application.Contracts.Presistance;
 using Screamer.Application.Features.StoryImageRequest;
+using Screamer.Application.Features.StoryRequest.Commands.AddStoryRequest;
+using Screamer.Application.Features.StoryRequest.Commands.DeleteStoryRequest;
 
 namespace Screamer.WebApi.Controllers
 {
@@ -12,8 +14,7 @@ namespace Screamer.WebApi.Controllers
     [Route("api/[controller]")]
     public class StoryController : ControllerBase
     {
-
-   private readonly MediatR.IMediator _mediator;
+        private readonly MediatR.IMediator _mediator;
         private readonly IUnitOfWork _uow;
 
         public StoryController(MediatR.IMediator mediator, IUnitOfWork uow)
@@ -22,9 +23,33 @@ namespace Screamer.WebApi.Controllers
             _uow = uow;
         }
 
-       
+        [HttpPost]
+        [ProducesResponseType(201)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> CreatePost(
+            [FromBody] AddStoryRequestCommand createStoryRequestCommandRequest
+        )
+        {
+            var result = await _mediator.Send(createStoryRequestCommandRequest);
+            return Ok(result);
+        }
+
+        [HttpDelete("{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesDefaultResponseType]
+        public async Task<IActionResult> DeletePost(int storyId)
+        {
+            var result = await _mediator.Send(new DeleteStoryRequestCommand { storyId = storyId });
+            return Ok(result);
+        }
+
         [HttpPost("add-story-image/{storyId}")]
-        public async Task<ActionResult<Domain.Entities.StoryImage>> AddPostImage(IFormFile file, int storyId)
+        public async Task<ActionResult<Domain.Entities.StoryImage>> AddPostImage(
+            IFormFile file,
+            int storyId
+        )
         {
             var command = new AddStoryImageRequestCommand { file = file, storyId = storyId };
             var result = await _mediator.Send(command);
@@ -53,6 +78,6 @@ namespace Screamer.WebApi.Controllers
             };
             await _mediator.Send(command);
             return NoContent();
-        } 
+        }
     }
 }
