@@ -1,5 +1,5 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { FileUploader } from 'ng2-file-upload';
+import { FileItem, FileUploader } from 'ng2-file-upload';
 import { PostService } from 'src/app/core/services/post.service';
 import { environment } from 'src/environments/environment';
 import ImageEditor from 'tui-image-editor';
@@ -19,7 +19,7 @@ export class StoryEditorComponent {
   public uploader!: FileUploader;
   private uploadedImageUrl: string = '';
 
-  constructor(private postService: PostService) { }
+  constructor() {}
 
   ngAfterViewInit() {
     this.initializeUploader();
@@ -27,13 +27,13 @@ export class StoryEditorComponent {
 
   private initializeUploader() {
     this.uploader = new FileUploader({
-      url: 'https://example.com/upload', // Replace with your server-side upload endpoint
+      url: this.baseUrl + `User/add-avatar/9e224968-33e4-4652-b7b7-ismailbentabett`, // Replace with your server-side upload endpoint
       itemAlias: 'file',
-      autoUpload: false
+      autoUpload: false,
     });
 
-    this.uploader.onAfterAddingFile = (file) => {
-      file.withCredentials = false;
+    this.uploader.onAfterAddingFile = (fileItem: FileItem) => {
+      const file = fileItem._file;
       const reader = new FileReader();
 
       reader.onload = (e) => {
@@ -46,44 +46,73 @@ export class StoryEditorComponent {
         };
       };
 
-      reader.readAsDataURL(file._file);
+      reader.readAsDataURL(file);
     };
 
-    this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
+    this.uploader.onCompleteItem = (
+      item: any,
+      response: any,
+      status: any,
+      headers: any
+    ) => {
       // Handle the server response after the image upload is complete
       console.log('Upload complete:', response);
     };
   }
 
   private initializeImageEditor() {
-    this._tuiImageEditor = new ImageEditor(this.imageEditorContainer.nativeElement, {
-      includeUI: {
-        loadImage: {
-          path: this.uploadedImageUrl,
-          name: 'SampleImage'
+    this._tuiImageEditor = new ImageEditor(
+      this.imageEditorContainer.nativeElement,
+      {
+        includeUI: {
+          loadImage: {
+            path: this.uploadedImageUrl,
+            name: 'SampleImage',
+          },
+          theme: {
+            // Customize the theme if needed
+          },
         },
-        theme: {
-          // Customize the theme if needed
-        }
-      },
-      cssMaxWidth: 700,
-      cssMaxHeight: 500,
-      selectionStyle: {
-        cornerSize: 20,
-        rotatingPointOffset: 70
+        cssMaxWidth: 1000,
+        cssMaxHeight: 1000,
       }
-    });
+    );
   }
 
   applyChanges() {
-    // Get the edited image data
-    const editedImageData = this._tuiImageEditor.toDataURL();
+    if (this._tuiImageEditor) {
+      // Get the edited image data
+      const editedImageData = this._tuiImageEditor.toDataURL();
 
-    // Upload the edited image
-    this.uploader.setOptions({
-      additionalParameter: { data: editedImageData },
-      url: ''
-    });
-    this.uploader.uploadAll();
+      // Create a new Blob object from the edited image data
+      const blob = this.dataURLToBlob(editedImageData);
+
+      // Create a new File object with the edited image blob
+      const editedImageFile = new File([blob], 'edited-image.png', { type: 'image/png' });
+
+      // Remove the original image from the uploader's queue
+      this.uploader.clearQueue();
+
+      // Add the edited image file to the uploader's queue
+      this.uploader.addToQueue([editedImageFile]);
+
+      // Upload the edited image
+      this.uploader.uploadAll();
+    }
   }
+
+  private dataURLToBlob(dataURL: string): Blob {
+    const arr = dataURL.split(',');
+    const mime = arr[0].match(/:(.*?);/)![1];
+    const bstr = atob(arr[1]);
+    let n = bstr.length;
+    const u8arr = new Uint8Array(n);
+
+    while (n--) {
+      u8arr[n] = bstr.charCodeAt(n);
+    }
+
+    return new Blob([u8arr], { type: mime });
+  }
+
 }

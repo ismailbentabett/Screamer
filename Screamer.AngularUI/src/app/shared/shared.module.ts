@@ -209,6 +209,7 @@ import { StoryEditorFullscreenModalComponent } from './components/stories/story-
     StoryComponent,
     StoryEditorComponent,
     StoryEditorFullscreenModalComponent,
+
   ],
   providers: [
     {

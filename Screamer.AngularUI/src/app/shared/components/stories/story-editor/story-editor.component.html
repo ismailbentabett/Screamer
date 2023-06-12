@@ -1,5 +1,47 @@
-<div class="story-editor">
-  <div #imageEditorContainer></div>
-  <input type="file" ng2FileSelect [uploader]="uploader" (change)="applyChanges()" />
-  <button (click)="applyChanges()">Apply Changes</button>
+<div class="sm:flex flex-col sm:items-start">
+  <div class="mt-5 sm:mt-4 sm:flex sm:flex-row-reverse">
+    <div class="flow-root">
+      <button
+        type="button"
+        class="rounded-full inline-flex items-center justify-center text-gray-400 hover:text-gray-500 cursor-pointer"
+      >
+        <label
+          class="-ml-2 -my-2 rounded-full px-3 py-2 inline-flex items-center text-left text-gray-400 group"
+        >
+          <svg
+            class="-ml-1 h-5 w-5 mr-2 group-hover:text-gray-500"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+            aria-hidden="true"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M8 4a3 3 0 00-3 3v4a5 5 0 0010 0V7a1 1 0 112 0v4a7 7 0 11-14 0V7a5 5 0 0110 0v4a3 3 0 11-6 0V7a1 1 0 012 0v4a1 1 0 102 0V7a3 3 0 00-3-3z"
+              clip-rule="evenodd"
+            />
+          </svg>
+          <span class="text-sm text-gray-500 group-hover:text-gray-600 italic"
+            >Attach a file</span
+          >
+          <input
+            ng2FileSelect
+            [uploader]="uploader"
+            (change)="applyChanges()"
+            multiple
+            type="file"
+            class="hidden"
+          />
+        </label>
+      </button>
+    </div>
+    <button
+      class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm"
+      (click)="applyChanges()"
+    >
+      Apply Changes
+    </button>
+  </div>
+
+  <div class="image-editor" #imageEditorContainer style="width: 100%; height: 100vh"></div>
 </div>
