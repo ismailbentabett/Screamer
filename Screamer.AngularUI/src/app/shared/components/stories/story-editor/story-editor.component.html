@@ -1,46 +1,74 @@
-<div class="sm:flex flex-col sm:items-start">
-  <div class="mt-5 sm:mt-4 sm:flex sm:flex-row-reverse">
-    <div class="flow-root">
-      <button
-        type="button"
-        class="rounded-full inline-flex items-center justify-center text-gray-400 hover:text-gray-500 cursor-pointer"
-      >
-        <label
-          class="-ml-2 -my-2 rounded-full px-3 py-2 inline-flex items-center text-left text-gray-400 group"
-        >
-          <svg
-            class="-ml-1 h-5 w-5 mr-2 group-hover:text-gray-500"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 20 20"
-            fill="currentColor"
-            aria-hidden="true"
-          >
-            <path
-              fill-rule="evenodd"
-              d="M8 4a3 3 0 00-3 3v4a5 5 0 0010 0V7a1 1 0 112 0v4a7 7 0 11-14 0V7a5 5 0 0110 0v4a3 3 0 11-6 0V7a1 1 0 012 0v4a1 1 0 102 0V7a3 3 0 00-3-3z"
-              clip-rule="evenodd"
-            />
-          </svg>
-          <span class="text-sm text-gray-500 group-hover:text-gray-600 italic"
-            >Attach a file</span
-          >
-          <input
-            ng2FileSelect
-            [uploader]="uploader"
-            multiple
-            type="file"
-            class="hidden"
-          />
-        </label>
-      </button>
-    </div>
-    <button
-      class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm"
-      (click)="applyChanges()"
+<div class="overflow-hidden sm:flex flex-col sm:items-start">
+  <!-- This example requires Tailwind CSS v2.0+ -->
+  <div class="w-full bg-white px-4 py-5 border-b border-gray-200 sm:px-6">
+    <div
+      class="-ml-4 -mt-4 flex justify-between items-center flex-wrap sm:flex-nowrap"
     >
-      Apply Changes
-    </button>
+      <div class="ml-4 mt-4">
+        <div class="flex items-center">
+          <div class="flex-shrink-0">
+            <img
+              class="h-12 w-12 rounded-full"
+              src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+              alt=""
+            />
+          </div>
+          <div class="ml-4">
+            <h3 class="text-lg leading-6 font-medium text-gray-900">
+              Tom Cook
+            </h3>
+            <p class="text-sm text-gray-500">
+              <a href="#"> @tom_cook </a>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="ml-4 mt-4 flex-shrink-0 flex">
+        <button
+          type="button"
+          class="rounded-full inline-flex items-center justify-center text-gray-400 hover:text-gray-500 cursor pointer"
+        >
+          <label
+            class="-ml-2 -my-2 rounded-full px-3 py-2 inline-flex items-center text-left text-gray-400 group"
+          >
+            <svg
+              class="-ml-1 h-5 w-5 mr-2 group-hover:text-gray-500"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+              aria-hidden="true"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M8 4a3 3 0 00-3 3v4a5 5 0 0010 0V7a1 1 0 112 0v4a7 7 0 11-14 0V7a5 5 0 0110 0v4a3 3 0 11-6 0V7a1 1 0 012 0v4a1 1 0 102 0V7a3 3 0 00-3-3z"
+                clip-rule="evenodd"
+              />
+            </svg>
+            <span class="text-sm text-gray-500 group-hover:text-gray-600 italic"
+              >Attach a file</span
+            >
+            <input
+              ng2FileSelect
+              [uploader]="uploader"
+              multiple
+              type="file"
+              class="hidden"
+            />
+          </label>
+        </button>
+        <button
+          class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm"
+          (click)="applyChanges()"
+        >
+          Apply Changes
+        </button>
+      </div>
+    </div>
   </div>
 
-  <div class="image-editor" #imageEditorContainer style="width: 100%; height: 100vh"></div>
+  <div
+    class="image-editor"
+    #imageEditorContainer
+    style="width: 100%; height: 100vh"
+  ></div>
 </div>
