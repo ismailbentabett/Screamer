@@ -1,0 +1,7 @@
+<div class="stuff fixed inset-0 flex items-center justify-center bg-black bg-opacity-50"
+     [ngClass]="{'hidden': !this.storyService.isOpen}">
+  <div class="bg-white p-4 rounded-lg h-screen w-screen">
+    <!-- Modal content goes here -->
+    <ng-content></ng-content>
+  </div>
+</div>
