@@ -9,18 +9,7 @@ import { StoryService } from 'src/app/core/services/story.service';
 })
 export class StoriesCarouselComponent {
 
-  /**
-   *
-   */
-  constructor(
 
-    public storyService : StoryService
-  ) {
 
-  }
-
-  openModal() {
-    this.storyService.openPopup();
-  }
 
 }
