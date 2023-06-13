@@ -14,8 +14,6 @@ namespace Screamer.Identity.Models
     {
         public string Password { get; set; }
 
-        /*         public string Cover { get; set; }
-         */
         public string Bio { get; set; }
         public string Website { get; set; }
 
@@ -43,18 +41,12 @@ namespace Screamer.Identity.Models
         //chat rooms
         public ICollection<ChatRoomUser> ChatRoomUsers { get; set; } = new List<ChatRoomUser>();
 
-        /*
-public string? VerificationToken { get; set; }
-public DateTime? VerifiedAt { get; set; }
-public string? PasswordResetToken { get; set; }
-public DateTime? ResetTokenExpires { get; set; }
-public byte[] PasswordSalt { get; set; } = new byte[32]; */
-
         public Social Socials { get; set; }
         public Adress Adress { get; set; }
 
         public string ObjectID { get; set; }
         public ICollection<Tag> Tags { get; set; } = new List<Tag>();
+        public ICollection<BookMark> BookMarks { get; set; } = new List<BookMark>();
         public ICollection<PostMention> PostMentions { get; set; } = new List<PostMention>();
         public ICollection<CommentMention> CommentMentions { get; set; } =
             new List<CommentMention>();

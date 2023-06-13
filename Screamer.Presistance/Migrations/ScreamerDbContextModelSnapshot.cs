@@ -328,6 +328,37 @@ namespace Screamer.Presistance.Migrations
                     b.ToTable("Adress");
                 });
 
+            modelBuilder.Entity("Screamer.Domain.Entities.BookMark", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2")
+                        .HasAnnotation("Relational:JsonPropertyName", "createdAt");
+
+                    b.Property<int>("PostId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2")
+                        .HasAnnotation("Relational:JsonPropertyName", "updatedAt");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PostId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("BookMarks");
+                });
+
             modelBuilder.Entity("Screamer.Domain.Entities.Category", b =>
                 {
                     b.Property<int>("Id")
@@ -357,702 +388,702 @@ namespace Screamer.Presistance.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1660),
+                            CreatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(600),
                             Name = "News",
-                            UpdatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1679)
+                            UpdatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(614)
                         },
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1683),
+                            CreatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(619),
                             Name = "Politics",
-                            UpdatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1683)
+                            UpdatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(620)
                         },
                         new
                         {
                             Id = 3,
-                            CreatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1685),
+                            CreatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(621),
                             Name = "Science",
-                            UpdatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1685)
+                            UpdatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(621)
                         },
                         new
                         {
                             Id = 4,
-                            CreatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1686),
+                            CreatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(623),
                             Name = "Technology",
-                            UpdatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1687)
+                            UpdatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(623)
                         },
                         new
                         {
                             Id = 5,
-                            CreatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1688),
+                            CreatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(624),
                             Name = "Gaming",
-                            UpdatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1688)
+                            UpdatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(624)
                         },
                         new
                         {
                             Id = 6,
-                            CreatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1690),
+                            CreatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(626),
                             Name = "Sports",
-                            UpdatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1691)
+                            UpdatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(627)
                         },
                         new
                         {
                             Id = 7,
-                            CreatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1692),
+                            CreatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(628),
                             Name = "Music",
-                            UpdatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1692)
+                            UpdatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(628)
                         },
                         new
                         {
                             Id = 8,
-                            CreatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1693),
+                            CreatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(629),
                             Name = "Movies",
-                            UpdatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1693)
+                            UpdatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(630)
                         },
                         new
                         {
                             Id = 9,
-                            CreatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1695),
+                            CreatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(631),
                             Name = "Television",
-                            UpdatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1695)
+                            UpdatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(631)
                         },
                         new
                         {
                             Id = 10,
-                            CreatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1697),
+                            CreatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(633),
                             Name = "Books",
-                            UpdatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1697)
+                            UpdatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(633)
                         },
                         new
                         {
                             Id = 11,
-                            CreatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1698),
+                            CreatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(634),
                             Name = "Art",
-                            UpdatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1699)
+                            UpdatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(634)
                         },
                         new
                         {
                             Id = 12,
-                            CreatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1699),
+                            CreatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(635),
                             Name = "Food",
-                            UpdatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1700)
+                            UpdatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(636)
                         },
                         new
                         {
                             Id = 13,
-                            CreatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1701),
+                            CreatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(637),
                             Name = "Travel",
-                            UpdatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1701)
+                            UpdatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(637)
                         },
                         new
                         {
                             Id = 14,
-                            CreatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1708),
+                            CreatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(643),
                             Name = "Fitness",
-                            UpdatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1708)
+                            UpdatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(643)
                         },
                         new
                         {
                             Id = 15,
-                            CreatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1709),
+                            CreatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(644),
                             Name = "Health",
-                            UpdatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1749)
+                            UpdatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(648)
                         },
                         new
                         {
                             Id = 16,
-                            CreatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1768),
+                            CreatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(662),
                             Name = "Fashion",
-                            UpdatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1769)
+                            UpdatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(662)
                         },
                         new
                         {
                             Id = 17,
-                            CreatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1770),
+                            CreatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(663),
                             Name = "Relationships",
-                            UpdatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1770)
+                            UpdatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(663)
                         },
                         new
                         {
                             Id = 18,
-                            CreatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1772),
+                            CreatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(665),
                             Name = "Advice",
-                            UpdatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1773)
+                            UpdatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(666)
                         },
                         new
                         {
                             Id = 19,
-                            CreatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1774),
+                            CreatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(667),
                             Name = "Writing",
-                            UpdatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1775)
+                            UpdatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(667)
                         },
                         new
                         {
                             Id = 20,
-                            CreatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1775),
+                            CreatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(668),
                             Name = "Photography",
-                            UpdatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1776)
+                            UpdatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(668)
                         },
                         new
                         {
                             Id = 21,
-                            CreatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1777),
+                            CreatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(669),
                             Name = "DIY (Do-It-Yourself)",
-                            UpdatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1777)
+                            UpdatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(670)
                         },
                         new
                         {
                             Id = 22,
-                            CreatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1778),
+                            CreatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(671),
                             Name = "Nature",
-                            UpdatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1778)
+                            UpdatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(671)
                         },
                         new
                         {
                             Id = 23,
-                            CreatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1779),
+                            CreatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(672),
                             Name = "Animals",
-                            UpdatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1779)
+                            UpdatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(672)
                         },
                         new
                         {
                             Id = 24,
-                            CreatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1780),
+                            CreatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(673),
                             Name = "Memes",
-                            UpdatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1780)
+                            UpdatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(674)
                         },
                         new
                         {
                             Id = 25,
-                            CreatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1781),
+                            CreatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(675),
                             Name = "Funny",
-                            UpdatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1782)
+                            UpdatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(675)
                         },
                         new
                         {
                             Id = 26,
-                            CreatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1782),
+                            CreatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(676),
                             Name = "Jokes",
-                            UpdatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1783)
+                            UpdatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(676)
                         },
                         new
                         {
                             Id = 27,
-                            CreatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1784),
+                            CreatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(677),
                             Name = "History",
-                            UpdatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1784)
+                            UpdatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(678)
                         },
                         new
                         {
                             Id = 28,
-                            CreatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1785),
+                            CreatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(679),
                             Name = "Philosophy",
-                            UpdatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1785)
+                            UpdatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(679)
                         },
                         new
                         {
                             Id = 29,
-                            CreatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1786),
+                            CreatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(680),
                             Name = "Psychology",
-                            UpdatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1786)
+                            UpdatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(680)
                         },
                         new
                         {
                             Id = 30,
-                            CreatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1787),
+                            CreatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(681),
                             Name = "Education",
-                            UpdatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1787)
+                            UpdatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(681)
                         },
                         new
                         {
                             Id = 31,
-                            CreatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1788),
+                            CreatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(682),
                             Name = "Career",
-                            UpdatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1789)
+                            UpdatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(683)
                         },
                         new
                         {
                             Id = 32,
-                            CreatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1789),
+                            CreatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(684),
                             Name = "Personal Finance",
-                            UpdatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1790)
+                            UpdatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(684)
                         },
                         new
                         {
                             Id = 33,
-                            CreatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1790),
+                            CreatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(685),
                             Name = "Entrepreneurship",
-                            UpdatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1791)
+                            UpdatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(685)
                         },
                         new
                         {
                             Id = 34,
-                            CreatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1793),
+                            CreatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(687),
                             Name = "Parenting",
-                            UpdatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1793)
+                            UpdatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(687)
                         },
                         new
                         {
                             Id = 35,
-                            CreatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1794),
+                            CreatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(688),
                             Name = "Relationships",
-                            UpdatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1794)
+                            UpdatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(688)
                         },
                         new
                         {
                             Id = 36,
-                            CreatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1795),
+                            CreatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(689),
                             Name = "Technology News",
-                            UpdatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1795)
+                            UpdatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(690)
                         },
                         new
                         {
                             Id = 37,
-                            CreatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1796),
+                            CreatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(691),
                             Name = "Programming",
-                            UpdatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1796)
+                            UpdatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(691)
                         },
                         new
                         {
                             Id = 38,
-                            CreatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1797),
+                            CreatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(692),
                             Name = "Web Development",
-                            UpdatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1798)
+                            UpdatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(692)
                         },
                         new
                         {
                             Id = 39,
-                            CreatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1799),
+                            CreatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(693),
                             Name = "Data Science",
-                            UpdatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1799)
+                            UpdatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(693)
                         },
                         new
                         {
                             Id = 40,
-                            CreatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1800),
+                            CreatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(694),
                             Name = "Cryptocurrency",
-                            UpdatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1800)
+                            UpdatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(695)
                         },
                         new
                         {
                             Id = 41,
-                            CreatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1801),
+                            CreatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(695),
                             Name = "Design",
-                            UpdatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1801)
+                            UpdatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(696)
                         },
                         new
                         {
                             Id = 42,
-                            CreatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1802),
+                            CreatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(697),
                             Name = "Gaming News",
-                            UpdatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1802)
+                            UpdatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(697)
                         },
                         new
                         {
                             Id = 43,
-                            CreatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1803),
+                            CreatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(698),
                             Name = "PC Gaming",
-                            UpdatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1803)
+                            UpdatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(698)
                         },
                         new
                         {
                             Id = 44,
-                            CreatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1804),
+                            CreatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(699),
                             Name = "Console Gaming",
-                            UpdatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1805)
+                            UpdatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(699)
                         },
                         new
                         {
                             Id = 45,
-                            CreatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1806),
+                            CreatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(700),
                             Name = "Mobile Gaming",
-                            UpdatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1806)
+                            UpdatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(701)
                         },
                         new
                         {
                             Id = 46,
-                            CreatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1807),
+                            CreatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(702),
                             Name = "Esports",
-                            UpdatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1807)
+                            UpdatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(702)
                         },
                         new
                         {
                             Id = 47,
-                            CreatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1809),
+                            CreatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(704),
                             Name = "Music News",
-                            UpdatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1809)
+                            UpdatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(704)
                         },
                         new
                         {
                             Id = 48,
-                            CreatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1810),
+                            CreatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(705),
                             Name = "Hip-Hop",
-                            UpdatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1811)
+                            UpdatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(705)
                         },
                         new
                         {
                             Id = 49,
-                            CreatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1811),
+                            CreatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(706),
                             Name = "Rock",
-                            UpdatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1812)
+                            UpdatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(707)
                         },
                         new
                         {
                             Id = 50,
-                            CreatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1813),
+                            CreatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(771),
                             Name = "Pop Culture",
-                            UpdatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1813)
+                            UpdatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(771)
                         },
                         new
                         {
                             Id = 51,
-                            CreatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1814),
+                            CreatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(772),
                             Name = "Fitness Motivation",
-                            UpdatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1814)
+                            UpdatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(773)
                         },
                         new
                         {
                             Id = 52,
-                            CreatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1815),
+                            CreatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(774),
                             Name = "Nutrition",
-                            UpdatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1815)
+                            UpdatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(774)
                         },
                         new
                         {
                             Id = 53,
-                            CreatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1816),
+                            CreatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(775),
                             Name = "Weightlifting",
-                            UpdatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1816)
+                            UpdatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(775)
                         },
                         new
                         {
                             Id = 54,
-                            CreatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1817),
+                            CreatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(776),
                             Name = "Yoga",
-                            UpdatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1818)
+                            UpdatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(777)
                         },
                         new
                         {
                             Id = 55,
-                            CreatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1818),
+                            CreatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(778),
                             Name = "Running",
-                            UpdatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1819)
+                            UpdatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(778)
                         },
                         new
                         {
                             Id = 56,
-                            CreatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1847),
+                            CreatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(779),
                             Name = "Cycling",
-                            UpdatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1848)
+                            UpdatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(779)
                         },
                         new
                         {
                             Id = 57,
-                            CreatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1849),
+                            CreatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(780),
                             Name = "CrossFit",
-                            UpdatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1849)
+                            UpdatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(781)
                         },
                         new
                         {
                             Id = 58,
-                            CreatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1850),
+                            CreatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(782),
                             Name = "Bodybuilding",
-                            UpdatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1850)
+                            UpdatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(782)
                         },
                         new
                         {
                             Id = 59,
-                            CreatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1851),
+                            CreatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(783),
                             Name = "Productivity",
-                            UpdatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1852)
+                            UpdatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(783)
                         },
                         new
                         {
                             Id = 60,
-                            CreatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1852),
+                            CreatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(784),
                             Name = "Self-improvement",
-                            UpdatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1853)
+                            UpdatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(784)
                         },
                         new
                         {
                             Id = 61,
-                            CreatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1854),
+                            CreatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(785),
                             Name = "Meditation",
-                            UpdatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1854)
+                            UpdatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(786)
                         },
                         new
                         {
                             Id = 62,
-                            CreatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1855),
+                            CreatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(787),
                             Name = "Mindfulness",
-                            UpdatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1855)
+                            UpdatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(787)
                         },
                         new
                         {
                             Id = 63,
-                            CreatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1856),
+                            CreatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(788),
                             Name = "Motivation",
-                            UpdatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1857)
+                            UpdatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(788)
                         },
                         new
                         {
                             Id = 64,
-                            CreatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1858),
+                            CreatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(789),
                             Name = "Self-care",
-                            UpdatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1858)
+                            UpdatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(789)
                         },
                         new
                         {
                             Id = 65,
-                            CreatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1859),
+                            CreatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(790),
                             Name = "Cooking",
-                            UpdatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1859)
+                            UpdatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(791)
                         },
                         new
                         {
                             Id = 66,
-                            CreatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1861),
+                            CreatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(793),
                             Name = "Baking",
-                            UpdatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1861)
+                            UpdatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(793)
                         },
                         new
                         {
                             Id = 67,
-                            CreatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1862),
+                            CreatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(794),
                             Name = "Grilling",
-                            UpdatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1862)
+                            UpdatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(794)
                         },
                         new
                         {
                             Id = 68,
-                            CreatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1863),
+                            CreatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(795),
                             Name = "Veganism",
-                            UpdatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1863)
+                            UpdatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(795)
                         },
                         new
                         {
                             Id = 69,
-                            CreatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1864),
+                            CreatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(796),
                             Name = "Vegetarianism",
-                            UpdatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1864)
+                            UpdatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(797)
                         },
                         new
                         {
                             Id = 70,
-                            CreatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1865),
+                            CreatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(798),
                             Name = "Meal Prep",
-                            UpdatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1866)
+                            UpdatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(798)
                         },
                         new
                         {
                             Id = 71,
-                            CreatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1867),
+                            CreatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(799),
                             Name = "Gardening",
-                            UpdatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1867)
+                            UpdatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(799)
                         },
                         new
                         {
                             Id = 72,
-                            CreatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1868),
+                            CreatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(800),
                             Name = "Home Improvement",
-                            UpdatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1868)
+                            UpdatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(800)
                         },
                         new
                         {
                             Id = 73,
-                            CreatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1869),
+                            CreatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(801),
                             Name = "Interior Design",
-                            UpdatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1869)
+                            UpdatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(802)
                         },
                         new
                         {
                             Id = 74,
-                            CreatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1870),
+                            CreatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(802),
                             Name = "Real Estate",
-                            UpdatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1871)
+                            UpdatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(803)
                         },
                         new
                         {
                             Id = 75,
-                            CreatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1871),
+                            CreatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(804),
                             Name = "Personal Finance Tips",
-                            UpdatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1872)
+                            UpdatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(804)
                         },
                         new
                         {
                             Id = 76,
-                            CreatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1873),
+                            CreatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(805),
                             Name = "Investing",
-                            UpdatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1873)
+                            UpdatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(805)
                         },
                         new
                         {
                             Id = 77,
-                            CreatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1874),
+                            CreatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(806),
                             Name = "Stock Market",
-                            UpdatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1874)
+                            UpdatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(807)
                         },
                         new
                         {
                             Id = 78,
-                            CreatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1875),
+                            CreatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(808),
                             Name = "Cryptocurrency Trading",
-                            UpdatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1875)
+                            UpdatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(808)
                         },
                         new
                         {
                             Id = 79,
-                            CreatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1876),
+                            CreatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(809),
                             Name = "Entrepreneur Stories",
-                            UpdatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1876)
+                            UpdatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(809)
                         },
                         new
                         {
                             Id = 80,
-                            CreatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1877),
+                            CreatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(810),
                             Name = "Startups",
-                            UpdatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1878)
+                            UpdatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(810)
                         },
                         new
                         {
                             Id = 81,
-                            CreatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1878),
+                            CreatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(811),
                             Name = "Small Business",
-                            UpdatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1879)
+                            UpdatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(812)
                         },
                         new
                         {
                             Id = 82,
-                            CreatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1880),
+                            CreatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(813),
                             Name = "Marketing",
-                            UpdatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1880)
+                            UpdatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(813)
                         },
                         new
                         {
                             Id = 83,
-                            CreatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1881),
+                            CreatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(814),
                             Name = "Social Media",
-                            UpdatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1881)
+                            UpdatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(814)
                         },
                         new
                         {
                             Id = 84,
-                            CreatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1882),
+                            CreatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(815),
                             Name = "Podcasts",
-                            UpdatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1882)
+                            UpdatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(815)
                         },
                         new
                         {
                             Id = 85,
-                            CreatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1884),
+                            CreatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(817),
                             Name = "Writing Prompts",
-                            UpdatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1885)
+                            UpdatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(818)
                         },
                         new
                         {
                             Id = 86,
-                            CreatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1886),
+                            CreatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(819),
                             Name = "Fantasy",
-                            UpdatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1886)
+                            UpdatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(819)
                         },
                         new
                         {
                             Id = 87,
-                            CreatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1887),
+                            CreatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(820),
                             Name = "Science Fiction",
-                            UpdatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1887)
+                            UpdatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(821)
                         },
                         new
                         {
                             Id = 88,
-                            CreatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1888),
+                            CreatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(822),
                             Name = "Horror",
-                            UpdatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1888)
+                            UpdatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(822)
                         },
                         new
                         {
                             Id = 89,
-                            CreatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1889),
+                            CreatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(823),
                             Name = "Thrillers",
-                            UpdatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1889)
+                            UpdatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(824)
                         },
                         new
                         {
                             Id = 90,
-                            CreatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1890),
+                            CreatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(825),
                             Name = "True Crime",
-                            UpdatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1891)
+                            UpdatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(825)
                         },
                         new
                         {
                             Id = 91,
-                            CreatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1891),
+                            CreatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(826),
                             Name = "Paranormal",
-                            UpdatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1892)
+                            UpdatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(826)
                         },
                         new
                         {
                             Id = 92,
-                            CreatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1893),
+                            CreatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(827),
                             Name = "Comics",
-                            UpdatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1893)
+                            UpdatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(828)
                         },
                         new
                         {
                             Id = 93,
-                            CreatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1894),
+                            CreatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(829),
                             Name = "Anime",
-                            UpdatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1894)
+                            UpdatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(829)
                         },
                         new
                         {
                             Id = 94,
-                            CreatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1895),
+                            CreatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(830),
                             Name = "Manga",
-                            UpdatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1895)
+                            UpdatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(830)
                         },
                         new
                         {
                             Id = 95,
-                            CreatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1896),
+                            CreatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(831),
                             Name = "Board Games",
-                            UpdatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1897)
+                            UpdatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(831)
                         },
                         new
                         {
                             Id = 96,
-                            CreatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1898),
+                            CreatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(832),
                             Name = "Card Games",
-                            UpdatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1898)
+                            UpdatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(833)
                         },
                         new
                         {
                             Id = 97,
-                            CreatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1899),
+                            CreatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(834),
                             Name = "Tabletop RPGs",
-                            UpdatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1899)
+                            UpdatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(834)
                         },
                         new
                         {
                             Id = 98,
-                            CreatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1900),
+                            CreatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(835),
                             Name = "Travel Photography",
-                            UpdatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1900)
+                            UpdatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(835)
                         },
                         new
                         {
                             Id = 99,
-                            CreatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1901),
+                            CreatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(836),
                             Name = "Outdoor Adventures",
-                            UpdatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1901)
+                            UpdatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(836)
                         },
                         new
                         {
                             Id = 100,
-                            CreatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1902),
+                            CreatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(837),
                             Name = "Celebrities",
-                            UpdatedAt = new DateTime(2023, 6, 12, 22, 4, 0, 256, DateTimeKind.Local).AddTicks(1902)
+                            UpdatedAt = new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(838)
                         });
                 });
 
@@ -1915,7 +1946,7 @@ namespace Screamer.Presistance.Migrations
                         {
                             Id = "8e445865-a24d-4543-a6c6-9443d048cdb9",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "eda86826-8f1b-4b6d-8017-a1ba15bcc4c5",
+                            ConcurrencyStamp = "af185007-d3fc-4972-b353-9d8f8f728f01",
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "admin@localhost.com",
                             EmailConfirmed = true,
@@ -1924,9 +1955,9 @@ namespace Screamer.Presistance.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@LOCALHOST.COM",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAIAAYagAAAAEC9IJYaGa0HAXJBxGRFlY/gPmbNsbCowVw4yAJUiJfdLZT3mtlYe7wQ+D2luBcS0Fg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEDZNeTl2DVnTOA8+5/bict6rFWi0hpKDyPXaq+7natLiqxFfnFyxSzEQSwWeKJpq6g==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "130f4174-c871-4631-a3b7-188cf2f846ed",
+                            SecurityStamp = "65e2ed74-c5c0-4dd7-aee3-362d7d716032",
                             TwoFactorEnabled = false,
                             UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UserName = "admin"
@@ -1935,7 +1966,7 @@ namespace Screamer.Presistance.Migrations
                         {
                             Id = "9e224968-33e4-4652-b7b7-8574d048cdb9",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "48561fbb-06dd-41d0-b368-4be03f82d4d0",
+                            ConcurrencyStamp = "f4da16bc-5f74-456c-9f7c-6c62b90f2215",
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "user@localhost.com",
                             EmailConfirmed = true,
@@ -1944,9 +1975,9 @@ namespace Screamer.Presistance.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "USER@LOCALHOST.COM",
                             NormalizedUserName = "USER",
-                            PasswordHash = "AQAAAAIAAYagAAAAEERfAJKt1WrVRXbtJLfL7WHK2qrq09gmEw+uG7xeVhWSNYnKAIvAI20Icl5f1JsSaA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEJ/jl1VD2v1Khm0XAAgjH+JGeHTZaSu+emf+9OV2HP59i7t897sLEXIwuzpR9GgaIw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "672cc3ea-179a-4d7c-8d24-8d75c8ed736e",
+                            SecurityStamp = "8c2d0087-fff6-40ba-ad51-224d17d8977e",
                             TwoFactorEnabled = false,
                             UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UserName = "user"
@@ -1955,7 +1986,7 @@ namespace Screamer.Presistance.Migrations
                         {
                             Id = "9e224968-33e4-4652-b7b7-agfddsr",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "ee251eb4-b769-405f-924f-59a414f6e870",
+                            ConcurrencyStamp = "283413d5-a5eb-4dac-adf2-e729f6d5d19b",
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "mod@localhost.com",
                             EmailConfirmed = true,
@@ -1964,9 +1995,9 @@ namespace Screamer.Presistance.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "MOD@LOCALHOST.COM",
                             NormalizedUserName = "MOD",
-                            PasswordHash = "AQAAAAIAAYagAAAAELDVHDzAAmUr5ECjDMWHgZBZHSefjBqrOVqN52qpCoTn40kPjAeuAIh5m3rIisi03g==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEMzVSHMmTM4b1Cr07ArAailTUXE3pz/Ai0xsKDGn8s0kC+n7rTsuW6p8pJJS7YdmfA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "864d0f46-92ad-4e1f-853f-7d17bc2b6f18",
+                            SecurityStamp = "bbc7f7c2-bee8-4f74-8639-1b63691866f1",
                             TwoFactorEnabled = false,
                             UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UserName = "mod"
@@ -1975,7 +2006,7 @@ namespace Screamer.Presistance.Migrations
                         {
                             Id = "9e224968-33e4-4652-b7b7-ismailbentabett",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "53c0dcc1-45eb-4e51-9bd9-48d612aeb18d",
+                            ConcurrencyStamp = "5286b8c6-2c4b-4fd7-a3ba-49de4d5fd8c7",
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "ismailbentabett@gmail.com",
                             EmailConfirmed = false,
@@ -1984,9 +2015,9 @@ namespace Screamer.Presistance.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ISMAILBENTABETT@GMAIL.COM",
                             NormalizedUserName = "ISMAILBENTABETT",
-                            PasswordHash = "AQAAAAIAAYagAAAAEMHOl9+/+K9jtqELNpD9RWbSqj81Ki6A21lsMLmx/OZ8w7GxmEjZORcMTikrcMPPrA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEPvGnQJQmZ1C5li4QpufAh3rDmxOcFaX7sygagKlxN4B0NtxAOp8g+998WOZj3q/Kg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "65f215fb-abae-4ba3-85e7-b8cb1c4a4984",
+                            SecurityStamp = "b1cf0e4a-2be4-4aec-9f97-e7755c38cc3b",
                             TwoFactorEnabled = false,
                             UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UserName = "ismailbentabett"
@@ -2075,6 +2106,24 @@ namespace Screamer.Presistance.Migrations
                     b.HasOne("Screamer.Identity.Models.ApplicationUser", "User")
                         .WithOne("Adress")
                         .HasForeignKey("Screamer.Domain.Entities.Adress", "UserId");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Screamer.Domain.Entities.BookMark", b =>
+                {
+                    b.HasOne("Screamer.Domain.Common.Post", "Post")
+                        .WithMany("BookMarks")
+                        .HasForeignKey("PostId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Screamer.Identity.Models.ApplicationUser", "User")
+                        .WithMany("BookMarks")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.Navigation("Post");
 
                     b.Navigation("User");
                 });
@@ -2367,6 +2416,8 @@ namespace Screamer.Presistance.Migrations
 
             modelBuilder.Entity("Screamer.Domain.Common.Post", b =>
                 {
+                    b.Navigation("BookMarks");
+
                     b.Navigation("Comments");
 
                     b.Navigation("Mentions");
@@ -2430,6 +2481,8 @@ namespace Screamer.Presistance.Migrations
                     b.Navigation("Adress");
 
                     b.Navigation("Avatars");
+
+                    b.Navigation("BookMarks");
 
                     b.Navigation("ChatRoomUsers");
 

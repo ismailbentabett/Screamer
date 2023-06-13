@@ -5,7 +5,6 @@ namespace Screamer.Application.Contracts.Presistance
 {
     public interface IUnitOfWork
     {
-
         IUserRepository UserRepository { get; }
         IPostRepository PostRepository { get; }
         IAvatarRepository AvatarRepository { get; }
@@ -22,7 +21,7 @@ namespace Screamer.Application.Contracts.Presistance
         ICommentRepository CommentRepository { get; }
 
         IHashtagRepository HashtagRepository { get; }
-        
+
         IMoodRepository MoodRepository { get; }
 
         ICategoryRepository CategoryRepository { get; }
@@ -30,6 +29,8 @@ namespace Screamer.Application.Contracts.Presistance
         IStoryRepository StoryRepository { get; }
 
         IStoryImageRepository StoryImageRepository { get; }
+
+        IBookMarkRepository BookMarkRepository { get; }
 
         Task<bool> Complete();
         bool HasChanges();

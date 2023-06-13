@@ -40,5 +40,6 @@ namespace Screamer.Domain.Common
 
         public ICollection<PostHashtag> PostHashtags { get; set; } = new List<PostHashtag>();
         public ICollection<PostMention> Mentions { get; set; } = new List<PostMention>();
+        public ICollection<BookMark> BookMarks { get; set; } = new List<BookMark>();
     }
 }

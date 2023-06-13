@@ -42,6 +42,8 @@ namespace Screamer.Presistance.Repositories
 
         public IStoryRepository StoryRepository => new StoryRepository(_context);
 
+        public IBookMarkRepository BookMarkRepository => new BookMarkRepository(_context);
+
         public IStoryImageRepository StoryImageRepository => throw new NotImplementedException();
 
         public async Task<bool> Complete()

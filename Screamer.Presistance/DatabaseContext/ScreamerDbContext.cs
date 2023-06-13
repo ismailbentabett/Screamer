@@ -24,6 +24,7 @@ namespace Screamer.Presistance.DatabaseContext
 
         public DbSet<Follow> Follows { get; set; }
         public DbSet<PostReaction> PostReactions { get; set; }
+        public DbSet<BookMark> BookMarks { get; set; }
         public DbSet<CommentReaction> CommentReactions { get; set; }
 
         public DbSet<Comment> Comments { get; set; }
@@ -158,6 +159,20 @@ namespace Screamer.Presistance.DatabaseContext
                 .WithMany(c => c.Tags)
                 .HasForeignKey(bc => bc.UserId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+                      modelBuilder
+                .Entity<BookMark>()
+                .HasOne(bc => bc.Post)
+                .WithMany(b => b.BookMarks)
+                .HasForeignKey(bc => bc.PostId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder
+                .Entity<BookMark>()
+                .HasOne(bc => bc.User)
+                .WithMany(c => c.BookMarks)
+                .HasForeignKey(bc => bc.UserId)
+                .OnDelete(DeleteBehavior.Restrict);   
 
             modelBuilder
                 .Entity<PostMention>()
