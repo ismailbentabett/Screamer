@@ -1,4 +1,4 @@
-import { Component, Input, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { take } from 'rxjs';
 import { User } from 'src/app/core/models/User';
@@ -54,6 +54,13 @@ import { CategoryService } from 'src/app/core/services/category.service';
 export class AddPostFormComponent {
   @Input() post: any = null;
   @Input() edit: boolean = false;
+
+  @Output () editEvent  = new EventEmitter<boolean>();
+
+  toggleEdit() {
+    this.edit = !this.edit;
+    this.editEvent.emit(this.edit);
+  }
 
   user!: User;
   form: any;

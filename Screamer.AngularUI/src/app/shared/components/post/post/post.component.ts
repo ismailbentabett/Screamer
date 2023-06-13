@@ -98,6 +98,10 @@ export class PostComponent {
     this.edit = !this.edit;
   }
 
+  chnageEdit(data: boolean) {
+    this.edit = data;
+  }
+
   isOnCurrentPost() {
     return this.router.url == '/v/post/' + this.post.id;
   }

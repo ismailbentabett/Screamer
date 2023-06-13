@@ -353,9 +353,10 @@
     </div>
   </article>
   <app-add-post
-    [edit]="true"
+    [edit]="edit"
     *ngIf="edit"
     [post]="edit == true ? post : null"
+    (editEvent)="chnageEdit($event)"
   ></app-add-post>
 
   <div
