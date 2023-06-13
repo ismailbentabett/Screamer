@@ -21,10 +21,13 @@ namespace Screamer.Presistance.Repositories
 
         public async Task<List<Story>> GetAllStoriesAsync()
         {
+            var currentTimeMinus24Hours = DateTime.UtcNow.AddHours(-24);
+
             return await _context.Storys
                 .Include(story => story.StoryImages)
                 .Include(c => c.User)
                 .ThenInclude(c => c.Avatars)
+                .Where(story => story.CreatedAt >= currentTimeMinus24Hours)
                 .ToListAsync();
         }
 

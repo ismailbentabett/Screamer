@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { bigEarsNeutral } from '@dicebear/collection';
+import { createAvatar } from '@dicebear/core';
 import { map } from 'lodash';
 import { StoryService } from 'src/app/core/services/story.service';
 
@@ -15,16 +17,20 @@ export class StoryComponent {
 
   ngOnInit() {
     this.storyService.getStories().subscribe((res: any) => {
-      this.myStories = map(res, (story: any) => {
+      let data = map(res, (story: any) => {
         console.log(res);
         return {
+          userId: story.user.id,
           escort_id: story.id,
           escort: {
             user: {
               name: story.user.userName,
             },
             profile_picture: {
-              url: story.user.avatars[0].url,
+              url:
+                story.user.avatars.length > 0
+                  ? story.user.avatars[0].url
+                  : `https://api.dicebear.com/6.x/big-ears-neutral/svg?seed=${story.user?.userName}`,
             },
           },
           stories: story.storyImages.map((storyImage: any) => {
@@ -38,7 +44,35 @@ export class StoryComponent {
             };
           }),
         };
-      }).filter((story: any) => story.stories.length > 0);
+      });
+
+      this.myStories = Object.values(
+        data.reduce((acc: any, story: any) => {
+          const userId = story.userId;
+
+          if (acc[userId]) {
+            // User already exists, merge stories
+            acc[userId].stories.push(...story.stories);
+          } else {
+            // Create new user entry
+            acc[userId] = {
+              escort_id: story.escort_id,
+              escort: {
+                user: {
+                  name: story.escort.user.name,
+                },
+                profile_picture: {
+                  url: story.escort.profile_picture.url,
+                },
+              },
+              stories: story.stories,
+            };
+          }
+
+          return acc;
+        }, {})
+      );
+      //merge by userId
 
       this.loadStories(this.myStories);
       this.initStories();

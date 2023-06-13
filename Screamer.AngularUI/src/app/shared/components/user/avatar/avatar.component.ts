@@ -13,44 +13,33 @@ import { HttpBackend, HttpClient } from '@angular/common/http';
 })
 export class AvatarComponent {
   @Input() url?: string;
-  @Input() user?: User;
+  @Input() user?: any;
   @Input() avatarStyle?: string;
-
 
   avatar: any;
   private httpClient: HttpClient;
 
-  constructor(public presenceService : PresenceService ,
-    private handler: HttpBackend,
-
-    ) {
-
-      this.httpClient = new HttpClient(handler);
-
+  constructor(
+    public presenceService: PresenceService,
+    private handler: HttpBackend
+  ) {
+    this.httpClient = new HttpClient(handler);
   }
 
   ngOnInit(): void {
     const url = createAvatar(bigEarsNeutral, {
-      seed: `
-      ${this.user?.firstName} ${this.user?.lastName}
-      `,
+      seed: `${this.user?.userName}`,
 
       // ... other options
     }).toString();
 
     this.avatar = 'data:image/svg+xml;utf8,' + encodeURIComponent(url);
-
-
   }
 
-  getAvatar ()
-  {
-    if(this.user?.avatarUrl)
-    {
+  getAvatar() {
+    if (this.user?.avatarUrl) {
       return this.user?.avatarUrl;
-    }
-    else
-    {
+    } else {
       return this.avatar;
     }
   }
