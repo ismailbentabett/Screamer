@@ -23,12 +23,22 @@ export class StoryEditorComponent {
   public uploader!: FileUploader;
   private uploadedImageUrl: string = '';
   currentUser: any;
+  userData: any;
 
   constructor(
     private storyService: StoryService,
     private userService: UserService,
     private authService: AuthenticationService
-  ) {}
+  ) {
+    this.userService
+      .getCurrentUserData()
+      .pipe(take(1))
+      .subscribe({
+        next: (user: any) => {
+          this.userData = user;
+        },
+      });
+  }
 
   ngAfterViewInit() {
     this.initializeUploader();

@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { map } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -21,5 +22,9 @@ export class StoryService {
 
   AddStory(story: any) {
     return this.http.post(this.baseUrl + 'Story', story);
+  }
+
+  getStories() {
+    return this.http.get(this.baseUrl + 'Story')
   }
 }

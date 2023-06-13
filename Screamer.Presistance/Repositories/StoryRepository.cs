@@ -21,7 +21,11 @@ namespace Screamer.Presistance.Repositories
 
         public async Task<List<Story>> GetAllStoriesAsync()
         {
-            return await _context.Storys.Include(story => story.StoryImages).ToListAsync();
+            return await _context.Storys
+                .Include(story => story.StoryImages)
+                .Include(c => c.User)
+                .ThenInclude(c => c.Avatars)
+                .ToListAsync();
         }
 
         public async Task<List<Story>> GetStoriesByFollowingAsync(string userId)

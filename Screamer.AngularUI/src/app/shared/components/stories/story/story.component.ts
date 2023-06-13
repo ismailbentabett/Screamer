@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { map } from 'lodash';
+import { StoryService } from 'src/app/core/services/story.service';
 
 import { Zuck } from 'zuck.js';
 
@@ -9,15 +11,47 @@ import { Zuck } from 'zuck.js';
 })
 export class StoryComponent {
   orderedStories: any[] = [];
+  myStories: any;
 
   ngOnInit() {
-    this.loadStories();
-    this.initStories();
+    this.storyService.getStories().subscribe((res: any) => {
+      this.myStories = map(res, (story: any) => {
+        console.log(res);
+        return {
+          escort_id: story.id,
+          escort: {
+            user: {
+              name: story.user.userName,
+            },
+            profile_picture: {
+              url: story.user.avatars[0].url,
+            },
+          },
+          stories: story.storyImages.map((storyImage: any) => {
+            return {
+              type: 'PIC',
+              upload: {
+                url: storyImage.url ?? '',
+              },
+              updated_at: '2023-06-10T10:30:00.000Z',
+              text: 'First story',
+            };
+          }),
+        };
+      }).filter((story: any) => story.stories.length > 0);
+
+      this.loadStories(this.myStories);
+      this.initStories();
+    });
   }
 
-  loadStories() {
-    // Dummy data array representing stories fetched from the backend
-    const stories = [
+  constructor(public storyService: StoryService) {}
+
+  getStories() {}
+
+  loadStories(myStories: any) {
+    console.log('myStories', myStories);
+    /*     const stories = [
       {
         escort_id: '1',
         escort: {
@@ -37,47 +71,19 @@ export class StoryComponent {
             updated_at: '2023-06-10T10:30:00.000Z',
             text: 'First story',
           },
-          {
-            type: 'PIC',
-            upload: {
-              url: 'photo1.jpg',
-            },
-            updated_at: '2023-06-10T10:30:00.000Z',
-            text: 'First story',
-          },
-          {
-            type: 'PIC',
-            upload: {
-              url: 'photo1.jpg',
-            },
-            updated_at: '2023-06-10T10:30:00.000Z',
-            text: 'First story',
-          },
-          {
-            type: 'PIC',
-            upload: {
-              url: 'photo1.jpg',
-            },
-            updated_at: '2023-06-10T10:30:00.000Z',
-            text: 'First story',
-          },
-          // Add more stories for this user
         ],
       },
-      // Add more users with their stories here
-    ];
+    ]; */
 
-    stories.forEach((userStory) => {
+    myStories.forEach((userStory: any) => {
       const escortId = userStory.escort_id;
       const escortName = userStory.escort.user.name;
-      const escortAvatar = userStory.escort.profile_picture
-        ? '/' + userStory.escort.profile_picture.url
-        : '/img/defaultAvatar.png';
+      const escortAvatar = userStory.escort.profile_picture.url;
 
-      const userStories = userStory.stories.map((story) => {
+      const userStories = userStory.stories.map((story: any) => {
         const storyType = story.type === 'PIC' ? 'photo' : 'video';
         const storyLength = storyType === 'video' ? 0 : 10;
-        const storySrc = '/' + story.upload.url;
+        const storySrc = story.upload.url;
         const storyTime = new Date(story.updated_at).getTime() / 1000;
         const storyText = story.text ? story.text : '';
 
@@ -98,7 +104,7 @@ export class StoryComponent {
       if (existingStory) {
         existingStory.items.push(...userStories);
         const latestStoryTime = Math.max(
-          ...userStories.map((story) => story.time)
+          ...userStories.map((story: any) => story.time)
         );
         if (existingStory.lastUpdated > latestStoryTime) {
           existingStory.lastUpdated = latestStoryTime;
@@ -108,7 +114,7 @@ export class StoryComponent {
           id: parseInt(escortId),
           photo: escortAvatar,
           link: '/profile/' + escortId,
-          lastUpdated: Math.max(...userStories.map((story) => story.time)),
+          lastUpdated: Math.max(...userStories.map((story: any) => story.time)),
           name: escortName,
           items: userStories,
         };

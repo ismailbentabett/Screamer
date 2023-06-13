@@ -1,24 +1,24 @@
 <div class="overflow-hidden sm:flex flex-col sm:items-start">
   <!-- This example requires Tailwind CSS v2.0+ -->
-  <div class="w-full bg-white px-4 py-5 border-b border-gray-200 sm:px-6">
+  <div class="w-full bg-white px-4 py-5 border-b border-gray-200 sm:px-6" *ngIf="userData">
     <div
       class="-ml-4 -mt-4 flex justify-between items-center flex-wrap sm:flex-nowrap"
     >
       <div class="ml-4 mt-4">
         <div class="flex items-center">
           <div class="flex-shrink-0">
-            <img
-              class="h-12 w-12 rounded-full"
-              src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-              alt=""
-            />
+            <app-avatar
+            *ngIf="userData"
+            [user]="userData"
+            avatarStyle="h-8 w-8 rounded-full ring-4 ring-white sm:h-10 sm:w-10"
+          ></app-avatar>
           </div>
           <div class="ml-4">
             <h3 class="text-lg leading-6 font-medium text-gray-900">
-              Tom Cook
+              {{userData.firstName}} {{userData.lastName}}
             </h3>
             <p class="text-sm text-gray-500">
-              <a href="#"> @tom_cook </a>
+              <a href="#"> @{{userData.userName}} </a>
             </p>
           </div>
         </div>
@@ -50,14 +50,13 @@
             <input
               ng2FileSelect
               [uploader]="uploader"
-              multiple
               type="file"
               class="hidden"
             />
           </label>
         </button>
         <button
-          class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm"
+          class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-dodger-blue-600 text-base font-medium text-white hover:bg-dodger-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-dodger-blue-500 sm:ml-3 sm:w-auto sm:text-sm"
           (click)="applyChanges()"
         >
           Apply Changes

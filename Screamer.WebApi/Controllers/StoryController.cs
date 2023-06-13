@@ -9,6 +9,7 @@ using Screamer.Application.Features.StoryRequest.Commands.AddStoryRequest;
 using Screamer.Application.Features.StoryRequest.Commands.DeleteStoryRequest;
 using  Screamer.Application.Features.StoryRequest;
 using MediatR;
+
 namespace Screamer.WebApi.Controllers
 {
     [ApiController]
@@ -82,7 +83,7 @@ namespace Screamer.WebApi.Controllers
             return NoContent();
         }
 
-        [HttpGet]
+       [HttpGet]
         public async Task<IActionResult> GetAllStories()
         {
             var query = new GetAllStoriesRequestQuery();
@@ -91,7 +92,8 @@ namespace Screamer.WebApi.Controllers
 
             return Ok(result);
         }
- [HttpGet]
+
+        [HttpGet("by-following/{id}")]
         public async Task<IActionResult> GetStoriesByFollowing(string userId)
         {
             var query = new GetStoriesByFollowingRequestQuery { UserId = userId };
@@ -100,6 +102,10 @@ namespace Screamer.WebApi.Controllers
 
             return Ok(result);
         }
+ 
+      
 
     }
+
+ 
 }
