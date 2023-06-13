@@ -80,6 +80,7 @@ import { StoriesCarouselComponent } from './components/stories/stories-carousel/
 import { StoryComponent } from './components/stories/story/story.component';
 import { StoryEditorComponent } from './components/stories/story-editor/story-editor.component';
 import { StoryEditorFullscreenModalComponent } from './components/stories/story-editor-fullscreen-modal/story-editor-fullscreen-modal.component';
+import { FloatingActionButtonComponent } from './components/action/floating-action-button/floating-action-button.component';
 
 @NgModule({
   declarations: [
@@ -138,6 +139,7 @@ import { StoryEditorFullscreenModalComponent } from './components/stories/story-
     StoryComponent,
     StoryEditorComponent,
     StoryEditorFullscreenModalComponent,
+    FloatingActionButtonComponent,
   ],
   imports: [
     CommonModule,
@@ -209,6 +211,7 @@ import { StoryEditorFullscreenModalComponent } from './components/stories/story-
     StoryComponent,
     StoryEditorComponent,
     StoryEditorFullscreenModalComponent,
+    FloatingActionButtonComponent,
 
   ],
   providers: [
