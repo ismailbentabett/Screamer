@@ -16,9 +16,7 @@ import { Zuck } from 'zuck.js';
 export class StoryComponent {
   orderedStories: any[] = [];
   myStories: any;
-  openModal() {
-    this.storyService.openPopup();
-  }
+
   ngOnInit() {
     this.userService
       .getCurrentUserData()
