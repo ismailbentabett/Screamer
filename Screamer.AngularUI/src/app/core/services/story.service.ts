@@ -24,7 +24,9 @@ export class StoryService {
     return this.http.post(this.baseUrl + 'Story', story);
   }
 
-  getStories() {
-    return this.http.get(this.baseUrl + 'Story')
+  getStories(currentUserId: any) {
+    return this.http.get(
+      this.baseUrl + 'Story/by-following?userId=' + currentUserId
+    );
   }
 }

@@ -33,16 +33,23 @@ namespace Screamer.Presistance.Repositories
 
         public async Task<List<Story>> GetStoriesByFollowingAsync(string userId)
         {
-            //get user by id
-            var user = await _context.Users
-                .Include(u => u.Followers)
-                .Include(u => u.Following)
-                .FirstOrDefaultAsync(u => u.Id == userId);
+            var currentTimeMinus24Hours = DateTime.UtcNow.AddHours(-24);
+
+            var follows = _context.Follows.AsQueryable();
+
+            follows = follows.Where(follow => follow.SourceUserId == userId);
+
+           var  users = follows.Select(follow => follow.TargetUser);
 
             return await _context.Storys
                 .Include(story => story.StoryImages)
+                .Include(c => c.User)
+                .ThenInclude(c => c.Avatars)
                 .Where(
-                    story => user.Following.Any(following => following.SourceUserId == story.UserId)
+                    story =>
+                        users.Any(u => u.Id == story.UserId)
+                        || story.UserId == userId
+                        && story.CreatedAt >= currentTimeMinus24Hours
                 )
                 .ToListAsync();
         }

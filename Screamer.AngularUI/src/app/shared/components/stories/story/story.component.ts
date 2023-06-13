@@ -2,7 +2,9 @@ import { Component } from '@angular/core';
 import { bigEarsNeutral } from '@dicebear/collection';
 import { createAvatar } from '@dicebear/core';
 import { map } from 'lodash';
+import { take } from 'rxjs';
 import { StoryService } from 'src/app/core/services/story.service';
+import { UserService } from 'src/app/core/services/user.service';
 
 import { Zuck } from 'zuck.js';
 
@@ -16,70 +18,80 @@ export class StoryComponent {
   myStories: any;
 
   ngOnInit() {
-    this.storyService.getStories().subscribe((res: any) => {
-      let data = map(res, (story: any) => {
-        console.log(res);
-        return {
-          userId: story.user.id,
-          escort_id: story.id,
-          escort: {
-            user: {
-              name: story.user.userName,
-            },
-            profile_picture: {
-              url:
-                story.user.avatars.length > 0
-                  ? story.user.avatars[0].url
-                  : `https://api.dicebear.com/6.x/big-ears-neutral/svg?seed=${story.user?.userName}`,
-            },
-          },
-          stories: story.storyImages.map((storyImage: any) => {
-            return {
-              type: 'PIC',
-              upload: {
-                url: storyImage.url ?? '',
-              },
-              updated_at: '2023-06-10T10:30:00.000Z',
-              text: 'First story',
-            };
-          }),
-        };
+    this.userService
+      .getCurrentUserData()
+      .pipe(take(1))
+      .subscribe({
+        next: (currentUser: any) => {
+          this.storyService.getStories(currentUser.id).subscribe((res: any) => {
+            let data = map(res, (story: any) => {
+              console.log(res);
+              return {
+                userId: story.user.id,
+                escort_id: story.id,
+                escort: {
+                  user: {
+                    name: story.user.userName,
+                  },
+                  profile_picture: {
+                    url:
+                      story.user.avatars.length > 0
+                        ? story.user.avatars[0].url
+                        : `https://api.dicebear.com/6.x/big-ears-neutral/svg?seed=${story.user?.userName}`,
+                  },
+                },
+                stories: story.storyImages.map((storyImage: any) => {
+                  return {
+                    type: 'PIC',
+                    upload: {
+                      url: storyImage.url ?? '',
+                    },
+                    updated_at: '2023-06-10T10:30:00.000Z',
+                    text: 'First story',
+                  };
+                }),
+              };
+            });
+
+            this.myStories = Object.values(
+              data.reduce((acc: any, story: any) => {
+                const userId = story.userId;
+
+                if (acc[userId]) {
+                  // User already exists, merge stories
+                  acc[userId].stories.push(...story.stories);
+                } else {
+                  // Create new user entry
+                  acc[userId] = {
+                    escort_id: story.escort_id,
+                    escort: {
+                      user: {
+                        name: story.escort.user.name,
+                      },
+                      profile_picture: {
+                        url: story.escort.profile_picture.url,
+                      },
+                    },
+                    stories: story.stories,
+                  };
+                }
+
+                return acc;
+              }, {})
+            );
+            //merge by userId
+
+            this.loadStories(this.myStories);
+            this.initStories();
+          });
+        },
       });
-
-      this.myStories = Object.values(
-        data.reduce((acc: any, story: any) => {
-          const userId = story.userId;
-
-          if (acc[userId]) {
-            // User already exists, merge stories
-            acc[userId].stories.push(...story.stories);
-          } else {
-            // Create new user entry
-            acc[userId] = {
-              escort_id: story.escort_id,
-              escort: {
-                user: {
-                  name: story.escort.user.name,
-                },
-                profile_picture: {
-                  url: story.escort.profile_picture.url,
-                },
-              },
-              stories: story.stories,
-            };
-          }
-
-          return acc;
-        }, {})
-      );
-      //merge by userId
-
-      this.loadStories(this.myStories);
-      this.initStories();
-    });
   }
 
-  constructor(public storyService: StoryService) {}
+  constructor(
+    public storyService: StoryService,
+    private userService: UserService
+  ) {}
 
   getStories() {}
 

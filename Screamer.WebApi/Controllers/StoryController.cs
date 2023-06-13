@@ -93,7 +93,7 @@ namespace Screamer.WebApi.Controllers
             return Ok(result);
         }
 
-        [HttpGet("by-following/{id}")]
+        [HttpGet("by-following")]
         public async Task<IActionResult> GetStoriesByFollowing(string userId)
         {
             var query = new GetStoriesByFollowingRequestQuery { UserId = userId };
