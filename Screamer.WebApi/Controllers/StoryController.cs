@@ -7,15 +7,17 @@ using Screamer.Application.Contracts.Presistance;
 using Screamer.Application.Features.StoryImageRequest;
 using Screamer.Application.Features.StoryRequest.Commands.AddStoryRequest;
 using Screamer.Application.Features.StoryRequest.Commands.DeleteStoryRequest;
-
+using  Screamer.Application.Features.StoryRequest;
+using MediatR;
 namespace Screamer.WebApi.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
     public class StoryController : ControllerBase
     {
-        private readonly MediatR.IMediator _mediator;
+        private readonly IMediator _mediator;
         private readonly IUnitOfWork _uow;
+
 
         public StoryController(MediatR.IMediator mediator, IUnitOfWork uow)
         {
@@ -79,5 +81,25 @@ namespace Screamer.WebApi.Controllers
             await _mediator.Send(command);
             return NoContent();
         }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAllStories()
+        {
+            var query = new GetAllStoriesRequestQuery();
+
+            var result = await _mediator.Send(query);
+
+            return Ok(result);
+        }
+ [HttpGet]
+        public async Task<IActionResult> GetStoriesByFollowing(string userId)
+        {
+            var query = new GetStoriesByFollowingRequestQuery { UserId = userId };
+
+            var result = await _mediator.Send(query);
+
+            return Ok(result);
+        }
+
     }
 }
