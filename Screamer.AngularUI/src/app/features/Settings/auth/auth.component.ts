@@ -91,12 +91,7 @@ export class AuthComponent {
 
   changePassword() {
     if (!this.form.valid) return;
-    console.log({
-      email: this.currentUser.email,
-      oldPassword: this.form.get('oldPassword')!.value,
-      newPassword: this.form.get('newPassword')!.value,
-      confirmPassword: this.form.get('confirmPassword')!.value,
-    });
+
     this.authService.changePassword({
       email: this.currentUser.email,
       oldPassword: this.form.get('oldPassword')!.value,

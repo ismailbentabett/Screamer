@@ -73,7 +73,6 @@ export class StoryEditorComponent {
       headers: any
     ) => {
       // Handle the server response after the image upload is complete
-      console.log('Upload complete:', response);
     };
   }
 
@@ -110,8 +109,6 @@ export class StoryEditorComponent {
           })
           .subscribe({
             next: (response: any) => {
-              console.log(response);
-              console.log(this.currentUser);
               this.uploader.setOptions({
                 url: this.baseUrl + `Story/add-story-image/${response}`,
                 authToken: 'Bearer ' + this.currentUser?.token,
@@ -121,15 +118,7 @@ export class StoryEditorComponent {
                 autoUpload: false,
                 maxFileSize: 10 * 1024 * 1024,
               });
-              console.log({
-                url: this.baseUrl + `Story/add-story-image/${response}`,
-                authToken: 'Bearer ' + this.currentUser?.token,
-                isHTML5: true,
-                allowedFileType: ['image'],
-                removeAfterUpload: true,
-                autoUpload: false,
-                maxFileSize: 10 * 1024 * 1024,
-              });
+
               if (this._tuiImageEditor) {
                 // Get the edited image data
                 const editedImageData = this._tuiImageEditor.toDataURL();
@@ -147,7 +136,6 @@ export class StoryEditorComponent {
 
                 // Add the edited image file to the uploader's queue
                 this.uploader.addToQueue([editedImageFile]);
-                console.log(editedImageFile);
                 // Upload the edited image
                 this.uploader.uploadAll();
               }

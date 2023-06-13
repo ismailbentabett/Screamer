@@ -205,41 +205,43 @@ export class AddPostFormComponent {
     this.ShowTitleErrors = false;
     mainform?.classList.remove('border-red-300');
     mainform?.classList.remove('border-2');
-    this.postService
-      .createPost({
-        userId: this.user.id,
-        ...this.form.value,
-        moodType: this.moodType ?? null,
-        hashtags: this.hashtags ?? null,
-        mentionsArr: this.mentions ?? null,
-        categories: this.categoryService.addedCategories ?? null,
-        tagsArr: this.postService.gettagSearchResultArrayUsernames() ?? null,
-      })
-      .subscribe({
-        next: (postId) => {
-          this.postId = postId;
 
-          this.postService.sendpostImageUrl(postId);
-        },
-      });
+    if (!this.edit)
+      this.postService
+        .createPost({
+          userId: this.user.id,
+          ...this.form.value,
+          moodType: this.moodType ?? null,
+          hashtags: this.hashtags ?? null,
+          mentionsArr: this.mentions ?? null,
+          categories: this.categoryService.addedCategories ?? null,
+          tagsArr: this.postService.gettagSearchResultArrayUsernames() ?? null,
+        })
+        .subscribe({
+          next: (postId) => {
+            this.postId = postId;
 
-    /*    this.postService
-      .updatePost({
-        userId: this.user.id,
-        ...this.form.value,
-        mood: this.moodType ?? null,
-        hashtags: this.hashtags ?? null,
-        mentions: this.mentions ?? null,
-        categories: this.categoryService.addedCategories ?? null,
-        tags: this.postService.gettagSearchResultArrayUsernames() ?? null,
-      })
-      .subscribe({
-        next: (postId) => {
-          this.postId = postId;
+            this.postService.sendpostImageUrl(postId);
+          },
+        });
+    else
+      this.postService
+        .updatePost({
+          userId: this.user.id,
+          ...this.form.value,
+          mood: this.moodType ?? null,
+          hashtags: this.hashtags ?? null,
+          mentions: this.mentions ?? null,
+          categories: this.categoryService.addedCategories ?? null,
+          tags: this.postService.gettagSearchResultArrayUsernames() ?? null,
+        })
+        .subscribe({
+          next: (postId) => {
+            this.postId = postId;
 
-          this.postService.sendpostImageUrl(postId);
-        },
-      }); */
+            this.postService.sendpostImageUrl(postId);
+          },
+        });
   }
 
   toggleMoodDropdown() {

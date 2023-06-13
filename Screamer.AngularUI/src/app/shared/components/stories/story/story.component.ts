@@ -25,7 +25,6 @@ export class StoryComponent {
         next: (currentUser: any) => {
           this.storyService.getStories(currentUser.id).subscribe((res: any) => {
             let data = map(res, (story: any) => {
-              console.log(res);
               return {
                 userId: story.user.id,
                 escort_id: story.id,
@@ -96,7 +95,6 @@ export class StoryComponent {
   getStories() {}
 
   loadStories(myStories: any) {
-    console.log('myStories', myStories);
     /*     const stories = [
       {
         escort_id: '1',

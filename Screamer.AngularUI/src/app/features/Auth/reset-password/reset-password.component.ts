@@ -64,12 +64,7 @@ export class ResetPasswordComponent {
     this.route.queryParams.subscribe((params) => {
       const email = params['email'];
       const code = params['code'];
-      console.log({
-        email: email,
-        code: code,
-        password: this.form.value.password,
-        confirmPassword: this.form.value.confirmPassword,
-      });
+
       this.authService.resetPassword({
         email: email,
         code: code,

@@ -30,6 +30,8 @@ export class PostImagesUploadComponent {
   @Input() postImageUrl: any = false;
   @Output() AddPost = new EventEmitter<string>();
   @Output() sendImages = new EventEmitter<any>();
+  @Input() edit: boolean = false;
+
   preview!: Post;
 
   public ImgUrl: any;
@@ -73,7 +75,6 @@ export class PostImagesUploadComponent {
     });
   }
 
-
   ngOnInit(): void {
     this.initializeUploader();
   }
@@ -114,7 +115,6 @@ export class PostImagesUploadComponent {
     this.uploader.onAfterAddingFile = (file) => {
       file.withCredentials = false;
       this.sendImages.emit(this.uploader.queue);
-
     };
 
     this.uploader.onSuccessItem = (item, response, status, headers) => {
