@@ -8,7 +8,10 @@ namespace Screamer.Application.Contracts.Presistance
 {
     public interface IStoryRepository : IGenericRepository<Story>
     {
-            //get story by id 
-            Task<Story> GetStoryByIdAsync(int id);
+        Task<Story> GetStoryByIdAsync(int id);
+
+        Task<List<Story>> GetAllStoriesAsync();
+
+        Task<List<Story>> GetStoriesByFollowingAsync(string userId);
     }
 }
