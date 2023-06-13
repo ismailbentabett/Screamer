@@ -46,7 +46,7 @@ export class StoryComponent {
                     upload: {
                       url: storyImage.url ?? '',
                     },
-                    updated_at: '2023-06-10T10:30:00.000Z',
+                    updated_at: story.createdAt,
                     text: 'First story',
                   };
                 }),
