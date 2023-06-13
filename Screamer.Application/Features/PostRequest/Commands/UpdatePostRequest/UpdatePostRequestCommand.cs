@@ -6,7 +6,7 @@ using MediatR;
 
 namespace Screamer.Application.Features.PostRequest.Commands.UpdatePostRequest
 {
-    public class UpdatePostRequestCommand : IRequest<Unit>
+    public class UpdatePostRequestCommand : IRequest<int>
     {
         public string Title { get; set; }
         public string Content { get; set; }

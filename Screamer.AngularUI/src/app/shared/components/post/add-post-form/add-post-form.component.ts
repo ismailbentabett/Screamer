@@ -225,23 +225,34 @@ export class AddPostFormComponent {
           },
         });
     else
-      this.postService
-        .updatePost({
-          userId: this.user.id,
-          ...this.form.value,
-          mood: this.moodType ?? null,
-          hashtags: this.hashtags ?? null,
-          mentions: this.mentions ?? null,
-          categories: this.categoryService.addedCategories ?? null,
-          tags: this.postService.gettagSearchResultArrayUsernames() ?? null,
-        })
-        .subscribe({
-          next: (postId) => {
-            this.postId = postId;
+      console.log({
+        userId: this.user.id,
+        ...this.form.value,
+        moodType: this.moodType ?? null,
+        hashtags: this.hashtags ?? null,
+        mentionsArr: this.mentions ?? null,
+        categories: this.categoryService.addedCategories ?? null,
+        tagsArr: this.postService.gettagSearchResultArrayUsernames() ?? null,
+        postId: this.post.id,
+      });
+    this.postService
+      .updatePost({
+        userId: this.user.id,
+        ...this.form.value,
+        moodType: this.moodType ?? null,
+        hashtags: this.hashtags ?? null,
+        mentionsArr: this.mentions ?? null,
+        categories: this.categoryService.addedCategories ?? null,
+        tagsArr: this.postService.gettagSearchResultArrayUsernames() ?? null,
+        postId: this.post.id,
+      })
+      .subscribe({
+        next: (postId) => {
+          this.postId = postId;
 
-            this.postService.sendpostImageUrl(postId);
-          },
-        });
+          this.postService.sendpostImageUrl(postId);
+        },
+      });
   }
 
   toggleMoodDropdown() {

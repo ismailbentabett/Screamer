@@ -2,7 +2,7 @@
 <div class="carousel">
   <ng-container *ngFor="let slide of slides; let i = index">
     <img
-      *ngIf="i === currentSlide && preview "
+      *ngIf="i === currentSlide && preview"
       thumbnail
       [image]="slide._file"
       class="slide h-10 w-10 rounded-full"
@@ -17,10 +17,18 @@
   </ng-container>
 
   <!-- controls -->
-  <button class="control prev" (click)="onPreviousClick()">
+  <button
+    class="control prev"
+    (click)="onPreviousClick()"
+    *ngIf="slides.length > 1"
+  >
     <span class="arrow left"></span>
   </button>
-  <button class="control next" (click)="onNextClick()">
+  <button
+    class="control next"
+    (click)="onNextClick()"
+    *ngIf="slides.length > 1"
+  >
     <span class="arrow right"></span>
   </button>
 </div>

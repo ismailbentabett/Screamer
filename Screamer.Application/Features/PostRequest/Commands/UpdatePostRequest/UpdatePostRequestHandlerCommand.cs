@@ -12,7 +12,7 @@ using Screamer.Identity.Models;
 
 namespace Screamer.Application.Features.PostRequest.Commands.UpdatePostRequest
 {
-    public class UpdatePostRequestHandlerCommand : IRequestHandler<UpdatePostRequestCommand, Unit>
+    public class UpdatePostRequestHandlerCommand : IRequestHandler<UpdatePostRequestCommand, int>
     {
         private readonly IPostRepository _postRepository;
         private readonly IMapper _mapper;
@@ -33,7 +33,7 @@ namespace Screamer.Application.Features.PostRequest.Commands.UpdatePostRequest
             _algoliaService = algoliaService;
         }
 
-        public async Task<Unit> Handle(
+        public async Task<int> Handle(
             UpdatePostRequestCommand request,
             CancellationToken cancellationToken
         )
@@ -52,7 +52,7 @@ namespace Screamer.Application.Features.PostRequest.Commands.UpdatePostRequest
 
             if (user == null)
                 throw new NotFoundException(nameof(ApplicationUser), request.UserId);
-            var post = await _postRepository.GetByIdAsync(request.postId);
+            var post = await _postRepository.GetPostById(request.postId);
             if (post == null)
                 throw new NotFoundException(nameof(Post), request.postId.ToString());
 
@@ -65,7 +65,7 @@ namespace Screamer.Application.Features.PostRequest.Commands.UpdatePostRequest
 
             await _algoliaService.AddAllPostsToIndex("post", postSearchDto);
             await _uow.Complete();
-            return Unit.Value;
+            return post.Id;
         }
     }
 }
