@@ -1,4 +1,3 @@
-
 using CloudinaryDotNet;
 using CloudinaryDotNet.Actions;
 using Microsoft.AspNetCore.Http;
@@ -9,18 +8,18 @@ using Screamer.Application.Contracts.Presistance;
 
 namespace Screamer.Presistance.Repositories
 {
-    public class AvatarRepository :  IAvatarRepository
+    public class AvatarRepository : IAvatarRepository
     {
-
         private readonly Cloudinary _cloudinary;
+
         public AvatarRepository(IOptions<CloudinarySettings> config)
         {
             var acc = new Account
-                      (
-                          config.Value.CloudName,
-                          config.Value.ApiKey,
-                          config.Value.ApiSecret
-                      );
+            (
+                config.Value.CloudName,
+                config.Value.ApiKey,
+                config.Value.ApiSecret
+            );
 
             _cloudinary = new Cloudinary(acc);
         }

@@ -9,16 +9,15 @@ using Screamer.Presistance.DatabaseContext;
 
 namespace Screamer.Presistance.Repositories
 {
-    public class CategoryRepository : GenericRepository<Category> , ICategoryRepository
+    public class CategoryRepository : GenericRepository<Category>, ICategoryRepository
     {
         public CategoryRepository(ScreamerDbContext context) : base(context)
         {
-                
         }
 
         async Task<Category> ICategoryRepository.GetCategoryByNameAsync(string name)
         {
-                    return await _context.Categories.Where(c => c.Name == name).FirstOrDefaultAsync();
+            return await _context.Categories.Where(c => c.Name == name).FirstOrDefaultAsync();
         }
     }
 }
