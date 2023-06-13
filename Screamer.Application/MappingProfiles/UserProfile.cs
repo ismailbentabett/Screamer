@@ -17,14 +17,27 @@ namespace Screamer.Application.MappingProfiles
         public UserProfile()
         {
             CreateMap<ApplicationUser, UserDto>()
-                 .ForMember(dest => dest.AvatarUrl, opt => opt.MapFrom(src => src.Avatars.LastOrDefault().Url))
+                .ForMember(
+                    dest => dest.AvatarUrl,
+                    opt => opt.MapFrom(src => src.Avatars.LastOrDefault().Url)
+                )
+                .ForMember(dest => dest.BookMarks, opt => opt.MapFrom(src => src.BookMarks))
                 .ForMember(dest => dest.Avatars, opt => opt.MapFrom(src => src.Avatars))
-                .ForMember(dest => dest.CoverUrl, opt => opt.MapFrom(src => src.Covers.LastOrDefault().Url))
+                .ForMember(
+                    dest => dest.CoverUrl,
+                    opt => opt.MapFrom(src => src.Covers.LastOrDefault().Url)
+                )
                 .ForMember(dest => dest.Covers, opt => opt.MapFrom(src => src.Covers));
             CreateMap<ApplicationUser, UserSearchResult>()
-                 .ForMember(dest => dest.AvatarUrl, opt => opt.MapFrom(src => src.Avatars.LastOrDefault().Url))
+                .ForMember(
+                    dest => dest.AvatarUrl,
+                    opt => opt.MapFrom(src => src.Avatars.LastOrDefault().Url)
+                )
                 .ForMember(dest => dest.Avatars, opt => opt.MapFrom(src => src.Avatars))
-                .ForMember(dest => dest.CoverUrl, opt => opt.MapFrom(src => src.Covers.LastOrDefault().Url))
+                .ForMember(
+                    dest => dest.CoverUrl,
+                    opt => opt.MapFrom(src => src.Covers.LastOrDefault().Url)
+                )
                 .ForMember(dest => dest.Covers, opt => opt.MapFrom(src => src.Covers));
 
             CreateMap<UpdateUserRequestCommand, UpdateUserDto>().ReverseMap();
@@ -35,9 +48,6 @@ namespace Screamer.Application.MappingProfiles
             CreateMap<DeleteUserRequestCommand, ApplicationUser>().ReverseMap();
             CreateMap<SocialDto, Social>().ReverseMap();
             CreateMap<AdressDto, Adress>().ReverseMap();
-
-
-
         }
     }
 }

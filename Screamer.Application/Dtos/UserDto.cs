@@ -46,5 +46,7 @@ namespace Screamer.Application.Dtos
         //EmailConfirmed
 
         public bool EmailConfirmed { get; set; }
+
+        public ICollection<BookMarkDto> BookMarks { get; set; } = new List<BookMarkDto>();
     }
 }

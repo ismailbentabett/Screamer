@@ -33,5 +33,6 @@ namespace Screamer.Application.Dtos
 
         public ICollection<UserTagDto> Tags { get; set; } = new List<UserTagDto>();
         public ICollection<UserMentionDto> Mentions { get; set; } = new List<UserMentionDto>();
+        public ICollection<BookMarkDto> BookMarks { get; set; } = new List<BookMarkDto>();
     }
 }
