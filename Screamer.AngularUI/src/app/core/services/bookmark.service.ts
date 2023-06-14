@@ -25,4 +25,8 @@ export class BookmarkService {
   UpdateBookMark(model: any) {
     return this.http.put(this.baseUrl + 'BookMark', model);
   }
+
+  IsBookMarked(model: any) {
+    return this.http.get(this.baseUrl + 'BookMark/is-bookmarked', model);
+  }
 }

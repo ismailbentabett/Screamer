@@ -26,6 +26,7 @@ import 'quill-mention';
 import { PostService } from 'src/app/core/services/post.service';
 import { head } from 'lodash';
 import { CommentService } from 'src/app/core/services/comment.service';
+import { BookmarkService } from 'src/app/core/services/bookmark.service';
 
 @Component({
   selector: 'app-post',
@@ -69,7 +70,8 @@ export class PostComponent {
     private router: Router,
     private sanitizer: DomSanitizer,
     public postService: PostService,
-    private commentService: CommentService
+    private commentService: CommentService,
+    private bookmarkService: BookmarkService
   ) {
     this.userService
       .getCurrentUserData()
@@ -180,5 +182,29 @@ export class PostComponent {
 
   getFirstImageUrl(images: any[]) {
     return head(images).url;
+  }
+
+  AddBookMark(model: any) {
+    this.bookmarkService.AddBookMark(model).subscribe({
+      next: (result: any) => {},
+    });
+  }
+
+  DeleteBookMark(model: any) {
+    this.bookmarkService.DeleteBookMark(model).subscribe({
+      next: (result: any) => {},
+    });
+  }
+
+  UpdateBookMark(model: any) {
+    this.bookmarkService.UpdateBookMark(model).subscribe({
+      next: (result: any) => {},
+    });
+  }
+
+  IsBookMarked(model: any) {
+    this.bookmarkService.IsBookMarked(model).subscribe({
+      next: (result: any) => {},
+    });
   }
 }
