@@ -63,6 +63,7 @@ export class PostComponent {
   @ViewChild(QuillEditorComponent, { static: true })
   editor!: QuillEditorComponent;
   shouldShowCommentSection!: boolean;
+  isBookMarked: boolean = false;
   constructor(
     private userService: UserService,
     private clipboardService: ClipboardService,
@@ -127,12 +128,23 @@ export class PostComponent {
   }
   ngOnChanges(changes: any): void {
     if (changes['post'] && this.post && this.post.id != null) {
-      this.commentService
-        .getCommentCount(this.post.id)
+      this.userService
+        .getCurrentUserData()
         .pipe(take(1))
         .subscribe({
-          next: (count: any) => {
-            this.commentCount = count.result;
+          next: (user: any) => {
+            this.commentService
+              .getCommentCount(this.post.id)
+              .pipe(take(1))
+              .subscribe({
+                next: (count: any) => {
+                  this.commentCount = count.result;
+                  this.IsBookMarked({
+                    postId: this.post.id,
+                    userId: user.id,
+                  });
+                },
+              });
           },
         });
 
@@ -184,19 +196,31 @@ export class PostComponent {
     return head(images).url;
   }
 
-  AddBookMark(model: any) {
+  AddBookMark() {
+    let model = {
+      postId: this.post.id,
+      userId: this.currentUser.id,
+    };
     this.bookmarkService.AddBookMark(model).subscribe({
       next: (result: any) => {},
     });
   }
 
-  DeleteBookMark(model: any) {
+  DeleteBookMark() {
+    let model = {
+      postId: this.post.id,
+      userId: this.currentUser.id,
+    };
     this.bookmarkService.DeleteBookMark(model).subscribe({
       next: (result: any) => {},
     });
   }
 
-  UpdateBookMark(model: any) {
+  UpdateBookMark() {
+    let model = {
+      postId: this.post.id,
+      userId: this.currentUser.id,
+    };
     this.bookmarkService.UpdateBookMark(model).subscribe({
       next: (result: any) => {},
     });
@@ -204,7 +228,9 @@ export class PostComponent {
 
   IsBookMarked(model: any) {
     this.bookmarkService.IsBookMarked(model).subscribe({
-      next: (result: any) => {},
+      next: (result: any) => {
+        this.isBookMarked = result;
+      },
     });
   }
 }

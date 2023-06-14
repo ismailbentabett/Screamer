@@ -10,6 +10,5 @@ namespace Screamer.Application.Features.BookMarkRequest
     {
         public string UserId { get; set; }
         public int PostId { get; set; }
-        public int BookMarkId { get; set; }
     }
 }

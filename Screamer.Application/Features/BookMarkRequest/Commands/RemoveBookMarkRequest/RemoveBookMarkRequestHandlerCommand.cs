@@ -35,9 +35,12 @@ namespace Screamer.Application.Features.BookMarkRequest
             var post = await _uow.PostRepository.GetPostById(request.PostId);
             if (post == null)
                 throw new NotFoundException(nameof(Post), request.PostId);
-            var bookMark = await _uow.BookMarkRepository.GetByIdAsync(request.BookMarkId);
+            var bookMark = await _uow.BookMarkRepository.GetBookmarkByUserIdAndPostId(
+                request.UserId,
+                request.PostId
+            );
             if (bookMark == null)
-                throw new NotFoundException(nameof(BookMark), request.BookMarkId);
+                throw new NotFoundException(nameof(BookMark), bookMark.Id);
 
             await _uow.BookMarkRepository.DeleteAsync(bookMark);
 
