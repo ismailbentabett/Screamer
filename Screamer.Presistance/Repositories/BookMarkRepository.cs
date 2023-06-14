@@ -35,5 +35,14 @@ namespace Screamer.Presistance.Repositories
 
             return PagedList<Post>.CreateAsync(posts, postParams.PageNumber, postParams.PageSize);
         }
+
+        public async Task<BookMark> GetBookmarkByUserIdAndPostId(string UserId, int PostId)
+        {
+            var userBookmark = _context.BookMarks.Where(
+                b => b.UserId == UserId && b.PostId == PostId
+            );
+
+            return await userBookmark.FirstOrDefaultAsync();
+        }
     }
 }

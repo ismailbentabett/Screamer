@@ -11,5 +11,6 @@ namespace Screamer.Application.Contracts.Presistance
     public interface IBookMarkRepository : IGenericRepository<BookMark>
     {
         Task<PagedList<Post>> GetAllBookmarksByUserIdRequest(PostParams postParams);
+        Task<BookMark> GetBookmarkByUserIdAndPostId(string UserId, int PostId);
     }
 }

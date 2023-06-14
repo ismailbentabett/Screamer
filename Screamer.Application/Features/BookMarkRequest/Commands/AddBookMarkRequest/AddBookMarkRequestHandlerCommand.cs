@@ -35,6 +35,13 @@ namespace Screamer.Application.Features.BookMarkRequest
             if (post == null)
                 throw new NotFoundException(nameof(Post), request.PostId);
 
+            var ExistingBookMark = await _uow.BookMarkRepository.GetBookmarkByUserIdAndPostId(
+                request.UserId,
+                post.Id
+            );
+            if (ExistingBookMark != null)
+                throw new BadRequestException("This post is already bookmarked");
+
             var bookMark = new BookMark
             {
                 PostId = request.PostId,
