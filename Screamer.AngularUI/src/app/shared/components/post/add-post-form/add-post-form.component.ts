@@ -1,4 +1,10 @@
-import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { take } from 'rxjs';
 import { User } from 'src/app/core/models/User';
@@ -55,7 +61,7 @@ export class AddPostFormComponent {
   @Input() post: any = null;
   @Input() edit: boolean = false;
 
-  @Output () editEvent  = new EventEmitter<boolean>();
+  @Output() editEvent = new EventEmitter<boolean>();
 
   toggleEdit() {
     this.edit = !this.edit;
@@ -232,34 +238,24 @@ export class AddPostFormComponent {
           },
         });
     else
-      console.log({
-        userId: this.user.id,
-        ...this.form.value,
-        moodType: this.moodType ?? null,
-        hashtags: this.hashtags ?? null,
-        mentionsArr: this.mentions ?? null,
-        categories: this.categoryService.addedCategories ?? null,
-        tagsArr: this.postService.gettagSearchResultArrayUsernames() ?? null,
-        postId: this.post.id,
-      });
-    this.postService
-      .updatePost({
-        userId: this.user.id,
-        ...this.form.value,
-        moodType: this.moodType ?? null,
-        hashtags: this.hashtags ?? null,
-        mentionsArr: this.mentions ?? null,
-        categories: this.categoryService.addedCategories ?? null,
-        tagsArr: this.postService.gettagSearchResultArrayUsernames() ?? null,
-        postId: this.post.id,
-      })
-      .subscribe({
-        next: (postId) => {
-          this.postId = postId;
+      this.postService
+        .updatePost({
+          userId: this.user.id,
+          ...this.form.value,
+          moodType: this.moodType ?? null,
+          hashtags: this.hashtags ?? null,
+          mentionsArr: this.mentions ?? null,
+          categories: this.categoryService.addedCategories ?? null,
+          tagsArr: this.postService.gettagSearchResultArrayUsernames() ?? null,
+          postId: this.post.id,
+        })
+        .subscribe({
+          next: (postId) => {
+            this.postId = postId;
 
-          this.postService.sendpostImageUrl(postId);
-        },
-      });
+            this.postService.sendpostImageUrl(postId);
+          },
+        });
   }
 
   toggleMoodDropdown() {

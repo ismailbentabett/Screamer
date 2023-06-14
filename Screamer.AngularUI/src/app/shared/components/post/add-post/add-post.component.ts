@@ -11,7 +11,6 @@ export class AddPostComponent {
   @Output() editEvent = new EventEmitter<boolean>();
 
   getEditData(data: boolean) {
-    console.log(data)
     this.edit = data;
     this.editEvent.emit(this.edit);
   }
