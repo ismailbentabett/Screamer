@@ -19,7 +19,7 @@ namespace Screamer.Application.Contracts.Presistance
 
         Task<ApplicationUser> GetUserByEmail(string email);
 
-        Task<IEnumerable<ApplicationUser>> GetTheTopPreformingUser();
+        Task<ApplicationUser> GetTheTopPreformingUser();
         Task<PagedList<ApplicationUser>> GetTheTopPreformingUsers(PostParams postParams);
     }
 }

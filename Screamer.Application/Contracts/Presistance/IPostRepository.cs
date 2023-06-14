@@ -27,12 +27,10 @@ namespace Screamer.Application.Contracts.Presistance
         Task<IEnumerable<PostHashtag>> GetMostUsedHashtags();
         Task<IEnumerable<PostCategory>> GetMostUsedCategories();
 
-        Task<IEnumerable<Post>> GetTheTopPreformingPost();
+        Task<Post> GetTheTopPreformingPost();
         Task<PagedList<Post>> GetTheTopPreformingPosts(PostParams postParams);
-        Task<PagedList<Post>> GetPostsByHashTag(PostParams postParams);
-        Task<PagedList<Post>> GetPostsByCategory(PostParams postParams);
-        Task<PagedList<Post>> GetTrendingPosts();
-        
-
+        Task<PagedList<Post>> GetPostsByHashTag(PostParams postParams, string hashtagName);
+        Task<PagedList<Post>> GetPostsByCategory(PostParams postParam , string category);
+        Task<PagedList<Post>> GetTrendingPosts(PostParams postParams);
     }
 }

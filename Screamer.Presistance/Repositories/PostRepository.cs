@@ -236,29 +236,121 @@ namespace Screamer.Presistance.Repositories
             return await postCategories.ToListAsync();
         }
 
-        Task<IEnumerable<Post>> IPostRepository.GetTheTopPreformingPost()
+        Task<Post> IPostRepository.GetTheTopPreformingPost()
         {
-            throw new NotImplementedException();
+            //GetTheTopPreformingPost
+            return _context.Posts
+                .Include(u => u.PostImages)
+                .Include(u => u.PostCategories)
+                .ThenInclude(pc => pc.Category)
+                .Include(u => u.PostHashtags)
+                .ThenInclude(pc => pc.Hashtag)
+                .Include(pc => pc.Tags)
+                .ThenInclude(pc => pc.User)
+                .Include(u => u.Mentions)
+                .ThenInclude(pc => pc.User)
+                .Include(u => u.Mood)
+                .OrderByDescending(p => p.Reactions.Count + p.Comments.Count)
+                .FirstOrDefaultAsync();
         }
 
-        Task<PagedList<Post>> IPostRepository.GetTheTopPreformingPosts(PostParams postParams)
+        async Task<PagedList<Post>> IPostRepository.GetTheTopPreformingPosts(PostParams postParams)
         {
-            throw new NotImplementedException();
+            var query = _context.Posts
+                .Include(u => u.PostImages)
+                .Include(u => u.PostCategories)
+                .ThenInclude(pc => pc.Category)
+                .Include(u => u.PostHashtags)
+                .ThenInclude(pc => pc.Hashtag)
+                .Include(pc => pc.Tags)
+                .ThenInclude(pc => pc.User)
+                .Include(u => u.Mentions)
+                .ThenInclude(pc => pc.User)
+                .Include(u => u.Mood)
+                .OrderByDescending(p => p.Reactions.Count + p.Comments.Count)
+                .AsQueryable();
+
+            return await PagedList<Post>.CreateAsync(
+                query,
+                postParams.PageNumber,
+                postParams.PageSize
+            );
         }
 
-        Task<PagedList<Post>> IPostRepository.GetPostsByHashTag(PostParams postParams)
+        async Task<PagedList<Post>> IPostRepository.GetPostsByHashTag(
+            PostParams postParams,
+            string hashtag
+        )
         {
-            throw new NotImplementedException();
+            var query = _context.Posts
+                .Include(u => u.PostImages)
+                .Include(u => u.PostCategories)
+                .ThenInclude(pc => pc.Category)
+                .Include(u => u.PostHashtags)
+                .ThenInclude(pc => pc.Hashtag)
+                .Include(pc => pc.Tags)
+                .ThenInclude(pc => pc.User)
+                .Include(u => u.Mentions)
+                .ThenInclude(pc => pc.User)
+                .Include(u => u.Mood)
+                .Where(p => p.PostHashtags.Any(ph => ph.Hashtag.Name == hashtag))
+                .AsQueryable();
+
+            return await PagedList<Post>.CreateAsync(
+                query,
+                postParams.PageNumber,
+                postParams.PageSize
+            );
         }
 
-        Task<PagedList<Post>> IPostRepository.GetPostsByCategory(PostParams postParams)
+        async Task<PagedList<Post>> IPostRepository.GetPostsByCategory(
+            PostParams postParams,
+            string category
+        )
         {
-            throw new NotImplementedException();
+            var query = _context.Posts
+                .Include(u => u.PostImages)
+                .Include(u => u.PostCategories)
+                .ThenInclude(pc => pc.Category)
+                .Include(u => u.PostHashtags)
+                .ThenInclude(pc => pc.Hashtag)
+                .Include(pc => pc.Tags)
+                .ThenInclude(pc => pc.User)
+                .Include(u => u.Mentions)
+                .ThenInclude(pc => pc.User)
+                .Include(u => u.Mood)
+                .Where(p => p.PostCategories.Any(ph => ph.Category.Name == category))
+                .AsQueryable();
+
+            return await PagedList<Post>.CreateAsync(
+                query,
+                postParams.PageNumber,
+                postParams.PageSize
+            );
         }
 
-        Task<PagedList<Post>> IPostRepository.GetTrendingPosts()
+        async Task<PagedList<Post>> IPostRepository.GetTrendingPosts(PostParams postParams)
         {
-            throw new NotImplementedException();
+            var query = _context.Posts
+                .Include(u => u.PostImages)
+                .Include(u => u.PostCategories)
+                .ThenInclude(pc => pc.Category)
+                .Include(u => u.PostHashtags)
+                .ThenInclude(pc => pc.Hashtag)
+                .Include(pc => pc.Tags)
+                .ThenInclude(pc => pc.User)
+                .Include(u => u.Mentions)
+                .ThenInclude(pc => pc.User)
+                .Include(u => u.Mood)
+                .Where(p => p.CreatedAt >= DateTime.Now.AddDays(-7))
+                .OrderByDescending(p => p.Reactions.Count + p.Comments.Count)
+                .AsQueryable();
+
+            return await PagedList<Post>.CreateAsync(
+                query,
+                postParams.PageNumber,
+                postParams.PageSize
+            );
         }
     }
 }

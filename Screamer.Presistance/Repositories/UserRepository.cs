@@ -98,7 +98,7 @@ public class UserRepository : IUserRepository
             .SingleOrDefaultAsync(x => x.Email == email);
     }
 
-    async Task<IEnumerable<ApplicationUser>> IUserRepository.GetTheTopPreformingUser()
+    async Task<ApplicationUser> IUserRepository.GetTheTopPreformingUser()
     {
         return await _context.Users
             .Include(p => p.Covers)
@@ -106,9 +106,7 @@ public class UserRepository : IUserRepository
             .Include(p => p.Adress)
             .Include(p => p.Socials)
             .OrderByDescending(x => x.Posts.Count())
-            .Include(p => p.Socials)
-            .Take(1)
-            .ToListAsync();
+            .FirstOrDefaultAsync();
     }
 
     public async Task<PagedList<ApplicationUser>> GetTheTopPreformingUsers(PostParams postParams)
