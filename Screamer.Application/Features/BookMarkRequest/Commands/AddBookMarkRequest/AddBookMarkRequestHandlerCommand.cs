@@ -10,7 +10,7 @@ using Screamer.Domain.Common;
 using Screamer.Domain.Entities;
 using Screamer.Identity.Models;
 
-namespace Screamer.Application.Features.BookMarkRequest.Commands.AddBookMarkRequest
+namespace Screamer.Application.Features.BookMarkRequest
 {
     public class AddBookMarkRequestHandlerCommand : IRequestHandler<AddBookMarkRequestCommand, int>
     {

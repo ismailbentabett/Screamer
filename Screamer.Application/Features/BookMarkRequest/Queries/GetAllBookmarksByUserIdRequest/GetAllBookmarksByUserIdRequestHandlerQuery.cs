@@ -12,7 +12,7 @@ using Screamer.Application.Helpers;
 using Screamer.Domain.Entities;
 using Screamer.Identity.Models;
 
-namespace Screamer.Application.Features.BookMarkRequest.Queries.GetAllBookmarksByUserId
+namespace Screamer.Application.Features.BookMarkRequest
 {
     public class GetAllBookmarksByUserIdRequestHandlerQuery
         : IRequestHandler<GetAllBookmarksByUserIdRequestQuery, List<PostDto>>

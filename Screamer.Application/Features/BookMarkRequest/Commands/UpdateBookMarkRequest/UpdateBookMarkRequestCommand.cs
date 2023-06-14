@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using MediatR;
 
-namespace Screamer.Application.Features.BookMarkRequest.Commands.UpdateBookMarkRequest
+namespace Screamer.Application.Features.BookMarkRequest
 {
     public class UpdateBookMarkRequestCommand : IRequest<Unit>
     {
