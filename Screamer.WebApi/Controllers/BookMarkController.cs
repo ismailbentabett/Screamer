@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Screamer.Application.Contracts.Presistance;
 using Screamer.Application.Dtos;
 using Screamer.Application.Features.BookMarkRequest;
+using Screamer.Application.Features.BookMarkRequest.Queries.GetBookmarkByUserIdAndPostIdRequest;
 using Screamer.Application.Helpers;
 
 namespace Screamer.WebApi.Controllers
@@ -30,7 +31,21 @@ namespace Screamer.WebApi.Controllers
             return Ok(result);
         }
 
-        
+        [HttpGet("is-bookmarked")]
+        public async Task<ActionResult<List<PostDto>>> GetBookmarkByUserIdAndPostId(
+            string UserId,
+            int PostId
+        )
+        {
+            var query = new GetBookmarkByUserIdAndPostIdRequestQuery
+            {
+                UserId = UserId,
+                PostId = PostId
+            };
+            var result = await _mediator.Send(query);
+            return Ok(result);
+        }
+
         [HttpPost]
         public async Task<ActionResult> CreateBookMark(AddBookMarkRequestCommand command)
         {
@@ -46,7 +61,7 @@ namespace Screamer.WebApi.Controllers
         }
 
         [HttpPut]
-        public async Task<ActionResult> UpdateBookMark( UpdateBookMarkRequestCommand command)
+        public async Task<ActionResult> UpdateBookMark(UpdateBookMarkRequestCommand command)
         {
             var result = await _mediator.Send(command);
             return Ok(result);
