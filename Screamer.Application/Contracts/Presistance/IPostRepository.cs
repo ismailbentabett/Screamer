@@ -23,10 +23,16 @@ namespace Screamer.Application.Contracts.Presistance
         Task<PagedList<Post>> GetMostRecentPosts(PostParams postParams);
         Task<PagedList<Post>> GetRecommendedPosts(PostParams postParams);
 
-        //IEnumerable<Post> getallpostsforsearch
-
         public Task<IEnumerable<Post>> GetAllPosts();
         Task<IEnumerable<PostHashtag>> GetMostUsedHashtags();
         Task<IEnumerable<PostCategory>> GetMostUsedCategories();
+
+        Task<IEnumerable<Post>> GetTheTopPreformingPost();
+        Task<PagedList<Post>> GetTheTopPreformingPosts(PostParams postParams);
+        Task<PagedList<Post>> GetPostsByHashTag(PostParams postParams);
+        Task<PagedList<Post>> GetPostsByCategory(PostParams postParams);
+        Task<PagedList<Post>> GetTrendingPosts();
+        
+
     }
 }

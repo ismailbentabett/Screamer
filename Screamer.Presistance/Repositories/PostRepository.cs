@@ -235,5 +235,30 @@ namespace Screamer.Presistance.Repositories
 
             return await postCategories.ToListAsync();
         }
+
+        Task<IEnumerable<Post>> IPostRepository.GetTheTopPreformingPost()
+        {
+            throw new NotImplementedException();
+        }
+
+        Task<PagedList<Post>> IPostRepository.GetTheTopPreformingPosts(PostParams postParams)
+        {
+            throw new NotImplementedException();
+        }
+
+        Task<PagedList<Post>> IPostRepository.GetPostsByHashTag(PostParams postParams)
+        {
+            throw new NotImplementedException();
+        }
+
+        Task<PagedList<Post>> IPostRepository.GetPostsByCategory(PostParams postParams)
+        {
+            throw new NotImplementedException();
+        }
+
+        Task<PagedList<Post>> IPostRepository.GetTrendingPosts()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

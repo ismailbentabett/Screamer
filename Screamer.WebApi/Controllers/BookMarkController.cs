@@ -4,6 +4,7 @@ using Screamer.Application.Contracts.Presistance;
 using Screamer.Application.Dtos;
 using Screamer.Application.Features.BookMarkRequest;
 using Screamer.Application.Features.BookMarkRequest.Queries.GetBookmarkByUserIdAndPostIdRequest;
+using Screamer.Application.Features.CommentRequest.Commands.DeleteCommentRequest;
 using Screamer.Application.Helpers;
 
 namespace Screamer.WebApi.Controllers
@@ -54,7 +55,7 @@ namespace Screamer.WebApi.Controllers
         }
 
         [HttpDelete]
-        public async Task<ActionResult> DeleteBookMark(UpdateBookMarkRequestCommand command)
+        public async Task<ActionResult> DeleteBookMark(RemoveBookMarkRequestCommand command)
         {
             var result = await _mediator.Send(command);
             return Ok(result);

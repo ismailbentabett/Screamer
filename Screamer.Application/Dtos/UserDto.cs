@@ -48,5 +48,9 @@ namespace Screamer.Application.Dtos
         public bool EmailConfirmed { get; set; }
 
         public ICollection<BookMarkDto> BookMarks { get; set; } = new List<BookMarkDto>();
+
+        public DateTime CreatedAt { get; set; }
+
+        public DateTime UpdatedAt { get; set; }
     }
 }

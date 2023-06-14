@@ -97,4 +97,40 @@ public class UserRepository : IUserRepository
             .Include(p => p.Socials)
             .SingleOrDefaultAsync(x => x.Email == email);
     }
+
+    async Task<IEnumerable<ApplicationUser>> IUserRepository.GetTheTopPreformingUser()
+    {
+        return await _context.Users
+            .Include(p => p.Covers)
+            .Include(p => p.Avatars)
+            .Include(p => p.Adress)
+            .Include(p => p.Socials)
+            .OrderByDescending(x => x.Posts.Count())
+            .Include(p => p.Socials)
+            .Take(1)
+            .ToListAsync();
+    }
+
+    public async Task<PagedList<ApplicationUser>> GetTheTopPreformingUsers(PostParams postParams)
+    {
+        var query = _context.Users
+            .Include(p => p.Avatars)
+            .Include(p => p.Covers)
+            .Include(p => p.Adress)
+            .Include(p => p.Socials)
+            .OrderByDescending(x => x.Posts.Count())
+            .AsQueryable();
+
+        query = postParams.OrderBy switch
+        {
+            "CreatedAt" => query.OrderByDescending(u => u.CreatedAt),
+            _ => query.OrderByDescending(u => u.CreatedAt)
+        };
+
+        return await PagedList<ApplicationUser>.CreateAsync(
+            query,
+            postParams.PageNumber,
+            postParams.PageSize
+        );
+    }
 }

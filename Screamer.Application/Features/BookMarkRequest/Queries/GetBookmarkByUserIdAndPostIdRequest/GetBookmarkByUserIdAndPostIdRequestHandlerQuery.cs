@@ -29,6 +29,7 @@ namespace Screamer.Application.Features.BookMarkRequest.Queries.GetBookmarkByUse
                 request.UserId,
                 request.PostId
             );
+            Console.WriteLine(bookmark);
             if (bookmark == null)
                 return Task.FromResult(false);
             return Task.FromResult(true);

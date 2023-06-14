@@ -80,6 +80,16 @@ export class PostComponent {
       .subscribe({
         next: (user: any) => {
           this.currentUser = user;
+          console.log(
+            {
+              postId: this.post.id,
+              userId: user.id,
+            }
+          )
+          this.IsBookMarked({
+            postId: this.post.id,
+            userId: user.id,
+          });
         },
       });
   }
@@ -128,23 +138,12 @@ export class PostComponent {
   }
   ngOnChanges(changes: any): void {
     if (changes['post'] && this.post && this.post.id != null) {
-      this.userService
-        .getCurrentUserData()
+      this.commentService
+        .getCommentCount(this.post.id)
         .pipe(take(1))
         .subscribe({
-          next: (user: any) => {
-            this.commentService
-              .getCommentCount(this.post.id)
-              .pipe(take(1))
-              .subscribe({
-                next: (count: any) => {
-                  this.commentCount = count.result;
-                  this.IsBookMarked({
-                    postId: this.post.id,
-                    userId: user.id,
-                  });
-                },
-              });
+          next: (count: any) => {
+            this.commentCount = count.result;
           },
         });
 
@@ -201,6 +200,7 @@ export class PostComponent {
       postId: this.post.id,
       userId: this.currentUser.id,
     };
+
     this.bookmarkService.AddBookMark(model).subscribe({
       next: (result: any) => {},
     });
@@ -211,6 +211,8 @@ export class PostComponent {
       postId: this.post.id,
       userId: this.currentUser.id,
     };
+    console.log(model);
+
     this.bookmarkService.DeleteBookMark(model).subscribe({
       next: (result: any) => {},
     });
@@ -221,6 +223,7 @@ export class PostComponent {
       postId: this.post.id,
       userId: this.currentUser.id,
     };
+    console.log(model);
     this.bookmarkService.UpdateBookMark(model).subscribe({
       next: (result: any) => {},
     });

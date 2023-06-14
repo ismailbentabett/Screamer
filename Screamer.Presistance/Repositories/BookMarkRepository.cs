@@ -38,11 +38,11 @@ namespace Screamer.Presistance.Repositories
 
         public async Task<BookMark> GetBookmarkByUserIdAndPostId(string UserId, int PostId)
         {
-            var userBookmark = _context.BookMarks.Where(
+            var userBookmark = await _context.BookMarks.FirstOrDefaultAsync(
                 b => b.UserId == UserId && b.PostId == PostId
             );
 
-            return await userBookmark.FirstOrDefaultAsync();
+            return userBookmark;
         }
     }
 }
