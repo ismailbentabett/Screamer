@@ -38,14 +38,14 @@ namespace Screamer.WebApi.Controllers
             return Ok(result);
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete]
         public async Task<ActionResult> DeleteBookMark(UpdateBookMarkRequestCommand command)
         {
             var result = await _mediator.Send(command);
             return Ok(result);
         }
 
-        [HttpPut("{id}")]
+        [HttpPut]
         public async Task<ActionResult> UpdateBookMark( UpdateBookMarkRequestCommand command)
         {
             var result = await _mediator.Send(command);
