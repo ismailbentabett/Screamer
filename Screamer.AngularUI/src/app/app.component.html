@@ -8,3 +8,6 @@
 ></app-footer>
 
 <app-floating-action-button></app-floating-action-button>
+<app-story-editor-fullscreen-modal
+  *ngIf="this.storyService.isOpen"
+></app-story-editor-fullscreen-modal>

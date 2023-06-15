@@ -40,7 +40,7 @@ export class HashtagFeedComponent {
   }
 
   ngOnInit(): void {
-    this.hashtag = this.route.snapshot.paramMap.get('hashtag');
+    this.hashtag = `#${this.route.snapshot.paramMap.get('hashtag')}`;
 
     // this.members$ = this.memberService.getMembers();
 
