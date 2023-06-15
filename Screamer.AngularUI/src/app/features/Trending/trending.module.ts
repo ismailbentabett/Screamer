@@ -6,6 +6,7 @@ import { TrendingComponent } from './trending/trending.component';
 import { TrendingFeedComponent } from './trending-feed/trending-feed.component';
 import { TrendingPopularComponent } from './trending-popular/trending-popular.component';
 import { TrendingUsersComponent } from './trending-users/trending-users.component';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 
 @NgModule({
@@ -13,11 +14,12 @@ import { TrendingUsersComponent } from './trending-users/trending-users.componen
     TrendingComponent,
     TrendingFeedComponent,
     TrendingPopularComponent,
-    TrendingUsersComponent
+    TrendingUsersComponent,
   ],
   imports: [
     CommonModule,
-    TrendingRoutingModule
+    TrendingRoutingModule,
+    SharedModule
   ]
 })
 export class TrendingModule { }

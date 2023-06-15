@@ -8,12 +8,13 @@ import { User } from 'src/app/core/models/User';
 import { BusyService } from 'src/app/core/services/busy.service';
 import { PostService } from 'src/app/core/services/post.service';
 import { UserService } from 'src/app/core/services/user.service';
+
 @Component({
-  selector: 'app-trending-popular',
-  templateUrl: './trending-popular.component.html',
-  styleUrls: ['./trending-popular.component.scss']
+  selector: 'app-category-feed',
+  templateUrl: './category-feed.component.html',
+  styleUrls: ['./category-feed.component.scss']
 })
-export class TrendingPopularComponent {
+export class CategoryFeedComponent {
 
   posts: Post[] | undefined;
   predicate = 'liked';
@@ -95,5 +96,7 @@ export class TrendingPopularComponent {
     }
   }
 }
+
+
 
 

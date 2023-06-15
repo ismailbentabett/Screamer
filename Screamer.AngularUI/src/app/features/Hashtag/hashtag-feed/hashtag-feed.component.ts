@@ -9,11 +9,11 @@ import { BusyService } from 'src/app/core/services/busy.service';
 import { PostService } from 'src/app/core/services/post.service';
 import { UserService } from 'src/app/core/services/user.service';
 @Component({
-  selector: 'app-trending-popular',
-  templateUrl: './trending-popular.component.html',
-  styleUrls: ['./trending-popular.component.scss']
+  selector: 'app-hashtag-feed',
+  templateUrl: './hashtag-feed.component.html',
+  styleUrls: ['./hashtag-feed.component.scss']
 })
-export class TrendingPopularComponent {
+export class HashtagFeedComponent {
 
   posts: Post[] | undefined;
   predicate = 'liked';
@@ -95,5 +95,6 @@ export class TrendingPopularComponent {
     }
   }
 }
+
 
 
