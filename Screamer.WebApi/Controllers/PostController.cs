@@ -309,31 +309,17 @@ namespace Screamer.WebApi.Controllers
         }
 
         [HttpGet("get-posts-by-hashtag")]
-        public async Task<IActionResult> GetPostsByHashTag(
-            [FromQuery] PostParams postParams,
-            [FromQuery] string hashtagName
-        )
+        public async Task<IActionResult> GetPostsByHashTag([FromQuery] PostParams postParams)
         {
-            var query = new GetPostsByHashTagRequestQuery
-            {
-                postParams = postParams,
-                hashtagName = hashtagName
-            };
+            var query = new GetPostsByHashTagRequestQuery { postParams = postParams, };
             var result = await _mediator.Send(query);
             return Ok(result);
         }
 
         [HttpGet("get-posts-by-category")]
-        public async Task<IActionResult> GetPostsByCategory(
-            [FromQuery] PostParams postParams,
-            [FromQuery] string category
-        )
+        public async Task<IActionResult> GetPostsByCategory([FromQuery] PostParams postParams)
         {
-            var query = new GetPostsByCategoryRequestQuery
-            {
-                postParams = postParams,
-                CategoryName = category
-            };
+            var query = new GetPostsByCategoryRequestQuery { postParams = postParams };
             var result = await _mediator.Send(query);
             return Ok(result);
         }

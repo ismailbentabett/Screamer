@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { take } from 'rxjs';
+import { HashtagPostParams } from 'src/app/core/models/HashtagPostParams';
 import { Pagination } from 'src/app/core/models/Pagination';
 import { Post } from 'src/app/core/models/Post';
 import { PostParams } from 'src/app/core/models/PostParams';
@@ -20,10 +21,11 @@ export class HashtagFeedComponent {
   pageNumber = 1;
   pageSize = 5;
   pagination: Pagination | undefined;
-  postParams: PostParams | undefined;
+  postParams: HashtagPostParams | undefined;
   next: string | undefined;
   user!: User;
   userId?: string;
+  hashtag: any;
 
   constructor(
     private trendingService: TrendingService,
@@ -38,6 +40,8 @@ export class HashtagFeedComponent {
   }
 
   ngOnInit(): void {
+    this.hashtag = this.route.snapshot.paramMap.get('hashtag');
+
     // this.members$ = this.memberService.getMembers();
 
     this.userService
@@ -49,7 +53,8 @@ export class HashtagFeedComponent {
           this.postParams = this.trendingService.getPostsByHashtagParams(
             user.id as string,
             this.pageSize,
-            this.pageNumber
+            this.pageNumber,
+            this.hashtag
           );
           this.loadPosts();
         },
@@ -58,6 +63,7 @@ export class HashtagFeedComponent {
   loadPosts() {
     if (this.postParams) {
       this.trendingService.setPostsByHashtagParams(this.postParams);
+
       this.trendingService.getPostsByHashtag(this.postParams).subscribe({
         next: (response) => {
           if (response.result && response.pagination) {
@@ -72,6 +78,7 @@ export class HashtagFeedComponent {
   pageChanged(event: any) {
     if (this.postParams && this.postParams?.pageNumber !== event.page) {
       this.postParams.pageNumber = event.page;
+
       this.trendingService.setPostsByHashtagParams(this.postParams);
       this.loadPosts();
     }

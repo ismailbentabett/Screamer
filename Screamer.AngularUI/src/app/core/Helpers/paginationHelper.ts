@@ -40,10 +40,50 @@ export function getPaginationHeaders(
 
   return params;
 }
+export function getCategoryPaginationHeaders(
+  orderBy: string,
+  userId: string,
+  pageNumber: number,
+  pageSize: number,
+  category: string
+) {
+  let params = new HttpParams();
+  if (userId) {
+    params = params.append('userId', userId);
+  }
+  params = params.append('orderBy', orderBy);
+
+  params = params.append('category', category);
+
+  params = params.append('pageNumber', pageNumber);
+  params = params.append('pageSize', pageSize);
+
+  return params;
+}
+export function getHashtagPaginationHeaders(
+  orderBy: string,
+  userId: string,
+  pageNumber: number,
+  pageSize: number,
+  hashtagName: string
+) {
+  let params = new HttpParams();
+  if (userId) {
+    params = params.append('userId', userId);
+  }
+  params = params.append('orderBy', orderBy);
+
+  params = params.append('hashtagName', hashtagName);
+
+  params = params.append('pageNumber', pageNumber);
+  params = params.append('pageSize', pageSize);
+
+  return params;
+}
 export function getCommentPaginationHeaders(
   orderBy: string,
   postId: number,
-  parentCommentId: number |null,
+  parentCommentId: number | null,
   pageNumber: number,
   pageSize: number,
   commentId: any

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { take } from 'rxjs';
+import { CategoryPostParams } from 'src/app/core/models/CategoryPostParams';
 import { Pagination } from 'src/app/core/models/Pagination';
 import { Post } from 'src/app/core/models/Post';
 import { PostParams } from 'src/app/core/models/PostParams';
@@ -13,19 +14,19 @@ import { UserService } from 'src/app/core/services/user.service';
 @Component({
   selector: 'app-category-feed',
   templateUrl: './category-feed.component.html',
-  styleUrls: ['./category-feed.component.scss']
+  styleUrls: ['./category-feed.component.scss'],
 })
 export class CategoryFeedComponent {
-
   posts: Post[] | undefined;
   predicate = 'liked';
   pageNumber = 1;
   pageSize = 5;
   pagination: Pagination | undefined;
-  postParams: PostParams | undefined;
+  postParams: CategoryPostParams | undefined;
   next: string | undefined;
   user!: User;
   userId?: string;
+  category: any;
 
   constructor(
     private trendingService: TrendingService,
@@ -40,6 +41,8 @@ export class CategoryFeedComponent {
   }
 
   ngOnInit(): void {
+    this.category = this.route.snapshot.paramMap.get('category');
+
     // this.members$ = this.memberService.getMembers();
 
     this.userService
@@ -51,7 +54,8 @@ export class CategoryFeedComponent {
           this.postParams = this.trendingService.getPostsByCategoryParams(
             user.id as string,
             this.pageSize,
-            this.pageNumber
+            this.pageNumber,
+            this.category
           );
           this.loadPosts();
         },
@@ -60,6 +64,7 @@ export class CategoryFeedComponent {
   loadPosts() {
     if (this.postParams) {
       this.trendingService.setPostsByCategoryParams(this.postParams);
+
       this.trendingService.getPostsByCategory(this.postParams).subscribe({
         next: (response) => {
           if (response.result && response.pagination) {
@@ -81,19 +86,17 @@ export class CategoryFeedComponent {
   loadMorePosts() {
     if (this.pagination) {
       this.postParams!.pageNumber++;
-      this.trendingService.getPostsByCategory(this.postParams!).subscribe({
-        next: (response) => {
-          if (response.result && response.pagination) {
-            this.posts = this.posts!.concat(response.result);
-            this.pagination = response.pagination;
-          }
-        },
-      });
+
+      this.trendingService
+        .getPostsByCategory(this.postParams as any)
+        .subscribe({
+          next: (response) => {
+            if (response.result && response.pagination) {
+              this.posts = this.posts!.concat(response.result);
+              this.pagination = response.pagination;
+            }
+          },
+        });
     }
   }
 }
-
-
-
-
-

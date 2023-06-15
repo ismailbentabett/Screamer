@@ -38,8 +38,7 @@ namespace Screamer.Application.Features.PostRequest.Queries.GetPostsByCategoryRe
         )
         {
             var posts = await _uow.PostRepository.GetPostsByCategory(
-                request.postParams,
-                request.CategoryName
+                request.postParams
             );
 
             HttpContext httpContext = _httpContextAccessor.HttpContext;

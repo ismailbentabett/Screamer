@@ -11,6 +11,5 @@ namespace Screamer.Application.Features.PostRequest.Queries.GetPostsByHashTagReq
     public class GetPostsByHashTagRequestQuery : IRequest<List<PostDto>>
     {
         public PostParams postParams { get; set; }
-        public string hashtagName { get; set; }
     }
 }

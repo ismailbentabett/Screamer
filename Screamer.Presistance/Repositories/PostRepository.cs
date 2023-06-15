@@ -277,10 +277,7 @@ namespace Screamer.Presistance.Repositories
             );
         }
 
-        async Task<PagedList<Post>> IPostRepository.GetPostsByHashTag(
-            PostParams postParams,
-            string hashtag
-        )
+        async Task<PagedList<Post>> IPostRepository.GetPostsByHashTag(PostParams postParams)
         {
             var query = _context.Posts
                 .Include(u => u.PostImages)
@@ -293,7 +290,7 @@ namespace Screamer.Presistance.Repositories
                 .Include(u => u.Mentions)
                 .ThenInclude(pc => pc.User)
                 .Include(u => u.Mood)
-                .Where(p => p.PostHashtags.Any(ph => ph.Hashtag.Name == hashtag))
+                .Where(p => p.PostHashtags.Any(ph => ph.Hashtag.Name == postParams.hashtagName))
                 .AsQueryable();
 
             return await PagedList<Post>.CreateAsync(
@@ -303,10 +300,7 @@ namespace Screamer.Presistance.Repositories
             );
         }
 
-        async Task<PagedList<Post>> IPostRepository.GetPostsByCategory(
-            PostParams postParams,
-            string category
-        )
+        async Task<PagedList<Post>> IPostRepository.GetPostsByCategory(PostParams postParams)
         {
             var query = _context.Posts
                 .Include(u => u.PostImages)
@@ -319,7 +313,7 @@ namespace Screamer.Presistance.Repositories
                 .Include(u => u.Mentions)
                 .ThenInclude(pc => pc.User)
                 .Include(u => u.Mood)
-                .Where(p => p.PostCategories.Any(ph => ph.Category.Name == category))
+                .Where(p => p.PostCategories.Any(ph => ph.Category.Name == postParams.category))
                 .AsQueryable();
 
             return await PagedList<Post>.CreateAsync(

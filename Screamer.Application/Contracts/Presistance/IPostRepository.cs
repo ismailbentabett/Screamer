@@ -29,8 +29,8 @@ namespace Screamer.Application.Contracts.Presistance
 
         Task<Post> GetTheTopPreformingPost();
         Task<PagedList<Post>> GetTheTopPreformingPosts(PostParams postParams);
-        Task<PagedList<Post>> GetPostsByHashTag(PostParams postParams, string hashtagName);
-        Task<PagedList<Post>> GetPostsByCategory(PostParams postParam , string category);
+        Task<PagedList<Post>> GetPostsByHashTag(PostParams postParams);
+        Task<PagedList<Post>> GetPostsByCategory(PostParams postParam);
         Task<PagedList<Post>> GetTrendingPosts(PostParams postParams);
     }
 }

@@ -37,10 +37,7 @@ namespace Screamer.Application.Features.PostRequest.Queries.GetPostsByHashTagReq
             CancellationToken cancellationToken
         )
         {
-            var posts = await _uow.PostRepository.GetPostsByHashTag(
-                request.postParams,
-                request.hashtagName
-            );
+            var posts = await _uow.PostRepository.GetPostsByHashTag(request.postParams);
 
             HttpContext httpContext = _httpContextAccessor.HttpContext;
             HttpResponse Response = httpContext.Response;

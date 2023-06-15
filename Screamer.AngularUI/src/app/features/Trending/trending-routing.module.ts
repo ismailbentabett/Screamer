@@ -23,11 +23,11 @@ const routes: Routes = [
         path: 'popular',
         component: TrendingPopularComponent,
       },
-      {
-        path: 'following',
-        component: TrendingUsersComponent,
-      },
     ],
+  },
+  {
+    path: 'users',
+    component: TrendingUsersComponent,
   },
 ];
 

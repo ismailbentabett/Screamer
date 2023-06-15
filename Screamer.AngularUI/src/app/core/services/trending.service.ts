@@ -4,6 +4,8 @@ import { environment } from 'src/environments/environment';
 import { PostParams } from '../models/PostParams';
 import { UserParams } from '../models/userParams';
 import {
+  getCategoryPaginationHeaders,
+  getHashtagPaginationHeaders,
   getPaginatedResult,
   getPaginationHeaders,
 } from '../Helpers/paginationHelper';
@@ -11,6 +13,8 @@ import { map, take } from 'rxjs';
 import { Post } from '../models/Post';
 import { User } from '../models/User';
 import { AuthenticationService } from './authentication.service';
+import { CategoryPostParams } from '../models/CategoryPostParams';
+import { HashtagPostParams } from '../models/HashtagPostParams';
 
 @Injectable({
   providedIn: 'root',
@@ -18,8 +22,8 @@ import { AuthenticationService } from './authentication.service';
 export class TrendingService {
   baseUrl = environment.baseWebApiUrl;
   TopPreformingPosts: PostParams | undefined;
-  PostsByHashtag: PostParams | undefined;
-  PostsByCategory: PostParams | undefined;
+  PostsByHashtag: HashtagPostParams | undefined;
+  PostsByCategory: CategoryPostParams | undefined;
   TrendingPosts: PostParams | undefined;
   TopPreformingUsers: UserParams | undefined;
   user: any;
@@ -59,13 +63,14 @@ export class TrendingService {
     );
   }
 
-  getPostsByHashtag(postParams: PostParams) {
-    let params = getPaginationHeaders(
+  getPostsByHashtag(postParams: HashtagPostParams) {
+    let params = getHashtagPaginationHeaders(
       postParams.orderBy.toString(),
       postParams.userId.toString(),
 
       postParams.pageNumber,
-      postParams.pageSize
+      postParams.pageSize,
+      postParams.hashtagName
     );
     return getPaginatedResult<Post[]>(
       this.baseUrl + 'Post/get-posts-by-hashtag',
@@ -78,13 +83,14 @@ export class TrendingService {
     );
   }
 
-  getPostsByCategory(postParams: PostParams) {
-    let params = getPaginationHeaders(
+  getPostsByCategory(postParams: CategoryPostParams) {
+    let params = getCategoryPaginationHeaders(
       postParams.orderBy.toString(),
       postParams.userId.toString(),
 
       postParams.pageNumber,
-      postParams.pageSize
+      postParams.pageSize,
+      postParams.category
     );
     return getPaginatedResult<Post[]>(
       this.baseUrl + 'Post/get-posts-by-category',
@@ -160,36 +166,40 @@ export class TrendingService {
   getPostsByHashtagParams(
     userId: string,
     pageSize: number,
-    pageNumber: number
+    pageNumber: number,
+    hashtagName: string
   ) {
-    this.PostsByHashtag = new PostParams();
+    this.PostsByHashtag = new HashtagPostParams();
     this.PostsByHashtag.orderBy = 'CreatedAt';
     this.PostsByHashtag.pageNumber = pageNumber;
     this.PostsByHashtag.pageSize = pageSize;
     this.PostsByHashtag.userId = userId;
+    this.PostsByHashtag.hashtagName = hashtagName;
 
     return this.PostsByHashtag;
   }
 
-  setPostsByHashtagParams(params: PostParams) {
+  setPostsByHashtagParams(params: HashtagPostParams) {
     this.PostsByHashtag = params;
   }
 
   getPostsByCategoryParams(
     userId: string,
     pageSize: number,
-    pageNumber: number
+    pageNumber: number,
+    category: string
   ) {
-    this.PostsByCategory = new PostParams();
+    this.PostsByCategory = new CategoryPostParams();
     this.PostsByCategory.orderBy = 'CreatedAt';
     this.PostsByCategory.pageNumber = pageNumber;
     this.PostsByCategory.pageSize = pageSize;
     this.PostsByCategory.userId = userId;
+    this.PostsByCategory.category = category;
 
     return this.PostsByCategory;
   }
 
-  setPostsByCategoryParams(params: PostParams) {
+  setPostsByCategoryParams(params: CategoryPostParams) {
     this.PostsByCategory = params;
   }
 
