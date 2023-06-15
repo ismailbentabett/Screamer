@@ -23,8 +23,13 @@ using Screamer.Application.Features.PostRequest.Queries.GetAllPostsRequest;
 using Screamer.Application.Features.PostRequest.Queries.GetMostRecentPostsRequest;
 using Screamer.Application.Features.PostRequest.Queries.GetPostByIdRequest;
 using Screamer.Application.Features.PostRequest.Queries.GetPostByUserIdRequest;
+using Screamer.Application.Features.PostRequest.Queries.GetPostsByCategoryRequest;
 using Screamer.Application.Features.PostRequest.Queries.GetPostsByFollowingRequest;
+using Screamer.Application.Features.PostRequest.Queries.GetPostsByHashTagRequest;
 using Screamer.Application.Features.PostRequest.Queries.GetRecommendedPostsRequest;
+using Screamer.Application.Features.PostRequest.Queries.GetTheTopPreformingPostRequest;
+using Screamer.Application.Features.PostRequest.Queries.GetTheTopPreformingPostsRequest;
+using Screamer.Application.Features.PostRequest.Queries.GetTrendingPostsRequest;
 using Screamer.Application.Features.ReactionRequest.Commands.AddReactionRequest;
 using Screamer.Application.Helpers;
 using Screamer.Domain.Common;
@@ -285,6 +290,60 @@ namespace Screamer.WebApi.Controllers
         {
             var categories = await _uow.PostRepository.GetMostUsedCategories();
             return Ok(categories);
+        }
+
+        [HttpGet("get-the-top-preforming-post")]
+        public async Task<IActionResult> GetTheTopPreformingPost()
+        {
+            var query = new GetTheTopPreformingPostRequestQuery();
+            var result = await _mediator.Send(query);
+            return Ok(result);
+        }
+
+        [HttpGet("get-the-top-preforming-posts")]
+        public async Task<IActionResult> GetTheTopPreformingPosts([FromQuery] PostParams postParams)
+        {
+            var query = new GetTheTopPreformingPostsRequestQuery { postParams = postParams };
+            var result = await _mediator.Send(query);
+            return Ok(result);
+        }
+
+        [HttpGet("get-posts-by-hashtag")]
+        public async Task<IActionResult> GetPostsByHashTag(
+            [FromQuery] PostParams postParams,
+            [FromQuery] string hashtagName
+        )
+        {
+            var query = new GetPostsByHashTagRequestQuery
+            {
+                postParams = postParams,
+                hashtagName = hashtagName
+            };
+            var result = await _mediator.Send(query);
+            return Ok(result);
+        }
+
+        [HttpGet("get-posts-by-category")]
+        public async Task<IActionResult> GetPostsByCategory(
+            [FromQuery] PostParams postParams,
+            [FromQuery] string category
+        )
+        {
+            var query = new GetPostsByCategoryRequestQuery
+            {
+                postParams = postParams,
+                CategoryName = category
+            };
+            var result = await _mediator.Send(query);
+            return Ok(result);
+        }
+
+        [HttpGet("get-trending-posts")]
+        public async Task<IActionResult> GetTrendingPosts([FromQuery] PostParams postParams)
+        {
+            var query = new GetTrendingPostsRequestQuery { postParams = postParams };
+            var result = await _mediator.Send(query);
+            return Ok(result);
         }
     }
 }

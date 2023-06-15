@@ -14,6 +14,8 @@ using Screamer.Application.Features.PostRequest.Commands.UpdateUserRequest;
 using Screamer.Application.Features.PostRequest.Queries;
 using Screamer.Application.Features.PostRequest.Queries.GetPostByIdRequest;
 using Screamer.Application.Features.UserRequest.Commands.DeleteUserRequest;
+using Screamer.Application.Features.UserRequest.Queries.GetTheTopPreformingUser;
+using Screamer.Application.Features.UserRequest.Queries.GetTheTopPreformingUsers;
 using Screamer.Application.Features.UserRequest.Queries.GetUserByUsernameRequest;
 using Screamer.Application.Features.UserRequest.Queries.GetUsersRequest;
 using Screamer.Application.Helpers;
@@ -132,6 +134,22 @@ namespace Screamer.WebApi.Controllers
             var command = new DeleteCoverRequestCommand { coverId = coverId, userId = userId };
             await _mediator.Send(command);
             return NoContent();
+        }
+
+        [HttpGet("top-preforming-user")]
+        public async Task<IActionResult> GetTheTopPreformingUser()
+        {
+            var query = new GetTheTopPreformingUserQuery();
+            var result = await _mediator.Send(query);
+            return Ok(result);
+        }
+
+        [HttpGet("top-preforming-users")]
+        public async Task<IActionResult> GetTheTopPreformingUsers([FromQuery] UserParams userParams)
+        {
+            var query = new GetTheTopPreformingUsersQuery { userParams = userParams };
+            var result = await _mediator.Send(query);
+            return Ok(result);
         }
     }
 }
