@@ -240,6 +240,7 @@ namespace Screamer.Presistance.Repositories
         {
             //GetTheTopPreformingPost
             return await _context.Posts
+                .Include(pc => pc.User)
                 .Include(u => u.PostImages)
                 .Include(u => u.PostCategories)
                 .ThenInclude(pc => pc.Category)

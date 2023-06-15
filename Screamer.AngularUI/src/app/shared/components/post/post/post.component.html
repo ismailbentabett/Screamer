@@ -311,7 +311,7 @@
                 clip-rule="evenodd"
               />
             </svg>
-            <span class="font-medium text-gray-900" *ngIf="commentCount">{{
+            <span class="font-medium text-gray-900" *ngIf="commentCount >= 0">{{
               commentCount | shortNumber
             }}</span>
             <span class="sr-only">replies</span>
