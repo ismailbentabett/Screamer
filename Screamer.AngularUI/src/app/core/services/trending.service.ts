@@ -7,9 +7,10 @@ import {
   getPaginatedResult,
   getPaginationHeaders,
 } from '../Helpers/paginationHelper';
-import { map } from 'rxjs';
+import { map, take } from 'rxjs';
 import { Post } from '../models/Post';
 import { User } from '../models/User';
+import { AuthenticationService } from './authentication.service';
 
 @Injectable({
   providedIn: 'root',
@@ -21,7 +22,19 @@ export class TrendingService {
   PostsByCategory: PostParams | undefined;
   TrendingPosts: PostParams | undefined;
   TopPreformingUsers: UserParams | undefined;
-  constructor(private http: HttpClient) {}
+  user: any;
+  constructor(
+    private http: HttpClient,
+    private authService: AuthenticationService
+  ) {
+    this.authService.currentUser$.pipe(take(1)).subscribe({
+      next: (user) => {
+        if (user) {
+          this.user = user;
+        }
+      },
+    });
+  }
 
   getTopPreformingPost() {
     return this.http.get(this.baseUrl + 'Post/get-the-top-preforming-post');
@@ -194,15 +207,12 @@ export class TrendingService {
     this.TrendingPosts = params;
   }
 
-  getTopPreformingUsersParams(
-    userId: string,
-    pageSize: number,
-    pageNumber: number
-  ) {
+  getTopPreformingUsersParams() {
     this.TopPreformingUsers = new UserParams();
     this.TopPreformingUsers.orderBy = 'CreatedAt';
-    this.TopPreformingUsers.pageNumber = pageNumber;
-    this.TopPreformingUsers.pageSize = pageSize;
+    this.TopPreformingUsers.pageNumber = 1;
+    this.TopPreformingUsers.pageSize = 10;
+    this.TopPreformingUsers.userId = this.user.id;
 
     return this.TopPreformingUsers;
   }

@@ -7,14 +7,14 @@ import { PostParams } from 'src/app/core/models/PostParams';
 import { User } from 'src/app/core/models/User';
 import { BusyService } from 'src/app/core/services/busy.service';
 import { PostService } from 'src/app/core/services/post.service';
+import { TrendingService } from 'src/app/core/services/trending.service';
 import { UserService } from 'src/app/core/services/user.service';
 @Component({
   selector: 'app-hashtag-feed',
   templateUrl: './hashtag-feed.component.html',
-  styleUrls: ['./hashtag-feed.component.scss']
+  styleUrls: ['./hashtag-feed.component.scss'],
 })
 export class HashtagFeedComponent {
-
   posts: Post[] | undefined;
   predicate = 'liked';
   pageNumber = 1;
@@ -26,7 +26,7 @@ export class HashtagFeedComponent {
   userId?: string;
 
   constructor(
-    private postService: PostService,
+    private trendingService: TrendingService,
     private route: ActivatedRoute,
     private userService: UserService,
     private busyService: BusyService
@@ -46,7 +46,7 @@ export class HashtagFeedComponent {
       .subscribe({
         next: (user: any) => {
           this.user = user;
-          this.postParams = this.postService.getPostParams(
+          this.postParams = this.trendingService.getPostsByHashtagParams(
             user.id as string,
             this.pageSize,
             this.pageNumber
@@ -57,8 +57,8 @@ export class HashtagFeedComponent {
   }
   loadPosts() {
     if (this.postParams) {
-      this.postService.setPostParams(this.postParams);
-      this.postService.getMostRecentPosts(this.postParams).subscribe({
+      this.trendingService.setPostsByHashtagParams(this.postParams);
+      this.trendingService.getPostsByHashtag(this.postParams).subscribe({
         next: (response) => {
           if (response.result && response.pagination) {
             this.posts = response.result;
@@ -69,22 +69,17 @@ export class HashtagFeedComponent {
     }
   }
 
-  resetFilters() {
-    this.postParams = this.postService.resetPostParams(this.user);
-    this.loadPosts();
-  }
-
   pageChanged(event: any) {
     if (this.postParams && this.postParams?.pageNumber !== event.page) {
       this.postParams.pageNumber = event.page;
-      this.postService.setPostParams(this.postParams);
+      this.trendingService.setPostsByHashtagParams(this.postParams);
       this.loadPosts();
     }
   }
   loadMorePosts() {
     if (this.pagination) {
       this.postParams!.pageNumber++;
-      this.postService.getMostRecentPosts(this.postParams!).subscribe({
+      this.trendingService.getPostsByHashtag(this.postParams!).subscribe({
         next: (response) => {
           if (response.result && response.pagination) {
             this.posts = this.posts!.concat(response.result);
@@ -95,6 +90,3 @@ export class HashtagFeedComponent {
     }
   }
 }
-
-
-

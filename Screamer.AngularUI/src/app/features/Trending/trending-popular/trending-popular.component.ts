@@ -6,15 +6,14 @@ import { Post } from 'src/app/core/models/Post';
 import { PostParams } from 'src/app/core/models/PostParams';
 import { User } from 'src/app/core/models/User';
 import { BusyService } from 'src/app/core/services/busy.service';
-import { PostService } from 'src/app/core/services/post.service';
+import { TrendingService } from 'src/app/core/services/trending.service';
 import { UserService } from 'src/app/core/services/user.service';
 @Component({
   selector: 'app-trending-popular',
   templateUrl: './trending-popular.component.html',
-  styleUrls: ['./trending-popular.component.scss']
+  styleUrls: ['./trending-popular.component.scss'],
 })
 export class TrendingPopularComponent {
-
   posts: Post[] | undefined;
   predicate = 'liked';
   pageNumber = 1;
@@ -26,7 +25,7 @@ export class TrendingPopularComponent {
   userId?: string;
 
   constructor(
-    private postService: PostService,
+    private trendingService: TrendingService,
     private route: ActivatedRoute,
     private userService: UserService,
     private busyService: BusyService
@@ -46,7 +45,7 @@ export class TrendingPopularComponent {
       .subscribe({
         next: (user: any) => {
           this.user = user;
-          this.postParams = this.postService.getPostParams(
+          this.postParams = this.trendingService.getTopPreformingPostsParams(
             user.id as string,
             this.pageSize,
             this.pageNumber
@@ -57,8 +56,8 @@ export class TrendingPopularComponent {
   }
   loadPosts() {
     if (this.postParams) {
-      this.postService.setPostParams(this.postParams);
-      this.postService.getMostRecentPosts(this.postParams).subscribe({
+      this.trendingService.setTopPreformingPostsParams(this.postParams);
+      this.trendingService.getTopPreformingPosts(this.postParams).subscribe({
         next: (response) => {
           if (response.result && response.pagination) {
             this.posts = response.result;
@@ -69,22 +68,17 @@ export class TrendingPopularComponent {
     }
   }
 
-  resetFilters() {
-    this.postParams = this.postService.resetPostParams(this.user);
-    this.loadPosts();
-  }
-
   pageChanged(event: any) {
     if (this.postParams && this.postParams?.pageNumber !== event.page) {
       this.postParams.pageNumber = event.page;
-      this.postService.setPostParams(this.postParams);
+      this.trendingService.setTopPreformingPostsParams(this.postParams);
       this.loadPosts();
     }
   }
   loadMorePosts() {
     if (this.pagination) {
       this.postParams!.pageNumber++;
-      this.postService.getMostRecentPosts(this.postParams!).subscribe({
+      this.trendingService.getTopPreformingPosts(this.postParams!).subscribe({
         next: (response) => {
           if (response.result && response.pagination) {
             this.posts = this.posts!.concat(response.result);
@@ -95,5 +89,3 @@ export class TrendingPopularComponent {
     }
   }
 }
-
-

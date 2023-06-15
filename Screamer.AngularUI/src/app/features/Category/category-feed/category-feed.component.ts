@@ -7,6 +7,7 @@ import { PostParams } from 'src/app/core/models/PostParams';
 import { User } from 'src/app/core/models/User';
 import { BusyService } from 'src/app/core/services/busy.service';
 import { PostService } from 'src/app/core/services/post.service';
+import { TrendingService } from 'src/app/core/services/trending.service';
 import { UserService } from 'src/app/core/services/user.service';
 
 @Component({
@@ -27,7 +28,7 @@ export class CategoryFeedComponent {
   userId?: string;
 
   constructor(
-    private postService: PostService,
+    private trendingService: TrendingService,
     private route: ActivatedRoute,
     private userService: UserService,
     private busyService: BusyService
@@ -47,7 +48,7 @@ export class CategoryFeedComponent {
       .subscribe({
         next: (user: any) => {
           this.user = user;
-          this.postParams = this.postService.getPostParams(
+          this.postParams = this.trendingService.getPostsByCategoryParams(
             user.id as string,
             this.pageSize,
             this.pageNumber
@@ -58,8 +59,8 @@ export class CategoryFeedComponent {
   }
   loadPosts() {
     if (this.postParams) {
-      this.postService.setPostParams(this.postParams);
-      this.postService.getMostRecentPosts(this.postParams).subscribe({
+      this.trendingService.setPostsByCategoryParams(this.postParams);
+      this.trendingService.getPostsByCategory(this.postParams).subscribe({
         next: (response) => {
           if (response.result && response.pagination) {
             this.posts = response.result;
@@ -70,22 +71,17 @@ export class CategoryFeedComponent {
     }
   }
 
-  resetFilters() {
-    this.postParams = this.postService.resetPostParams(this.user);
-    this.loadPosts();
-  }
-
   pageChanged(event: any) {
     if (this.postParams && this.postParams?.pageNumber !== event.page) {
       this.postParams.pageNumber = event.page;
-      this.postService.setPostParams(this.postParams);
+      this.trendingService.setPostsByCategoryParams(this.postParams);
       this.loadPosts();
     }
   }
   loadMorePosts() {
     if (this.pagination) {
       this.postParams!.pageNumber++;
-      this.postService.getMostRecentPosts(this.postParams!).subscribe({
+      this.trendingService.getPostsByCategory(this.postParams!).subscribe({
         next: (response) => {
           if (response.result && response.pagination) {
             this.posts = this.posts!.concat(response.result);
@@ -96,6 +92,7 @@ export class CategoryFeedComponent {
     }
   }
 }
+
 
 
 
