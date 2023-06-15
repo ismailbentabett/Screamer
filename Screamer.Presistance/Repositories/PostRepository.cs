@@ -236,10 +236,10 @@ namespace Screamer.Presistance.Repositories
             return await postCategories.ToListAsync();
         }
 
-        Task<Post> IPostRepository.GetTheTopPreformingPost()
+        async Task<Post> IPostRepository.GetTheTopPreformingPost()
         {
             //GetTheTopPreformingPost
-            return _context.Posts
+            return await _context.Posts
                 .Include(u => u.PostImages)
                 .Include(u => u.PostCategories)
                 .ThenInclude(pc => pc.Category)

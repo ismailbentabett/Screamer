@@ -31,16 +31,16 @@ namespace Screamer.Application.Features.PostRequest.Queries.GetTheTopPreformingP
             _httpContextAccessor = httpContextAccessor;
         }
 
-        public Task<PostDto> Handle(
+        public async Task<PostDto> Handle(
             GetTheTopPreformingPostRequestQuery request,
             CancellationToken cancellationToken
         )
         {
-            var post = _uow.PostRepository.GetTheTopPreformingPost();
+            var post = await _uow.PostRepository.GetTheTopPreformingPost();
 
             var data = _mapper.Map<PostDto>(post);
 
-            return Task.FromResult(data);
+            return await Task.FromResult(data);
         }
     }
 }
