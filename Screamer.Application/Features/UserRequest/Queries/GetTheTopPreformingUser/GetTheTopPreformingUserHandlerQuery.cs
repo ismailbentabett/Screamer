@@ -31,12 +31,16 @@ namespace Screamer.Application.Features.UserRequest.Queries.GetTheTopPreformingU
             _httpContextAccessor = httpContextAccessor;
         }
 
-        public Task<UserDto> Handle(
+        public async Task<UserDto> Handle(
             GetTheTopPreformingUserQuery request,
             CancellationToken cancellationToken
         )
         {
-            throw new NotImplementedException();
+            var user = await _uow.UserRepository.GetTheTopPreformingUser();
+
+            var data = _mapper.Map<UserDto>(user);
+
+            return data;
         }
     }
 }

@@ -7,6 +7,7 @@ using MediatR;
 using Microsoft.AspNetCore.Http;
 using Screamer.Application.Contracts.Presistance;
 using Screamer.Application.Dtos;
+using Screamer.Application.Helpers;
 
 namespace Screamer.Application.Features.PostRequest.Queries.GetTheTopPreformingPostsRequest
 {
@@ -31,12 +32,27 @@ namespace Screamer.Application.Features.PostRequest.Queries.GetTheTopPreformingP
             _httpContextAccessor = httpContextAccessor;
         }
 
-        public Task<List<PostDto>> Handle(
+        public async Task<List<PostDto>> Handle(
             GetTheTopPreformingPostsRequestQuery request,
             CancellationToken cancellationToken
         )
         {
-            throw new NotImplementedException();
+            var posts = await _uow.PostRepository.GetTheTopPreformingPosts(request.postParams);
+
+            HttpContext httpContext = _httpContextAccessor.HttpContext;
+            HttpResponse Response = httpContext.Response;
+            Response.AddPaginationHeader(
+                new PaginationHeader(
+                    posts.CurrentPage,
+                    posts.PageSize,
+                    posts.TotalCount,
+                    posts.TotalPages
+                )
+            );
+
+            var data = _mapper.Map<List<PostDto>>(posts);
+
+            return data;
         }
     }
 }

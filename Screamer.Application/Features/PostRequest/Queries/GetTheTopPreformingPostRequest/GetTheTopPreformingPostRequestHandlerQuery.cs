@@ -13,7 +13,7 @@ namespace Screamer.Application.Features.PostRequest.Queries.GetTheTopPreformingP
     public class GetTheTopPreformingPostRequestHandlerQuery
         : IRequestHandler<GetTheTopPreformingPostRequestQuery, PostDto>
     {
-         private readonly IPostRepository _postRepository;
+        private readonly IPostRepository _postRepository;
         private readonly IMapper _mapper;
         private readonly IUnitOfWork _uow;
         private readonly IHttpContextAccessor _httpContextAccessor;
@@ -30,12 +30,17 @@ namespace Screamer.Application.Features.PostRequest.Queries.GetTheTopPreformingP
             _uow = uow;
             _httpContextAccessor = httpContextAccessor;
         }
+
         public Task<PostDto> Handle(
             GetTheTopPreformingPostRequestQuery request,
             CancellationToken cancellationToken
         )
         {
-            throw new NotImplementedException();
+            var post = _uow.PostRepository.GetTheTopPreformingPost();
+
+            var data = _mapper.Map<PostDto>(post);
+
+            return Task.FromResult(data);
         }
     }
 }

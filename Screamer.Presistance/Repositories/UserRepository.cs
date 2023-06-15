@@ -109,7 +109,9 @@ public class UserRepository : IUserRepository
             .FirstOrDefaultAsync();
     }
 
-    public async Task<PagedList<ApplicationUser>> GetTheTopPreformingUsers(PostParams postParams)
+    async Task<PagedList<ApplicationUser>> IUserRepository.GetTheTopPreformingUsers(
+        UserParams userParams
+    )
     {
         var query = _context.Users
             .Include(p => p.Avatars)
@@ -119,7 +121,7 @@ public class UserRepository : IUserRepository
             .OrderByDescending(x => x.Posts.Count())
             .AsQueryable();
 
-        query = postParams.OrderBy switch
+        query = userParams.OrderBy switch
         {
             "CreatedAt" => query.OrderByDescending(u => u.CreatedAt),
             _ => query.OrderByDescending(u => u.CreatedAt)
@@ -127,8 +129,8 @@ public class UserRepository : IUserRepository
 
         return await PagedList<ApplicationUser>.CreateAsync(
             query,
-            postParams.PageNumber,
-            postParams.PageSize
+            userParams.PageNumber,
+            userParams.PageSize
         );
     }
 }

@@ -11,6 +11,6 @@ namespace Screamer.Application.Features.PostRequest.Queries.GetPostsByCategoryRe
     public class GetPostsByCategoryRequestQuery : IRequest<List<PostDto>>
     {
         public PostParams postParams { get; set; }
-        public string hashtagName { get; set; }
+        public string CategoryName { get; set; }
     }
 }

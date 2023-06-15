@@ -7,6 +7,7 @@ using MediatR;
 using Microsoft.AspNetCore.Http;
 using Screamer.Application.Contracts.Presistance;
 using Screamer.Application.Dtos;
+using Screamer.Application.Helpers;
 
 namespace Screamer.Application.Features.PostRequest.Queries.GetPostsByHashTagRequest
 {
@@ -30,12 +31,31 @@ namespace Screamer.Application.Features.PostRequest.Queries.GetPostsByHashTagReq
             _uow = uow;
             _httpContextAccessor = httpContextAccessor;
         }
-        public Task<List<PostDto>> Handle(
+
+        public async Task<List<PostDto>> Handle(
             GetPostsByHashTagRequestQuery request,
             CancellationToken cancellationToken
         )
         {
-            throw new NotImplementedException();
+            var posts = await _uow.PostRepository.GetPostsByHashTag(
+                request.postParams,
+                request.hashtagName
+            );
+
+            HttpContext httpContext = _httpContextAccessor.HttpContext;
+            HttpResponse Response = httpContext.Response;
+            Response.AddPaginationHeader(
+                new PaginationHeader(
+                    posts.CurrentPage,
+                    posts.PageSize,
+                    posts.TotalCount,
+                    posts.TotalPages
+                )
+            );
+
+            var data = _mapper.Map<List<PostDto>>(posts);
+
+            return data;
         }
     }
 }
