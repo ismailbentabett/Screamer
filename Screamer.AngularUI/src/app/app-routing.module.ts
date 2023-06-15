@@ -64,6 +64,27 @@ const routes: Routes = [
         loadChildren: () =>
           import('./features/Search/search.module').then((m) => m.SearchModule),
       },
+      {
+        path: 'hashtag',
+        loadChildren: () =>
+          import('./features/Hashtag/hashtag.module').then(
+            (m) => m.HashtagModule
+          ),
+      },
+      {
+        path: 'category',
+        loadChildren: () =>
+          import('./features/Category/category.module').then(
+            (m) => m.CategoryModule
+          ),
+      },
+      {
+        path: 'trending',
+        loadChildren: () =>
+          import('./features/Trending/trending.module').then(
+            (m) => m.TrendingModule
+          ),
+      },
     ],
   },
 
