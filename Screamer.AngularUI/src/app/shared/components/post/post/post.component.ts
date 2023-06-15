@@ -80,12 +80,7 @@ export class PostComponent {
       .subscribe({
         next: (user: any) => {
           this.currentUser = user;
-          console.log(
-            {
-              postId: this.post.id,
-              userId: user.id,
-            }
-          )
+
           this.IsBookMarked({
             postId: this.post.id,
             userId: user.id,
@@ -211,7 +206,6 @@ export class PostComponent {
       postId: this.post.id,
       userId: this.currentUser.id,
     };
-    console.log(model);
 
     this.bookmarkService.DeleteBookMark(model).subscribe({
       next: (result: any) => {},
@@ -223,7 +217,6 @@ export class PostComponent {
       postId: this.post.id,
       userId: this.currentUser.id,
     };
-    console.log(model);
     this.bookmarkService.UpdateBookMark(model).subscribe({
       next: (result: any) => {},
     });
