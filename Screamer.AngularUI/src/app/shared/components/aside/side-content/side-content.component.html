@@ -11,8 +11,9 @@
         <div class="mt-6 flow-root">
           <ul role="list" class="-my-4 divide-y divide-gray-200">
             <li class="flex items-center py-4 space-x-3">
-              <div class="flex-shrink-0">
+              <div class="flex-shrink-0 cursor-pointer">
                 <app-avatar
+                  [routerLink]="['/v/user', user.id]"
                   *ngIf="user"
                   [user]="user"
                   avatarStyle="h-8 w-8 rounded-full ring-4 ring-white sm:h-10 sm:w-10"
@@ -23,14 +24,20 @@
                   class="text-sm font-medium text-gray-900"
                   *ngIf="user.firstName || user.lastName"
                 >
-                  <a href="#">{{ user.firstName }} {{ user.lastName }}</a>
+                  <a [routerLink]="['/v/user', user.id]"
+                    >{{ user.firstName }} {{ user.lastName }}</a
+                  >
                 </p>
                 <p class="text-sm text-gray-500">
-                  <a href="#" *ngIf="user.userName">@{{ user.userName }}</a>
+                  <a [routerLink]="['/v/user', user.id]" *ngIf="user.userName"
+                    >@{{ user.userName }}</a
+                  >
                 </p>
               </div>
               <div class="flex-shrink-0">
                 <button
+                  *ngIf="!isUserInMyFollowings"
+                  (click)="follow(user)"
                   type="button"
                   class="inline-flex items-center px-3 py-0.5 rounded-full bg-dodger-blue-50 text-sm font-medium text-dodger-blue-700 hover:bg-dodger-blue-100"
                 >
@@ -50,6 +57,30 @@
                   </svg>
                   <span> Follow </span>
                 </button>
+                <button
+                  *ngIf="isUserInMyFollowings"
+                  (click)="unfollow(user)"
+                  type="button"
+                  class="inline-flex items-center px-3 py-0.5 rounded-full bg-dodger-blue-500 text-sm font-medium text-white hover:bg-dodger-blue-400"
+                >
+                  <!-- Heroicon name: solid/plus-sm -->
+                  <svg
+                    class="-ml-1 mr-0.5 h-5 w-5 text-white"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M18 12H6"
+                    />
+                  </svg>
+
+                  <span> UnFollow </span>
+                </button>
               </div>
             </li>
 
@@ -58,8 +89,8 @@
         </div>
         <div class="mt-6">
           <a
-          [routerLink]="['/v/trending/users']"
-          class="w-full block text-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50"
+            [routerLink]="['/v/trending/users']"
+            class="w-full block text-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50"
           >
             View all
           </a>
@@ -76,22 +107,24 @@
         <div class="mt-6 flow-root">
           <ul role="list" class="-my-4 divide-y divide-gray-200">
             <li class="flex py-4 space-x-3">
-              <div class="flex-shrink-0">
+              <div class="flex-shrink-0 cursor-pointer">
                 <app-avatar
-                *ngIf="post.user"
-                [user]="post.user"
-                avatarStyle="h-8 w-8 rounded-full ring-4 ring-white sm:h-10 sm:w-10"
-              ></app-avatar>
+                  [routerLink]="['/v/post', post.id]"
+                  *ngIf="post.user"
+                  [user]="post.user"
+                  avatarStyle="h-8 w-8 rounded-full ring-4 ring-white sm:h-10 sm:w-10"
+                ></app-avatar>
               </div>
-              <div class="min-w-0 flex-1">
-                <p class="text-sm text-gray-800" *ngIf="post.title">
+              <div [routerLink]="['/v/post', post.id]" class="min-w-0 flex-1">
+                <p class=" cursor-pointer text-sm text-gray-800" *ngIf="post.title">
                   {{ post.title }}
                 </p>
                 <div class="mt-2 flex">
                   <span class="inline-flex items-center text-sm">
                     <button
+                      [routerLink]="['/v/post', post.id]"
                       type="button"
-                      class="inline-flex space-x-2 text-gray-400 hover:text-gray-500"
+                      class="cursor-pointer inline-flex space-x-2 text-gray-400 hover:text-gray-500"
                     >
                       <!-- Heroicon name: solid/chat-alt -->
                       <svg
@@ -123,7 +156,7 @@
         </div>
         <div class="mt-6">
           <a
-          [routerLink]="['/v/trending/posts']"
+            [routerLink]="['/v/trending/posts']"
             class="w-full block text-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50"
           >
             View all

@@ -9,6 +9,6 @@ namespace Screamer.Application.Features.UserRequest.Queries.GetTheTopPreformingU
 {
     public class GetTheTopPreformingUserQuery : IRequest<UserDto>
     {
-        
+        public string currentUserId { get; set; }
     }
 }

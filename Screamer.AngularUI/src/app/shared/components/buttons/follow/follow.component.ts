@@ -37,16 +37,7 @@ isUserInMyFollowings : boolean = false;
 
   }
 
-  follow() {
-    this.userService
-      .addFollow(this.sourceUser!.id as any, this.targetUser!.id as any)
-      .subscribe({
-        next: () => {
-          this.loadFollowers();
-          this.loadFollowings();
-        },
-      });
-  }
+
 
   //ngoninit
   ngOnInit(): void {
@@ -66,6 +57,17 @@ isUserInMyFollowings : boolean = false;
 
 
 
+  }
+
+  follow() {
+    this.userService
+      .addFollow(this.sourceUser!.id as any, this.targetUser!.id as any)
+      .subscribe({
+        next: () => {
+          this.loadFollowers();
+          this.loadFollowings();
+        },
+      });
   }
 
   unfollow() {

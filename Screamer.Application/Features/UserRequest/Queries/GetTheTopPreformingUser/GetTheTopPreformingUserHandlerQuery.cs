@@ -36,7 +36,7 @@ namespace Screamer.Application.Features.UserRequest.Queries.GetTheTopPreformingU
             CancellationToken cancellationToken
         )
         {
-            var user = await _uow.UserRepository.GetTheTopPreformingUser();
+            var user = await _uow.UserRepository.GetTheTopPreformingUser(request.currentUserId);
 
             var data = _mapper.Map<UserDto>(user);
 

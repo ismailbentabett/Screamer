@@ -122,8 +122,10 @@ export class TrendingService {
     );
   }
 
-  getTopPreformingUser() {
-    return this.http.get(this.baseUrl + 'User/top-preforming-user');
+  getTopPreformingUser(currentUserId: any) {
+    return this.http.get(
+      this.baseUrl + 'User/top-preforming-user?currentUserId=' + currentUserId
+    );
   }
 
   getTopPreformingUsers(userParams: UserParams) {

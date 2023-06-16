@@ -137,9 +137,9 @@ namespace Screamer.WebApi.Controllers
         }
 
         [HttpGet("top-preforming-user")]
-        public async Task<IActionResult> GetTheTopPreformingUser()
+        public async Task<IActionResult> GetTheTopPreformingUser(string currentUserId)
         {
-            var query = new GetTheTopPreformingUserQuery();
+            var query = new GetTheTopPreformingUserQuery { currentUserId = currentUserId };
             var result = await _mediator.Send(query);
             return Ok(result);
         }
