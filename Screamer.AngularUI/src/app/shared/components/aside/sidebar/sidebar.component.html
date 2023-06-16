@@ -76,7 +76,10 @@
       </svg>
       <span class="truncate"> Trending </span>
     </a>
-    <a href="#" [ngClass]="TabStyle('/v/saved/posts')">
+    <a
+      [routerLink]="['/v/bookmark/feed']"
+      [ngClass]="TabStyle('/v/bookmark/feed')"
+    >
       <!-- Heroicon name: outline/user-group -->
       <svg
         class="text-gray-400 group-hover:text-gray-500 flex-shrink-0 -ml-1 mr-3 h-6 w-6"

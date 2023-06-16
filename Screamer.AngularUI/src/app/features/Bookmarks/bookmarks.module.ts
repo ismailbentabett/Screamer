@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 
 import { BookmarksRoutingModule } from './bookmarks-routing.module';
 import { BookmarkFeedComponent } from './bookmark-feed/bookmark-feed.component';
+import { share } from 'rxjs';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 
 @NgModule({
@@ -11,7 +13,8 @@ import { BookmarkFeedComponent } from './bookmark-feed/bookmark-feed.component';
   ],
   imports: [
     CommonModule,
-    BookmarksRoutingModule
+    BookmarksRoutingModule,
+    SharedModule
   ]
 })
 export class BookmarksModule { }

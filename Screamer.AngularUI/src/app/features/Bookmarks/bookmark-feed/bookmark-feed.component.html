@@ -1,1 +1,17 @@
-<p>bookmark-feed works!</p>
+<main>
+  <div class="mt-4">
+    <h1 class="sr-only">Recent questions</h1>
+    <ul
+      *ngIf="posts"
+      role="list"
+      infiniteScroll
+      [infiniteScrollDistance]="2"
+      [infiniteScrollThrottle]="50"
+      (scrolled)="loadMorePosts()"
+    >
+      <div *ngFor="let post of posts">
+        <app-post [post]="post"></app-post>
+      </div>
+    </ul>
+  </div>
+</main>
