@@ -44,5 +44,30 @@ namespace Screamer.Presistance.Repositories
 
             return userBookmark;
         }
+
+        public async Task<PagedList<Post>> GetBookMarkedPosts(PostParams postParams)
+        {
+            var bookmark = _context.BookMarks.Where(b => b.UserId == postParams.UserId);
+
+            var query = _context.Posts
+                .Where(b => b.BookMarks.Any(b => b.UserId == postParams.UserId))
+                .Include(u => u.PostImages)
+                .Include(u => u.PostCategories)
+                .ThenInclude(pc => pc.Category)
+                .Include(u => u.PostHashtags)
+                .ThenInclude(pc => pc.Hashtag)
+                .Include(pc => pc.Tags)
+                .ThenInclude(pc => pc.User)
+                .Include(u => u.Mentions)
+                .ThenInclude(pc => pc.User)
+                .Include(u => u.Mood)
+                .AsQueryable();
+
+            return await PagedList<Post>.CreateAsync(
+                query,
+                postParams.PageNumber,
+                postParams.PageSize
+            );
+        }
     }
 }

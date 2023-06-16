@@ -64,5 +64,14 @@ namespace Screamer.WebApi.Controllers
             var result = await _mediator.Send(command);
             return Ok(result);
         }
+
+        [HttpGet("bookmarked-posts")]
+        public async Task<ActionResult> GetBookMarkedPosts([FromQuery] PostParams postParams)
+        {
+            var query = new GetBookMarkedPostsRequestQuery { postParams = postParams };
+
+            var result = await _mediator.Send(query);
+            return Ok(result);
+        }
     }
 }

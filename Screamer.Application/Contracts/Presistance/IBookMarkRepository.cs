@@ -12,5 +12,6 @@ namespace Screamer.Application.Contracts.Presistance
     {
         Task<PagedList<Post>> GetAllBookmarksByUserIdRequest(PostParams postParams);
         Task<BookMark> GetBookmarkByUserIdAndPostId(string UserId, int PostId);
+        Task<PagedList<Post>> GetBookMarkedPosts(PostParams postParams);
     }
 }
