@@ -2,7 +2,7 @@
   <div class="pb-8 space-y-1">
     <!-- Current: "bg-gray-200 text-gray-900", Default: "text-gray-600 hover:bg-gray-50" -->
     <a
-      href="#"
+      [routerLink]="['/v/feed/recent']"
       class="bg-gray-200 text-gray-900 group flex items-center px-3 py-2 text-sm font-medium rounded-md"
       aria-current="page"
     >
@@ -26,7 +26,7 @@
     </a>
 
     <a
-      href="#"
+      [routerLink]="['/v/trending/popular']"
       class="text-gray-600 hover:bg-gray-50 group flex items-center px-3 py-2 text-sm font-medium rounded-md"
     >
       <!-- Heroicon name: outline/fire -->
@@ -55,30 +55,7 @@
     </a>
 
     <a
-      href="#"
-      class="text-gray-600 hover:bg-gray-50 group flex items-center px-3 py-2 text-sm font-medium rounded-md"
-    >
-      <!-- Heroicon name: outline/user-group -->
-      <svg
-        class="text-gray-400 group-hover:text-gray-500 flex-shrink-0 -ml-1 mr-3 h-6 w-6"
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-        aria-hidden="true"
-      >
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
-        />
-      </svg>
-      <span class="truncate"> Communities </span>
-    </a>
-
-    <a
-      href="#"
+      [routerLink]="['/v/trending/posts']"
       class="text-gray-600 hover:bg-gray-50 group flex items-center px-3 py-2 text-sm font-medium rounded-md"
     >
       <!-- Heroicon name: outline/trending-up -->
@@ -99,6 +76,26 @@
       </svg>
       <span class="truncate"> Trending </span>
     </a>
+    <a
+      href="#"
+      class="text-gray-600 hover:bg-gray-50 group flex items-center px-3 py-2 text-sm font-medium rounded-md"
+    >
+      <!-- Heroicon name: outline/user-group -->
+      <svg
+        class="text-gray-400 group-hover:text-gray-500 flex-shrink-0 -ml-1 mr-3 h-6 w-6"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="currentColor"
+      >
+        <path
+          fill-rule="evenodd"
+          d="M6.32 2.577a49.255 49.255 0 0111.36 0c1.497.174 2.57 1.46 2.57 2.93V21a.75.75 0 01-1.085.67L12 18.089l-7.165 3.583A.75.75 0 013.75 21V5.507c0-1.47 1.073-2.756 2.57-2.93z"
+          clip-rule="evenodd"
+        />
+      </svg>
+
+      <span class="truncate"> Saved </span>
+    </a>
   </div>
   <div class="pt-10" *ngIf="MostUsedHashtags.length > 0">
     <p
@@ -109,9 +106,9 @@
     </p>
     <div class="mt-3 space-y-2" aria-labelledby="communities-headline">
       <a
-        href="#"
         class="group flex items-center px-3 py-2 text-sm font-medium text-gray-600 rounded-md hover:text-gray-900 hover:bg-gray-50"
         *ngFor="let hashtag of MostUsedHashtags"
+        [routerLink]="['/v/hashtag', hashtag.substring(1)]"
       >
         <span class="truncate"> {{ hashtag }} </span>
       </a>
@@ -126,7 +123,7 @@
     </p>
     <div class="mt-3 space-y-2" aria-labelledby="communities-headline">
       <a
-        href="#"
+        [routerLink]="['/v/category', category]"
         class="group flex items-center px-3 py-2 text-sm font-medium text-gray-600 rounded-md hover:text-gray-900 hover:bg-gray-50"
         *ngFor="let category of MostUsedCategories"
       >
