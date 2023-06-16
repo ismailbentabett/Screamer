@@ -15,6 +15,7 @@ export class AppComponent {
   title = 'Screamer.AngularUI';
   shouldShowNavAndFooterComponent: boolean | undefined;
   ShoudShowSearchModal: boolean | undefined;
+  showSideContent!: boolean;
 
   constructor(
     private authService: AuthenticationService,
@@ -25,6 +26,19 @@ export class AppComponent {
   ) {}
 
   ngOnInit(): void {
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        this.showSideContent =
+          this.router!.url !== '/v/chat' &&
+          this.router.url !== '/' &&
+          this.router.url !== '/v/settings/profile' &&
+          this.router.url !== '/v/settings/account' &&
+          this.router.url !== '/v/settings/auth' &&
+          this.router.url !== '/auth/login' &&
+          this.router.url !== '/auth/signup' &&
+          this.router.url !== '/v/list/users';
+      }
+    });
     this.setCurrentUser();
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {

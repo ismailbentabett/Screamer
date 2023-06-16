@@ -2,7 +2,50 @@
   *ngIf="this.searchService.isOpen && ShoudShowSearchModal"
 ></app-search-result-modal>
 <app-navbar *ngIf="shouldShowNavAndFooterComponent"></app-navbar>
-<router-outlet></router-outlet>
+<div class="min-h-full">
+  <div class="py-10"
+  [ngClass]="{
+    'py-10':
+      showSideContent,
+    'py-0': !showSideContent
+  }"
+  >
+    <div
+      [ngClass]="{
+        'max-w-3xl mx-auto sm:px-6 lg:max-w-7xl lg:px-8 lg:grid lg:grid-cols-12 lg:gap-8':
+          showSideContent,
+        '': !showSideContent
+      }"
+    >
+      <div
+        *ngIf="showSideContent"
+        [ngClass]="{
+          hidden: !showSideContent,
+          'hidden lg:block lg:col-span-3 xl:col-span-2': showSideContent
+        }"
+      >
+        <app-sidebar></app-sidebar>
+      </div>
+      <div
+        [ngClass]="{
+          'lg:col-span-9 xl:col-span-6': showSideContent,
+          'lg:col-span-12 xl:col-span-12': !showSideContent
+        }"
+      >
+        <router-outlet></router-outlet>
+      </div>
+      <aside
+        *ngIf="showSideContent"
+        [ngClass]="{
+          hidden: !showSideContent,
+          'hidden xl:block xl:col-span-4': showSideContent
+        }"
+      >
+        <app-side-content></app-side-content>
+      </aside>
+    </div>
+  </div>
+</div>
 <app-footer
   *ngIf="shouldShowNavAndFooterComponent && ShoudShowSearchModal"
 ></app-footer>

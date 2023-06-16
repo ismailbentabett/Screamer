@@ -1,64 +1,46 @@
-<div class="">
-  <div class="py-10">
-    <div
-      class="max-w-3xl mx-auto sm:px-6 lg:max-w-7xl lg:px-8 lg:grid lg:grid-cols-12 lg:gap-8"
-    >
-      <div class="hidden lg:block lg:col-span-3 xl:col-span-2">
-        <app-sidebar></app-sidebar>
-      </div>
-      <main class="lg:col-span-9 xl:col-span-6 mb-10">
-        <div class="px-4 sm:px-0">
-          <div class="sm:hidden">
-            <label for="question-tabs" class="sr-only">Select a tab</label>
-            <select
-              id="question-tabs"
-              class="block w-full rounded-md border-gray-300 text-base font-medium text-gray-900 shadow-sm focus:border-dodger-blue-500 focus:ring-dodger-blue-500"
-              (change)="navigateToRoute($event.target.value)"
-            >
-              <option value="/v/search/posts" selected>Recent</option>
+<main>
+  <div class="px-4 sm:px-0">
+    <div class="sm:hidden">
+      <label for="question-tabs" class="sr-only">Select a tab</label>
+      <select
+        id="question-tabs"
+        class="block w-full rounded-md border-gray-300 text-base font-medium text-gray-900 shadow-sm focus:border-dodger-blue-500 focus:ring-dodger-blue-500"
+        (change)="navigateToRoute($event.target.value)"
+      >
+        <option value="/v/search/posts" selected>Recent</option>
 
-              <option value="/v/search/users">For You</option>
-            </select>
-          </div>
-          <div class="hidden sm:block">
-            <nav
-              class="relative z-0 rounded-lg shadow flex divide-x divide-gray-200"
-              aria-label="Tabs"
-            >
-              <!-- Current: "text-gray-900", Default: "text-gray-500 hover:text-gray-700" -->
-              <a
-                routerLink="/v/search/posts"
-                aria-current="page"
-                [ngClass]="TabStyle('/v/search/posts')"
-              >
-                <span>Posts</span>
-                <span
-                  aria-hidden="true"
-                  [ngClass]="LineStyle('/v/search/posts')"
-                ></span>
-              </a>
+        <option value="/v/search/users">For You</option>
+      </select>
+    </div>
+    <div class="hidden sm:block">
+      <nav
+        class="relative z-0 rounded-lg shadow flex divide-x divide-gray-200"
+        aria-label="Tabs"
+      >
+        <!-- Current: "text-gray-900", Default: "text-gray-500 hover:text-gray-700" -->
+        <a
+          routerLink="/v/search/posts"
+          aria-current="page"
+          [ngClass]="TabStyle('/v/search/posts')"
+        >
+          <span>Posts</span>
+          <span
+            aria-hidden="true"
+            [ngClass]="LineStyle('/v/search/posts')"
+          ></span>
+        </a>
 
-              <a
-                routerLink="/v/search/users"
-                [ngClass]="TabStyle('/v/search/users')"
-              >
-                <span>Users</span>
-                <span
-                  aria-hidden="true"
-                  [ngClass]="LineStyle('/v/search/users')"
-                ></span>
-              </a>
-            </nav>
-          </div>
-        </div>
-        <div class="">
-          <router-outlet></router-outlet>
-
-        </div>
-      </main>
-      <aside class="hidden xl:block xl:col-span-4">
-        <app-side-content></app-side-content>
-      </aside>
+        <a routerLink="/v/search/users" [ngClass]="TabStyle('/v/search/users')">
+          <span>Users</span>
+          <span
+            aria-hidden="true"
+            [ngClass]="LineStyle('/v/search/users')"
+          ></span>
+        </a>
+      </nav>
     </div>
   </div>
-</div>
+  <div class="">
+    <router-outlet></router-outlet>
+  </div>
+</main>

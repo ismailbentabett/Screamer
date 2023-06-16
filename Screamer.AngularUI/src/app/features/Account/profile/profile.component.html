@@ -1,272 +1,255 @@
-<div class="min-h-full">
-  <div class="py-10">
-    <div
-      class="max-w-3xl mx-auto sm:px-6 lg:max-w-7xl lg:px-8 lg:grid lg:grid-cols-12 lg:gap-8"
-    >
-      <div class="hidden lg:block lg:col-span-3 xl:col-span-2">
-        <app-sidebar></app-sidebar>
+<main *ngIf="user">
+  <!-- Breadcrumb -->
+
+  <article>
+    <!-- Profile header -->
+    <div>
+      <app-cover-upload [user]="user"></app-cover-upload>
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="-mt-12 sm:-mt-16 sm:flex sm:items-end sm:space-x-5">
+          <app-avatar
+            [user]="user"
+            avatarStyle="h-24 w-24 rounded-full ring-4 ring-white sm:h-32 sm:w-32"
+          ></app-avatar>
+
+          <div
+            class="mt-6 sm:flex-1 sm:min-w-0 sm:flex sm:items-center sm:justify-end sm:space-x-6 sm:pb-1"
+          >
+            <div class="sm:hidden 2xl:block mt-6 min-w-0 flex-1">
+              <h1
+                class="flex items-end text-2xl font-bold text-gray-900 truncate"
+              >
+                {{ user.firstName }}
+
+                {{ user.lastName }}
+
+                <span *ngIf="currentUser.emailConfirmed">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    class="ml-1 w-6 h-6 text-dodger-blue-500"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M8.603 3.799A4.49 4.49 0 0112 2.25c1.357 0 2.573.6 3.397 1.549a4.49 4.49 0 013.498 1.307 4.491 4.491 0 011.307 3.497A4.49 4.49 0 0121.75 12a4.49 4.49 0 01-1.549 3.397 4.491 4.491 0 01-1.307 3.497 4.491 4.491 0 01-3.497 1.307A4.49 4.49 0 0112 21.75a4.49 4.49 0 01-3.397-1.549 4.49 4.49 0 01-3.498-1.306 4.491 4.491 0 01-1.307-3.498A4.49 4.49 0 012.25 12c0-1.357.6-2.573 1.549-3.397a4.49 4.49 0 011.307-3.497 4.49 4.49 0 013.497-1.307zm7.007 6.387a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
+                </span>
+              </h1>
+
+              <div class="flex flex-nowrap text-md text-gray-500">
+                <span class="mr-2">@{{ user.userName }}</span>
+              </div>
+            </div>
+            <div
+              class="mt-6 flex flex-col justify-stretch space-y-3 sm:flex-row sm:space-y-0 sm:space-x-4"
+            >
+              <app-chat
+                *ngIf="user.id != currentUser.id"
+                [recipientId]="user.id"
+              ></app-chat>
+              <app-follow
+                *ngIf="user.id != currentUser.id"
+                [targetUser]="user"
+              ></app-follow>
+            </div>
+          </div>
+        </div>
+        <div class="hidden sm:block 2xl:hidden mt-6 min-w-0 flex-1">
+          <h1 class="text-2xl font-bold text-gray-900 truncate">
+            {{ user.userName }}
+            <span>(</span>
+            {{ user.firstName }}
+            {{ user.lastName }}
+            <span>)</span>
+          </h1>
+        </div>
       </div>
-      <!-- Off-canvas menu for mobile, show/hide based on off-canvas menu state. -->
+    </div>
+    <!--  follow Tabs -->
+    <div class="mt-6 sm:mt-2 2xl:mt-5">
+      <div class="">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <nav class="-mb-px flex space-x-8" aria-label="Tabs">
+            <!-- Current: "border-dodger-blue-500 text-gray-900", Default: "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300" -->
+            <a
+              (click)="openPopup('followers')"
+              class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm cursor-pointer"
+              aria-current="page"
+            >
+              Followers
+            </a>
 
-      <main class="lg:col-span-9 xl:col-span-6" *ngIf="user">
-        <!-- Breadcrumb -->
+            <a
+              (click)="openPopup('following')"
+              class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm cursor-pointer"
+            >
+              Following
+            </a>
+          </nav>
+          <app-follow-modal
+            *ngIf="this.modalService.isOpen"
+            [user]="user"
+            [Predicate]="Predicate"
+          ></app-follow-modal>
+        </div>
+      </div>
+    </div>
+    <!-- Tabs -->
+    <div class="mt-6 sm:mt-2 2xl:mt-5">
+      <div class="border-b border-gray-200">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <nav class="-mb-px flex space-x-8" aria-label="Tabs">
+            <!-- Current: "border-dodger-blue-500 text-gray-900", Default: "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300" -->
+            <a
+              (click)="toggleTabs(1)"
+              class="border-dodger-blue-500 text-gray-900 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm"
+              aria-current="page"
+            >
+              Profile
+            </a>
 
-        <article>
-          <!-- Profile header -->
-          <div>
-            <app-cover-upload [user]="user"></app-cover-upload>
-            <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div class="-mt-12 sm:-mt-16 sm:flex sm:items-end sm:space-x-5">
-                <app-avatar
-                  [user]="user"
-                  avatarStyle="h-24 w-24 rounded-full ring-4 ring-white sm:h-32 sm:w-32"
-                ></app-avatar>
+            <a
+              *ngIf="user.adress"
+              (click)="toggleTabs(2)"
+              class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm"
+            >
+              Location
+            </a>
 
-                <div
-                  class="mt-6 sm:flex-1 sm:min-w-0 sm:flex sm:items-center sm:justify-end sm:space-x-6 sm:pb-1"
-                >
-                  <div class="sm:hidden 2xl:block mt-6 min-w-0 flex-1">
-                    <h1 class="flex items-end text-2xl font-bold text-gray-900 truncate">
-                      {{ user.firstName }}
-
-                      {{ user.lastName }}
-
-                      <span *ngIf="currentUser.emailConfirmed">
-                        <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 24 24"
-                        fill="currentColor"
-                        class="ml-1 w-6 h-6 text-dodger-blue-500"
-                      >
-                        <path
-                          fill-rule="evenodd"
-                          d="M8.603 3.799A4.49 4.49 0 0112 2.25c1.357 0 2.573.6 3.397 1.549a4.49 4.49 0 013.498 1.307 4.491 4.491 0 011.307 3.497A4.49 4.49 0 0121.75 12a4.49 4.49 0 01-1.549 3.397 4.491 4.491 0 01-1.307 3.497 4.491 4.491 0 01-3.497 1.307A4.49 4.49 0 0112 21.75a4.49 4.49 0 01-3.397-1.549 4.49 4.49 0 01-3.498-1.306 4.491 4.491 0 01-1.307-3.498A4.49 4.49 0 012.25 12c0-1.357.6-2.573 1.549-3.397a4.49 4.49 0 011.307-3.497 4.49 4.49 0 013.497-1.307zm7.007 6.387a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z"
-                          clip-rule="evenodd"
-                        />
-                      </svg>
-                      </span>
-
-                    </h1>
-
-                    <div class="flex flex-nowrap text-md text-gray-500">
-                      <span class="mr-2">@{{ user.userName }}</span>
-                    </div>
-                  </div>
-                  <div
-                    class="mt-6 flex flex-col justify-stretch space-y-3 sm:flex-row sm:space-y-0 sm:space-x-4"
-                  >
-                    <app-chat
-                      *ngIf="user.id != currentUser.id"
-                      [recipientId]="user.id"
-                    ></app-chat>
-                    <app-follow
-                      *ngIf="user.id != currentUser.id"
-                      [targetUser]="user"
-                    ></app-follow>
-                  </div>
-                </div>
-              </div>
-              <div class="hidden sm:block 2xl:hidden mt-6 min-w-0 flex-1">
-                <h1 class="text-2xl font-bold text-gray-900 truncate">
-                  {{ user.userName }}
-                  <span>(</span>
-                  {{ user.firstName }}
-                  {{ user.lastName }}
-                  <span>)</span>
-                </h1>
-              </div>
-            </div>
-          </div>
-          <!--  follow Tabs -->
-          <div class="mt-6 sm:mt-2 2xl:mt-5">
-            <div class="">
-              <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-                <nav class="-mb-px flex space-x-8" aria-label="Tabs">
-                  <!-- Current: "border-dodger-blue-500 text-gray-900", Default: "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300" -->
-                  <a
-                    (click)="openPopup('followers')"
-                    class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm cursor-pointer"
-                    aria-current="page"
-                  >
-                    Followers
-                  </a>
-
-                  <a
-                    (click)="openPopup('following')"
-                    class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm cursor-pointer"
-                  >
-                    Following
-                  </a>
-                </nav>
-                <app-follow-modal
-                  *ngIf="this.modalService.isOpen"
-                  [user]="user"
-                  [Predicate]="Predicate"
-                ></app-follow-modal>
-              </div>
-            </div>
-          </div>
-          <!-- Tabs -->
-          <div class="mt-6 sm:mt-2 2xl:mt-5">
-            <div class="border-b border-gray-200">
-              <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-                <nav class="-mb-px flex space-x-8" aria-label="Tabs">
-                  <!-- Current: "border-dodger-blue-500 text-gray-900", Default: "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300" -->
-                  <a
-                    (click)="toggleTabs(1)"
-                    class="border-dodger-blue-500 text-gray-900 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm"
-                    aria-current="page"
-                  >
-                    Profile
-                  </a>
-
-                  <a
-                    *ngIf="user.adress"
-                    (click)="toggleTabs(2)"
-                    class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm"
-                  >
-                    Location
-                  </a>
-
-                  <a
-                    *ngIf="user.socials"
-                    (click)="toggleTabs(3)"
-                    class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm"
-                  >
-                    Socials
-                  </a>
-                </nav>
-              </div>
-            </div>
-          </div>
-
-          <!-- Description list -->
-          <div
-            [ngClass]="{
-              hidden: openTab !== 1,
-              'mt-6 max-w-5xl mx-auto px-4 ': openTab === 1
-            }"
-            class="Profile sm:px-6 lg:px-8"
-          >
-            <dl class="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
-              <div class="sm:col-span-1">
-                <dt class="text-sm font-medium text-gray-500">Phone</dt>
-                <dd class="mt-1 text-sm text-gray-900">
-                  {{ user.phone ?? "N/A" }}
-                </dd>
-              </div>
-
-              <div class="sm:col-span-1">
-                <dt class="text-sm font-medium text-gray-500">Email</dt>
-                <dd class="mt-1 text-sm text-gray-900">
-                  {{ user.email }}
-                </dd>
-              </div>
-
-              <div class="sm:col-span-1">
-                <dt class="text-sm font-medium text-gray-500">Website</dt>
-                <dd class="mt-1 text-sm text-gray-900">
-                  {{ user.website ?? "N/A" }}
-                </dd>
-              </div>
-
-              <div class="sm:col-span-1">
-                <dt class="text-sm font-medium text-gray-500">Birthday</dt>
-                <dd class="mt-1 text-sm text-gray-900">
-                  {{ user.birthday ?? "N/A" }}
-                </dd>
-              </div>
-              <div class="sm:col-span-1">
-                <dt class="text-sm font-medium text-gray-500">gender</dt>
-                <dd class="mt-1 text-sm text-gray-900">
-                  {{ user.gender ?? "N/A" }}
-                </dd>
-              </div>
-
-              <div class="sm:col-span-2">
-                <dt class="text-sm font-medium text-gray-500">bio</dt>
-                <dd
-                  class="mt-1 max-w-pdodger-blue text-sm text-gray-900 space-y-5"
-                >
-                  {{ user.bio ?? "No bio yet" }}
-                </dd>
-              </div>
-            </dl>
-          </div>
-
-          <div
-            [ngClass]="{
-              hidden: openTab !== 2,
-              'mt-6 max-w-5xl mx-auto px-4 ': openTab === 2
-            }"
-            class="Location sm:px-6 lg:px-8"
-            *ngIf="user.adress"
-          >
-            <dl class="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
-              <div class="sm:col-span-1">
-                <dt class="text-sm font-medium text-gray-500">Country</dt>
-                <dd class="mt-1 text-sm text-gray-900">
-                  {{ user.adress.country ?? "N/A" }}
-                </dd>
-              </div>
-              <div class="sm:col-span-1">
-                <dt class="text-sm font-medium text-gray-500">Street</dt>
-                <dd class="mt-1 text-sm text-gray-900">
-                  {{ user.adress.street }}
-                </dd>
-              </div>
-              <div class="sm:col-span-1">
-                <dt class="text-sm font-medium text-gray-500">State</dt>
-                <dd class="mt-1 text-sm text-gray-900">
-                  {{ user.adress.state ?? "N/A" }}
-                </dd>
-              </div>
-              <div class="sm:col-span-1">
-                <dt class="text-sm font-medium text-gray-500">City</dt>
-                <dd class="mt-1 text-sm text-gray-900">
-                  {{ user.adress.city ?? "N/A" }}
-                </dd>
-              </div>
-              <div class="sm:col-span-1">
-                <dt class="text-sm font-medium text-gray-500">PostalCode</dt>
-                <dd class="mt-1 text-sm text-gray-900">
-                  {{ user.adress.postalCode ?? "N/A" }}
-                </dd>
-              </div>
-            </dl>
-          </div>
-
-          <div
-            [ngClass]="{
-              hidden: openTab !== 3,
-              'mt-6 max-w-5xl mx-auto px-4 ': openTab === 3
-            }"
-            class="Socialssm:px-6 lg:px-8"
-          >
-            <dl class="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
-              <app-socials-list [user]="user"></app-socials-list>
-            </dl>
-          </div>
-
-          <!-- Team member list -->
-          <div class="mt-8 max-w-5xl mx-auto px-4 pb-12 sm:px-6 lg:px-8">
-            <h2 class="text-sm font-medium text-gray-500">Posts</h2>
-            <app-user-post-list></app-user-post-list>
-          </div>
-        </article>
-      </main>
-      <aside class="hidden xl:block xl:col-span-4">
-        <app-side-content></app-side-content>
-      </aside>
+            <a
+              *ngIf="user.socials"
+              (click)="toggleTabs(3)"
+              class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm"
+            >
+              Socials
+            </a>
+          </nav>
+        </div>
+      </div>
     </div>
 
-    <ngx-spinner
-      bdColor="rgba(51,51,51,0.8)"
-      size="medium"
-      color="#fff"
-      type="ball-scale-multiple"
+    <!-- Description list -->
+    <div
+      [ngClass]="{
+        hidden: openTab !== 1,
+        'mt-6 max-w-5xl mx-auto px-4 ': openTab === 1
+      }"
+      class="Profile sm:px-6 lg:px-8"
     >
-      <p style="font-size: 20px; color: white">Loading...</p>
-    </ngx-spinner>
-  </div>
-</div>
+      <dl class="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
+        <div class="sm:col-span-1">
+          <dt class="text-sm font-medium text-gray-500">Phone</dt>
+          <dd class="mt-1 text-sm text-gray-900">
+            {{ user.phone ?? "N/A" }}
+          </dd>
+        </div>
+
+        <div class="sm:col-span-1">
+          <dt class="text-sm font-medium text-gray-500">Email</dt>
+          <dd class="mt-1 text-sm text-gray-900">
+            {{ user.email }}
+          </dd>
+        </div>
+
+        <div class="sm:col-span-1">
+          <dt class="text-sm font-medium text-gray-500">Website</dt>
+          <dd class="mt-1 text-sm text-gray-900">
+            {{ user.website ?? "N/A" }}
+          </dd>
+        </div>
+
+        <div class="sm:col-span-1">
+          <dt class="text-sm font-medium text-gray-500">Birthday</dt>
+          <dd class="mt-1 text-sm text-gray-900">
+            {{ user.birthday ?? "N/A" }}
+          </dd>
+        </div>
+        <div class="sm:col-span-1">
+          <dt class="text-sm font-medium text-gray-500">gender</dt>
+          <dd class="mt-1 text-sm text-gray-900">
+            {{ user.gender ?? "N/A" }}
+          </dd>
+        </div>
+
+        <div class="sm:col-span-2">
+          <dt class="text-sm font-medium text-gray-500">bio</dt>
+          <dd class="mt-1 max-w-pdodger-blue text-sm text-gray-900 space-y-5">
+            {{ user.bio ?? "No bio yet" }}
+          </dd>
+        </div>
+      </dl>
+    </div>
+
+    <div
+      [ngClass]="{
+        hidden: openTab !== 2,
+        'mt-6 max-w-5xl mx-auto px-4 ': openTab === 2
+      }"
+      class="Location sm:px-6 lg:px-8"
+      *ngIf="user.adress"
+    >
+      <dl class="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
+        <div class="sm:col-span-1">
+          <dt class="text-sm font-medium text-gray-500">Country</dt>
+          <dd class="mt-1 text-sm text-gray-900">
+            {{ user.adress.country ?? "N/A" }}
+          </dd>
+        </div>
+        <div class="sm:col-span-1">
+          <dt class="text-sm font-medium text-gray-500">Street</dt>
+          <dd class="mt-1 text-sm text-gray-900">
+            {{ user.adress.street }}
+          </dd>
+        </div>
+        <div class="sm:col-span-1">
+          <dt class="text-sm font-medium text-gray-500">State</dt>
+          <dd class="mt-1 text-sm text-gray-900">
+            {{ user.adress.state ?? "N/A" }}
+          </dd>
+        </div>
+        <div class="sm:col-span-1">
+          <dt class="text-sm font-medium text-gray-500">City</dt>
+          <dd class="mt-1 text-sm text-gray-900">
+            {{ user.adress.city ?? "N/A" }}
+          </dd>
+        </div>
+        <div class="sm:col-span-1">
+          <dt class="text-sm font-medium text-gray-500">PostalCode</dt>
+          <dd class="mt-1 text-sm text-gray-900">
+            {{ user.adress.postalCode ?? "N/A" }}
+          </dd>
+        </div>
+      </dl>
+    </div>
+
+    <div
+      [ngClass]="{
+        hidden: openTab !== 3,
+        'mt-6 max-w-5xl mx-auto px-4 ': openTab === 3
+      }"
+      class="Socialssm:px-6 lg:px-8"
+    >
+      <dl class="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
+        <app-socials-list [user]="user"></app-socials-list>
+      </dl>
+    </div>
+
+    <!-- Team member list -->
+    <div class="mt-8 max-w-5xl mx-auto px-4 pb-12 sm:px-6 lg:px-8">
+      <h2 class="text-sm font-medium text-gray-500">Posts</h2>
+      <app-user-post-list></app-user-post-list>
+    </div>
+  </article>
+</main>
+
+<ngx-spinner
+  bdColor="rgba(51,51,51,0.8)"
+  size="medium"
+  color="#fff"
+  type="ball-scale-multiple"
+>
+  <p style="font-size: 20px; color: white">Loading...</p>
+</ngx-spinner>
