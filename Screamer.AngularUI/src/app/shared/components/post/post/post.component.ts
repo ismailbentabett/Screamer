@@ -80,10 +80,7 @@ export class PostComponent {
       .subscribe({
         next: (user: any) => {
           this.currentUser = user;
-          console.log({
-            postId: this.post.id,
-            userId: user.id,
-          });
+
           if (this.post.id) {
             this.IsBookMarked({
               postId: this.post.id,
@@ -230,7 +227,6 @@ export class PostComponent {
   IsBookMarked(model: any) {
     this.bookmarkService.IsBookMarked(model).subscribe({
       next: (result: any) => {
-        console.log(result);
         this.isBookMarked = result;
       },
     });
