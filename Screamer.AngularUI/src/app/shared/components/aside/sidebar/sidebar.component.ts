@@ -51,7 +51,6 @@ export class SidebarComponent {
 
   HashTagTabStyle(hashtag: string): string {
     let hashRoute = `/v/hashtag/${hashtag}`
-    console.log(hashRoute)
     const isActive =
       this.router.isActive(hashRoute, false) || this.router.isActive(hashRoute, true);
 

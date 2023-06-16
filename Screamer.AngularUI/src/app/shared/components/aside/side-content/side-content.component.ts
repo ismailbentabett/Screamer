@@ -24,7 +24,6 @@ export class SideContentComponent {
   getTopPreformingPost() {
     this.trendingService.getTopPreformingPost().subscribe({
       next: (post) => {
-        console.log(post);
         this.post = post;
 
         this.commentService
@@ -42,7 +41,6 @@ export class SideContentComponent {
   getTopPreformingUser() {
     this.trendingService.getTopPreformingUser().subscribe({
       next: (user) => {
-        console.log(user);
         this.user = user;
       },
     });
