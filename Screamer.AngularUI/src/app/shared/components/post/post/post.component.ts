@@ -199,7 +199,9 @@ export class PostComponent {
     };
 
     this.bookmarkService.AddBookMark(model).subscribe({
-      next: (result: any) => {},
+      next: (result: any) => {
+        this.isBookMarked = true;
+      },
     });
   }
 
@@ -210,7 +212,9 @@ export class PostComponent {
     };
 
     this.bookmarkService.DeleteBookMark(model).subscribe({
-      next: (result: any) => {},
+      next: (result: any) => {
+        this.isBookMarked = false;
+      },
     });
   }
 
