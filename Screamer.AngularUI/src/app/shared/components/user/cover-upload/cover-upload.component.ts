@@ -8,7 +8,7 @@ import { BusyService } from 'src/app/core/services/busy.service';
 import { UserService } from 'src/app/core/services/user.service';
 import { environment } from 'src/environments/environment';
 import { DomSanitizer } from '@angular/platform-browser';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 @Component({
   selector: 'app-cover-upload',
   templateUrl: './cover-upload.component.html',
@@ -29,13 +29,22 @@ export class CoverUploadComponent {
     private busyService: BusyService,
     public domSanitizer: DomSanitizer,
     private changeDetector: ChangeDetectorRef,
-    private router : Router
+    private router : Router,
+    private route: ActivatedRoute,
+
   ) {
     this.authService.currentUser$.pipe(take(1)).subscribe({
       next: (userData) => {
         if (userData) this.userData = userData;
       },
     });
+  }
+
+  canChangeCover(user : any){
+    let userId = this.route.snapshot.paramMap.get('id')
+
+    return userId == user.id
+
   }
 
   ngOnInit(): void {

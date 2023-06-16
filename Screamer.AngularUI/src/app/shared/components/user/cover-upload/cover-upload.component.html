@@ -1,6 +1,5 @@
 <div class="hidden relative overflow-hidden lg:block">
   <div>
-
     <img
       *ngIf="!user?.coverUrl"
       class="h-32 w-full object-cover lg:h-48"
@@ -14,8 +13,8 @@
       alt=""
     />
   </div>
-
   <label
+    *ngIf="canChangeCover(userData)"
     for="desktop-user-photo"
     class="absolute inset-0 w-full h-full bg-black bg-opacity-75 flex items-center justify-center text-sm font-medium text-white opacity-0 hover:opacity-100 focus-within:opacity-100"
   >
@@ -49,7 +48,7 @@
       </div>
   </div>
  -->
-<div class="row mt-4">
+<div class="row mt-4" *ngIf="canChangeCover(userData)">
   <div
     class="col-9"
     style="margin-bottom: 40px"
