@@ -37,7 +37,8 @@ export class AppComponent {
           this.router.url !== '/v/settings/auth' &&
           this.router.url !== '/auth/login' &&
           this.router.url !== '/auth/signup' &&
-          this.router.url !== '/v/list/users';
+          this.router.url !== '/v/list/users' &&
+          this.router.url !== '/v/trending/users';
       }
     });
     this.setCurrentUser();
