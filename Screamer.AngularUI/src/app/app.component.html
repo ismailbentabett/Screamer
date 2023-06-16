@@ -3,12 +3,12 @@
 ></app-search-result-modal>
 <app-navbar *ngIf="shouldShowNavAndFooterComponent"></app-navbar>
 <div class="min-h-full">
-  <div class="py-10"
-  [ngClass]="{
-    'py-10':
-      showSideContent,
-    'py-0': !showSideContent
-  }"
+  <div
+    class="py-10"
+    [ngClass]="{
+      'py-10': showSideContent,
+      'py-0': !showSideContent
+    }"
   >
     <div
       [ngClass]="{
@@ -50,7 +50,9 @@
   *ngIf="shouldShowNavAndFooterComponent && ShoudShowSearchModal"
 ></app-footer>
 
-<app-floating-action-button></app-floating-action-button>
+<app-floating-action-button
+  *ngIf="showFloatingButton"
+></app-floating-action-button>
 <app-story-editor-fullscreen-modal
   *ngIf="this.storyService.isOpen"
 ></app-story-editor-fullscreen-modal>

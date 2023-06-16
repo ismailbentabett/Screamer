@@ -16,6 +16,7 @@ export class AppComponent {
   shouldShowNavAndFooterComponent: boolean | undefined;
   ShoudShowSearchModal: boolean | undefined;
   showSideContent!: boolean;
+  showFloatingButton!: boolean;
 
   constructor(
     private authService: AuthenticationService,
@@ -50,6 +51,11 @@ export class AppComponent {
         this.ShoudShowSearchModal =
           this.router.url !== '/v/search/users' &&
           this.router.url !== '/v/search/posts';
+
+        this.showFloatingButton =
+          this.router.url !== '/' &&
+          this.router.url !== '/auth/login' &&
+          this.router.url !== '/auth/signup';
       }
     });
   }
