@@ -20,19 +20,17 @@ namespace Screamer.Application.Features.BookMarkRequest.Queries.GetBookmarkByUse
             _uow = uow;
         }
 
-        public Task<bool> Handle(
+        public async Task<bool> Handle(
             GetBookmarkByUserIdAndPostIdRequestQuery request,
             CancellationToken cancellationToken
         )
         {
-            var bookmark = _uow.BookMarkRepository.GetBookmarkByUserIdAndPostId(
+            var bookmark = await _uow.BookMarkRepository.GetBookmarkByUserIdAndPostId(
                 request.UserId,
                 request.PostId
             );
-            Console.WriteLine(bookmark);
-            if (bookmark == null)
-                return Task.FromResult(false);
-            return Task.FromResult(true);
+
+            return bookmark is not null;
         }
     }
 }

@@ -36,9 +36,9 @@ namespace Screamer.Presistance.Repositories
             return PagedList<Post>.CreateAsync(posts, postParams.PageNumber, postParams.PageSize);
         }
 
-        public async Task<BookMark> GetBookmarkByUserIdAndPostId(string UserId, int PostId)
+        public Task<BookMark> GetBookmarkByUserIdAndPostId(string UserId, int PostId)
         {
-            var userBookmark = await _context.BookMarks.FirstOrDefaultAsync(
+            var userBookmark = _context.BookMarks.FirstOrDefaultAsync(
                 b => b.UserId == UserId && b.PostId == PostId
             );
 

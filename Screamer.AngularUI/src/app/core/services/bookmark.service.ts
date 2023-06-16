@@ -27,6 +27,9 @@ export class BookmarkService {
   }
 
   IsBookMarked(model: any) {
-    return this.http.get(this.baseUrl + 'BookMark/is-bookmarked', model);
+    return this.http.get(
+      this.baseUrl +
+        `BookMark/is-bookmarked?UserId=${model.userId}&PostId=${model.postId}`
+    );
   }
 }

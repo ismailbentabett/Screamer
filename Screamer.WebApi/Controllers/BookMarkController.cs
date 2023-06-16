@@ -33,10 +33,7 @@ namespace Screamer.WebApi.Controllers
         }
 
         [HttpGet("is-bookmarked")]
-        public async Task<ActionResult<List<PostDto>>> GetBookmarkByUserIdAndPostId(
-            string UserId,
-            int PostId
-        )
+        public async Task<ActionResult<bool>> GetBookmarkByUserId(string UserId, int PostId)
         {
             var query = new GetBookmarkByUserIdAndPostIdRequestQuery
             {
