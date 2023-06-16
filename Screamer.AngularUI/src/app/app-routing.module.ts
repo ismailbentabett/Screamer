@@ -85,6 +85,13 @@ const routes: Routes = [
             (m) => m.TrendingModule
           ),
       },
+      {
+        path: 'bookmark',
+        loadChildren: () =>
+          import('./features/Bookmarks/bookmarks.module').then(
+            (m) => m.BookmarksModule
+          ),
+      },
     ],
   },
 
