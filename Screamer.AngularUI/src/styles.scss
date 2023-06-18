@@ -3,6 +3,7 @@
 @tailwind components;
 @tailwind utilities;
 
+@import 'ngx-toastr/toastr';
 @import "font-awesome/scss/font-awesome.scss";
 @import "~quill/dist/quill.bubble.css";
 @import "~quill/dist/quill.core.css";

@@ -70,7 +70,7 @@ export class AddPostFormComponent {
     this.editEvent.emit(this.edit);
   }
 
-  user!: User;
+  user!: any;
   form: any;
   postId: any = null;
   baseUrl = environment.baseWebApiUrl;
@@ -237,13 +237,13 @@ export class AddPostFormComponent {
           next: (postId) => {
             this.postId = postId;
             this.notificationService.sendNotification(this.user.id.toString(), {
-              message: 'string',
-              type: 'string',
+              message: `${this.user.userName} has created a new post`,
+              type: 'Post',
               chatRoomId: 0,
-              notificationRoomId: 0,
-              postId: 0,
-              senderId: 'string',
-              recieverId: 'string',
+              notificationRoomId: this.user.id.toString(),
+              postId: postId,
+              senderId: this.user.id.toString(),
+              recieverId: this.user.id.toString(),
               commentId: 0,
               replyId: 0,
               reactionId: 0,

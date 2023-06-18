@@ -2,7 +2,7 @@ export interface CreateNotificationDto {
   message?: string;
   type?: string;
   chatRoomId?: number;
-  notificationRoomId?: number;
+  notificationRoomId?: string;
   postId?: number;
   senderId?: string;
   recieverId?: string;

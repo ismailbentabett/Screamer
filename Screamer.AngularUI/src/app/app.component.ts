@@ -84,7 +84,6 @@ export class AppComponent {
     this.presenceService.createHubConnection(user);
     this.notificationService.notificationRecieved$.subscribe({
       next: (message: any) => {
-        console.log(message);
       },
     });
   }

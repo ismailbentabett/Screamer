@@ -9,6 +9,7 @@ import { environment } from 'src/environments/environment';
 import { User } from '../models/User';
 import { BehaviorSubject, Observable, Subject, map, take } from 'rxjs';
 import { CreateNotificationDto } from '../models/CreateNotificationDto';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable({
   providedIn: 'root',
@@ -28,10 +29,9 @@ export class NotificationService {
   userDisconnected$: Observable<any> =
     this.userDisconnectedSubject.asObservable();
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient , private toastr: ToastrService) {}
 
   async startConnection(user: User, roomId: any): Promise<void> {
-    console.log('startConnection', user, roomId);
     this.hubConnection = new HubConnectionBuilder()
       .withUrl(
         this.hubUrl + 'notification?room=' + roomId,
@@ -46,12 +46,14 @@ export class NotificationService {
 
     await this.hubConnection
       .start()
-      .then(() => console.log('Connection started'))
       .catch((err) => console.error(err));
 
     await this.hubConnection.on('ReceiveNotification', (roomId , data) => {
-      console.log('ReceiveNotification', roomId , data);
-      this.notificationRecievedSubject.next({});
+      console.log(data);
+      this.toastr.info(data.message, 'Notification');
+      this.notificationRecievedSubject.next(
+        data
+      );
     });
 
     await this.hubConnection.on('JoinRoom', (data: any) => {});
@@ -80,7 +82,6 @@ export class NotificationService {
     roomId: string,
     CreateNotificationDto: CreateNotificationDto
   ): void {
-    console.log('sendNotification', roomId);
     this.hubConnection!.invoke(
       'SendNotification',
       roomId,
@@ -102,7 +103,6 @@ export class NotificationService {
   }
 
   joinRoom(roomId: string): void {
-    console.log('join room' + roomId);
     this.hubConnection!.invoke('JoinRoom', roomId);
   }
 

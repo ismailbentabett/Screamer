@@ -54,7 +54,7 @@ namespace Screamer.WebApi.SignalR
             string Message,
             string Type,
             int ChatRoomId,
-            int NotificationRoomId,
+            string NotificationRoomId,
             int PostId,
             string SenderId,
             string RecieverId,

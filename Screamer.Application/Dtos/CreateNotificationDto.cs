@@ -1,13 +1,12 @@
 namespace Screamer.Application.Dtos
 {
     public class CreateNotificationDto
-    {
-        public string Message { get; set; }
+    {        public string Message { get; set; }
 
         public string Type { get; set; }
 
         public int ChatRoomId { get; set; }
-        public int NotificationRoomId { get; set; }
+        public string NotificationRoomId { get; set; }
 
         public int PostId { get; set; }
 

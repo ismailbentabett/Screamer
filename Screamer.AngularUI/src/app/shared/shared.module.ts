@@ -81,6 +81,8 @@ import { StoryComponent } from './components/stories/story/story.component';
 import { StoryEditorComponent } from './components/stories/story-editor/story-editor.component';
 import { StoryEditorFullscreenModalComponent } from './components/stories/story-editor-fullscreen-modal/story-editor-fullscreen-modal.component';
 import { FloatingActionButtonComponent } from './components/action/floating-action-button/floating-action-button.component';
+import { ToastrModule } from 'ngx-toastr';
+import { NotificationComponent } from './components/notification/notification/notification.component';
 
 @NgModule({
   declarations: [
@@ -139,7 +141,9 @@ import { FloatingActionButtonComponent } from './components/action/floating-acti
     StoryComponent,
     StoryEditorComponent,
     StoryEditorFullscreenModalComponent,
+    StoryEditorFullscreenModalComponent,
     FloatingActionButtonComponent,
+    NotificationComponent,
   ],
   imports: [
     CommonModule,
@@ -158,6 +162,9 @@ import { FloatingActionButtonComponent } from './components/action/floating-acti
     ShareButtonsModule,
     ShareIconsModule,
     GoogleSigninButtonModule,
+    ToastrModule.forRoot({
+      toastComponent: NotificationComponent, // added custom toast!
+    }),
   ],
   exports: [
     MyDirectiveDirective,
@@ -212,7 +219,7 @@ import { FloatingActionButtonComponent } from './components/action/floating-acti
     StoryEditorComponent,
     StoryEditorFullscreenModalComponent,
     FloatingActionButtonComponent,
-
+    NotificationComponent,
   ],
   providers: [
     {
