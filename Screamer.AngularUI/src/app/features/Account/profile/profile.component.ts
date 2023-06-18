@@ -24,14 +24,14 @@ export class ProfileComponent {
     private route: ActivatedRoute,
     public modalService: ModalService
   ) {
-    this.busyService.busy();
+    ;
     this.userService
       .getCurrentUserData()
       .pipe(take(1))
       .subscribe({
         next: (user: any) => {
           this.currentUser = user;
-          this.busyService.idle();
+          ;
         },
       });
   }

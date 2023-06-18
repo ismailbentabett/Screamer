@@ -20,7 +20,7 @@ export class ChatRoomTabComponent {
     private busyService: BusyService
   ) {}
   ngOnInit(): void {
-    this.busyService.busy();
+    ;
 
     let theOtherUser = this.chatRoom.chatRoomUsers.filter(
       (x: any) => x.userId != this.userId
@@ -32,7 +32,7 @@ export class ChatRoomTabComponent {
       this.userService.getUserById(headUser.userId).subscribe({
         next: (data) => {
           this.user = data;
-          this.busyService.idle();
+          ;
         },
       });
     }

@@ -147,7 +147,7 @@ export class ChatComponent {
   }
 
   getChatRoomById(roomId: any) {
-    this.busyService.busy();
+    ;
     this.messagesService.getChatRoomById(roomId as any).subscribe({
       next: (data) => {
         this.room = data;
@@ -174,7 +174,7 @@ export class ChatComponent {
                 next: (user: any) => {
                   this.user = user;
                   this.loadMessages();
-                  this.busyService.idle();
+                  ;
                 },
               });
             },
@@ -184,7 +184,7 @@ export class ChatComponent {
   }
 
   loadMessages() {
-    this.busyService.busy();
+    ;
     if (this.messageParams) {
       this.messagesService.setMessageParams(this.messageParams);
       this.messagesService.getMessageThread(this.messageParams).subscribe({
@@ -192,7 +192,7 @@ export class ChatComponent {
           if (response.result && response.pagination) {
             this.messages = response.result;
             this.pagination = response.pagination;
-            this.busyService.idle();
+            ;
           }
         },
       });

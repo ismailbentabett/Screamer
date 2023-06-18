@@ -16,6 +16,10 @@ import { QuillModule } from 'ngx-quill';
 import { SocialLoginModule } from '@abacritt/angularx-social-login';
 import { TuiImageEditorModule } from 'tui-image-editor-angular';
 
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { NgProgressModule } from 'ngx-progressbar';
+import { NgProgressHttpModule } from 'ngx-progressbar/http';
+
 export function tokenGetter() {
   return localStorage.getItem('token');
 }
@@ -39,6 +43,9 @@ export function tokenGetter() {
     }),
     SocialLoginModule,
     TuiImageEditorModule,
+    NgxSpinnerModule,
+    NgProgressModule,
+    NgProgressHttpModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

@@ -49,7 +49,7 @@ export class AvatarUploadComponent {
   }
 
   upload() {
-    this.busyService.busy();
+    ;
 
     this.uploader?.uploadAll();
 
@@ -123,7 +123,7 @@ export class AvatarUploadComponent {
           this.authService.setCurrentUser(this.userData);
         }
       }
-      this.busyService.idle();
+      ;
     };
   }
 }

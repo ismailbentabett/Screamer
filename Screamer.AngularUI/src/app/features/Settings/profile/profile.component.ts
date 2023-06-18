@@ -199,14 +199,14 @@ export class ProfileComponent implements OnInit {
   onSubmit() {
     if (!this.form.valid) return;
 
-    this.busyService.busy();
+    ;
     const values: UserUpdateInput = this.form.value;
     this.userService.updateUser(values, this.user.id).subscribe(
       () => {
-        this.busyService.idle();
+        ;
       },
       (error) => {
-        this.busyService.idle();
+        ;
       }
     );
   }

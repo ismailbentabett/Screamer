@@ -1,3 +1,5 @@
+<ng-progress></ng-progress>
+
 <app-search-result-modal
   *ngIf="this.searchService.isOpen && ShoudShowSearchModal"
 ></app-search-result-modal>
@@ -56,3 +58,11 @@
 <app-story-editor-fullscreen-modal
   *ngIf="this.storyService.isOpen"
 ></app-story-editor-fullscreen-modal>
+<ngx-spinner
+  bdColor="rgba(51,51,51,0.8)"
+  size="medium"
+  color="#fff"
+  type="ball-scale-multiple"
+>
+  <p style="font-size: 20px; color: white">Loading...</p>
+</ngx-spinner>

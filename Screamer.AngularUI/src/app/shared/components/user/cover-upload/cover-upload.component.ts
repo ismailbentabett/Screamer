@@ -57,7 +57,7 @@ export class CoverUploadComponent {
   }
 
   upload() {
-    this.busyService.busy();
+    ;
 
     this.uploader?.uploadAll();
 
@@ -131,7 +131,7 @@ export class CoverUploadComponent {
           this.authService.setCurrentUser(this.userData);
         }
       }
-      this.busyService.idle();
+      ;
     };
   }
 }

@@ -90,9 +90,9 @@ export class PostImagesUploadComponent {
       maxFileSize: 10 * 1024 * 1024,
     });
     this.uploader.onCompleteAll = () => {
-      this.busyService.idle();
+      ;
     };
-    this.busyService.busy();
+    ;
 
     this.uploader?.uploadAll();
   }
