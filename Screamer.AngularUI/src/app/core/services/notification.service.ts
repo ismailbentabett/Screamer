@@ -33,7 +33,7 @@ export class NotificationService {
   async startConnection(user: User, roomId: any): Promise<void> {
     this.hubConnection = new HubConnectionBuilder()
       .withUrl(
-        this.hubUrl + 'message?=room' + roomId,
+        this.hubUrl + 'notification?=room' + roomId,
 
         {
           accessTokenFactory: () => user.token,
