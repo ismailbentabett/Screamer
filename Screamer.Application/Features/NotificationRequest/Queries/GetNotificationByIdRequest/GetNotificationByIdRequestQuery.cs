@@ -7,5 +7,7 @@ using Screamer.Application.Dtos;
 
 namespace Screamer.Application.Features.NotificationRequest.Queries.GetNotificationByIdRequest
 {
-    public class GetNotificationByIdRequestQuery : IRequest<NotificationDto> { }
+    public class GetNotificationByIdRequestQuery : IRequest<NotificationDto> {
+            public int NotificationId { get; set; }
+     }
 }

@@ -6,5 +6,7 @@ using MediatR;
 
 namespace Screamer.Application.Features.NotificationRequest.Commands.DeleteNotificationRequest
 {
-    public class DeleteNotificationRequestCommand : IRequest<Unit> { }
+    public class DeleteNotificationRequestCommand : IRequest<Unit> { 
+        public int NotificationId { get; set; }
+    }
 }

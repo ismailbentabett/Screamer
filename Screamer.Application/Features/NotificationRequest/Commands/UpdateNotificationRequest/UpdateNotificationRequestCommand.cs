@@ -6,5 +6,8 @@ using MediatR;
 
 namespace Screamer.Application.Features.NotificationRequest.Commands.UpdateNotificationRequest
 {
-    public class UpdateNotificationRequestCommand : IRequest<Unit> { }
+    public class UpdateNotificationRequestCommand : IRequest<Unit>
+    {
+        public int NotificationId { get; set; }
+    }
 }
