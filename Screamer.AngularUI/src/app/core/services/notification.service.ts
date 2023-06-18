@@ -8,6 +8,7 @@ import {
 import { environment } from 'src/environments/environment';
 import { User } from '../models/User';
 import { BehaviorSubject, Observable, Subject, map, take } from 'rxjs';
+import { CreateNotificationDto } from '../models/CreateNotificationDto';
 
 @Injectable({
   providedIn: 'root',
@@ -48,14 +49,12 @@ export class NotificationService {
       .then(() => console.log('Connection started'))
       .catch((err) => console.error(err));
 
-    await this.hubConnection.on('ReceiveNotification', (data) => {
-      console.log('ReceiveNotification' , data);
+    await this.hubConnection.on('ReceiveNotification', (roomId , data) => {
+      console.log('ReceiveNotification', roomId , data);
       this.notificationRecievedSubject.next({});
     });
 
-    await this.hubConnection.on('JoinRoom', (data: any) => {
-
-    });
+    await this.hubConnection.on('JoinRoom', (data: any) => {});
     await this.hubConnection.on('Room', (data: any) => {
       this.joinRoom(roomId as any);
     });
@@ -77,11 +76,28 @@ export class NotificationService {
     );
   }
 
-  sendNotification(roomId: any, CreateNotificationDto: any): void {
+  sendNotification(
+    roomId: string,
+    CreateNotificationDto: CreateNotificationDto
+  ): void {
+    console.log('sendNotification', roomId);
     this.hubConnection!.invoke(
       'SendNotification',
       roomId,
-      CreateNotificationDto
+
+      CreateNotificationDto.message,
+      CreateNotificationDto.type,
+      CreateNotificationDto.chatRoomId,
+      CreateNotificationDto.notificationRoomId,
+      CreateNotificationDto.postId,
+      CreateNotificationDto.senderId,
+      CreateNotificationDto.recieverId,
+      CreateNotificationDto.commentId,
+      CreateNotificationDto.replyId,
+      CreateNotificationDto.reactionId,
+      CreateNotificationDto.tagId,
+      CreateNotificationDto.mentionId,
+      CreateNotificationDto.isRead
     );
   }
 

@@ -51,18 +51,44 @@ namespace Screamer.WebApi.SignalR
 
         public async Task SendNotification(
             string roomId,
-            CreateNotificationDto createNotificationDto
+            string Message,
+            string Type,
+            int ChatRoomId,
+            int NotificationRoomId,
+            int PostId,
+            string SenderId,
+            string RecieverId,
+            int CommentId,
+            int ReplyId,
+            int ReactionId,
+            int TagId,
+            int MentionId,
+            bool IsRead
         )
         {
             var rooms = await _uow.UserRepository.GetFollowersIdsAsync(roomId);
-
-            Console.WriteLine("SendNotification", rooms);
+            CreateNotificationDto createMessageDto = new CreateNotificationDto
+            {
+                Message = Message,
+                Type = Type,
+                ChatRoomId = ChatRoomId,
+                NotificationRoomId = NotificationRoomId,
+                PostId = PostId,
+                SenderId = SenderId,
+                RecieverId = RecieverId,
+                CommentId = CommentId,
+                ReplyId = ReplyId,
+                ReactionId = ReactionId,
+                TagId = TagId,
+                MentionId = MentionId,
+                IsRead = IsRead
+            };
 
             foreach (var room in rooms)
             {
                 await Clients
                     .Group(room.ToString())
-                    .SendAsync("ReceiveNotification", room, createNotificationDto);
+                    .SendAsync("ReceiveNotification", room, createMessageDto);
             }
 
             /*   var command = new CreateMessageRequestCommand

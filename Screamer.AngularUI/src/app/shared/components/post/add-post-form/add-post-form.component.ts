@@ -30,6 +30,7 @@ import 'linkify-plugin-ip';
 import { uniq } from 'lodash';
 import { CategoryService } from 'src/app/core/services/category.service';
 import { NotificationService } from 'src/app/core/services/notification.service';
+import { CreateNotificationDto } from 'src/app/core/models/CreateNotificationDto';
 
 @Component({
   selector: 'app-add-post-form',
@@ -235,20 +236,21 @@ export class AddPostFormComponent {
         .subscribe({
           next: (postId) => {
             this.postId = postId;
-            this.notificationService.sendNotification(
-              this.user.id,
-
-              {
-                userId: this.user.id,
-                ...this.form.value,
-                moodType: this.moodType ?? null,
-                hashtags: this.hashtags ?? null,
-                mentionsArr: this.mentions ?? null,
-                categories: this.categoryService.addedCategories ?? null,
-                tagsArr:
-                  this.postService.gettagSearchResultArrayUsernames() ?? null,
-              }
-            );
+            this.notificationService.sendNotification(this.user.id.toString(), {
+              message: 'string',
+              type: 'string',
+              chatRoomId: 0,
+              notificationRoomId: 0,
+              postId: 0,
+              senderId: 'string',
+              recieverId: 'string',
+              commentId: 0,
+              replyId: 0,
+              reactionId: 0,
+              tagId: 0,
+              mentionId: 0,
+              isRead: true,
+            } as CreateNotificationDto);
             this.postService.sendpostImageUrl(postId);
           },
         });
