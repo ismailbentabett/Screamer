@@ -84,11 +84,41 @@ namespace Screamer.WebApi.SignalR
                 IsRead = IsRead
             };
 
-            foreach (var room in rooms)
+            switch (Type)
             {
-                await Clients
-                    .Group(room.ToString())
-                    .SendAsync("ReceiveNotification", room, createMessageDto);
+                case "Chat":
+                    await Clients
+                        .Group(RecieverId.ToString())
+                        .SendAsync("ReceiveNotification", RecieverId, createMessageDto);
+                    break;
+
+                case "Post":
+                    foreach (var room in rooms)
+                    {
+                        await Clients
+                            .Group(room.ToString())
+                            .SendAsync("ReceiveNotification", room, createMessageDto);
+                    }
+
+                    break;
+
+                case "Comment":
+                    await Clients
+                        .Group(RecieverId.ToString())
+                        .SendAsync("ReceiveNotification", RecieverId, createMessageDto);
+
+                    break;
+
+                case "Reply":
+
+                    await Clients
+                        .Group(RecieverId.ToString())
+                        .SendAsync("ReceiveNotification", RecieverId, createMessageDto);
+
+                    break;
+
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(Notification));
             }
 
             /*   var command = new CreateMessageRequestCommand

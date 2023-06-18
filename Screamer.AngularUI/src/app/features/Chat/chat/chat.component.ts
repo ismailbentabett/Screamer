@@ -234,7 +234,7 @@ export class ChatComponent {
         chatRoomId: this.room.id,
         notificationRoomId: this.user.id.toString(),
         postId: 0,
-        senderId: this.user.id.toString(),
+        senderId: this.currentUserId!.toString(),
         recieverId: this.user.id.toString(),
         commentId: 0,
         replyId: 0,
