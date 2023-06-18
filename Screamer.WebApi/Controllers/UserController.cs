@@ -30,10 +30,12 @@ namespace Screamer.WebApi.Controllers
      */public class UserController : ControllerBase
     {
         private readonly IMediator _mediator;
+        private readonly IUnitOfWork _uow;
 
-        public UserController(IMediator mediator)
+        public UserController(IMediator mediator, IUnitOfWork uow)
         {
             this._mediator = mediator;
+            this._uow = uow;
         }
 
         [HttpGet]
@@ -150,6 +152,14 @@ namespace Screamer.WebApi.Controllers
             var query = new GetTheTopPreformingUsersQuery { userParams = userParams };
             var result = await _mediator.Send(query);
             return Ok(result);
+        }
+
+        //GetFollowersIdsAsync
+        [HttpGet("get-followers-ids-async")]
+        public async Task<IActionResult> GetFollowersIdsAsync(string userId)
+        {
+            var followers = await _uow.UserRepository.GetFollowersIdsAsync(userId);
+            return Ok(followers);
         }
     }
 }

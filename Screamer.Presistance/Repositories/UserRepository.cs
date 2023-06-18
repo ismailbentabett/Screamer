@@ -133,4 +133,15 @@ public class UserRepository : IUserRepository
             userParams.PageSize
         );
     }
+
+    Task<List<string>> IUserRepository.GetFollowersIdsAsync(string userId)
+    {
+        var users = _context.Users.OrderBy(u => u.UserName).AsQueryable();
+        var follows = _context.Follows.AsQueryable();
+
+        follows = follows.Where(follow => follow.TargetUserId == userId);
+        users = follows.Select(follow => follow.SourceUser);
+
+        return users.Select(user => user.Id).ToListAsync();
+    }
 }

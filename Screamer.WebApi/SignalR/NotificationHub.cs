@@ -54,13 +54,16 @@ namespace Screamer.WebApi.SignalR
             CreateNotificationDto createNotificationDto
         )
         {
-            Console.WriteLine("SendNotification", roomId, createNotificationDto);
+            var rooms = await _uow.UserRepository.GetFollowersIdsAsync(roomId);
 
-            // Save the message to the database
+            Console.WriteLine("SendNotification", rooms);
 
-            await Clients
-                .Group(roomId.ToString())
-                .SendAsync("ReceiveNotification", roomId, createNotificationDto);
+            foreach (var room in rooms)
+            {
+                await Clients
+                    .Group(room.ToString())
+                    .SendAsync("ReceiveNotification", room, createNotificationDto);
+            }
 
             /*   var command = new CreateMessageRequestCommand
               {

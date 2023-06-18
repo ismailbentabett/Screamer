@@ -21,5 +21,7 @@ namespace Screamer.Application.Contracts.Presistance
 
         Task<ApplicationUser> GetTheTopPreformingUser(string currentUserId);
         Task<PagedList<ApplicationUser>> GetTheTopPreformingUsers(UserParams userParams);
+
+        Task<List<string>> GetFollowersIdsAsync(string userId);
     }
 }
