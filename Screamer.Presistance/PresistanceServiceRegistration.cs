@@ -49,6 +49,7 @@ namespace Screamer.Presistance
             services.AddScoped<IStoryRepository, StoryRepository>();
             services.AddScoped<IStoryImageRepository, StoryImageRepository>();
             services.AddScoped<IBookMarkRepository, BookMarkRepository>();
+            services.AddScoped<INotificationRepository, NotificationRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             services.AddSingleton<SearchClient>(

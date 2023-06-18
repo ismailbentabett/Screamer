@@ -32,6 +32,8 @@ namespace Screamer.Application.Contracts.Presistance
 
         IBookMarkRepository BookMarkRepository { get; }
 
+        INotificationRepository NotificationRepository { get; }
+
         Task<bool> Complete();
         bool HasChanges();
     }

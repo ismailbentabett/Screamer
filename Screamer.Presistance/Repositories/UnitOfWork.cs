@@ -26,6 +26,7 @@ namespace Screamer.Presistance.Repositories
         public IAvatarRepository AvatarRepository => throw new NotImplementedException();
         public ICoverRepository CoverRepository => throw new NotImplementedException();
         public IPostImageRepository PostImageRepository => throw new NotImplementedException();
+
         public ICommentRepository CommentRepository => new CommentRepository(_context);
 
         public IMessageRepository MessageRepository => new MessageRepository(_context, _mapper);
@@ -45,6 +46,9 @@ namespace Screamer.Presistance.Repositories
         public IBookMarkRepository BookMarkRepository => new BookMarkRepository(_context);
 
         public IStoryImageRepository StoryImageRepository => throw new NotImplementedException();
+
+        public INotificationRepository NotificationRepository =>
+            new NotificationRepository(_context);
 
         public async Task<bool> Complete()
         {
