@@ -7,12 +7,13 @@ namespace Screamer.Application.Dtos
 {
     public class NotificationDto
     {
-             public string Message { get; set; }
+        public string Message { get; set; }
 
         public string Type { get; set; }
 
         public int ChatRoomId { get; set; }
-        public int NotificationRoomId { get; set; }
+        public string NotificationRoomId { get; set; }
+        public string userId { get; set; }
 
         public int PostId { get; set; }
 
@@ -29,6 +30,6 @@ namespace Screamer.Application.Dtos
 
         public int MentionId { get; set; }
 
-        public bool IsRead { get; set; }   
+        public bool IsRead { get; set; }
     }
 }

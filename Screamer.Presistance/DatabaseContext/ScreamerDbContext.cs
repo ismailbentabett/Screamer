@@ -41,6 +41,8 @@ namespace Screamer.Presistance.DatabaseContext
         public DbSet<PostMention> PostMentions { get; set; }
         public DbSet<CommentMention> CommentMentions { get; set; }
 
+        public DbSet<Notification> Notifications { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(ScreamerDbContext).Assembly);
@@ -160,7 +162,7 @@ namespace Screamer.Presistance.DatabaseContext
                 .HasForeignKey(bc => bc.UserId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-                      modelBuilder
+            modelBuilder
                 .Entity<BookMark>()
                 .HasOne(bc => bc.Post)
                 .WithMany(b => b.BookMarks)
@@ -172,7 +174,7 @@ namespace Screamer.Presistance.DatabaseContext
                 .HasOne(bc => bc.User)
                 .WithMany(c => c.BookMarks)
                 .HasForeignKey(bc => bc.UserId)
-                .OnDelete(DeleteBehavior.Restrict);   
+                .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder
                 .Entity<PostMention>()
