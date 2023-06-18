@@ -49,7 +49,6 @@ export class NotificationService {
       .catch((err) => console.error(err));
 
     await this.hubConnection.on('ReceiveNotification', (roomId , data) => {
-      console.log(data);
       this.toastr.info(data, 'Notification');
       this.notificationRecievedSubject.next(
         data
