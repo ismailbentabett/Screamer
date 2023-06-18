@@ -16,10 +16,10 @@ export class NotificationService {
   baseUrl = environment.baseWebApiUrl;
   hubUrl = environment.hubUrl;
   private hubConnection?: HubConnection;
-  private messageReceivedSubject = new Subject<any>();
+  private notificationRecievedSubject = new Subject<any>();
 
-  messageReceived$: Observable<any> =
-    this.messageReceivedSubject.asObservable() as any;
+  notificationRecieved$: Observable<any> =
+    this.notificationRecievedSubject.asObservable() as any;
 
   private userConnectedSubject = new Subject<any>();
   userConnected$: Observable<any> = this.userConnectedSubject.asObservable();
@@ -46,7 +46,7 @@ export class NotificationService {
     await this.hubConnection.start().catch((err) => console.error(err));
 
     await this.hubConnection.on('ReceiveNotification', () => {
-      this.messageReceivedSubject.next({});
+      this.notificationRecievedSubject.next({});
     });
     this.hubConnection.on('UserConnected', (roomId: number, userId: string) => {
       this.userConnectedSubject.next({
