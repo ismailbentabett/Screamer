@@ -13,8 +13,6 @@ import { NgProgressComponent } from 'ngx-progressbar';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-
-
   title = 'Screamer.AngularUI';
   shouldShowNavAndFooterComponent: boolean | undefined;
   ShoudShowSearchModal: boolean | undefined;
@@ -34,11 +32,16 @@ export class AppComponent {
       if (event instanceof NavigationEnd) {
         this.showSideContent =
           this.router.url !== '/' &&
+          this.router.url !== '/v/settings/profile' &&
+          this.router.url !== '/v/settings/account' &&
+          this.router.url !== '/v/settings/auth' &&
+          this.router.url !== '/auth/login' &&
+          this.router.url !== '/auth/signup' &&
           this.router.url !== '/v/list/users' &&
           this.router.url !== '/v/trending/users' &&
-          !this.router.url.includes('/v/chat');
-        !this.router.url.includes('/v/settings') &&
-          !this.router.url.includes('/v/auth');
+          !this.router.url.includes('/v/chat') &&
+          !this.router.url.includes('/v/settings') &&
+          !this.router.url.includes('/auth/');
       }
     });
     this.setCurrentUser();
