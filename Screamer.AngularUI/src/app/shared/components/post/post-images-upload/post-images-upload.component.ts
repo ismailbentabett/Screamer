@@ -4,11 +4,17 @@ import {
   Input,
   Output,
   SimpleChanges,
+  ViewChild,
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { first } from 'lodash';
 import { FileUploader } from 'ng2-file-upload';
 import { OwlOptions } from 'ngx-owl-carousel-o';
+import {
+  NgProgress,
+  NgProgressComponent,
+  NgProgressRef,
+} from 'ngx-progressbar';
 import { take } from 'rxjs';
 import { Post } from 'src/app/core/models/Post';
 import { PostImage } from 'src/app/core/models/PostImage';
@@ -31,6 +37,7 @@ export class PostImagesUploadComponent {
   @Output() AddPost = new EventEmitter<string>();
   @Output() sendImages = new EventEmitter<any>();
   @Input() edit: boolean = false;
+  @ViewChild(NgProgressComponent) progressBar!: NgProgressComponent;
 
   preview!: Post;
 
@@ -61,12 +68,13 @@ export class PostImagesUploadComponent {
     },
     nav: true,
   };
-
+  progressRef!: NgProgressRef;
   constructor(
     private postService: PostService,
     private busyService: BusyService,
     private router: Router,
-    private authService: AuthenticationService
+    private authService: AuthenticationService,
+    private progress: NgProgress
   ) {
     this.authService.currentUser$.pipe(take(1)).subscribe({
       next: (user) => {
@@ -76,6 +84,8 @@ export class PostImagesUploadComponent {
   }
 
   ngOnInit(): void {
+    this.progressRef = this.progress.ref('myProgress');
+
     this.initializeUploader();
   }
 
@@ -89,11 +99,13 @@ export class PostImagesUploadComponent {
       autoUpload: false,
       maxFileSize: 10 * 1024 * 1024,
     });
-    this.uploader.onCompleteAll = () => {
-      ;
+    this.uploader.onProgressItem = (fileItem, progress) => {
+      this.progressRef.start();
     };
-    ;
 
+    this.uploader.onCompleteAll = () => {
+      this.progressRef?.complete();
+    };
     this.uploader?.uploadAll();
   }
   async Cancel() {

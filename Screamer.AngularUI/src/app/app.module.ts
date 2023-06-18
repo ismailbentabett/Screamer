@@ -46,7 +46,6 @@ export function tokenGetter() {
     NgxSpinnerModule,
     NgProgressModule,
     NgProgressHttpModule.withConfig({
-      silentApis: ['api/Message'],
     }),
   ],
   providers: [

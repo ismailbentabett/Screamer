@@ -9,6 +9,7 @@ import { UserService } from 'src/app/core/services/user.service';
 import { environment } from 'src/environments/environment';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
+import { NgProgress, NgProgressRef } from 'ngx-progressbar';
 
 @Component({
   selector: 'app-avatar-upload',
@@ -23,6 +24,7 @@ export class AvatarUploadComponent {
   userData: any;
   @Input() avatarUrl?: string;
   public ImgUrl: any;
+  progressRef!: NgProgressRef;
 
   constructor(
     private authService: AuthenticationService,
@@ -30,7 +32,9 @@ export class AvatarUploadComponent {
     private busyService: BusyService,
     public domSanitizer: DomSanitizer,
     private changeDetector: ChangeDetectorRef,
-    private router : Router
+    private router : Router,
+    private progress: NgProgress
+
   ) {
     this.authService.currentUser$.pipe(take(1)).subscribe({
       next: (userData) => {
@@ -49,7 +53,13 @@ export class AvatarUploadComponent {
   }
 
   upload() {
-    ;
+    this.uploader.onProgressItem = (fileItem, progress) => {
+      this.progressRef.start();
+    };
+
+    this.uploader.onCompleteAll = () => {
+      this.progressRef?.complete();
+    };
 
     this.uploader?.uploadAll();
 
@@ -105,7 +115,7 @@ export class AvatarUploadComponent {
       isHTML5: true,
       allowedFileType: ['image'],
       removeAfterUpload: true,
-      autoUpload: false,
+      autoUpload: true,
       maxFileSize: 10 * 1024 * 1024,
     });
 

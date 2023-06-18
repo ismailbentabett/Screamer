@@ -9,6 +9,7 @@ import { UserService } from 'src/app/core/services/user.service';
 import { environment } from 'src/environments/environment';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NgProgress, NgProgressRef } from 'ngx-progressbar';
 @Component({
   selector: 'app-cover-upload',
   templateUrl: './cover-upload.component.html',
@@ -22,6 +23,7 @@ export class CoverUploadComponent {
   userData: any;
   @Input() coverUrl?: string;
   public ImgUrl: any;
+  progressRef!: NgProgressRef;
 
   constructor(
     private authService: AuthenticationService,
@@ -31,6 +33,7 @@ export class CoverUploadComponent {
     private changeDetector: ChangeDetectorRef,
     private router : Router,
     private route: ActivatedRoute,
+    private progress: NgProgress
 
   ) {
     this.authService.currentUser$.pipe(take(1)).subscribe({
@@ -48,6 +51,8 @@ export class CoverUploadComponent {
   }
 
   ngOnInit(): void {
+    this.progressRef = this.progress.ref('myProgress');
+
     this.initializeUploader();
     if (this.coverUrl) {
       this.ImgUrl = this.domSanitizer.bypassSecurityTrustStyle(
@@ -57,7 +62,13 @@ export class CoverUploadComponent {
   }
 
   upload() {
-    ;
+    this.uploader.onProgressItem = (fileItem, progress) => {
+      this.progressRef.start();
+    };
+
+    this.uploader.onCompleteAll = () => {
+      this.progressRef?.complete();
+    };
 
     this.uploader?.uploadAll();
 
@@ -113,7 +124,7 @@ export class CoverUploadComponent {
       isHTML5: true,
       allowedFileType: ['image'],
       removeAfterUpload: true,
-      autoUpload: false,
+      autoUpload: true,
       maxFileSize: 10 * 1024 * 1024,
     });
 

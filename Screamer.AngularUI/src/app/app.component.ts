@@ -5,6 +5,7 @@ import { Router, NavigationEnd } from '@angular/router';
 import { PresenceService } from './core/services/presence.service';
 import { SearchService } from './core/services/search.service';
 import { StoryService } from './core/services/story.service';
+import { NgProgressComponent } from 'ngx-progressbar';
 
 @Component({
   selector: 'app-root',
@@ -12,6 +13,8 @@ import { StoryService } from './core/services/story.service';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
+
+
   title = 'Screamer.AngularUI';
   shouldShowNavAndFooterComponent: boolean | undefined;
   ShoudShowSearchModal: boolean | undefined;

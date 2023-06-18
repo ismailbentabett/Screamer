@@ -1,5 +1,6 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { FileItem, FileUploader } from 'ng2-file-upload';
+import { NgProgress, NgProgressRef } from 'ngx-progressbar';
 import { take } from 'rxjs';
 import { AuthenticationService } from 'src/app/core/services/authentication.service';
 import { PostService } from 'src/app/core/services/post.service';
@@ -24,11 +25,13 @@ export class StoryEditorComponent {
   private uploadedImageUrl: string = '';
   currentUser: any;
   userData: any;
+  progressRef!: NgProgressRef;
 
   constructor(
     private storyService: StoryService,
     private userService: UserService,
-    private authService: AuthenticationService
+    private authService: AuthenticationService,
+    private progress: NgProgress
   ) {
     this.userService
       .getCurrentUserData()
@@ -43,7 +46,9 @@ export class StoryEditorComponent {
   ngAfterViewInit() {
     this.initializeUploader();
   }
-
+  ngOnInit(): void {
+    this.progressRef = this.progress.ref('myProgress');
+  }
   private initializeUploader() {
     this.uploader = new FileUploader({
       url: this.baseUrl,
@@ -137,6 +142,14 @@ export class StoryEditorComponent {
                 // Add the edited image file to the uploader's queue
                 this.uploader.addToQueue([editedImageFile]);
                 // Upload the edited image
+                this.uploader.onProgressItem = (fileItem, progress) => {
+                  this.progressRef.start();
+                };
+
+                this.uploader.onCompleteAll = () => {
+                  this.progressRef?.complete();
+                };
+
                 this.uploader.uploadAll();
               }
             },
