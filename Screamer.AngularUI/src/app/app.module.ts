@@ -45,7 +45,9 @@ export function tokenGetter() {
     TuiImageEditorModule,
     NgxSpinnerModule,
     NgProgressModule,
-    NgProgressHttpModule,
+    NgProgressHttpModule.withConfig({
+      silentApis: ['api/Message'],
+    }),
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
