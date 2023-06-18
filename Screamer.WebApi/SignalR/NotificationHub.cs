@@ -54,6 +54,8 @@ namespace Screamer.WebApi.SignalR
             CreateNotificationDto createNotificationDto
         )
         {
+            Console.WriteLine("SendNotification", roomId, createNotificationDto);
+
             // Save the message to the database
 
             await Clients

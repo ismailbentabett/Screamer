@@ -29,6 +29,7 @@ import 'linkify-plugin-ticket';
 import 'linkify-plugin-ip';
 import { uniq } from 'lodash';
 import { CategoryService } from 'src/app/core/services/category.service';
+import { NotificationService } from 'src/app/core/services/notification.service';
 
 @Component({
   selector: 'app-add-post-form',
@@ -97,7 +98,8 @@ export class AddPostFormComponent {
     private authService: AuthenticationService,
     public postService: PostService,
     private fb: FormBuilder,
-    private categoryService: CategoryService
+    private categoryService: CategoryService,
+    private notificationService: NotificationService
   ) {
     this.authService.currentUser$.pipe(take(1)).subscribe({
       next: (user) => {
@@ -233,7 +235,20 @@ export class AddPostFormComponent {
         .subscribe({
           next: (postId) => {
             this.postId = postId;
+            this.notificationService.sendNotification(
+              this.user.id,
 
+              {
+                userId: this.user.id,
+                ...this.form.value,
+                moodType: this.moodType ?? null,
+                hashtags: this.hashtags ?? null,
+                mentionsArr: this.mentions ?? null,
+                categories: this.categoryService.addedCategories ?? null,
+                tagsArr:
+                  this.postService.gettagSearchResultArrayUsernames() ?? null,
+              }
+            );
             this.postService.sendpostImageUrl(postId);
           },
         });

@@ -6,6 +6,7 @@ import { PresenceService } from './core/services/presence.service';
 import { SearchService } from './core/services/search.service';
 import { StoryService } from './core/services/story.service';
 import { NgProgressComponent } from 'ngx-progressbar';
+import { NotificationService } from './core/services/notification.service';
 
 @Component({
   selector: 'app-root',
@@ -24,7 +25,8 @@ export class AppComponent {
     private router: Router,
     private presenceService: PresenceService,
     public searchService: SearchService,
-    public storyService: StoryService
+    public storyService: StoryService,
+    private notificationService: NotificationService
   ) {}
 
   ngOnInit(): void {
@@ -80,5 +82,10 @@ export class AppComponent {
     const user: User = JSON.parse(userString);
     this.authService.setCurrentUser(user);
     this.presenceService.createHubConnection(user);
+    this.notificationService.notificationRecieved$.subscribe({
+      next: (message: any) => {
+        console.log(message);
+      },
+    });
   }
 }

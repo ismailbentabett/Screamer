@@ -6,6 +6,7 @@ import { User } from 'src/app/core/models/User';
 import { PresenceService } from './presence.service';
 import { SocialAuthService, SocialUser } from '@abacritt/angularx-social-login';
 import { Router } from '@angular/router';
+import { NotificationService } from './notification.service';
 
 @Injectable({
   providedIn: 'root',
@@ -22,7 +23,8 @@ export class AuthenticationService {
     private http: HttpClient,
     private presenceService: PresenceService,
     private router: Router,
-    private externalAuthService: SocialAuthService
+    private externalAuthService: SocialAuthService,
+    private notificationService: NotificationService
   ) {}
 
   login(model: any) {
@@ -52,6 +54,11 @@ export class AuthenticationService {
     //token
     localStorage.setItem('token', JSON.stringify(user.token));
     this.currentUserSource.next(user);
+
+    if (user) {
+      let roomId = user.id;
+      this.notificationService.startConnection(user, roomId);
+    }
   }
 
   logout() {

@@ -13,7 +13,6 @@ import { BehaviorSubject, Observable, Subject, map, take } from 'rxjs';
   providedIn: 'root',
 })
 export class NotificationService {
-  baseUrl = environment.baseWebApiUrl;
   hubUrl = environment.hubUrl;
   private hubConnection?: HubConnection;
   private notificationRecievedSubject = new Subject<any>();
@@ -31,9 +30,10 @@ export class NotificationService {
   constructor(private http: HttpClient) {}
 
   async startConnection(user: User, roomId: any): Promise<void> {
+    console.log('startConnection', user, roomId);
     this.hubConnection = new HubConnectionBuilder()
       .withUrl(
-        this.hubUrl + 'notification?=room' + roomId,
+        this.hubUrl + 'notification?room=' + roomId,
 
         {
           accessTokenFactory: () => user.token,
@@ -43,10 +43,21 @@ export class NotificationService {
       .withAutomaticReconnect()
       .build();
 
-    await this.hubConnection.start().catch((err) => console.error(err));
+    await this.hubConnection
+      .start()
+      .then(() => console.log('Connection started'))
+      .catch((err) => console.error(err));
 
-    await this.hubConnection.on('ReceiveNotification', () => {
+    await this.hubConnection.on('ReceiveNotification', (data) => {
+      console.log('ReceiveNotification' , data);
       this.notificationRecievedSubject.next({});
+    });
+
+    await this.hubConnection.on('JoinRoom', (data: any) => {
+
+    });
+    await this.hubConnection.on('Room', (data: any) => {
+      this.joinRoom(roomId as any);
     });
     this.hubConnection.on('UserConnected', (roomId: number, userId: string) => {
       this.userConnectedSubject.next({
@@ -66,7 +77,7 @@ export class NotificationService {
     );
   }
 
-  sendNotification(roomId: string, CreateNotificationDto: any): void {
+  sendNotification(roomId: any, CreateNotificationDto: any): void {
     this.hubConnection!.invoke(
       'SendNotification',
       roomId,
@@ -75,6 +86,7 @@ export class NotificationService {
   }
 
   joinRoom(roomId: string): void {
+    console.log('join room' + roomId);
     this.hubConnection!.invoke('JoinRoom', roomId);
   }
 
