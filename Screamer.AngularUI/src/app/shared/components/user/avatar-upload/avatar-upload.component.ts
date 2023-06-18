@@ -32,9 +32,8 @@ export class AvatarUploadComponent {
     private busyService: BusyService,
     public domSanitizer: DomSanitizer,
     private changeDetector: ChangeDetectorRef,
-    private router : Router,
+    private router: Router,
     private progress: NgProgress
-
   ) {
     this.authService.currentUser$.pipe(take(1)).subscribe({
       next: (userData) => {
@@ -44,6 +43,8 @@ export class AvatarUploadComponent {
   }
 
   ngOnInit(): void {
+    this.progressRef = this.progress.ref('myProgress');
+
     this.initializeUploader();
     if (this.avatarUrl) {
       this.ImgUrl = this.domSanitizer.bypassSecurityTrustStyle(
@@ -53,24 +54,12 @@ export class AvatarUploadComponent {
   }
 
   upload() {
-    this.uploader.onProgressItem = (fileItem, progress) => {
-      this.progressRef.start();
-    };
-
-    this.uploader.onCompleteAll = () => {
-      this.progressRef?.complete();
-    };
-
     this.uploader?.uploadAll();
 
-      this.router.navigateByUrl(
-        `/v/user/${this.userData?.id}`
-      )
+    this.router.navigateByUrl(`/v/user/${this.userData?.id}`);
   }
   async Cancel() {
-
     await this.uploader?.cancelAll();
-
   }
   async Clear() {
     await this.uploader?.clearQueue();
@@ -122,7 +111,15 @@ export class AvatarUploadComponent {
     this.uploader.onAfterAddingFile = (file) => {
       file.withCredentials = false;
     };
+    this.uploader.onProgressItem = (fileItem, progress) => {
+      console.log('start');
+      this.progressRef.start();
+    };
 
+    this.uploader.onCompleteAll = () => {
+      console.log('complete');
+      this.progressRef?.complete();
+    };
     this.uploader.onSuccessItem = (item, response, status, headers) => {
       if (response) {
         const Avatar = JSON.parse(response);
@@ -133,7 +130,6 @@ export class AvatarUploadComponent {
           this.authService.setCurrentUser(this.userData);
         }
       }
-      ;
     };
   }
 }

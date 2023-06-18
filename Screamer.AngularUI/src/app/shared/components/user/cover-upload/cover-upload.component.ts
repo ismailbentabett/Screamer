@@ -62,13 +62,7 @@ export class CoverUploadComponent {
   }
 
   upload() {
-    this.uploader.onProgressItem = (fileItem, progress) => {
-      this.progressRef.start();
-    };
 
-    this.uploader.onCompleteAll = () => {
-      this.progressRef?.complete();
-    };
 
     this.uploader?.uploadAll();
 
@@ -130,6 +124,14 @@ export class CoverUploadComponent {
 
     this.uploader.onAfterAddingFile = (file) => {
       file.withCredentials = false;
+    };
+
+    this.uploader.onProgressItem = (fileItem, progress) => {
+      this.progressRef.start();
+    };
+
+    this.uploader.onCompleteAll = () => {
+      this.progressRef?.complete();
     };
 
     this.uploader.onSuccessItem = (item, response, status, headers) => {
