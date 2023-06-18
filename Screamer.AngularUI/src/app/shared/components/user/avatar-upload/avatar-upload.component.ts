@@ -112,12 +112,10 @@ export class AvatarUploadComponent {
       file.withCredentials = false;
     };
     this.uploader.onProgressItem = (fileItem, progress) => {
-      console.log('start');
       this.progressRef.start();
     };
 
     this.uploader.onCompleteAll = () => {
-      console.log('complete');
       this.progressRef?.complete();
     };
     this.uploader.onSuccessItem = (item, response, status, headers) => {
