@@ -58,13 +58,7 @@ namespace Screamer.WebApi.SignalR
 
             await Clients
                 .Group(roomId.ToString())
-                .SendAsync(
-                    "ReceiveMessage",
-                    roomId,
-                    createNotificationDto.senderId,
-                    createNotificationDto.recieverId,
-                    createNotificationDto.Message
-                );
+                .SendAsync("ReceiveNotification", roomId, createNotificationDto);
 
             /*   var command = new CreateMessageRequestCommand
               {
