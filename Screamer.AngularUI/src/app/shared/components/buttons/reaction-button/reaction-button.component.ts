@@ -7,6 +7,9 @@ import {
 } from '@angular/animations';
 import { Component, Input } from '@angular/core';
 import { take } from 'rxjs';
+import { CreateNotificationDto } from 'src/app/core/models/CreateNotificationDto';
+import { AuthenticationService } from 'src/app/core/services/authentication.service';
+import { NotificationService } from 'src/app/core/services/notification.service';
 import { ReactionService } from 'src/app/core/services/reaction.service';
 
 @Component({
@@ -39,7 +42,11 @@ export class ReactionButtonComponent {
   @Input()
   postId: number | null = null;
   reactionType: string | null = null;
-  constructor(private reactionService: ReactionService) {}
+  constructor(
+    private reactionService: ReactionService,
+    private notificationService: NotificationService,
+    private authService: AuthenticationService
+  ) {}
 
   ngOnChanges(changes: any): void {
     if (changes['postId']) {
@@ -50,7 +57,6 @@ export class ReactionButtonComponent {
             .pipe(take(1))
             .subscribe({
               next: (reaction) => {
-
                 if (reaction && reaction.postId == this.postId) {
                   this.reaction = reaction;
                   this.reactionType = reaction.reactionType;
@@ -74,6 +80,28 @@ export class ReactionButtonComponent {
         this.reactionType = data.reactionType;
         this.reaction = data;
         this.toggleDropdown();
+
+        this.authService.currentUser$.pipe(take(1)).subscribe({
+          next: (user: any) => {
+            if (user) {
+              this.notificationService.sendNotification(user.id.toString(), {
+                message: `${user.userName} Has Added a ${reactionType} Reaction your post`,
+                type: 'Reply',
+                chatRoomId: 0,
+                notificationRoomId: user.id.toString(),
+                postId: this.postId,
+                senderId: user.id.toString(),
+                recieverId: user.id.toString(),
+                commentId: 0,
+                replyId: 0,
+                reactionId: 0,
+                tagId: 0,
+                mentionId: 0,
+                isRead: true,
+              } as CreateNotificationDto);
+            }
+          },
+        });
       });
   }
 

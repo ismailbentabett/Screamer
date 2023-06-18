@@ -50,7 +50,7 @@ export class NotificationService {
 
     await this.hubConnection.on('ReceiveNotification', (roomId , data) => {
       console.log(data);
-      this.toastr.info(data.message, 'Notification');
+      this.toastr.info(data, 'Notification');
       this.notificationRecievedSubject.next(
         data
       );

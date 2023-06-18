@@ -14,6 +14,8 @@ import { UserService } from 'src/app/core/services/user.service';
 import { FormBuilder, FormControl } from '@angular/forms';
 import { take } from 'rxjs';
 import { CommentService } from 'src/app/core/services/comment.service';
+import { NotificationService } from 'src/app/core/services/notification.service';
+import { CreateNotificationDto } from 'src/app/core/models/CreateNotificationDto';
 
 @Component({
   selector: 'app-comment-input',
@@ -41,7 +43,8 @@ export class CommentInputComponent {
   constructor(
     private userService: UserService,
     private fb: FormBuilder,
-    private commentService: CommentService
+    private commentService: CommentService,
+    private notificationService: NotificationService
   ) {
     this.userService
       .getCurrentUserData()
@@ -92,6 +95,24 @@ export class CommentInputComponent {
     };
 
     this.commentService.createComment(comment).subscribe((response: any) => {
+      this.notificationService.sendNotification(
+        this.currentUser.id.toString(),
+        {
+          message: `${this.currentUser.userName} has Commented on your post`,
+          type: 'Comment',
+          chatRoomId: 0,
+          notificationRoomId: this.currentUser.id.toString(),
+          postId: this.post.id,
+          senderId: this.currentUser.id.toString(),
+          recieverId: this.currentUser.id.toString(),
+          commentId: response.result,
+          replyId: 0,
+          reactionId: 0,
+          tagId: 0,
+          mentionId: 0,
+          isRead: true,
+        } as CreateNotificationDto
+      );
       this.form.reset();
     });
   }
@@ -107,6 +128,24 @@ export class CommentInputComponent {
     };
 
     this.commentService.createReply(reply).subscribe((response: any) => {
+      this.notificationService.sendNotification(
+        this.currentUser.id.toString(),
+        {
+          message: `${this.currentUser.userName} has sent you a message`,
+          type: 'Reply',
+          chatRoomId: 0,
+          notificationRoomId: this.currentUser.id.toString(),
+          postId: this.post.id,
+          senderId: this.currentUser.id.toString(),
+          recieverId: this.currentUser.id.toString(),
+          commentId: this.parentCommentId,
+          replyId: response.result,
+          reactionId: 0,
+          tagId: 0,
+          mentionId: 0,
+          isRead: true,
+        } as CreateNotificationDto
+      );
       this.form.reset();
     });
   }
@@ -115,7 +154,6 @@ export class CommentInputComponent {
     if (this.parentCommentId && this.parentCommentId !== null) {
       this.createReply();
     } else {
-
       this.createComment();
     }
   }

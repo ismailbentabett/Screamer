@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-notification',
@@ -7,4 +8,17 @@ import { Component } from '@angular/core';
 })
 export class NotificationComponent {
 
+  constructor(private toastr: ToastrService) {
+
+  }
+
+  ngOnInit () : void{
+var data =     this.toastr.toasts;
+console.log(data);
+
+}
+
+
+  showToaster() {
+  }
 }

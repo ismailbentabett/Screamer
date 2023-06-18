@@ -16,6 +16,7 @@ import {
 } from '@angular/router';
 import { Subscription, take } from 'rxjs';
 import { CreateMessage } from 'src/app/core/models/CreateMessage';
+import { CreateNotificationDto } from 'src/app/core/models/CreateNotificationDto';
 import { Message } from 'src/app/core/models/Message';
 import { MessageParams } from 'src/app/core/models/MessageParams';
 import { Pagination } from 'src/app/core/models/Pagination';
@@ -23,6 +24,7 @@ import { User } from 'src/app/core/models/User';
 import { AuthenticationService } from 'src/app/core/services/authentication.service';
 import { BusyService } from 'src/app/core/services/busy.service';
 import { MessageService } from 'src/app/core/services/message.service';
+import { NotificationService } from 'src/app/core/services/notification.service';
 import { UserService } from 'src/app/core/services/user.service';
 import { ScrollToBottomDirective } from 'src/app/shared/directives/scrol-to-bottom.directive';
 
@@ -43,7 +45,7 @@ export class ChatComponent {
   messageParams: MessageParams | undefined;
   next: string | undefined;
   userId?: string;
-  user!: User;
+  user!: any;
   currentUserId?: string;
   currentUser!: User;
   someSubscription: any;
@@ -63,7 +65,8 @@ export class ChatComponent {
     private userService: UserService,
     private router: Router,
     private busyService: BusyService,
-    private authService: AuthenticationService
+    private authService: AuthenticationService,
+    private notificationService: NotificationService
   ) {
     this.form = this.fb.group({
       message: ['', Validators.required],
@@ -147,7 +150,6 @@ export class ChatComponent {
   }
 
   getChatRoomById(roomId: any) {
-    ;
     this.messagesService.getChatRoomById(roomId as any).subscribe({
       next: (data) => {
         this.room = data;
@@ -174,7 +176,6 @@ export class ChatComponent {
                 next: (user: any) => {
                   this.user = user;
                   this.loadMessages();
-                  ;
                 },
               });
             },
@@ -184,7 +185,6 @@ export class ChatComponent {
   }
 
   loadMessages() {
-    ;
     if (this.messageParams) {
       this.messagesService.setMessageParams(this.messageParams);
       this.messagesService.getMessageThread(this.messageParams).subscribe({
@@ -192,7 +192,6 @@ export class ChatComponent {
           if (response.result && response.pagination) {
             this.messages = response.result;
             this.pagination = response.pagination;
-            ;
           }
         },
       });
@@ -229,6 +228,21 @@ export class ChatComponent {
 
         createMessageDto
       );
+      this.notificationService.sendNotification(this.user.id.toString(), {
+        message: `${this.user.userName} has sent you a message`,
+        type: 'Chat',
+        chatRoomId: this.room.id,
+        notificationRoomId: this.user.id.toString(),
+        postId: 0,
+        senderId: this.user.id.toString(),
+        recieverId: this.user.id.toString(),
+        commentId: 0,
+        replyId: 0,
+        reactionId: 0,
+        tagId: 0,
+        mentionId: 0,
+        isRead: true,
+      } as CreateNotificationDto);
       this.newMessage = '';
 
       this.form.reset();
@@ -243,15 +257,15 @@ export class ChatComponent {
     }
   }
 
-   currentuserTyping : any;
+  currentuserTyping: any;
 
   isCurrentUserTyping() {
     this.messagesService.usertyping$.subscribe({
       next: (data) => {
         this.currentuserTyping = data;
-      }
-    })
+      },
+    });
 
     return this.currentuserTyping != this.userId;
-}
+  }
 }
