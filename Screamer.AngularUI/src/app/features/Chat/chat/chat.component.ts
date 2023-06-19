@@ -244,21 +244,6 @@ export class ChatComponent {
         isRead: true,
       } as CreateNotificationDto);
 
-      console.log({
-        message: `${this.user.userName} has sent you a message`,
-        type: 'Chat',
-        chatRoomId: parseInt(this.room.id),
-        notificationRoomId: this.user.id.toString(),
-        postId: 0,
-        senderId: this.currentUserId!.toString(),
-        recieverId: this.user.id.toString(),
-        commentId: 0,
-        replyId: 0,
-        reactionId: 0,
-        tagId: 0,
-        mentionId: 0,
-        isRead: true,
-      });
       this.newMessage = '';
 
       this.form.reset();

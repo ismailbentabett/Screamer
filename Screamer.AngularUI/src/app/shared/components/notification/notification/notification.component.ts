@@ -72,7 +72,6 @@ export class NotificationComponent {
   ) {}
 
 ngOnInit () : void {
-  console.log(this.toastPackage.message)
 }
 
   action(event: Event) {

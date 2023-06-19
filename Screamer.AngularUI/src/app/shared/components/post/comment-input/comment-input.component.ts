@@ -96,7 +96,6 @@ export class CommentInputComponent {
     };
 
     this.commentService.createComment(comment).subscribe((response: any) => {
-      console.log(response);
       this.notificationService.sendNotification(
         this.currentUser.id.toString(),
         {
@@ -115,24 +114,7 @@ export class CommentInputComponent {
           isRead: true,
         } as CreateNotificationDto
       );
-      console.log({
-        message: `${this.currentUser.userName} has Commented on your post`,
-        type: 'Comment',
-        chatRoomId: 0,
-        notificationRoomId: this.currentUser.id.toString(),
-        postId: this.post.id,
-        senderId: this.currentUser.id.toString(),
-        recieverId: this.post.userId.toString(),
-        commentId: response,
-        replyId: 0,
-        reactionId: 0,
-        tagId: 0,
-        mentionId: 0,
-        isRead: true,
-      } as CreateNotificationDto);
-
-
-      this.form.reset();
+       this.form.reset();
     });
   }
 
@@ -145,7 +127,6 @@ export class CommentInputComponent {
       hashtags: this.hashtags ?? [],
       mentionsArr: this.mentions ?? [],
     };
-console.log(this.comment)
     this.commentService.createReply(reply).subscribe((response: any) => {
       this.notificationService.sendNotification(
         this.currentUser.id.toString(),
@@ -165,23 +146,7 @@ console.log(this.comment)
           isRead: true,
         } as CreateNotificationDto
       );
-      console.log(
-        {
-          message: `${this.currentUser.userName} has Replied To your Comment`,
-          type: 'Reply',
-          chatRoomId: 0,
-          notificationRoomId: this.currentUser.id.toString(),
-          postId: this.post.id,
-          senderId: this.currentUser.id.toString(),
-          recieverId: this.comment.user.id.toString(),
-          commentId: this.parentCommentId,
-          replyId: response,
-          reactionId: 0,
-          tagId: 0,
-          mentionId: 0,
-          isRead: true,
-        }
-      )
+
       this.form.reset();
     });
   }
