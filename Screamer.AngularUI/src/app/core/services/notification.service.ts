@@ -77,12 +77,7 @@ export class NotificationService {
     roomId: string,
     CreateNotificationDto: CreateNotificationDto
   ): void {
-    console.log(
-      ' senderId ',
-      CreateNotificationDto.senderId,
-      ' recieverId ',
-      CreateNotificationDto.recieverId
-    );
+
     this.hubConnection!.invoke(
       'SendNotification',
       roomId,
