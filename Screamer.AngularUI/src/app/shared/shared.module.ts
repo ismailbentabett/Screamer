@@ -83,6 +83,9 @@ import { StoryEditorFullscreenModalComponent } from './components/stories/story-
 import { FloatingActionButtonComponent } from './components/action/floating-action-button/floating-action-button.component';
 import { ToastrModule } from 'ngx-toastr';
 import { NotificationComponent } from './components/notification/notification/notification.component';
+import { PostSkeletonComponent } from './components/skeletons/post-skeleton/post-skeleton.component';
+import { SidebarSkeletonComponent } from './components/skeletons/sidebar-skeleton/sidebar-skeleton.component';
+import { SidecontentSkeletonComponent } from './components/skeletons/sidecontent-skeleton/sidecontent-skeleton.component';
 
 @NgModule({
   declarations: [
@@ -144,6 +147,9 @@ import { NotificationComponent } from './components/notification/notification/no
     StoryEditorFullscreenModalComponent,
     FloatingActionButtonComponent,
     NotificationComponent,
+    PostSkeletonComponent,
+    SidebarSkeletonComponent,
+    SidecontentSkeletonComponent,
   ],
   imports: [
     CommonModule,
@@ -220,6 +226,9 @@ import { NotificationComponent } from './components/notification/notification/no
     StoryEditorFullscreenModalComponent,
     FloatingActionButtonComponent,
     NotificationComponent,
+    PostSkeletonComponent,
+    SidebarSkeletonComponent,
+    SidecontentSkeletonComponent,
   ],
   providers: [
     {
