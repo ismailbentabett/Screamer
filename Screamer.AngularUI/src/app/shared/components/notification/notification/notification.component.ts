@@ -65,19 +65,18 @@ import {
 })
 export class NotificationComponent {
   undoString!: string;
-
+message : any = null;
   constructor(
     protected toastrService: ToastrService,
     public toastPackage: ToastPackage
   ) {}
 
 ngOnInit () : void {
+  this.message  = this.toastPackage.message as any
+  console.log(
+      this.toastPackage
+  )
 }
 
-  action(event: Event) {
-    event.stopPropagation();
-    this.undoString = 'undid';
-    this.toastPackage.triggerAction();
-    return false;
-  }
+
 }

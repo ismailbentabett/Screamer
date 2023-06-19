@@ -67,6 +67,8 @@ namespace Screamer.WebApi.SignalR
         )
         {
             var rooms = await _uow.UserRepository.GetFollowersIdsAsync(roomId);
+            var user = await _uow.UserRepository.GetUserByIdAsync(SenderId);
+            var userData = _mapper.Map<UserDto>(user);
             CreateNotificationDto createMessageDto = new CreateNotificationDto
             {
                 Message = Message,
@@ -81,7 +83,8 @@ namespace Screamer.WebApi.SignalR
                 ReactionId = ReactionId,
                 TagId = TagId,
                 MentionId = MentionId,
-                IsRead = IsRead
+                IsRead = IsRead,
+                user = userData
             };
             Console.WriteLine("createMessageDto", createMessageDto);
 
