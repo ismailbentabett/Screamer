@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { SettingsRoutingModule } from './settings-routing.module';
 import { SettingsComponent } from './settings.component';
-import { NgxSpinnerModule } from 'ngx-spinner';
+
 
 
 @NgModule({
@@ -12,8 +12,6 @@ import { NgxSpinnerModule } from 'ngx-spinner';
   ],
   imports: [
     CommonModule,
-    SettingsRoutingModule,
-    NgxSpinnerModule
-  ]
+    SettingsRoutingModule  ]
 })
 export class SettingsModule { }

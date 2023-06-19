@@ -15,7 +15,6 @@ import { RouterModule } from '@angular/router';
 import { LoginAndSignupNavComponent } from './components/buttons/login-and-signup-nav/login-and-signup-nav.component';
 import { AvatarUploadComponent } from './components/user/avatar-upload/avatar-upload.component';
 import { FileUploadModule } from 'ng2-file-upload'; //Should import HERE
-import { NgxSpinnerModule } from 'ngx-spinner';
 import { PostComponent } from './components/post/post/post.component';
 import { AddPostFormComponent } from './components/post/add-post-form/add-post-form.component';
 import { AddPostComponent } from './components/post/add-post/add-post.component';
@@ -156,7 +155,6 @@ import { SidecontentSkeletonComponent } from './components/skeletons/sidecontent
     HttpClientModule,
     RouterModule,
     FileUploadModule,
-    NgxSpinnerModule,
     ReactiveFormsModule,
     InfiniteScrollModule,
     CarouselModule,
