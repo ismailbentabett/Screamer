@@ -83,10 +83,12 @@ namespace Screamer.WebApi.SignalR
                 MentionId = MentionId,
                 IsRead = IsRead
             };
+            Console.WriteLine("createMessageDto", createMessageDto);
 
             switch (Type)
             {
                 case "Chat":
+                    Console.WriteLine("createMessageDto", createMessageDto);
                     await Clients
                         .Group(RecieverId.ToString())
                         .SendAsync("ReceiveNotification", RecieverId, createMessageDto);
@@ -110,6 +112,13 @@ namespace Screamer.WebApi.SignalR
                     break;
 
                 case "Reply":
+
+                    await Clients
+                        .Group(RecieverId.ToString())
+                        .SendAsync("ReceiveNotification", RecieverId, createMessageDto);
+
+                    break;
+                case "Reaction":
 
                     await Clients
                         .Group(RecieverId.ToString())

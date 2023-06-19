@@ -198,8 +198,8 @@ namespace Screamer.WebApi.Controllers
             [FromBody] AddCommentRequestCommand addCommentRequestCommandRequest
         )
         {
-            await _mediator.Send(addCommentRequestCommandRequest);
-            return Ok();
+            var result = await _mediator.Send(addCommentRequestCommandRequest);
+            return Ok(result);
         }
 
         [HttpPost("add-reply")]
@@ -207,8 +207,8 @@ namespace Screamer.WebApi.Controllers
             [FromBody] AddReplyRequestCommand addReplyRequestCommandRequest
         )
         {
-            await _mediator.Send(addReplyRequestCommandRequest);
-            return Ok();
+            var result = await _mediator.Send(addReplyRequestCommandRequest);
+            return Ok(result);
         }
 
         [HttpDelete("delete-comment")]

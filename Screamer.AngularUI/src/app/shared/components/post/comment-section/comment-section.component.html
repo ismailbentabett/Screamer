@@ -51,6 +51,7 @@
     <app-comment-input
       *ngIf="replyInput"
       [parentCommentId]="comment.id"
+      [comment]="comment"
       [post]="post"
     ></app-comment-input>
     <button

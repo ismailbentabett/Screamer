@@ -41,6 +41,7 @@ export class ReactionButtonComponent {
   reaction!: any;
   @Input()
   postId: number | null = null;
+  @Input () post : any;
   reactionType: string | null = null;
   constructor(
     private reactionService: ReactionService,
@@ -91,7 +92,7 @@ export class ReactionButtonComponent {
                 notificationRoomId: user.id.toString(),
                 postId: this.postId,
                 senderId: user.id.toString(),
-                recieverId: user.id.toString(),
+                recieverId: this.post.userId.toString(),
                 commentId: 0,
                 replyId: 0,
                 reactionId: 0,
