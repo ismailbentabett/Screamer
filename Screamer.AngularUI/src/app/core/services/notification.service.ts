@@ -29,7 +29,7 @@ export class NotificationService {
   userDisconnected$: Observable<any> =
     this.userDisconnectedSubject.asObservable();
 
-  constructor(private http: HttpClient , private toastr: ToastrService) {}
+  constructor(private http: HttpClient, private toastr: ToastrService) {}
 
   async startConnection(user: User, roomId: any): Promise<void> {
     this.hubConnection = new HubConnectionBuilder()
@@ -44,15 +44,11 @@ export class NotificationService {
       .withAutomaticReconnect()
       .build();
 
-    await this.hubConnection
-      .start()
-      .catch((err) => console.error(err));
+    await this.hubConnection.start().catch((err) => console.error(err));
 
-    await this.hubConnection.on('ReceiveNotification', (roomId , data) => {
+    await this.hubConnection.on('ReceiveNotification', (roomId, data) => {
       this.toastr.info(data, 'Notification');
-      this.notificationRecievedSubject.next(
-        data
-      );
+      this.notificationRecievedSubject.next(data);
     });
 
     await this.hubConnection.on('JoinRoom', (data: any) => {});
@@ -81,6 +77,12 @@ export class NotificationService {
     roomId: string,
     CreateNotificationDto: CreateNotificationDto
   ): void {
+    console.log(
+      ' senderId ',
+      CreateNotificationDto.senderId,
+      ' recieverId ',
+      CreateNotificationDto.recieverId
+    );
     this.hubConnection!.invoke(
       'SendNotification',
       roomId,

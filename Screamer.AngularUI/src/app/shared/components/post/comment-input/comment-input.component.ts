@@ -96,6 +96,7 @@ export class CommentInputComponent {
     };
 
     this.commentService.createComment(comment).subscribe((response: any) => {
+      console.log(this.post.userId.toString())
       this.notificationService.sendNotification(
         this.currentUser.id.toString(),
         {

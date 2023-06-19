@@ -99,9 +99,7 @@ export class NotificationComponent {
     this.title = toastPackage.title;
     this.options = toastPackage.config;
     this.originalTimeout = toastPackage.config.timeOut;
-    this.toastClasses = `${toastPackage.toastType} ${
-      toastPackage.config.toastClass
-    }`;
+
     this.sub = toastPackage.toastRef.afterActivate().subscribe(() => {
       this.activateToast();
     });

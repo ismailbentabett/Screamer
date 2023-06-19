@@ -108,24 +108,31 @@ namespace Screamer.WebApi.SignalR
                     break;
 
                 case "Comment":
-                    await Clients
-                        .Group(RecieverId.ToString())
-                        .SendAsync("ReceiveNotification", RecieverId, createMessageDto);
+                    if (RecieverId != SenderId)
+                    {
+                        await Clients
+                            .Group(RecieverId.ToString())
+                            .SendAsync("ReceiveNotification", RecieverId, createMessageDto);
+                    }
 
                     break;
 
                 case "Reply":
-
-                    await Clients
-                        .Group(RecieverId.ToString())
-                        .SendAsync("ReceiveNotification", RecieverId, createMessageDto);
+                    if (RecieverId != SenderId)
+                    {
+                        await Clients
+                            .Group(RecieverId.ToString())
+                            .SendAsync("ReceiveNotification", RecieverId, createMessageDto);
+                    }
 
                     break;
                 case "Reaction":
-
-                    await Clients
-                        .Group(RecieverId.ToString())
-                        .SendAsync("ReceiveNotification", RecieverId, createMessageDto);
+                    if (RecieverId != SenderId)
+                    {
+                        await Clients
+                            .Group(RecieverId.ToString())
+                            .SendAsync("ReceiveNotification", RecieverId, createMessageDto);
+                    }
 
                     break;
 
