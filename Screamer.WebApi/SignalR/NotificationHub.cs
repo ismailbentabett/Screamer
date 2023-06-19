@@ -135,6 +135,33 @@ namespace Screamer.WebApi.SignalR
                     }
 
                     break;
+                case "Tag":
+                    if (RecieverId != SenderId)
+                    {
+                        await Clients
+                            .Group(RecieverId.ToString())
+                            .SendAsync("ReceiveNotification", RecieverId, createMessageDto);
+                    }
+
+                    break;
+                case "PostMention":
+                    if (RecieverId != SenderId)
+                    {
+                        await Clients
+                            .Group(RecieverId.ToString())
+                            .SendAsync("ReceiveNotification", RecieverId, createMessageDto);
+                    }
+
+                    break;
+                case "CommentMention":
+                    if (RecieverId != SenderId)
+                    {
+                        await Clients
+                            .Group(RecieverId.ToString())
+                            .SendAsync("ReceiveNotification", RecieverId, createMessageDto);
+                    }
+
+                    break;
 
                 default:
                     throw new ArgumentOutOfRangeException(nameof(Notification));
