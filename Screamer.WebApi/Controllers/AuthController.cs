@@ -162,7 +162,6 @@ namespace HR.LeaveManagement.Api.Controllers
                 var callbackUrl =
                     $"http://localhost:4200/auth/reset-password?code={encodedToken}&email={HttpUtility.UrlEncode(model.Email)}";
 
-                Console.WriteLine(code);
 
                 // Send email with callback URL
                 await _emailSender.SendResetPasswordEmailAsync(model.Email, callbackUrl);
