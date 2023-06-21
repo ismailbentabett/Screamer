@@ -27,6 +27,7 @@ import { PostService } from 'src/app/core/services/post.service';
 import { head } from 'lodash';
 import { CommentService } from 'src/app/core/services/comment.service';
 import { BookmarkService } from 'src/app/core/services/bookmark.service';
+import { ModalService } from 'src/app/core/services/modal.service';
 
 @Component({
   selector: 'app-post',
@@ -72,7 +73,8 @@ export class PostComponent {
     private sanitizer: DomSanitizer,
     public postService: PostService,
     private commentService: CommentService,
-    private bookmarkService: BookmarkService
+    private bookmarkService: BookmarkService,
+    public modalService: ModalService
   ) {
     this.userService
       .getCurrentUserData()
@@ -89,6 +91,10 @@ export class PostComponent {
           }
         },
       });
+  }
+  openDeletePostPopup() {
+    this.modalService.openDeletePostPopup();
+    this.edit = !this.edit;
   }
   ngOnInit(): void {
     this.router.events.subscribe((event) => {

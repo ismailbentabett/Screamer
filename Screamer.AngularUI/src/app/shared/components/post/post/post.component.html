@@ -208,6 +208,7 @@
                 </a>
                 <a
                   *ngIf="isMyPost()"
+                  (click)="openDeletePostPopup()"
                   class="text-gray-700 flex px-4 py-2 text-sm cursor-pointer hover:bg-gray-100"
                   role="menuitem"
                   tabindex="-1"
@@ -394,3 +395,4 @@
   "
   [title]="post.title ? post.title : null"
 ></app-share-post-modal>
+<app-delete-post-modal *ngIf="this.modalService.isDeletePostOpen"></app-delete-post-modal>
