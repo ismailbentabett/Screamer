@@ -5,17 +5,37 @@ import { Injectable } from '@angular/core';
 })
 export class ModalService {
   public isOpen: boolean = false;
-  constructor(
+  public isDeleteMyAccountOpen: boolean = false;
+  public isDeletePostOpen: boolean = false;
+  public isDeleteCommentOpen: boolean = false;
 
-  ) {}
+  constructor() {}
   openPopup() {
     this.isOpen = true;
+  }
+
+  closeDeleteCommentPopup() {
+    this.isDeleteCommentOpen = false;
+  }
+  openDeleteCommentPopup() {
+    this.isDeleteCommentOpen = true;
   }
 
   closePopup() {
     this.isOpen = false;
   }
+  openDeletePostPopup() {
+    this.isDeletePostOpen = true;
+  }
 
+  closeDeletePostPopup() {
+    this.isDeletePostOpen = false;
+  }
+  openDeleteMyAccountPopup() {
+    this.isDeleteMyAccountOpen = true;
+  }
 
-
+  closeDeleteMyAccountPopup() {
+    this.isDeleteMyAccountOpen = false;
+  }
 }
