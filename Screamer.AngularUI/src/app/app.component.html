@@ -3,6 +3,7 @@
 <ng-progress id="myProgress"></ng-progress>
 
 <app-search-result-modal
+  #modal
   *ngIf="this.searchService.isOpen && ShoudShowSearchModal"
 ></app-search-result-modal>
 <app-navbar *ngIf="shouldShowNavAndFooterComponent"></app-navbar>
@@ -68,5 +69,3 @@
 >
   <p style="font-size: 20px; color: white">Loading...</p>
 </ngx-spinner>
-
-

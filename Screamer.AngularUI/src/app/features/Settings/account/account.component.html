@@ -124,7 +124,6 @@
     class="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden transform transition-all sm:my-8 sm:align-middle sm:p-6"
   >
     <div class="sm:flex sm:items-start">
-
       <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
         <h3
           class="text-lg leading-6 font-medium text-gray-900"
@@ -143,8 +142,8 @@
     </div>
     <div class="mt-5 sm:mt-4 sm:flex sm:flex-row-reverse">
       <button
-      *ngIf="currentUser"
-      (click)="openDeleteMyAccountPopup()"
+        *ngIf="currentUser"
+        (click)="openDeleteMyAccountPopup()"
         type="button"
         class="inline-flex items-center px-8 py-3 border border-transparent text-sm leading-4 font-medium rounded-md text-red-700 bg-red-100 hover:bg-red-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
       >
@@ -154,6 +153,7 @@
   </div>
 </div>
 <app-delete-my-account-modal
-*ngIf="this.userService.isDeleteMyAccountOpen"
-[currentUser]="currentUser"
+  #modal
+  *ngIf="this.userService.isDeleteMyAccountOpen"
+  [currentUser]="currentUser"
 ></app-delete-my-account-modal>

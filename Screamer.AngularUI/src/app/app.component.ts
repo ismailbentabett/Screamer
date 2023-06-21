@@ -1,4 +1,10 @@
-import { Component, HostListener, VERSION, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  HostListener,
+  VERSION,
+  ViewChild,
+} from '@angular/core';
 import { User } from './core/models/User';
 import { AuthenticationService } from './core/services/authentication.service';
 import { Router, NavigationEnd } from '@angular/router';
@@ -7,6 +13,7 @@ import { SearchService } from './core/services/search.service';
 import { StoryService } from './core/services/story.service';
 import { NgProgressComponent } from 'ngx-progressbar';
 import { NotificationService } from './core/services/notification.service';
+import { ModalService } from './core/services/modal.service';
 
 @Component({
   selector: 'app-root',
@@ -26,7 +33,8 @@ export class AppComponent {
     private presenceService: PresenceService,
     public searchService: SearchService,
     public storyService: StoryService,
-    private notificationService: NotificationService
+    private notificationService: NotificationService,
+    private modalService: ModalService
   ) {}
 
   ngOnInit(): void {
@@ -83,8 +91,18 @@ export class AppComponent {
     this.authService.setCurrentUser(user);
     this.presenceService.createHubConnection(user);
     this.notificationService.notificationRecieved$.subscribe({
-      next: (message: any) => {
-      },
+      next: (message: any) => {},
     });
+  }
+
+  @ViewChild('modal') modal!: ElementRef;
+
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: MouseEvent): void {
+    if (!this.modal.nativeElement.contains(event.target)) {
+      this.modalService.closeDeleteCommentPopup();
+      this.modalService.closeDeletePostPopup();
+      this.modalService.closePopup();
+    }
   }
 }

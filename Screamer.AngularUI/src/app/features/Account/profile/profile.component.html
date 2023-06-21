@@ -90,6 +90,7 @@
             </a>
           </nav>
           <app-follow-modal
+            #modal
             *ngIf="this.modalService.isOpen"
             [user]="user"
             [Predicate]="Predicate"
@@ -244,5 +245,3 @@
     </div>
   </article>
 </main>
-
-

@@ -387,6 +387,7 @@
   </div>
 </li>
 <app-share-post-modal
+  #modal
   *ngIf="this.postService.isShareOpen && post"
   [url]="this.getAppPath() + '/v/post/' + this.post.id"
   [description]="post.content ? post.content : null"
@@ -395,4 +396,7 @@
   "
   [title]="post.title ? post.title : null"
 ></app-share-post-modal>
-<app-delete-post-modal *ngIf="this.modalService.isDeletePostOpen"></app-delete-post-modal>
+<app-delete-post-modal
+  #modal
+  *ngIf="this.modalService.isDeletePostOpen"
+></app-delete-post-modal>

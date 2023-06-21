@@ -463,7 +463,8 @@
   </div>
 </form>
 
-<app-tag-modal *ngIf="this.postService.isTagOpen"></app-tag-modal>
+<app-tag-modal #modal *ngIf="this.postService.isTagOpen"></app-tag-modal>
 <app-category-modal
+  #modal
   *ngIf="this.postService.isCategoryOpen"
 ></app-category-modal>
