@@ -6,6 +6,7 @@ import {
   trigger,
 } from '@angular/animations';
 import { Component } from '@angular/core';
+import { ModalService } from 'src/app/core/services/modal.service';
 
 @Component({
   selector: 'app-comment-drop-down',
@@ -33,8 +34,17 @@ import { Component } from '@angular/core';
   ],
 })
 export class CommentDropDownComponent {
+  constructor(public modalService: ModalService) {}
   isOpen: boolean = false;
   toggleDropdown() {
     this.isOpen = !this.isOpen;
+  }
+
+  closeDeleteCommentPopup() {
+    this.modalService.closeDeleteCommentPopup();
+  }
+  openDeleteCommentPopup() {
+    this.modalService.openDeleteCommentPopup();
+    this.isOpen = false;
   }
 }

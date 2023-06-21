@@ -8,13 +8,12 @@
     ></app-avatar>
   </div>
   <div class="w-full">
-    <div class="flex justify-between ">
+    <div class="flex justify-between">
       <h4 class="text-lg font-bold">
         {{ comment.user.firstName }} {{ comment.user.lastName }}
       </h4>
       <app-comment-drop-down></app-comment-drop-down>
     </div>
-
 
     <p class="mt-1">
       <quill-view-html [content]="comment.content"></quill-view-html>
@@ -28,10 +27,13 @@
           avatarStyle="h-8 w-8 rounded-full ring-4 ring-white sm:h-10 sm:w-10"
         ></app-avatar>
       </div>
-      <div>
-        <h4 class="text-lg font-bold">
-          {{ reply.user.firstName }} {{ reply.user.lastName }}
-        </h4>
+      <div class="w-full">
+        <div class="flex justify-between">
+          <h4 class="text-lg font-bold">
+            {{ reply.user.firstName }} {{ reply.user.lastName }}
+          </h4>
+          <app-comment-drop-down></app-comment-drop-down>
+        </div>
         <p class="mt-1">
           <quill-view-html [content]="reply.content"></quill-view-html>
         </p>
@@ -40,13 +42,13 @@
 
     <div class="flex justify-end items-end">
       <button
-      (click)="togglereplyInput()"
-      *ngIf="!replyInput"
-      type="submit"
-      class="  block text-end px-4 py-2 border border-transparent text-sm font-medium rounded-md text-dodger-blue-700 bg-white hover:text-dodger-blue-500"
-    >
-      Reply
-    </button>
+        (click)="togglereplyInput()"
+        *ngIf="!replyInput"
+        type="submit"
+        class="block text-end px-4 py-2 border border-transparent text-sm font-medium rounded-md text-dodger-blue-700 bg-white hover:text-dodger-blue-500"
+      >
+        Reply
+      </button>
     </div>
     <app-comment-input
       *ngIf="replyInput"
@@ -60,7 +62,7 @@
       type="button"
       class="mt-2 w-full bg- block text-center px-2 py-1 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50"
     >
-      Load More Comments
+      Load More Replies
     </button>
   </div>
 </div>
