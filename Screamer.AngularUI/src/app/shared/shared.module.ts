@@ -86,6 +86,7 @@ import { PostSkeletonComponent } from './components/skeletons/post-skeleton/post
 import { SidebarSkeletonComponent } from './components/skeletons/sidebar-skeleton/sidebar-skeleton.component';
 import { SidecontentSkeletonComponent } from './components/skeletons/sidecontent-skeleton/sidecontent-skeleton.component';
 import { NoPostsComponent } from './components/empty/no-posts/no-posts.component';
+import { NoChatsComponent } from './components/empty/no-chats/no-chats.component';
 
 @NgModule({
   declarations: [
@@ -151,6 +152,7 @@ import { NoPostsComponent } from './components/empty/no-posts/no-posts.component
     SidebarSkeletonComponent,
     SidecontentSkeletonComponent,
     NoPostsComponent,
+    NoChatsComponent,
   ],
   imports: [
     CommonModule,
@@ -230,6 +232,7 @@ import { NoPostsComponent } from './components/empty/no-posts/no-posts.component
     SidebarSkeletonComponent,
     SidecontentSkeletonComponent,
     NoPostsComponent,
+    NoChatsComponent,
   ],
   providers: [
     {
