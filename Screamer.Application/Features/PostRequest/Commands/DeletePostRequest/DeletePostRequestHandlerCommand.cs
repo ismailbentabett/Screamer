@@ -37,7 +37,7 @@ namespace Screamer.Application.Features.PostRequest.Commands.DeletePostRequest
             CancellationToken cancellationToken
         )
         {
-            var PostToDelete = await _uow.PostRepository.GetByIdAsync(request.postId);
+            var PostToDelete = await _uow.PostRepository.GetPostById(request.postId);
 
             if (PostToDelete == null)
             {
