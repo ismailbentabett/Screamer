@@ -48,20 +48,30 @@
           </div>
           <ul role="list" class="-my-5 divide-y divide-gray-200">
             <div *ngIf="Predicate == 'followers'">
-              <div *ngFor="let follow of followers">
-                <app-follow-card
-                  *ngIf="follow | json"
-                  [follow]="follow"
-                ></app-follow-card>
+              <div *ngIf="followers.length > 0">
+                <div *ngFor="let follow of followers">
+                  <app-follow-card
+                    *ngIf="follow | json"
+                    [follow]="follow"
+                  ></app-follow-card>
+                </div>
               </div>
+              <app-no-followers
+                *ngIf="followers.length == 0"
+              ></app-no-followers>
             </div>
             <div *ngIf="Predicate == 'following'">
-              <div *ngFor="let follow of followings">
-                <app-follow-card
-                  *ngIf="follow | json"
-                  [follow]="follow"
-                ></app-follow-card>
+              <div *ngIf="followings.length > 0">
+                <div *ngFor="let follow of followings">
+                  <app-follow-card
+                    *ngIf="follow | json"
+                    [follow]="follow"
+                  ></app-follow-card>
+                </div>
               </div>
+              <app-no-following
+                *ngIf="followings.length == 0"
+              ></app-no-following>
             </div>
           </ul>
         </div>

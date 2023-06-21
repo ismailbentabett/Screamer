@@ -87,6 +87,10 @@ import { SidebarSkeletonComponent } from './components/skeletons/sidebar-skeleto
 import { SidecontentSkeletonComponent } from './components/skeletons/sidecontent-skeleton/sidecontent-skeleton.component';
 import { NoPostsComponent } from './components/empty/no-posts/no-posts.component';
 import { NoChatsComponent } from './components/empty/no-chats/no-chats.component';
+import { NoFollowersComponent } from './components/empty/no-followers/no-followers.component';
+import { NoFollowingComponent } from './components/empty/no-following/no-following.component';
+import { NoUsersComponent } from './components/empty/no-users/no-users.component';
+import { NoSearchResultsComponent } from './components/empty/no-search-results/no-search-results.component';
 
 @NgModule({
   declarations: [
@@ -153,6 +157,10 @@ import { NoChatsComponent } from './components/empty/no-chats/no-chats.component
     SidecontentSkeletonComponent,
     NoPostsComponent,
     NoChatsComponent,
+    NoFollowersComponent,
+    NoFollowingComponent,
+    NoUsersComponent,
+    NoSearchResultsComponent,
   ],
   imports: [
     CommonModule,
@@ -233,6 +241,10 @@ import { NoChatsComponent } from './components/empty/no-chats/no-chats.component
     SidecontentSkeletonComponent,
     NoPostsComponent,
     NoChatsComponent,
+    NoFollowersComponent,
+    NoFollowingComponent,
+    NoUsersComponent,
+    NoSearchResultsComponent,
   ],
   providers: [
     {
