@@ -9,7 +9,13 @@
           {{ getPostData(this.searchService.searchResults | async).key }}s
         </h3>
       </div>
-      <ul role="list" class="relative z-0 divide-y divide-gray-200">
+      <ul
+        role="list"
+        class="relative z-0 divide-y divide-gray-200"
+        *ngIf="
+          getPostData(this.searchService.searchResults | async).value.length > 0
+        "
+      >
         <li
           class="bg-white width-96"
           *ngFor="
@@ -63,6 +69,12 @@
           </div>
         </li>
       </ul>
+      <app-no-search-results
+        *ngIf="
+          getPostData(this.searchService.searchResults | async).value.length ==
+          0
+        "
+      ></app-no-search-results>
     </div>
     <div
       infiniteScroll

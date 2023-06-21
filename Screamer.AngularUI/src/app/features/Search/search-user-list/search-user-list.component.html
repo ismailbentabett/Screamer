@@ -3,13 +3,20 @@
   <nav class="h-full max-h-96" aria-label="Directory">
     <div class="relative" n>
       <div
-        class=" top-0 border-t border-b border-gray-200 bg-gray-50 py-1 text-sm font-medium text-gray-500"
+        class="top-0 border-t border-b border-gray-200 bg-gray-50 py-1 text-sm font-medium text-gray-500"
       >
         <h3>
           {{ getUsertData(this.searchService.searchResults | async).key }}s
         </h3>
       </div>
-      <ul role="list" class="relative z-0 divide-y divide-gray-200">
+      <ul
+        role="list"
+        class="relative z-0 divide-y divide-gray-200"
+        *ngIf="
+          getUsertData(this.searchService.searchResults | async).value.length >
+          0
+        "
+      >
         <li
           class="bg-white width-96"
           *ngFor="
@@ -55,14 +62,20 @@
               </a>
             </div>
             <a
-            (click)="routeToUser(item.objectID)"
-            class="inline-flex items-center shadow-sm px-2.5 py-0.5 border border-gray-300 text-sm leading-5 font-medium rounded-full text-gray-700 bg-white hover:bg-gray-50 cursor-pointer z-50"
-          >
-            View
-          </a>
+              (click)="routeToUser(item.objectID)"
+              class="inline-flex items-center shadow-sm px-2.5 py-0.5 border border-gray-300 text-sm leading-5 font-medium rounded-full text-gray-700 bg-white hover:bg-gray-50 cursor-pointer z-50"
+            >
+              View
+            </a>
           </div>
         </li>
       </ul>
+      <app-no-search-results
+        *ngIf="
+          getUsertData(this.searchService.searchResults | async).value.length ==
+          0
+        "
+      ></app-no-search-results>
     </div>
     <div
       infiniteScroll
