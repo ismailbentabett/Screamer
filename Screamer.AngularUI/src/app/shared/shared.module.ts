@@ -85,6 +85,7 @@ import { NotificationComponent } from './components/notification/notification/no
 import { PostSkeletonComponent } from './components/skeletons/post-skeleton/post-skeleton.component';
 import { SidebarSkeletonComponent } from './components/skeletons/sidebar-skeleton/sidebar-skeleton.component';
 import { SidecontentSkeletonComponent } from './components/skeletons/sidecontent-skeleton/sidecontent-skeleton.component';
+import { NoPostsComponent } from './components/empty/no-posts/no-posts.component';
 
 @NgModule({
   declarations: [
@@ -149,6 +150,7 @@ import { SidecontentSkeletonComponent } from './components/skeletons/sidecontent
     PostSkeletonComponent,
     SidebarSkeletonComponent,
     SidecontentSkeletonComponent,
+    NoPostsComponent,
   ],
   imports: [
     CommonModule,
@@ -227,6 +229,7 @@ import { SidecontentSkeletonComponent } from './components/skeletons/sidecontent
     PostSkeletonComponent,
     SidebarSkeletonComponent,
     SidecontentSkeletonComponent,
+    NoPostsComponent,
   ],
   providers: [
     {

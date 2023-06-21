@@ -1,17 +1,21 @@
 <main>
   <div class="mt-4">
-    <h1 class="sr-only">Recent questions</h1>
+    <h1 class="sr-only">BookMarks</h1>
     <ul
-      *ngIf="posts"
-      role="list"
-      infiniteScroll
-      [infiniteScrollDistance]="2"
-      [infiniteScrollThrottle]="50"
-      (scrolled)="loadMorePosts()"
-    >
+    *ngIf="posts"
+    role="list"
+    infiniteScroll
+    [infiniteScrollDistance]="2"
+    [infiniteScrollThrottle]="50"
+    (scrolled)="loadMorePosts()"
+  >
+    <div *ngIf="posts.length > 0">
       <div *ngFor="let post of posts">
         <app-post [post]="post"></app-post>
       </div>
-    </ul>
+    </div>
+    <app-no-posts *ngIf="posts.length == 0"></app-no-posts>
+  </ul>
+
   </div>
 </main>

@@ -1,13 +1,15 @@
-
-<!-- This example requires Tailwind CSS v2.0+ -->
-<ul role="list"    infiniteScroll
-[infiniteScrollDistance]="2"
-[infiniteScrollThrottle]="50"
-(scrolled)="loadMorePosts()"
+<ul
+  *ngIf="posts"
+  role="list"
+  infiniteScroll
+  [infiniteScrollDistance]="2"
+  [infiniteScrollThrottle]="50"
+  (scrolled)="loadMorePosts()"
 >
-  <div *ngFor="let post of posts">
-    <app-post [post]="post"></app-post>
-
+  <div *ngIf="posts.length > 0">
+    <div *ngFor="let post of posts">
+      <app-post [post]="post"></app-post>
+    </div>
   </div>
+  <app-no-posts *ngIf="posts.length == 0"></app-no-posts>
 </ul>
-
