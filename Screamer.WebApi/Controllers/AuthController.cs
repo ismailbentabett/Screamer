@@ -162,7 +162,6 @@ namespace HR.LeaveManagement.Api.Controllers
                 var callbackUrl =
                     $"http://localhost:4200/auth/reset-password?code={encodedToken}&email={HttpUtility.UrlEncode(model.Email)}";
 
-
                 // Send email with callback URL
                 await _emailSender.SendResetPasswordEmailAsync(model.Email, callbackUrl);
 
@@ -243,27 +242,26 @@ namespace HR.LeaveManagement.Api.Controllers
         [HttpDelete("delete-account")]
         public async Task<IActionResult> DeleteAccount(string userId)
         {
-            var user = await _userManager.FindByIdAsync(userId);
+            var user = await _context.Users
+                .Include(u => u.BookMarks)
+                .FirstOrDefaultAsync(u => u.Id == userId);
 
             if (user == null)
             {
-                return NotFound($"Unable to load user with ID {userId}.");
+                // User not found
+                return NotFound();
             }
-            
-            var result = await _userManager.DeleteAsync(user);
 
-            if (result.Succeeded)
+            _context.Users.Remove(user);
+
+            // Remove associated bookmarks
+            if (user.BookMarks != null)
             {
-                await HttpContext.SignOutAsync(IdentityConstants.ApplicationScheme);
-                return Ok();
+                _context.BookMarks.RemoveRange(user.BookMarks);
             }
 
-            foreach (var error in result.Errors)
-            {
-                ModelState.AddModelError(string.Empty, error.Description);
-            }
-
-            return BadRequest(ModelState);
+            await _context.SaveChangesAsync();
+            return Ok();
         }
     }
 }

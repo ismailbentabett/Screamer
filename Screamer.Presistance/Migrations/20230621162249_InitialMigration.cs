@@ -122,6 +122,34 @@ namespace Screamer.Presistance.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Notifications",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Message = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Type = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ChatRoomId = table.Column<int>(type: "int", nullable: false),
+                    NotificationRoomId = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    userId = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PostId = table.Column<int>(type: "int", nullable: false),
+                    senderId = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    recieverId = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CommentId = table.Column<int>(type: "int", nullable: false),
+                    ReplyId = table.Column<int>(type: "int", nullable: false),
+                    ReactionId = table.Column<int>(type: "int", nullable: false),
+                    TagId = table.Column<int>(type: "int", nullable: false),
+                    MentionId = table.Column<int>(type: "int", nullable: false),
+                    IsRead = table.Column<bool>(type: "bit", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Notifications", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
@@ -470,7 +498,8 @@ namespace Screamer.Presistance.Migrations
                         name: "FK_Posts_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Posts_Moods_MoodId",
                         column: x => x.MoodId,
@@ -541,14 +570,13 @@ namespace Screamer.Presistance.Migrations
                         name: "FK_BookMarks_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_BookMarks_Posts_PostId",
                         column: x => x.PostId,
                         principalTable: "Posts",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -719,7 +747,7 @@ namespace Screamer.Presistance.Migrations
                         column: x => x.PostId,
                         principalTable: "Posts",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -860,7 +888,7 @@ namespace Screamer.Presistance.Migrations
                         column: x => x.CommentId,
                         principalTable: "Comments",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.InsertData(
@@ -878,10 +906,10 @@ namespace Screamer.Presistance.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "AvatarUrl", "Bio", "Birthday", "ConcurrencyStamp", "CoverUrl", "CreatedAt", "Email", "EmailConfirmed", "FirstName", "Gender", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "ObjectID", "Password", "PasswordHash", "Phone", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UpdatedAt", "UserName", "Website" },
                 values: new object[,]
                 {
-                    { "8e445865-a24d-4543-a6c6-9443d048cdb9", 0, null, null, null, "af185007-d3fc-4972-b353-9d8f8f728f01", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "admin@localhost.com", true, "System", null, "Admin", false, null, "ADMIN@LOCALHOST.COM", "ADMIN", null, null, "AQAAAAIAAYagAAAAEDZNeTl2DVnTOA8+5/bict6rFWi0hpKDyPXaq+7natLiqxFfnFyxSzEQSwWeKJpq6g==", null, null, false, "65e2ed74-c5c0-4dd7-aee3-362d7d716032", false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "admin", null },
-                    { "9e224968-33e4-4652-b7b7-8574d048cdb9", 0, null, null, null, "f4da16bc-5f74-456c-9f7c-6c62b90f2215", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "user@localhost.com", true, "System", null, "User", false, null, "USER@LOCALHOST.COM", "USER", null, null, "AQAAAAIAAYagAAAAEJ/jl1VD2v1Khm0XAAgjH+JGeHTZaSu+emf+9OV2HP59i7t897sLEXIwuzpR9GgaIw==", null, null, false, "8c2d0087-fff6-40ba-ad51-224d17d8977e", false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "user", null },
-                    { "9e224968-33e4-4652-b7b7-agfddsr", 0, null, null, null, "283413d5-a5eb-4dac-adf2-e729f6d5d19b", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "mod@localhost.com", true, "System", null, "Mod", false, null, "MOD@LOCALHOST.COM", "MOD", null, null, "AQAAAAIAAYagAAAAEMzVSHMmTM4b1Cr07ArAailTUXE3pz/Ai0xsKDGn8s0kC+n7rTsuW6p8pJJS7YdmfA==", null, null, false, "bbc7f7c2-bee8-4f74-8639-1b63691866f1", false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "mod", null },
-                    { "9e224968-33e4-4652-b7b7-ismailbentabett", 0, null, null, null, "5286b8c6-2c4b-4fd7-a3ba-49de4d5fd8c7", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "ismailbentabett@gmail.com", false, "Ismail", null, "Bentabet", false, null, "ISMAILBENTABETT@GMAIL.COM", "ISMAILBENTABETT", null, null, "AQAAAAIAAYagAAAAEPvGnQJQmZ1C5li4QpufAh3rDmxOcFaX7sygagKlxN4B0NtxAOp8g+998WOZj3q/Kg==", null, null, false, "b1cf0e4a-2be4-4aec-9f97-e7755c38cc3b", false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "ismailbentabett", null }
+                    { "8e445865-a24d-4543-a6c6-9443d048cdb9", 0, null, null, null, "ea816c68-b82b-4feb-bb80-cd3ce98cc6eb", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "admin@localhost.com", true, "System", null, "Admin", false, null, "ADMIN@LOCALHOST.COM", "ADMIN", null, null, "AQAAAAIAAYagAAAAEM7Hk44Ckl+kKlIMpuZCyfD6axnnxORqXd1Y5Avoe+JSXeDIBqBJ3PYYSv1VxsdOhg==", null, null, false, "9751cffd-32aa-4752-b432-0ef0989505ac", false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "admin", null },
+                    { "9e224968-33e4-4652-b7b7-8574d048cdb9", 0, null, null, null, "835cb55c-fd50-4b00-bdac-ed0e57fad387", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "user@localhost.com", true, "System", null, "User", false, null, "USER@LOCALHOST.COM", "USER", null, null, "AQAAAAIAAYagAAAAEHgzd2OTKE01PhvdaMSdVa6fosLfYF46JaVneLA9vsuaVCcXiMtIl1sAOb+Wvk3JMQ==", null, null, false, "15abce76-fcc4-4114-be42-429844ce82c2", false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "user", null },
+                    { "9e224968-33e4-4652-b7b7-agfddsr", 0, null, null, null, "289a8574-9ea2-423e-b675-aa29711e5ca4", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "mod@localhost.com", true, "System", null, "Mod", false, null, "MOD@LOCALHOST.COM", "MOD", null, null, "AQAAAAIAAYagAAAAEJoJshGVMKUwCpHg+Pi7D5peiCB7Bdy3Hu06aAqWubtE8XokHilHhO5J9Ro/TaJqjg==", null, null, false, "ff2a0cb2-182a-4184-bc5c-d236e41c1f0f", false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "mod", null },
+                    { "9e224968-33e4-4652-b7b7-ismailbentabett", 0, null, null, null, "90b1eae9-31ba-4c0d-bd2b-ee47dde69253", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "ismailbentabett@gmail.com", false, "Ismail", null, "Bentabet", false, null, "ISMAILBENTABETT@GMAIL.COM", "ISMAILBENTABETT", null, null, "AQAAAAIAAYagAAAAECnj8RD+TOjBOwZZ5wadMtSmYWJGvDyAy1XssEELfa6gxl3fdTfnUB8x0jygE4O1ZQ==", null, null, false, "4a5aa324-2eb9-4f54-949e-79c90ee412a6", false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "ismailbentabett", null }
                 });
 
             migrationBuilder.InsertData(
@@ -889,106 +917,106 @@ namespace Screamer.Presistance.Migrations
                 columns: new[] { "Id", "CreatedAt", "Name", "UpdatedAt" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(600), "News", new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(614) },
-                    { 2, new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(619), "Politics", new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(620) },
-                    { 3, new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(621), "Science", new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(621) },
-                    { 4, new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(623), "Technology", new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(623) },
-                    { 5, new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(624), "Gaming", new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(624) },
-                    { 6, new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(626), "Sports", new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(627) },
-                    { 7, new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(628), "Music", new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(628) },
-                    { 8, new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(629), "Movies", new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(630) },
-                    { 9, new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(631), "Television", new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(631) },
-                    { 10, new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(633), "Books", new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(633) },
-                    { 11, new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(634), "Art", new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(634) },
-                    { 12, new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(635), "Food", new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(636) },
-                    { 13, new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(637), "Travel", new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(637) },
-                    { 14, new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(643), "Fitness", new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(643) },
-                    { 15, new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(644), "Health", new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(648) },
-                    { 16, new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(662), "Fashion", new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(662) },
-                    { 17, new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(663), "Relationships", new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(663) },
-                    { 18, new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(665), "Advice", new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(666) },
-                    { 19, new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(667), "Writing", new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(667) },
-                    { 20, new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(668), "Photography", new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(668) },
-                    { 21, new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(669), "DIY (Do-It-Yourself)", new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(670) },
-                    { 22, new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(671), "Nature", new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(671) },
-                    { 23, new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(672), "Animals", new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(672) },
-                    { 24, new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(673), "Memes", new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(674) },
-                    { 25, new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(675), "Funny", new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(675) },
-                    { 26, new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(676), "Jokes", new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(676) },
-                    { 27, new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(677), "History", new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(678) },
-                    { 28, new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(679), "Philosophy", new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(679) },
-                    { 29, new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(680), "Psychology", new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(680) },
-                    { 30, new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(681), "Education", new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(681) },
-                    { 31, new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(682), "Career", new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(683) },
-                    { 32, new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(684), "Personal Finance", new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(684) },
-                    { 33, new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(685), "Entrepreneurship", new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(685) },
-                    { 34, new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(687), "Parenting", new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(687) },
-                    { 35, new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(688), "Relationships", new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(688) },
-                    { 36, new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(689), "Technology News", new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(690) },
-                    { 37, new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(691), "Programming", new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(691) },
-                    { 38, new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(692), "Web Development", new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(692) },
-                    { 39, new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(693), "Data Science", new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(693) },
-                    { 40, new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(694), "Cryptocurrency", new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(695) },
-                    { 41, new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(695), "Design", new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(696) },
-                    { 42, new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(697), "Gaming News", new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(697) },
-                    { 43, new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(698), "PC Gaming", new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(698) },
-                    { 44, new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(699), "Console Gaming", new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(699) },
-                    { 45, new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(700), "Mobile Gaming", new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(701) },
-                    { 46, new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(702), "Esports", new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(702) },
-                    { 47, new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(704), "Music News", new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(704) },
-                    { 48, new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(705), "Hip-Hop", new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(705) },
-                    { 49, new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(706), "Rock", new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(707) },
-                    { 50, new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(771), "Pop Culture", new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(771) },
-                    { 51, new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(772), "Fitness Motivation", new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(773) },
-                    { 52, new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(774), "Nutrition", new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(774) },
-                    { 53, new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(775), "Weightlifting", new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(775) },
-                    { 54, new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(776), "Yoga", new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(777) },
-                    { 55, new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(778), "Running", new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(778) },
-                    { 56, new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(779), "Cycling", new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(779) },
-                    { 57, new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(780), "CrossFit", new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(781) },
-                    { 58, new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(782), "Bodybuilding", new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(782) },
-                    { 59, new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(783), "Productivity", new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(783) },
-                    { 60, new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(784), "Self-improvement", new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(784) },
-                    { 61, new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(785), "Meditation", new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(786) },
-                    { 62, new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(787), "Mindfulness", new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(787) },
-                    { 63, new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(788), "Motivation", new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(788) },
-                    { 64, new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(789), "Self-care", new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(789) },
-                    { 65, new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(790), "Cooking", new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(791) },
-                    { 66, new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(793), "Baking", new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(793) },
-                    { 67, new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(794), "Grilling", new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(794) },
-                    { 68, new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(795), "Veganism", new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(795) },
-                    { 69, new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(796), "Vegetarianism", new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(797) },
-                    { 70, new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(798), "Meal Prep", new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(798) },
-                    { 71, new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(799), "Gardening", new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(799) },
-                    { 72, new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(800), "Home Improvement", new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(800) },
-                    { 73, new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(801), "Interior Design", new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(802) },
-                    { 74, new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(802), "Real Estate", new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(803) },
-                    { 75, new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(804), "Personal Finance Tips", new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(804) },
-                    { 76, new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(805), "Investing", new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(805) },
-                    { 77, new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(806), "Stock Market", new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(807) },
-                    { 78, new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(808), "Cryptocurrency Trading", new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(808) },
-                    { 79, new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(809), "Entrepreneur Stories", new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(809) },
-                    { 80, new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(810), "Startups", new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(810) },
-                    { 81, new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(811), "Small Business", new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(812) },
-                    { 82, new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(813), "Marketing", new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(813) },
-                    { 83, new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(814), "Social Media", new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(814) },
-                    { 84, new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(815), "Podcasts", new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(815) },
-                    { 85, new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(817), "Writing Prompts", new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(818) },
-                    { 86, new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(819), "Fantasy", new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(819) },
-                    { 87, new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(820), "Science Fiction", new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(821) },
-                    { 88, new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(822), "Horror", new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(822) },
-                    { 89, new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(823), "Thrillers", new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(824) },
-                    { 90, new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(825), "True Crime", new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(825) },
-                    { 91, new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(826), "Paranormal", new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(826) },
-                    { 92, new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(827), "Comics", new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(828) },
-                    { 93, new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(829), "Anime", new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(829) },
-                    { 94, new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(830), "Manga", new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(830) },
-                    { 95, new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(831), "Board Games", new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(831) },
-                    { 96, new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(832), "Card Games", new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(833) },
-                    { 97, new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(834), "Tabletop RPGs", new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(834) },
-                    { 98, new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(835), "Travel Photography", new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(835) },
-                    { 99, new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(836), "Outdoor Adventures", new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(836) },
-                    { 100, new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(837), "Celebrities", new DateTime(2023, 6, 13, 22, 8, 55, 562, DateTimeKind.Local).AddTicks(838) }
+                    { 1, new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4003), "News", new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4019) },
+                    { 2, new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4024), "Politics", new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4024) },
+                    { 3, new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4025), "Science", new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4026) },
+                    { 4, new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4027), "Technology", new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4027) },
+                    { 5, new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4028), "Gaming", new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4029) },
+                    { 6, new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4031), "Sports", new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4031) },
+                    { 7, new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4032), "Music", new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4033) },
+                    { 8, new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4033), "Movies", new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4034) },
+                    { 9, new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4034), "Television", new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4035) },
+                    { 10, new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4037), "Books", new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4037) },
+                    { 11, new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4070), "Art", new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4070) },
+                    { 12, new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4071), "Food", new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4071) },
+                    { 13, new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4072), "Travel", new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4073) },
+                    { 14, new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4079), "Fitness", new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4079) },
+                    { 15, new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4080), "Health", new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4087) },
+                    { 16, new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4099), "Fashion", new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4100) },
+                    { 17, new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4101), "Relationships", new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4101) },
+                    { 18, new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4103), "Advice", new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4103) },
+                    { 19, new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4104), "Writing", new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4105) },
+                    { 20, new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4105), "Photography", new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4106) },
+                    { 21, new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4107), "DIY (Do-It-Yourself)", new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4107) },
+                    { 22, new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4109), "Nature", new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4109) },
+                    { 23, new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4110), "Animals", new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4110) },
+                    { 24, new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4111), "Memes", new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4111) },
+                    { 25, new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4112), "Funny", new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4112) },
+                    { 26, new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4113), "Jokes", new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4113) },
+                    { 27, new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4114), "History", new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4115) },
+                    { 28, new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4115), "Philosophy", new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4116) },
+                    { 29, new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4117), "Psychology", new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4117) },
+                    { 30, new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4118), "Education", new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4118) },
+                    { 31, new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4119), "Career", new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4119) },
+                    { 32, new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4120), "Personal Finance", new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4120) },
+                    { 33, new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4121), "Entrepreneurship", new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4121) },
+                    { 34, new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4123), "Parenting", new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4123) },
+                    { 35, new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4124), "Relationships", new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4125) },
+                    { 36, new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4125), "Technology News", new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4126) },
+                    { 37, new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4126), "Programming", new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4127) },
+                    { 38, new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4128), "Web Development", new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4128) },
+                    { 39, new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4129), "Data Science", new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4129) },
+                    { 40, new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4130), "Cryptocurrency", new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4130) },
+                    { 41, new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4131), "Design", new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4131) },
+                    { 42, new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4133), "Gaming News", new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4134) },
+                    { 43, new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4135), "PC Gaming", new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4135) },
+                    { 44, new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4136), "Console Gaming", new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4136) },
+                    { 45, new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4137), "Mobile Gaming", new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4137) },
+                    { 46, new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4138), "Esports", new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4138) },
+                    { 47, new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4139), "Music News", new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4139) },
+                    { 48, new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4140), "Hip-Hop", new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4141) },
+                    { 49, new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4141), "Rock", new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4142) },
+                    { 50, new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4142), "Pop Culture", new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4143) },
+                    { 51, new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4144), "Fitness Motivation", new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4144) },
+                    { 52, new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4145), "Nutrition", new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4145) },
+                    { 53, new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4146), "Weightlifting", new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4146) },
+                    { 54, new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4147), "Yoga", new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4147) },
+                    { 55, new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4148), "Running", new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4148) },
+                    { 56, new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4149), "Cycling", new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4150) },
+                    { 57, new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4150), "CrossFit", new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4151) },
+                    { 58, new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4152), "Bodybuilding", new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4152) },
+                    { 59, new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4153), "Productivity", new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4153) },
+                    { 60, new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4155), "Self-improvement", new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4155) },
+                    { 61, new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4156), "Meditation", new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4156) },
+                    { 62, new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4168), "Mindfulness", new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4171) },
+                    { 63, new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4171), "Motivation", new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4172) },
+                    { 64, new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4172), "Self-care", new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4173) },
+                    { 65, new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4174), "Cooking", new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4174) },
+                    { 66, new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4176), "Baking", new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4176) },
+                    { 67, new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4177), "Grilling", new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4177) },
+                    { 68, new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4178), "Veganism", new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4178) },
+                    { 69, new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4179), "Vegetarianism", new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4179) },
+                    { 70, new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4180), "Meal Prep", new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4181) },
+                    { 71, new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4181), "Gardening", new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4182) },
+                    { 72, new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4182), "Home Improvement", new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4183) },
+                    { 73, new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4184), "Interior Design", new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4184) },
+                    { 74, new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4185), "Real Estate", new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4185) },
+                    { 75, new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4186), "Personal Finance Tips", new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4186) },
+                    { 76, new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4187), "Investing", new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4187) },
+                    { 77, new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4188), "Stock Market", new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4188) },
+                    { 78, new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4189), "Cryptocurrency Trading", new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4189) },
+                    { 79, new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4190), "Entrepreneur Stories", new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4190) },
+                    { 80, new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4192), "Startups", new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4192) },
+                    { 81, new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4193), "Small Business", new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4193) },
+                    { 82, new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4214), "Marketing", new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4214) },
+                    { 83, new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4215), "Social Media", new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4216) },
+                    { 84, new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4217), "Podcasts", new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4217) },
+                    { 85, new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4218), "Writing Prompts", new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4218) },
+                    { 86, new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4219), "Fantasy", new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4219) },
+                    { 87, new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4220), "Science Fiction", new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4220) },
+                    { 88, new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4221), "Horror", new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4222) },
+                    { 89, new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4222), "Thrillers", new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4223) },
+                    { 90, new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4224), "True Crime", new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4224) },
+                    { 91, new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4225), "Paranormal", new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4225) },
+                    { 92, new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4226), "Comics", new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4226) },
+                    { 93, new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4227), "Anime", new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4227) },
+                    { 94, new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4228), "Manga", new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4228) },
+                    { 95, new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4229), "Board Games", new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4229) },
+                    { 96, new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4230), "Card Games", new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4230) },
+                    { 97, new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4231), "Tabletop RPGs", new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4232) },
+                    { 98, new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4232), "Travel Photography", new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4233) },
+                    { 99, new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4233), "Outdoor Adventures", new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4234) },
+                    { 100, new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4235), "Celebrities", new DateTime(2023, 6, 21, 17, 22, 48, 703, DateTimeKind.Local).AddTicks(4235) }
                 });
 
             migrationBuilder.InsertData(
@@ -1263,6 +1291,9 @@ namespace Screamer.Presistance.Migrations
 
             migrationBuilder.DropTable(
                 name: "Follows");
+
+            migrationBuilder.DropTable(
+                name: "Notifications");
 
             migrationBuilder.DropTable(
                 name: "PostCategories");

@@ -45,6 +45,32 @@ namespace Screamer.Presistance.DatabaseContext
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder
+                .Entity<ApplicationUser>()
+                .HasMany(u => u.Posts)
+                .WithOne(p => p.User)
+                .HasForeignKey(p => p.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
+            modelBuilder
+                .Entity<Post>()
+                .HasMany(p => p.BookMarks)
+                .WithOne(b => b.Post)
+                .HasForeignKey(b => b.PostId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder
+                .Entity<BookMark>()
+                .HasOne(b => b.Post)
+                .WithMany(p => p.BookMarks)
+                .HasForeignKey(b => b.PostId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder
+                .Entity<ApplicationUser>()
+                .HasMany(u => u.BookMarks)
+                .WithOne(b => b.User)
+                .HasForeignKey(b => b.UserId)
+                .OnDelete(DeleteBehavior.NoAction);
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(ScreamerDbContext).Assembly);
             base.OnModelCreating(modelBuilder);
 
@@ -81,14 +107,14 @@ namespace Screamer.Presistance.DatabaseContext
                 .HasOne(r => r.Post)
                 .WithMany(p => p.Reactions)
                 .HasForeignKey(r => r.PostId)
-                .OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder
                 .Entity<CommentReaction>()
                 .HasOne(r => r.Comment)
                 .WithMany(c => c.Reactions)
                 .HasForeignKey(r => r.CommentId)
-                .OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<ChatRoomUser>().HasKey(cu => new { cu.ChatroomId, cu.UserId });
 
@@ -159,20 +185,6 @@ namespace Screamer.Presistance.DatabaseContext
                 .Entity<Tag>()
                 .HasOne(bc => bc.User)
                 .WithMany(c => c.Tags)
-                .HasForeignKey(bc => bc.UserId)
-                .OnDelete(DeleteBehavior.Restrict);
-
-            modelBuilder
-                .Entity<BookMark>()
-                .HasOne(bc => bc.Post)
-                .WithMany(b => b.BookMarks)
-                .HasForeignKey(bc => bc.PostId)
-                .OnDelete(DeleteBehavior.Restrict);
-
-            modelBuilder
-                .Entity<BookMark>()
-                .HasOne(bc => bc.User)
-                .WithMany(c => c.BookMarks)
                 .HasForeignKey(bc => bc.UserId)
                 .OnDelete(DeleteBehavior.Restrict);
 
