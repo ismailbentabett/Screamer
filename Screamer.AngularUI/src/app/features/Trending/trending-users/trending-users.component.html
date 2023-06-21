@@ -3,9 +3,12 @@
   role="list"
   class="grid grid-cols-1 gap-2 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
 >
-  <div *ngFor="let user of users" class="px-2 py-6">
-    <app-user-card *ngIf="user" [user]="user"> </app-user-card>
+  <div *ngIf="users!.length > 0">
+    <div *ngFor="let user of users" class="px-2 py-6">
+      <app-user-card *ngIf="user" [user]="user"> </app-user-card>
+    </div>
   </div>
+  <app-no-users *ngIf="users!.length == 0"></app-no-users>
 
   <!-- More people... -->
 </ul>
