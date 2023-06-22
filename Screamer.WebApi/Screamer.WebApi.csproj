@@ -4,6 +4,7 @@
         <TargetFramework>net7.0</TargetFramework>
         <Nullable>disable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
+        <DockerDefaultTargetOS>Windows</DockerDefaultTargetOS>
     </PropertyGroup>
 
     <ItemGroup>
@@ -28,6 +29,12 @@
       <ProjectReference Include="..\Screamer.Identity\Screamer.Identity.csproj" />
       <ProjectReference Include="..\Screamer.Infrastructure\Screamer.Infrastructure.csproj" />
       <ProjectReference Include="..\Screamer.Presistance\Screamer.Presistance.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Include="..\.dockerignore">
+        <Link>.dockerignore</Link>
+      </Content>
     </ItemGroup>
 
 </Project>

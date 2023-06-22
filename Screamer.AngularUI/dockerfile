@@ -1,0 +1,20 @@
+
+FROM node:18.16.1-alpine AS development
+
+# Set the working directory
+WORKDIR /app
+
+# Copy package.json and package-lock.json
+COPY package*.json .
+
+# Install project dependencies
+RUN npm install -g @angular/cli
+RUN npm install --force
+# Copy the entire Angular project
+COPY  . .
+
+# Expose the default Angular development server port
+EXPOSE 4200
+
+# Start the Angular development server
+CMD ["npm", "start"]

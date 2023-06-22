@@ -95,7 +95,7 @@ export class AppComponent {
     });
   }
 
-  @ViewChild('modal') modal!: ElementRef;
+/*   @ViewChild('modal') modal!: ElementRef;
 
   @HostListener('document:click', ['$event'])
   onDocumentClick(event: MouseEvent): void {
@@ -104,5 +104,5 @@ export class AppComponent {
       this.modalService.closeDeletePostPopup();
       this.modalService.closePopup();
     }
-  }
+  } */
 }
