@@ -1,0 +1,29 @@
+version: '3'
+services:
+  webapi:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 5001:5001
+    depends_on:
+      - database
+
+  angular:
+    build:
+      context: ./Screamer.AngularUI
+      dockerfile: Dockerfile
+    ports:
+      - 4200:4200
+
+  database:
+      image: mcr.microsoft.com/mssql/server:2019-latest
+      environment:
+        - ACCEPT_EULA=Y
+        - SA_PASSWORD=
+        - MSSQL_PID=Express
+        - MSSQL_TCP_PORT=1433
+      ports:
+        - 1433:1433
+      volumes:
+        - ./dbdata:/var/opt/mssql/data
