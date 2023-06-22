@@ -20,7 +20,7 @@ services:
     volumes:
       - ./Screamer.WebApi:/app
     environment:
-      - ConnectionStrings__DefaultConnection=Server=db;Database=ScreamerDb;User=sa;Password=YourPassword
+      - ConnectionStrings__DefaultConnection=Server=Server=localhost\\sqlexpress;Database=Screamer;Trusted_Connection=True ;MultipleActiveResultSets=true ;TrustServerCertificate=True
 
   db:
     image: mcr.microsoft.com/mssql/server
@@ -28,4 +28,4 @@ services:
       - 1433:1433
     environment:
       - ACCEPT_EULA=Y
-      - SA_PASSWORD=YourPassword
+      - SA_PASSWORD=
