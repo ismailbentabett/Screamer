@@ -15,12 +15,13 @@ services:
       dockerfile: Dockerfile
     ports:
       - 4200:4200
-
+    depends_on:
+      - webapi
   database:
       image: mcr.microsoft.com/mssql/server:2019-latest
       environment:
         - ACCEPT_EULA=Y
-        - SA_PASSWORD=
+        - SA_PASSWORD=yourStrong(!)Password
         - MSSQL_PID=Express
         - MSSQL_TCP_PORT=1433
       ports:

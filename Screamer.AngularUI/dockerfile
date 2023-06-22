@@ -14,7 +14,5 @@ RUN npm install --force
 COPY  . .
 
 # Expose the default Angular development server port
-EXPOSE 4200
-
-# Start the Angular development server
-CMD ["npm", "start"]
+EXPOSE 4200/tcp
+CMD ["npm", "start", "--", "--host", "0.0.0.0", "--poll", "500"]
