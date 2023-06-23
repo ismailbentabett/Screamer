@@ -28,6 +28,7 @@ ENV PATH="${PATH}:/tools"
 
 # Run Entity Framework Core migrations and update the database
 RUN dotnet ef migrations add NewMigration -p Screamer.Presistance/Screamer.Presistance.csproj -s Screamer.WebApi/Screamer.WebApi.csproj 
+#RUN dotnet ef database update -p Screamer.Presistance/Screamer.Presistance.csproj -s Screamer.WebApi/Screamer.WebApi.csproj 
 
 
 # Publish stage
