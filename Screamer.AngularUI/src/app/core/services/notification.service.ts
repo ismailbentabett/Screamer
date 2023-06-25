@@ -11,7 +11,10 @@ import { BehaviorSubject, Observable, Subject, map, take } from 'rxjs';
 import { CreateNotificationDto } from '../models/CreateNotificationDto';
 import { ToastrService } from 'ngx-toastr';
 import { NotificationParams } from '../models/NotificationParams';
-import { getNotificationPaginationHeaders, getPaginatedResult } from '../Helpers/paginationHelper';
+import {
+  getNotificationPaginationHeaders,
+  getPaginatedResult,
+} from '../Helpers/paginationHelper';
 
 @Injectable({
   providedIn: 'root',
@@ -21,6 +24,7 @@ export class NotificationService {
   private hubConnection?: HubConnection;
   private notificationRecievedSubject = new Subject<any>();
   baseUrl: string = environment.baseWebApiUrl;
+  public isOpen: boolean = false;
 
   notificationRecieved$: Observable<any> =
     this.notificationRecievedSubject.asObservable() as any;
@@ -31,7 +35,7 @@ export class NotificationService {
 
   userDisconnected$: Observable<any> =
     this.userDisconnectedSubject.asObservable();
-    notificationParams: NotificationParams | undefined;
+  notificationParams: NotificationParams | undefined;
 
   constructor(private http: HttpClient, private toastr: ToastrService) {}
 
@@ -81,7 +85,6 @@ export class NotificationService {
     roomId: string,
     CreateNotificationDto: CreateNotificationDto
   ): void {
-
     this.hubConnection!.invoke(
       'SendNotification',
       roomId,
@@ -110,8 +113,6 @@ export class NotificationService {
     this.hubConnection!.invoke('LeaveRoom', roomId);
   }
 
-
-
   getnotificationParams(
     orderBy: string,
     pageNumber: number,
@@ -131,15 +132,12 @@ export class NotificationService {
     this.notificationParams = params;
   }
 
-
   getnotificationsById(notificationParams: NotificationParams) {
     let params = getNotificationPaginationHeaders(
-
       notificationParams.orderBy,
       notificationParams.pageNumber,
       notificationParams.pageSize,
       notificationParams.senderId
-
     );
 
     return getPaginatedResult<any[]>(
@@ -153,5 +151,11 @@ export class NotificationService {
     );
   }
 
-}
+  openPopup() {
+    this.isOpen = true;
+  }
 
+  closePopup() {
+    this.isOpen = false;
+  }
+}

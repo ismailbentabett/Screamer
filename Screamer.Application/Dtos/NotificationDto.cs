@@ -31,5 +31,7 @@ namespace Screamer.Application.Dtos
         public int MentionId { get; set; }
 
         public bool IsRead { get; set; }
+
+        public UserDto user{ get; set; } 
     }
 }

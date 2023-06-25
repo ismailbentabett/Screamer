@@ -91,6 +91,8 @@ import { NoFollowersComponent } from './components/empty/no-followers/no-followe
 import { NoFollowingComponent } from './components/empty/no-following/no-following.component';
 import { NoUsersComponent } from './components/empty/no-users/no-users.component';
 import { NoSearchResultsComponent } from './components/empty/no-search-results/no-search-results.component';
+import { NotificationDropDownComponent } from './components/notification/notification-dropdown/notification-dropdown.component';
+import { NotificationListComponent } from './components/notification/notification-list/notification-list.component';
 
 @NgModule({
   declarations: [
@@ -161,6 +163,8 @@ import { NoSearchResultsComponent } from './components/empty/no-search-results/n
     NoFollowingComponent,
     NoUsersComponent,
     NoSearchResultsComponent,
+    NotificationDropDownComponent,
+    NotificationListComponent
   ],
   imports: [
     CommonModule,
@@ -245,6 +249,7 @@ import { NoSearchResultsComponent } from './components/empty/no-search-results/n
     NoFollowingComponent,
     NoUsersComponent,
     NoSearchResultsComponent,
+    NotificationDropDownComponent
   ],
   providers: [
     {

@@ -1,0 +1,81 @@
+<div class="flex-shrink-0 self-center flex">
+  <div class="relative inline-block text-left">
+    <div>
+      <button
+        [ngClass]="IconsStyle('/v/notification')"
+        (click)="toggleDropdown()"
+        type="button"
+        class="flex-shrink-0 bg-white rounded-full p-1 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-dodger-blue-500"
+      >
+        <span class="sr-only">View notifications</span>
+        <!-- Heroicon name: outline/bell -->
+        <svg
+          class="h-6 w-6"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="2"
+          stroke="currentColor"
+          class="w-6 h-6"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0"
+          />
+        </svg>
+      </button>
+    </div>
+
+    <!--
+      Dropdown menu, show/hide based on menu state.
+
+      Entering: "transition ease-out duration-100"
+        From: "transform opacity-0 scale-95"
+        To: "transform opacity-100 scale-100"
+      Leaving: "transition ease-in duration-75"
+        From: "transform opacity-100 scale-100"
+        To: "transform opacity-0 scale-95"
+    -->
+    <div
+      *ngIf="isOpen"
+      [class.open]="isOpen"
+      [@dropdownAnimation]="isOpen ? 'open' : 'closed'"
+      class="z-50 origin-top-right absolute right-0 mt-2  rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
+      role="menu"
+      aria-orientation="vertical"
+      aria-labelledby="options-menu-0-button"
+      tabindex="-1"
+    >
+      <section aria-labelledby="trending-heading" >
+        <div class="bg-white rounded-lg shadow">
+          <div class="p-6">
+            <h2
+              id="trending-heading"
+              class="text-base font-medium text-gray-900"
+            >
+              Notifications
+            </h2>
+            <div class="mt-6 flow-root">
+              <ul role="list" class="-my-4 divide-y divide-gray-200">
+                <li class="flex py-4 space-x-3">
+<app-notification-list></app-notification-list>
+                </li>
+
+                <!-- More posts... -->
+              </ul>
+            </div>
+            <div class="mt-6">
+              <a
+                [routerLink]="['/v/trending/posts']"
+                class="w-full block text-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50"
+              >
+                View all
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>
