@@ -106,6 +106,25 @@ export function getCommentPaginationHeaders(
 
   return params;
 }
+export function getNotificationPaginationHeaders(
+  orderBy: string,
+  pageNumber: number,
+  pageSize: number,
+  senderId: any
+) {
+  let params = new HttpParams();
+
+  if (senderId) {
+    params = params.append('senderId', senderId);
+  }
+
+  params = params.append('orderBy', orderBy);
+
+  params = params.append('pageNumber', pageNumber);
+  params = params.append('pageSize', pageSize);
+
+  return params;
+}
 export function getPaginationHeadersMessages(
   orderBy: string,
   userId: string,

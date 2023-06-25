@@ -10,6 +10,8 @@ import { User } from '../models/User';
 import { BehaviorSubject, Observable, Subject, map, take } from 'rxjs';
 import { CreateNotificationDto } from '../models/CreateNotificationDto';
 import { ToastrService } from 'ngx-toastr';
+import { NotificationParams } from '../models/NotificationParams';
+import { getNotificationPaginationHeaders, getPaginatedResult } from '../Helpers/paginationHelper';
 
 @Injectable({
   providedIn: 'root',
@@ -18,6 +20,7 @@ export class NotificationService {
   hubUrl = environment.hubUrl;
   private hubConnection?: HubConnection;
   private notificationRecievedSubject = new Subject<any>();
+  baseUrl: string = environment.baseWebApiUrl;
 
   notificationRecieved$: Observable<any> =
     this.notificationRecievedSubject.asObservable() as any;
@@ -28,6 +31,7 @@ export class NotificationService {
 
   userDisconnected$: Observable<any> =
     this.userDisconnectedSubject.asObservable();
+    notificationParams: NotificationParams | undefined;
 
   constructor(private http: HttpClient, private toastr: ToastrService) {}
 
@@ -89,7 +93,7 @@ export class NotificationService {
       CreateNotificationDto.postId,
       CreateNotificationDto.senderId,
       CreateNotificationDto.recieverId,
-      CreateNotificationDto.commentId,
+      0,
       CreateNotificationDto.replyId,
       CreateNotificationDto.reactionId,
       CreateNotificationDto.tagId,
@@ -105,4 +109,49 @@ export class NotificationService {
   leaveRoom(roomId: string): void {
     this.hubConnection!.invoke('LeaveRoom', roomId);
   }
+
+
+
+  getnotificationParams(
+    orderBy: string,
+    pageNumber: number,
+    pageSize: number,
+    senderId: any
+  ) {
+    this.notificationParams = new NotificationParams();
+    this.notificationParams.orderBy = orderBy;
+    this.notificationParams.pageNumber = pageNumber;
+    this.notificationParams.pageSize = pageSize;
+    this.notificationParams.senderId = senderId;
+
+    return this.notificationParams;
+  }
+
+  setnotificationParams(params: NotificationParams) {
+    this.notificationParams = params;
+  }
+
+
+  getnotificationsById(notificationParams: NotificationParams) {
+    let params = getNotificationPaginationHeaders(
+
+      notificationParams.orderBy,
+      notificationParams.pageNumber,
+      notificationParams.pageSize,
+      notificationParams.senderId
+
+    );
+
+    return getPaginatedResult<any[]>(
+      this.baseUrl + 'Notification/by-id',
+      params,
+      this.http
+    ).pipe(
+      map((response: any) => {
+        return response;
+      })
+    );
+  }
+
 }
+

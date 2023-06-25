@@ -20,7 +20,7 @@ namespace Screamer.Presistance.Repositories
         {
             var query = _context.Notifications.AsQueryable();
 
-            query = query.Where(n => n.NotificationRoomId == postParams.NotificationRoomId);
+            query = query.Where(n => n.senderId == postParams.SenderId);
 
             return await PagedList<Notification>.CreateAsync(
                 query,

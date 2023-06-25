@@ -7,7 +7,7 @@ namespace Screamer.Application.Helpers
 {
     public class NotificationParams : PaginationParams
     {
-        public string NotificationRoomId { get; set; }
+        public string SenderId { get; set; }
 
         public string OrderBy { get; set; } = "CreatedAt";
     }
