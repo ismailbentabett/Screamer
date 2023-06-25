@@ -143,7 +143,7 @@ export class NotificationService {
     );
 
     return getPaginatedResult<any[]>(
-      this.baseUrl + 'Notification/by-id',
+      this.baseUrl + 'Notification',
       params,
       this.http
     ).pipe(

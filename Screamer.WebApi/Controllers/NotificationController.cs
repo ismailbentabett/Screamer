@@ -11,6 +11,7 @@ using Screamer.Application.Features.NotificationRequest.Commands.DeleteNotificat
 using Screamer.Application.Features.NotificationRequest.Commands.UpdateNotificationRequest;
 using Screamer.Application.Features.NotificationRequest.Queries.GetNotificationByIdRequest;
 using Screamer.Application.Features.NotificationRequest.Queries.GetNotificationsByUserIdRequest;
+using Screamer.Application.Helpers;
 
 namespace Screamer.WebApi.Controllers
 {
@@ -27,10 +28,15 @@ namespace Screamer.WebApi.Controllers
 
         [HttpGet]
         public async Task<IActionResult> GetNotificationsByUserId(
-            [FromQuery] GetNotificationsByUserIdRequestQuery GetNotificationsByUserIdRequestQuery
+            [FromQuery] NotificationParams notificationParams,
+            [FromQuery] string userId
         )
         {
-            var result = await _mediator.Send(GetNotificationsByUserIdRequestQuery);
+            var query = new GetNotificationsByUserIdRequestQuery
+            {
+                notificationParams = notificationParams,
+            };
+            var result = await _mediator.Send(query);
             return Ok(result);
         }
 
@@ -45,7 +51,7 @@ namespace Screamer.WebApi.Controllers
 
         [HttpPost]
         public async Task<IActionResult> CreateNotification(
-             CreateNotificationRequestCommand createNotificationRequestCommand
+            CreateNotificationRequestCommand createNotificationRequestCommand
         )
         {
             var result = await _mediator.Send(createNotificationRequestCommand);
