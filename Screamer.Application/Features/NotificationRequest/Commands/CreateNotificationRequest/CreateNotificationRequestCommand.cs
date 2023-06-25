@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MediatR;
+using Screamer.Application.Dtos;
 
 namespace Screamer.Application.Features.NotificationRequest.Commands.CreateNotificationRequest
 {
@@ -31,5 +32,6 @@ namespace Screamer.Application.Features.NotificationRequest.Commands.CreateNotif
         public int MentionId { get; set; }
 
         public bool IsRead { get; set; }
+        public UserDto user { get; set; }
     }
 }

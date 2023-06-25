@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.SignalR;
 using Screamer.Application.Contracts.Presistance;
 using Screamer.Application.Dtos;
 using Screamer.Application.Features.MessageRequest;
+using Screamer.Application.Features.NotificationRequest.Commands.CreateNotificationRequest;
 using Screamer.Domain.Entities;
 using Screamer.WebApi.SignalR;
 
@@ -87,6 +88,26 @@ namespace Screamer.WebApi.SignalR
                 user = userData
             };
 
+            var command = new CreateNotificationRequestCommand
+            {
+                Message = Message,
+                Type = Type,
+                ChatRoomId = ChatRoomId,
+                NotificationRoomId = NotificationRoomId,
+                PostId = PostId,
+                SenderId = SenderId,
+                RecieverId = RecieverId,
+                CommentId = CommentId,
+                ReplyId = ReplyId,
+                ReactionId = ReactionId,
+                TagId = TagId,
+                MentionId = MentionId,
+                IsRead = IsRead,
+                user = userData
+            };
+
+            await _mediator.Send(command);
+
             switch (Type)
             {
                 case "Chat":
@@ -164,14 +185,6 @@ namespace Screamer.WebApi.SignalR
                 default:
                     throw new ArgumentOutOfRangeException(nameof(Notification));
             }
-
-            /*   var command = new CreateMessageRequestCommand
-              {
-                  createMessageDto = createMessageDto,
-                  userId = createMessageDto.userId
-              };
-  
-              await _mediator.Send(command); */
         }
 
         public async Task JoinRoom(string roomId)

@@ -41,7 +41,7 @@ export class ReactionButtonComponent {
   reaction!: any;
   @Input()
   postId: number | null = null;
-  @Input () post : any;
+  @Input() post: any;
   reactionType: string | null = null;
   constructor(
     private reactionService: ReactionService,
@@ -100,6 +100,21 @@ export class ReactionButtonComponent {
                 mentionId: 0,
                 isRead: true,
               } as CreateNotificationDto);
+              console.log({
+                message: `${user.userName} Has Added a ${reactionType} Reaction your post`,
+                type: 'Reply',
+                chatRoomId: 0,
+                notificationRoomId: user.id.toString(),
+                postId: this.postId,
+                senderId: user.id.toString(),
+                recieverId: this.post.userId.toString(),
+                commentId: 0,
+                replyId: 0,
+                reactionId: 0,
+                tagId: 0,
+                mentionId: 0,
+                isRead: true,
+              });
             }
           },
         });

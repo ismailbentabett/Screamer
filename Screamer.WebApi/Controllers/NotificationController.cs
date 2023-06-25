@@ -45,7 +45,7 @@ namespace Screamer.WebApi.Controllers
 
         [HttpPost]
         public async Task<IActionResult> CreateNotification(
-            [FromBody] CreateNotificationRequestCommand createNotificationRequestCommand
+             CreateNotificationRequestCommand createNotificationRequestCommand
         )
         {
             var result = await _mediator.Send(createNotificationRequestCommand);
