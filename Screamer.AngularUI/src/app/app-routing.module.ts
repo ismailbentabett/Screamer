@@ -92,6 +92,13 @@ const routes: Routes = [
             (m) => m.BookmarksModule
           ),
       },
+      {
+        path: 'notification',
+        loadChildren: () =>
+          import('./features/Notification/notification.module').then(
+            (m) => m.NotificationModule
+          ),
+      },
     ],
   },
 

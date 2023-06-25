@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { take } from 'rxjs';
 import { User } from 'src/app/core/models/User';
 import { AuthenticationService } from 'src/app/core/services/authentication.service';
@@ -59,6 +59,7 @@ export class NavbarComponent {
   user: User | null = null;
   userData!: User;
   navbarOpen: boolean = false;
+  shouldShowNotification: boolean = false;
   get openCloseTrigger() {
     return this.navbarOpen ? 'open' : 'closed';
   }
@@ -131,7 +132,15 @@ export class NavbarComponent {
   }
 
   //oninit
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        this.shouldShowNotification = this.router.url !== '/v/notification';
+        console.log(this.shouldShowNotification);
+      }
+    });
+  }
+
   logout() {
     this.authService.logout();
     this.router.navigateByUrl('/');

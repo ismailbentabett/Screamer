@@ -164,7 +164,7 @@ import { NotificationListComponent } from './components/notification/notificatio
     NoUsersComponent,
     NoSearchResultsComponent,
     NotificationDropDownComponent,
-    NotificationListComponent
+    NotificationListComponent,
   ],
   imports: [
     CommonModule,
@@ -249,7 +249,8 @@ import { NotificationListComponent } from './components/notification/notificatio
     NoFollowingComponent,
     NoUsersComponent,
     NoSearchResultsComponent,
-    NotificationDropDownComponent
+    NotificationDropDownComponent,
+    NotificationListComponent,
   ],
   providers: [
     {
