@@ -61,7 +61,6 @@ export class NotificationListComponent {
                   user: user,
                 });
 
-                console.log(this.Notifications);
               },
             });
           });
