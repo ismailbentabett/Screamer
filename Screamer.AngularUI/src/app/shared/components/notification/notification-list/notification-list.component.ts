@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { take } from 'rxjs';
 import { NotificationParams } from 'src/app/core/models/NotificationParams';
@@ -22,7 +22,7 @@ export class NotificationListComponent {
   finalform: any;
 
   replyInput: boolean = false;
-  shouldShowNotification: boolean = false;
+  @Input() shouldShowNotification!: boolean;
   constructor(
     private userService: UserService,
     private Notificationservice: NotificationService,
@@ -30,12 +30,6 @@ export class NotificationListComponent {
   ) {}
 
   ngOnInit(): void {
-    this.router.events.subscribe((event) => {
-      if (event instanceof NavigationEnd) {
-        this.shouldShowNotification = this.router.url !== '/v/notification';
-        console.log(this.shouldShowNotification);
-      }
-    });
     this.userService
       .getCurrentUserData()
       .pipe(take(1))

@@ -41,13 +41,13 @@
       *ngIf="isOpen"
       [class.open]="isOpen"
       [@dropdownAnimation]="isOpen ? 'open' : 'closed'"
-      class="z-50 origin-top-right absolute right-0 mt-2  rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
+      class="z-50 origin-top-right absolute right-0 mt-2 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
       role="menu"
       aria-orientation="vertical"
       aria-labelledby="options-menu-0-button"
       tabindex="-1"
     >
-      <section aria-labelledby="trending-heading" >
+      <section aria-labelledby="trending-heading">
         <div class="bg-white rounded-lg shadow">
           <div class="p-6">
             <h2
@@ -59,13 +59,14 @@
             <div class="mt-6 flow-root">
               <ul role="list" class="-my-4 divide-y divide-gray-200">
                 <li class="flex py-4 space-x-3">
-<app-notification-list></app-notification-list>
+                  <app-notification-list
+                    [shouldShowNotification]="shouldShowNotification"
+                  ></app-notification-list>
                 </li>
 
                 <!-- More posts... -->
               </ul>
             </div>
-
           </div>
         </div>
       </section>

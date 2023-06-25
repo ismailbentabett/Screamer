@@ -69,6 +69,12 @@ export class NavbarComponent {
     private userService: UserService,
     private route: ActivatedRoute
   ) {
+
+    router.events.subscribe((val) => {
+      // see also
+      this.shouldShowNotification = this.router.url !== '/v/notification';
+    })
+
     this.authService.currentUser$.pipe().subscribe((user) => {
       this.user = user;
 
@@ -131,15 +137,7 @@ export class NavbarComponent {
       : 'block py-2 px-4 text-sm text-gray-700 cursor-pointer hover:bg-gray-100';
   }
 
-  //oninit
-  ngOnInit(): void {
-    this.router.events.subscribe((event) => {
-      if (event instanceof NavigationEnd) {
-        this.shouldShowNotification = this.router.url !== '/v/notification';
-        console.log(this.shouldShowNotification);
-      }
-    });
-  }
+
 
   logout() {
     this.authService.logout();

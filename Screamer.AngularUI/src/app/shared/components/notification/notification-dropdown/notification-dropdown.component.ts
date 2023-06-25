@@ -5,7 +5,7 @@ import {
   transition,
   trigger,
 } from '@angular/animations';
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { ModalService } from 'src/app/core/services/modal.service';
 import { NotificationService } from 'src/app/core/services/notification.service';
@@ -36,8 +36,11 @@ import { NotificationService } from 'src/app/core/services/notification.service'
   ],
 })
 export class NotificationDropDownComponent {
+  @Input() shouldShowNotification!: boolean;
+
   constructor(
     public notificationService: NotificationService,
+
     public router: Router
   ) {}
   isOpen: boolean = false;
