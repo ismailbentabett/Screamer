@@ -40,5 +40,5 @@ a "Special" social media platform for annoying twitter people who like to scream
 - [ ]  add tags and mentions notifications
 - [ ]  chat is a mess
 - [ ]  maybe add video chat
-- [ ]  store and show notifications
+- [x]  store and show notifications
 - [ ]  fix the 404 server to client logic
