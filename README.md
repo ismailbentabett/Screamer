@@ -142,7 +142,7 @@ cd Screamer.AngularUI
 ## Install project dependencies:
 
 ```shell
-npm install 
+npm install --force
 ```
 ## Start the development server:
 
