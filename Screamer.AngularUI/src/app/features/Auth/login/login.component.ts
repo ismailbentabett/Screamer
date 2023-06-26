@@ -15,6 +15,7 @@ export class LoginComponent {
 
   url = environment.baseWebApiUrl + '/api/Auth/';
   form: FormGroup;
+  errorMessage: any = null;
 
   constructor(
     private router: Router,
@@ -32,6 +33,7 @@ export class LoginComponent {
           this.validationService.specialCharactersValidator,
           this.validationService.noWhitespace,
           this.validationService.Numbers,
+          this.validationService.uppercase,
         ],
       ],
     });
@@ -44,7 +46,18 @@ export class LoginComponent {
       () => {
         this.router.navigate(['/v/feed']);
       },
-      (error) => console.error('Login failed', error)
+      (error) => {
+        this.errorMessage = this.extractErrorMessage(error);
+      }
     );
   };
+  private extractErrorMessage(error: any): string {
+    if (error && error.error && error.error.ExceptionMessage) {
+      const errorMessage = error.error.ExceptionMessage;
+      const startIndex = errorMessage.indexOf(':') + 1;
+      const endIndex = errorMessage.indexOf('\n');
+      return errorMessage.substring(startIndex, endIndex).trim();
+    }
+    return 'Credentials are not valid';
+  }
 }
