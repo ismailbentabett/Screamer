@@ -38,6 +38,7 @@ a "Special" social media platform for annoying twitter people who like to scream
 - [ ]  creating post moodtype issue
 - [ ]  recheck chat the query stuff seems fishy
 - [ ]  add tags and mentions notifications
+- [ ]  change password for social auth users
 - [ ]  chat is a mess
 - [ ]  maybe add video chat
 - [x]  store and show notifications
