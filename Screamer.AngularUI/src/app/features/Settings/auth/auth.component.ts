@@ -99,4 +99,11 @@ export class AuthComponent {
       confirmPassword: this.form.get('confirmPassword')!.value,
     });
   }
+
+  sendVerificationEmail(email: string) {
+    console.log(email);
+    this.authService.sendVerificationEmail({
+      email: email,
+    });
+  }
 }
