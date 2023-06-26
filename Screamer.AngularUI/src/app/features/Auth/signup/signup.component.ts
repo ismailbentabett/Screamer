@@ -87,11 +87,8 @@ export class SignupComponent {
                   this.errorMessage += `${key}: ${validationErrors[key].join(
                     ', '
                   )}\n`;
-
-                  console.log(this.errorMessage);
                 }
               }
-              console.log(this.errorMessage);
             }
           } else if (error) {
             if (error.error && error.error.includes('•')) {
@@ -99,11 +96,8 @@ export class SignupComponent {
               const endIdx = error.error.indexOf('\n', startIdx + 1);
               error.error.substring(startIdx + 1, endIdx);
               this.errorMessage = error.error.substring(startIdx + 1, endIdx);
-
-              console.log(error.error.substring(startIdx + 1, endIdx));
             } else {
               this.errorMessage = 'Registration failed. Please try again.';
-              console.log('Registration failed. Please try again.');
             }
           }
         }
