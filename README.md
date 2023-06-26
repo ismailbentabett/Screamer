@@ -21,12 +21,12 @@ a "Special" social media platform for annoying twitter people who like to scream
 - [ ]  add real time views change
 - [ ]  add real time added posts
 - [ ]  work on modals ui because they look blank
-- [ ]  add custom validation
+- [x]  add custom validation
 - [ ]  fix google button style
 - [ ]  oauth signin still have tons of issues and bugs
 - [ ]  fix auth settings ui
 - [ ]  fix “your profile” drop down on signin
-- [ ]  fix berify email button
+- [x]  fix verify email button
 - [ ]  fix the delete my account logic
 - [ ]  add the deleting zith relationship button
 - [x]  dockerize it
