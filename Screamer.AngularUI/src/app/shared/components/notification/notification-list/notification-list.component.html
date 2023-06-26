@@ -1,7 +1,7 @@
 <!-- This example requires Tailwind CSS v2.0+ -->
-<div class="flex flex-col" *ngIf="Notifications">
+<div class="flex flex-col w-full" *ngIf="Notifications">
   <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-    <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+    <div class="py-2 align-middle inline-block w-full sm:px-6 lg:px-8">
       <div class="overflow-hidden sm:rounded-lg">
         <table class="min-w-full divide-y divide-gray-200">
           <tbody class="bg-white divide-y divide-gray-200">
@@ -27,9 +27,19 @@
               </td>
 
               <td
+                [ngSwitch]="notif.type"
                 class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium"
               >
-                <a href="#" class="text-indigo-600 hover:text-indigo-900"
+                <a
+                  *ngSwitchCase="'Chat'"
+                  [routerLink]="['/v/chat', notif.chatRoomId]"
+                  class="cursor-pointer text-indigo-600 hover:text-indigo-900"
+                  >visit</a
+                >
+                <a
+                  *ngSwitchDefault
+                  [routerLink]="['/v/post', notif.postId]"
+                  class="cursor-pointer text-indigo-600 hover:text-indigo-900"
                   >visit</a
                 >
               </td>
@@ -55,6 +65,6 @@
     (click)="showMoreNotifications()"
     class="w-full block text-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50"
   >
-    View all
+    View More
   </a>
 </div>
