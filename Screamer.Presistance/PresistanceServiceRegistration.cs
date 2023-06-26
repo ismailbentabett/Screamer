@@ -30,7 +30,10 @@ namespace Screamer.Presistance
                     options.UseSqlServer(Configuration.GetConnectionString("ScreamerDbConnection"))
             );
             services
-                .AddIdentity<ApplicationUser, IdentityRole>()
+                .AddIdentity<ApplicationUser, IdentityRole>(options =>
+                {
+                    options.User.RequireUniqueEmail = true;
+                })
                 .AddEntityFrameworkStores<ScreamerDbContext>()
                 .AddDefaultTokenProviders();
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));

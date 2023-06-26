@@ -82,6 +82,7 @@ export class ValidationService {
       mismatch: 'Password mismatch.',
 
       sameAsOld: 'New password cannot be the same as old password.',
+      uppercase: 'At least one uppercase character is required.',
     };
 
     const controlName = controlPath.split('.').pop();
@@ -274,6 +275,18 @@ export class ValidationService {
     }
 
     return { birthday: true };
+  }
+
+  //uppercase
+  public uppercase(control: FormControl): ValidationErrors | null {
+    const value: string = control.value;
+    const regex: RegExp = /[A-Z]/;
+
+    if (value && regex.test(value)) {
+      return null;
+    }
+
+    return { uppercase: true };
   }
 }
 

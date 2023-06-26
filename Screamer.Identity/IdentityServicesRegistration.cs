@@ -35,6 +35,7 @@ namespace Screamer.Identity
                 {
                     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                     options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                    options.DefaultSignInScheme = JwtBearerDefaults.AuthenticationScheme;
                 })
                 .AddJwtBearer(o =>
                 {
@@ -78,7 +79,6 @@ namespace Screamer.Identity
                     options.AppId = "Facebook:AppId";
                     options.AppSecret = "Facebook:AppSecret";
                 });
-            
 
             return services;
         }

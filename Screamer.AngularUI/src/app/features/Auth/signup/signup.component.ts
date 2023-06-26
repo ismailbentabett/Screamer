@@ -17,6 +17,7 @@ import { ValidationService } from 'src/app/core/services/validation.service';
 export class SignupComponent {
   form: FormGroup;
   gapi: any;
+  errorMessage: any = null;
 
   constructor(
     private fb: FormBuilder,
@@ -52,13 +53,14 @@ export class SignupComponent {
           this.validationService.specialCharactersValidator,
           this.validationService.noWhitespace,
           this.validationService.Numbers,
+          this.validationService.uppercase,
         ],
       ],
       userName: [
         '',
         [
           Validators.required,
-          Validators.minLength(3),
+          Validators.minLength(6),
           this.validationService.noWhitespace,
         ],
       ],
@@ -67,11 +69,44 @@ export class SignupComponent {
 
   onSubmit() {
     if (!this.form.valid) return;
-    this.authService.register(this.form.value).subscribe(
-      () => {
-        this.router.navigate(['/auth/login']);
-      },
-      (error) => console.error('Registration failed', error)
-    );
+    this.authService
+      .register(this.form.value)
+
+      .subscribe(
+        () => {
+          this.router.navigate(['/auth/login']);
+        },
+        (error) => {
+          if (error.status === 400) {
+            // Handle validation errors
+            const validationErrors = error.error.errors;
+            if (validationErrors) {
+              // Display validation errors to the user
+              for (const key in validationErrors) {
+                if (validationErrors.hasOwnProperty(key)) {
+                  this.errorMessage += `${key}: ${validationErrors[key].join(
+                    ', '
+                  )}\n`;
+
+                  console.log(this.errorMessage);
+                }
+              }
+              console.log(this.errorMessage);
+            }
+          } else if (error) {
+            if (error.error && error.error.includes('•')) {
+              const startIdx = error.error.indexOf('•');
+              const endIdx = error.error.indexOf('\n', startIdx + 1);
+              error.error.substring(startIdx + 1, endIdx);
+              this.errorMessage = error.error.substring(startIdx + 1, endIdx);
+
+              console.log(error.error.substring(startIdx + 1, endIdx));
+            } else {
+              this.errorMessage = 'Registration failed. Please try again.';
+              console.log('Registration failed. Please try again.');
+            }
+          }
+        }
+      );
   }
 }
