@@ -95,7 +95,7 @@ Open a terminal and navigate to the Screamer.Persistence directory:
 
 
 ```shell
-cd src/Screamer.Persistence
+cd Screamer.Persistence
 ```
 
  Run the following command to apply database migrations:
@@ -113,7 +113,7 @@ Open a terminal and navigate to the Screamer.WebApi directory:
 
 
 ```shell
-cd src/Screamer.WebApi
+cd Screamer.WebApi
 ```
 Run the following command to start the application:
 
