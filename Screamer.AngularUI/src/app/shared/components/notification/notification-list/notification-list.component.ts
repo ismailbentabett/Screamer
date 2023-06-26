@@ -49,8 +49,6 @@ export class NotificationListComponent {
 
   loadNotifications() {
     if (this.notificationParams) {
-      console.log(this.notificationParams);
-
       this.Notificationservice.getnotificationsById(
         this.notificationParams
       ).subscribe((response) => {
@@ -73,12 +71,10 @@ export class NotificationListComponent {
   showMoreNotifications() {
     if (this.Notifications && this.notificationParams) {
       this.notificationParams.pageNumber++;
-      console.log(this.notificationParams);
       this.Notificationservice.getnotificationsById(
         this.notificationParams
       ).subscribe((response) => {
         if (response.result && response.pagination) {
-          console.log(response.result);
           response.result.forEach((element: any) => {
             this.userService.getUserById(element?.senderId).subscribe({
               next: (user) => {
@@ -89,8 +85,6 @@ export class NotificationListComponent {
               },
             });
           });
-
-          console.log(this.Notifications);
         }
       });
     }
