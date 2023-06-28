@@ -162,7 +162,7 @@ Open your web browser and navigate to http://localhost:4200 to see the running a
 - [x]  add gender and date and country dtuff
 - [ ]  fix pagination
 - [x]  fix profile tabs colors
-- [ ]  refactor both profile settings and profile
+- [x]  refactor both profile settings and profile
 - [ ]  Fix the typing issue
 - [ ]  Fix the chat layout
 - [x]  add send message or create room
