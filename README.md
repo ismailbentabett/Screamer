@@ -118,7 +118,7 @@ cd Screamer.WebApi
 Run the following command to start the application:
 
 ```shell
-dotnet run
+dotnet watch run
 ```
 
 Access the application:
