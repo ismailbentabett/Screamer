@@ -11,7 +11,7 @@ This guide will walk you through the steps to run the Screamer project locally o
 Before running the project, ensure that you have the following prerequisites installed on your machine:
 
 - .NET SDK 7.0 or later
-- SQL Server (or SQL Server Express) with a new database created
+- SQL Server (or SQL Server Express) with a new database created named 'Screamer'
 
 ## Getting Started
 
