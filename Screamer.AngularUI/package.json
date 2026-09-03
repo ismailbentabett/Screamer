@@ -22,7 +22,7 @@
     "@angular/router": "^16.0.0",
     "@auth0/angular-jwt": "^5.1.2",
     "@ctrl/ngx-emoji-mart": "^9.1.2",
-    "@dicebear/collection": "^6.0.3",
+    "@dicebear/collection": "^9.4.3",
     "@dicebear/core": "^6.0.3",
     "@fortawesome/angular-fontawesome": "^0.13.0",
     "@fortawesome/fontawesome-svg-core": "^6.4.0",
