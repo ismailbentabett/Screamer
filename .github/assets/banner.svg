@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="400" viewBox="0 0 1280 400" role="img" aria-label="Screamer banner">
+  <defs>
+    <clipPath id="clip"><rect width="1280" height="400" rx="24"/></clipPath>
+    <linearGradient id="lg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#EC4899"/>
+      <stop offset="1" stop-color="#F43F5E"/>
+    </linearGradient>
+    <linearGradient id="wash" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#EC4899" stop-opacity="0"/>
+      <stop offset="0.55" stop-color="#EC4899" stop-opacity="0.06"/>
+      <stop offset="1" stop-color="#F43F5E" stop-opacity="0.15"/>
+    </linearGradient>
+    <pattern id="dots" width="24" height="24" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1.4" fill="#FFFFFF"/>
+    </pattern>
+    <radialGradient id="glow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#EC4899" stop-opacity="0.35"/>
+      <stop offset="1" stop-color="#EC4899" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <g clip-path="url(#clip)">
+    <rect width="1280" height="400" fill="#0B0F19"/>
+    <rect width="1280" height="400" fill="url(#wash)"/>
+    <rect width="1280" height="400" fill="url(#dots)" opacity="0.06"/>
+    <circle cx="224" cy="200" r="210" fill="url(#glow)"/>
+  </g>
+  <g transform="translate(104 80) scale(0.9375)">
+    <rect x="8" y="8" width="240" height="240" rx="56" fill="url(#lg)"/>
+    <g fill="#FFFFFF">
+      <rect x="50" y="102" width="30" height="52" rx="9"/>
+      <path d="M76 106 L148 76 L148 180 L76 150 Z" stroke="#FFFFFF" stroke-width="10" stroke-linejoin="round"/>
+      <rect x="142" y="66" width="20" height="124" rx="10"/>
+      <path d="M90 152 L104 194 a8 8 0 0 0 8 6 h10 a6 6 0 0 0 6 -8 L118 160 Z"/>
+    </g>
+    <g fill="none" stroke="#FFFFFF" stroke-width="12" stroke-linecap="round">
+      <path d="M182 106 a28 28 0 0 1 0 44"/>
+      <path d="M200 86 a52 52 0 0 1 0 84"/>
+    </g>
+  </g>
+  <g font-family="Inter, 'Segoe UI', Helvetica, Arial, sans-serif">
+    <text x="400" y="178" font-size="72" font-weight="800" fill="#FFFFFF" letter-spacing="-1.5">Screamer</text>
+    <text x="400" y="230" font-size="26" font-weight="400" fill="#A1A8B8">Say it loud. Real-time microblogging on .NET and Angular.</text>
+    <rect x="400" y="272" width="84" height="38" rx="19" fill="#EC4899" fill-opacity="0.10" stroke="url(#lg)" stroke-width="1"/>
+    <text x="442" y="297" text-anchor="middle" font-size="16" font-weight="600" fill="#E5E7EB">.NET 7</text>
+    <rect x="496" y="272" width="141" height="38" rx="19" fill="#EC4899" fill-opacity="0.10" stroke="url(#lg)" stroke-width="1"/>
+    <text x="566" y="297" text-anchor="middle" font-size="16" font-weight="600" fill="#E5E7EB">ASP.NET Core</text>
+    <rect x="649" y="272" width="111" height="38" rx="19" fill="#EC4899" fill-opacity="0.10" stroke="url(#lg)" stroke-width="1"/>
+    <text x="704" y="297" text-anchor="middle" font-size="16" font-weight="600" fill="#E5E7EB">Angular 16</text>
+    <rect x="772" y="272" width="88" height="38" rx="19" fill="#EC4899" fill-opacity="0.10" stroke="url(#lg)" stroke-width="1"/>
+    <text x="816" y="297" text-anchor="middle" font-size="16" font-weight="600" fill="#E5E7EB">SignalR</text>
+    <rect x="872" y="272" width="121" height="38" rx="19" fill="#EC4899" fill-opacity="0.10" stroke="url(#lg)" stroke-width="1"/>
+    <text x="932" y="297" text-anchor="middle" font-size="16" font-weight="600" fill="#E5E7EB">SQL Server</text>
+    <rect x="1005" y="272" width="132" height="38" rx="19" fill="#EC4899" fill-opacity="0.10" stroke="url(#lg)" stroke-width="1"/>
+    <text x="1071" y="297" text-anchor="middle" font-size="16" font-weight="600" fill="#E5E7EB">Tailwind CSS</text>
+  </g>
+</svg>

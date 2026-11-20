@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Report a security vulnerability
+    url: https://github.com/ismailbentabett/Screamer/security/advisories/new
+    about: Please report security issues privately through GitHub's private vulnerability reporting.
+  - name: Maintainer profile
+    url: https://github.com/ismailbentabett
+    about: Questions about the project can be directed to the maintainer via GitHub.
