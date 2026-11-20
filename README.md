@@ -166,7 +166,7 @@ This builds the API, the Angular dev server and a SQL Server 2022 container. Ali
 
 ## ⚙️ Configuration
 
-The API reads standard ASP.NET Core configuration (`appsettings*.json`, environment variables, command line). Environment variables use `__` as the section separator, for example `ConnectionStrings__ScreamerDbConnection`.
+The API reads standard ASP.NET Core configuration (`appsettings*.json`, environment variables, command line). Environment variables use `__` as the section separator, for example `ConnectionStrings__ScreamerDbConnection`. Secret values are intentionally left empty in `appsettings.json`; see `.env.example` for the full list of variable names and supply real values through environment variables.
 
 | Key | Description |
 | --- | --- |
