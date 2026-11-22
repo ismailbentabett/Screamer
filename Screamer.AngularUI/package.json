@@ -49,7 +49,7 @@
     "linkify-plugin-ticket": "^4.1.1",
     "linkifyjs": "^4.1.1",
     "lodash": "^4.17.21",
-    "moment": "^2.29.4",
+    "moment": "^2.31.0",
     "ng2-file-upload": "^3.0.0",
     "ngx-bootstrap": "^10.2.0",
     "ngx-clipboard": "^16.0.0",
